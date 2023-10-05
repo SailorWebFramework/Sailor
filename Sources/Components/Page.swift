@@ -20,18 +20,12 @@ public protocol Page {
     /// inline style
     func styled(_ style: Style) -> Self
 
-//    func render()
-
     func build(parent: Element?)
 
 
 }
 
-extension Page {    
-//    public func render() {
-//        body.render()
-//    }
-    
+extension Page {
     public func build(parent: Element? = nil) {
         body.build(parent: parent)
     }
@@ -42,5 +36,11 @@ extension Page {
     
     public func styled(_ style: Style) -> Self {
         return self
+    }
+    
+    public func style(style: Style) -> any Page {
+        var copy = self
+        copy.style = copy.style + style
+        return copy
     }
 }

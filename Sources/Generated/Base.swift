@@ -10,7 +10,7 @@ import Foundation
 import SwiftSoup
 
 public struct Base: HTMLElement {
-    var element = Element(Tag(base), "")
+    var element = Element(Tag("base"), "")
 
     public var body: some Page {
         return self
@@ -33,12 +33,6 @@ public struct Base: HTMLElement {
         self.style = style
         self.content = content
 
-    }
-    
-    public func style(style: Style) -> Div {
-        var copy = self
-        copy.style += style
-        return copy
     }
     
 }

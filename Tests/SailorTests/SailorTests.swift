@@ -10,10 +10,12 @@ final class SwiftSailorTests: XCTestCase {
 //        XCTAssertEqual(SwiftSailor().text, "Hello, World!")
         print("This should appear in the debug console")
 
-//        let hierarchy = PageHierarchy(root: TestView())
-//        let fileManager = FileManager.default
-//        let loc = URL(fileURLWithPath: "/Users/joshuadavis/Downloads/build/index.html")
-//        hierarchy.build(loc: loc)
+        let hierarchy = PageHierarchy(root: Div {
+            Span("hello")
+        })
+        let fileManager = FileManager.default
+        let loc = URL(fileURLWithPath: "/Users/joshuadavis/Downloads/build/index.html")
+        hierarchy.build(loc: loc)
         
     }
 }

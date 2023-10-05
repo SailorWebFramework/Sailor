@@ -10,7 +10,7 @@ import Foundation
 import SwiftSoup
 
 public struct Mark: HTMLElement {
-    var element = Element(Tag(mark), "")
+    var element = Element(Tag("mark"), "")
 
     public var body: some Page {
         return self
@@ -31,7 +31,7 @@ public struct Mark: HTMLElement {
         self.init(children: content(), content: "", style: .none())
     }
     
-    public init(content: String) {
+    public init(_ content: String) {
         self.init(children: [], content: content, style: .none())
     }
 
@@ -40,12 +40,6 @@ public struct Mark: HTMLElement {
         self.style = style
         self.content = content
 
-    }
-    
-    public func style(style: Style) -> Div {
-        var copy = self
-        copy.style += style
-        return copy
     }
     
 }

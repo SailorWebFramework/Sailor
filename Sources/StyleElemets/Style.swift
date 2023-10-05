@@ -16,11 +16,11 @@ public struct Style {
     
     
     // TODO: USE MIRROR
-//    static func + (left: Style, right: Style) -> Style {
-//        return right
-////        return Money(value: left.value + right.value,
-////                     currencyCode: left.currencyCode)
-//    }
+    static func + (left: Style, right: Style) -> Style {
+        return right
+//        return Money(value: left.value + right.value,
+//                     currencyCode: left.currencyCode)
+    }
     
     @propertyWrapper
     public struct Attribute<Value> {
