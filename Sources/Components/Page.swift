@@ -38,7 +38,7 @@ extension Page {
         return self
     }
     
-    public func style(style: Style) -> any Page {
+    public func style(_ style: Style) -> Self {
         var copy = self
         copy.style = copy.style + style
         return copy
