@@ -30,7 +30,7 @@ public final class PageHierarchy {
             }
             
             self.root.build(parent: doc.body())
-            
+
             print("HTML:\n", try doc.html())
             
             try doc.html().write(to: loc, atomically: true, encoding: .utf8)
