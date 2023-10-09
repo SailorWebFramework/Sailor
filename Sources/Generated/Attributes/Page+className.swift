@@ -8,22 +8,15 @@
 import Foundation
 
 
-
-extension Page {
-    // TODO: these can be auto generated
-    public func className(_ value: String) -> Self {
-        var copy = self
-        
-        copy.attributes[.className] = value
-        
-        return copy
-    }
-
-    public func src(_ value: String) -> Self {
-        var copy = self
-        
-        copy.attributes[.src] = value
-        
-        return copy
-    }
-}
+// TODO: depricate this?
+//extension Page {
+//    // TODO: these can be auto generated
+//    public func className(_ value: String) -> Self {
+//        return self.attribute(.className, value: value)
+//    }
+//
+//    public func src(_ value: String) -> Self {
+//        return self.attribute(.src, value: value)
+//
+//    }
+//}

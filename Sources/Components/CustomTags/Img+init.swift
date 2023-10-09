@@ -8,7 +8,7 @@
 import Foundation
 
 extension Img {
-    public init(src: String? = nil, alt: String? = nil, width: Unit.Dimention? = nil, height: Unit.Dimention? = nil) {
+    public init(src: (any AttributeValue)? = nil, alt: (any AttributeValue)? = nil, width: Unit.Dimention? = nil, height: Unit.Dimention? = nil) {
         self.init()
         
         if let src = src { self.attributes[.src] = src }

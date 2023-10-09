@@ -9,15 +9,7 @@ import Foundation
 
 extension Unit {
     public enum Color: CSSValue, AttributeValue, Equatable {
-        case empty
-        case hex(String)
-        case rgb(Int, Int, Int)
-        case rgba(Int, Int, Int, Double)
-        case hsl(Int, Int, Int)
-        case hsla(Int, Int, Int, Double)
-        
-        // TODO: rename to build
-        public func render() -> String {
+        public var description: String {
             switch self {
             case .hex(let hexcode):
                 return hexcode
@@ -33,6 +25,13 @@ extension Unit {
                 return ""
             }
         }
+        
+        case empty
+        case hex(String)
+        case rgb(Int, Int, Int)
+        case rgba(Int, Int, Int, Double)
+        case hsl(Int, Int, Int)
+        case hsla(Int, Int, Int, Double)
 
     }
     

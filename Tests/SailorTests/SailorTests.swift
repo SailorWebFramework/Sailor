@@ -1,27 +1,49 @@
 import XCTest
 @testable import Sailor
 
+
+// depricated
 // This is how you add a custom attribute
-extension Attribute {
-    static var hello: Self = .custom("hello")
+//extension Attribute {
+//    static var hello: Self = .custom("hello")
+//}
+
+struct InnerCustomPage: Page {
+    var attributes: Attributes = [:]
+    
+    @State var hello: Int = 0
+    
+    var body: some Page {
+        Div{
+            // if src was passed down
+            if let src = attributes[.src] {
+                Span(src.description)
+                Img(src: src)
+            } else {
+                let defaultURL = "www.defaulturlimage.com"
+                Span(defaultURL)
+                Img(src: defaultURL)
+            }
+        }
+    }
 }
 
 //@Stateless
 struct TestPage: Page {
     // TODO: might be cool to add this to global state
-    var attributes: Attributes = [.src: "www.google.com", .hello: "whats up"]
+    var attributes: Attributes = [.src: "www.google.com", .alt: "whats up"]
     
     var hello: [String] = ["andy", "chris", "vaishak"]
     
     var body: some Page {
         Div {
             if let src = attributes[.src] {
-                Img(src: src.render())
+                Img(src: src)
                 Span("Hello WORLD")
             }
             
-            if let hello = attributes[.hello] {
-                Span(hello.render())
+            if let hello = attributes[.alt] {
+                Span(hello.description)
             }
             
             hello.map {
@@ -47,9 +69,9 @@ final class SwiftSailorTests: XCTestCase {
         print("This should appear in the debug console")
 
         let hierarchy = PageHierarchy(root:
-                                        
-            TestPage()
-                .attribute(.hello, value: "HELLOOOOO")
+                                        InnerCustomPage()
+//            TestPage()
+//                .attribute(.alt, value: "HELLOOOOO")
 
         )
         

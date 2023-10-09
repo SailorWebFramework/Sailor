@@ -9,6 +9,15 @@ import Foundation
 
 extension Unit {
     public enum Dimention: CSSValue, AttributeValue, Equatable {
+        public var description: String {
+            switch(self) {
+            case .px(let amt):
+                return "\(amt)px"
+            default:
+                return ""
+            }
+        }
+        
         case px(Double),
              pct(Double),
              em(Double), rem(Double),
@@ -18,13 +27,5 @@ extension Unit {
              cm(Double), mm(Double), inch(Double), pt(Double), pc(Double),
              empty
         
-        public func render() -> String {
-            switch(self) {
-            case .px(let amt):
-                return "\(amt)px"
-            default:
-                return ""
-            }
-        }
     }
 }

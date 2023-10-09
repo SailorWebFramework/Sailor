@@ -11,11 +11,14 @@ import Foundation
 public enum Unit { }
 
 /// Unit associated with attrubutes
-public protocol AttributeValue: Hashable {
-    func render() -> String
+public protocol AttributeValue: Hashable, CustomStringConvertible {
+    
+    var description: String { get }
+//    func render() -> String
 }
 
 /// Unit associated with style properties
 public protocol CSSValue: Hashable {
-    func render() -> String
+    var description: String { get }
+//    func render() -> String
 }

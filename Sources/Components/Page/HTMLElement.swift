@@ -9,6 +9,7 @@ import Foundation
 import SwiftSoup
 
 protocol HTMLElement: Page {
+//    var elementID: String
     var element: Element { get set }
     var children: [any Page] { get set }
     var content: String { get set }
@@ -22,7 +23,7 @@ extension HTMLElement {
             
             // add attributes
             for (key, value) in self.attributes {
-                try element.attr(key.render(), value.render())
+                try element.attr(key.description, value.description)
             }
                         
             // add content

@@ -18,26 +18,35 @@ public final class PageHierarchy {
         
     }
     
-    public func build(loc: URL, isDebug: Bool = true) {
+    public func render() -> Document {
         do {
             // Create a new, empty document
             let doc = Document.createShell("")
-            
-            if isDebug {
-                try doc.head()?.append("""
-                    <script type="text/javascript" src="https://livejs.com/live.js"></script>
-                """)
-            }
             
             self.root.build(parent: doc.body())
 
             print("HTML:\n", try doc.html())
             
-            try doc.html().write(to: loc, atomically: true, encoding: .utf8)
-            
+            return doc
+
         } catch {
             print("Error creating HTML: \(error)")
         }
+        
+        return Document("")
+    }
+    
+    public func build(loc: URL, isDebug: Bool = true) {
+        var doc = render()
+        do {
+            if isDebug {
+                try doc.head()?.append("""
+                <script type="text/javascript" src="https://livejs.com/live.js"></script>
+            """)
+            }
+            
+            try doc.html().write(to: loc, atomically: true, encoding: .utf8)
+        } catch {  }
     }
     
 }
