@@ -8,6 +8,8 @@
 import Foundation
 import SwiftSoup
 
+//TODO: replace usage of soup with JSKIT
+
 protocol HTMLElement: Page {
 //    var elementID: String
     var element: Element { get set }
@@ -17,10 +19,12 @@ protocol HTMLElement: Page {
 }
 
 extension HTMLElement {
+    // TODO: make description work
+    public var description: String { "TODO" }
+
     public func build(parent: Element? = nil) {
         do {
             // TODO: base URI?
-            
             // add attributes
             for (key, value) in self.attributes {
                 try element.attr(key.description, value.description)
@@ -30,7 +34,7 @@ extension HTMLElement {
             if !self.content.isEmpty {
                 try element.text(self.content)
             }
-            
+
             // add to parent
             try parent?.appendChild(element)
             

@@ -7,6 +7,13 @@
 
 import Foundation
 
+
+//TODO: func $ prefix operator for State -> Binding projected value
+
+
+
+
+//prefix operator ^^
 @propertyWrapper
 struct State<Value> {
     private let index: Int
@@ -19,6 +26,13 @@ struct State<Value> {
         set {
             setValue(newValue)
         }
+    }
+    
+    var projectedValue: Binding<Value> {
+        Binding(
+            get: { self.getValue() },
+            set: { self.setValue($0) }
+        )
     }
     
     init(wrappedValue: Value) {
@@ -38,13 +52,6 @@ struct State<Value> {
         // TODO: update the Virtual DOM here / send JS update
         App.states[index] = value
         
-    }
-    
-    var projectedValue: Binding<Value> {
-        Binding(
-            get: { self.getValue() },
-            set: { self.setValue($0) }
-        )
     }
 
 }

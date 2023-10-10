@@ -10,7 +10,7 @@ import SwiftSoup
 
 public typealias Attributes = [Attribute: any AttributeValue]
 
-public protocol Page: Hashable {
+public protocol Page: Hashable, CustomStringConvertible {
     associatedtype Body: Page
 
     var body: Body { get }
@@ -21,6 +21,8 @@ public protocol Page: Hashable {
 }
 
 extension Page {
+    public var description: String { body.description }
+    
     public func build(parent: Element? = nil) {
         body.build(parent: parent)
     }

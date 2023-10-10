@@ -8,9 +8,7 @@
 import Foundation
 import JavaScriptKit
 
-
-typealias BatchedEvents = [String: Event.Value]
-
+// TODO: allow for complex types other than int with Value
 struct Event {
     enum Value {
         case int(Int)
@@ -18,8 +16,8 @@ struct Event {
         case string(String)
     }
 
-    let ID: String
-    let value: Value
+    let id: Int
+    let value: Int
 }
 
 final class App {
@@ -34,33 +32,31 @@ final class App {
     
     /// global state accessable from any element must be unique type
     static var environment: [Any] = []
+    
+    
+    static let document = JSObject.global.document
 
-    static var builtDOM: any Page = Div()
-    static var virtualDOM: any Page {
+
+    private static var builtDOM: any Page = Div()
+    private static var virtualDOM: any Page {
         pageHierarchy?.root ?? builtDOM
     }
     
     static func set(_ pageHierarchy: PageHierarchy) {
         Self.pageHierarchy = pageHierarchy
     }
+        
+    /// Recieves string from WASM, map to recieve+event call
+    @_silgen_name("send")
+    private static func reciever(_ content: String) {
+        //TODO: somehow make this call call recieve
+    }
     
-    
-    // TODO: Recieve Batched events from Javascript
-//    @_silgen_name("send")
+    /// Recieve events from JavaScript
     static func recieve(_ event: Event) {
-//        var changedStates = [Int]()
-//
-//        var components = elementID.split(separator: "|")
-//
-//        if components.count == 2 {
-//            let statesIndexes = components[0].split(separator: ",")
-//            let pageID = components[1]
-//
-//            // TODO:
-//            for index in statesIndexes {
-////                Self.states[index]
-//            }
-//        }
+        Self.states[event.id] = event.value
+        _ = Self.update()
+
     }
     
     /*
@@ -68,22 +64,20 @@ final class App {
      
      state indicies (comma seperated) + "|" + pagename/parsed
      0,1,2,3|asdfd
+     
+     send update to js
     */
     
     // TODO: update the view if the DOM changed
-    @_silgen_name("update")
-    static func update<Value>(elementID: String, value: Value) -> Bool {
-        // update values
-
-
-        // check if dom must be updated
-        if builtDOM == virtualDOM { return false }
+    static func update() -> Bool {
+        let newDOM = virtualDOM
         
-        // update js dom
-//        for i in changedStates {
-//            for page in states[i] {
-//                
-//            }
+        // check if dom must be updated
+        if builtDOM == newDOM { return false }
+        
+        // TODO: update js dom vs newDOM and step through recursively call send update to update page in js
+//        for page in builtDOM.body {
+//
 //        }
         
         
@@ -91,11 +85,20 @@ final class App {
     }
     
     
+    static func sendUpdate(elementID: String, value: some Page) {
+//        Self.document.getElementById(elementID).innerHTML = value.description
+        
+        //TODO: MAKE SURE THERE NO SECURITY RISK OF innerHTML
+        var updatedElement = Self.document.getElementById(elementID)
+        updatedElement.innerHTML = JSValue(stringLiteral: value.description)
+    }
+    
+    
     static func build(loc: URL) {
         // build pages
         pageHierarchy?.build(loc: loc)
         
-        // build css files
+        // TODO: build css files
     }
 
 }

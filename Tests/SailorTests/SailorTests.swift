@@ -35,6 +35,13 @@ struct TestPage: Page {
     
     var hello: [String] = ["andy", "chris", "vaishak"]
     
+    @State var myInt: Int = 0
+    
+    
+    func hello2() {
+        $myInt
+    }
+    
     var body: some Page {
         Div {
             if let src = attributes[.src] {
@@ -46,13 +53,13 @@ struct TestPage: Page {
                 Span(hello.description)
             }
             
-            hello.map {
-                Span("\($0) is cool!")
-                    .style(
-                        .width(.px(100)),
-                        .height(.px(100)),
-                        .backgroundColor(.hex("#00FF00"))
-                    )
+            hello.map {_ in 
+                P {
+                    String(myInt)
+                    B("Chris")
+                    "hi"
+                }
+                    
             }
         }
     }
