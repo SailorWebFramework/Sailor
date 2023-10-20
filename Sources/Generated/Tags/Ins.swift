@@ -17,7 +17,6 @@ public struct Ins: HTMLElement {
     }
     
     public var attributes: Attributes
-
     var children: [any Page]
     var content: String
     
@@ -27,8 +26,9 @@ public struct Ins: HTMLElement {
         self.attributes = .init()
     }
     
-    public init(@PageBuilder _ content: () -> [any Page]) {
-        self.init(children: content(), content: "")
+    public init(@PageBuilder _ content: () -> List) {
+        
+        self.init(children: content().children, content: "")
     }
     
     public init(_ content: String) {

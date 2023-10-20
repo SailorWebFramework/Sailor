@@ -1,13 +1,6 @@
 import XCTest
 @testable import Sailor
 
-
-// depricated
-// This is how you add a custom attribute
-//extension Attribute {
-//    static var hello: Self = .custom("hello")
-//}
-
 struct InnerCustomPage: Page {
     var attributes: Attributes = [:]
     
@@ -28,22 +21,22 @@ struct InnerCustomPage: Page {
     }
 }
 
+// TODO: routing
 //@Stateless
+//@Route("home")
+//@StatelessRoute("")
+//@Stateful
 struct TestPage: Page {
     // TODO: might be cool to add this to global state
     var attributes: Attributes = [.src: "www.google.com", .alt: "whats up"]
     
-    var hello: [String] = ["andy", "chris", "vaishak"]
-    
-    @State var myInt: Int = 0
-    
-    
-    func hello2() {
-        $myInt
-    }
+    var hello: [Unit.Color] = [.rgb(255, 0, 0), .rgb(255, 0, 0), .rgb(255, 0, 0)]
     
     var body: some Page {
         Div {
+            
+            List()
+            
             if let src = attributes[.src] {
                 Img(src: src)
                 Span("Hello WORLD")
@@ -52,20 +45,34 @@ struct TestPage: Page {
             if let hello = attributes[.alt] {
                 Span(hello.description)
             }
-            
-            hello.map {_ in 
-                P {
-                    String(myInt)
-                    B("Chris")
-                    "hi"
+
+            Div {
+                Div {
+                    Span("HI")
+                    Span("HI")
+                    Span("HI")
                 }
-                    
+                Span("Hey")
             }
+            
+            InnerCustomPage()
+//                .onClick {
+//                    sdjfkksdf
+//                    
+//                    dfdkf
+//                }
+            
+            List(
+                hello.map { _ in
+                    Div {
+                        Span("hii")
+                    }
+                    .style(.backgroundColor(.rgb(255, 0, 0)))
+                }
+            )
         }
     }
-    
 }
-
 
 final class SwiftSailorTests: XCTestCase {
     func testExample() throws {
@@ -73,19 +80,20 @@ final class SwiftSailorTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
 //        XCTAssertEqual(SwiftSailor().text, "Hello, World!")
-        print("This should appear in the debug console")
-
-        let hierarchy = PageHierarchy(root:
-                                        InnerCustomPage()
-//            TestPage()
-//                .attribute(.alt, value: "HELLOOOOO")
-
-        )
         
-        //TODO: MAKE A GENERIC BUILD FOLDER FOR TESTING?
-        let fileManager = FileManager.default
-        let loc = URL(fileURLWithPath: "/Users/joshuadavis/Downloads/build/index.html")
-        hierarchy.build(loc: loc)
+        App.set(PageHierarchy(root: TestPage()))
+
+        let currentFileURL = URL(fileURLWithPath: #file)
+        let loc = currentFileURL.deletingLastPathComponent()
+                                .deletingLastPathComponent()
+                                .appending(path: "Resources")
+        
+        print("LOC:", loc)
+        App.build(loc: loc)
+        
+        
+        // TODO: this would add all event listeners to the state should run with wasm
+//        App.start()
         
     }
 }

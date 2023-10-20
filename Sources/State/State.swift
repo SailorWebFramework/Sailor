@@ -6,14 +6,8 @@
 //
 
 import Foundation
+import JavaScriptKit
 
-
-//TODO: func $ prefix operator for State -> Binding projected value
-
-
-
-
-//prefix operator ^^
 @propertyWrapper
 struct State<Value> {
     private let index: Int
@@ -21,7 +15,6 @@ struct State<Value> {
     var wrappedValue: Value {
         get {
             return getValue()
-            
         }
         set {
             setValue(newValue)
@@ -37,10 +30,20 @@ struct State<Value> {
     
     init(wrappedValue: Value) {
         self.index = App.states.count
-        App.states.append(wrappedValue) // TODO: make Error
+        App.states.append(wrappedValue)
         
-        print("APP State:", App.states)
+        
+        // TODO: dont think this is where i do it
         // TODO: somehow register the state index so JS knows what state is being updated? put in ID field of componenets?
+        print("APP State:", App.states)
+
+//        let stateElement = document.getElementById!("\(self.index)").object!
+//
+//        _ = stateElement.addEventListener!("click") { _ in
+//            infoDiv.innerText = .string("Updated Text")
+//        }
+//        
+
     }
     
     private func getValue() -> Value {

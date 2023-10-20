@@ -10,6 +10,17 @@ import SwiftSoup
 
 public typealias Attributes = [Attribute: any AttributeValue]
 
+extension Attributes {
+    func render() -> String {
+        var output = ""
+        for (k, v) in self {
+            output += "\(k.description)=\"\(v.description)\""
+        }
+        return output
+    }
+}
+
+// TODO: consider renaming to View to be more similar to swiftUI?
 public protocol Page: Hashable, CustomStringConvertible {
     associatedtype Body: Page
 
@@ -17,11 +28,16 @@ public protocol Page: Hashable, CustomStringConvertible {
     var attributes: Attributes { get set }
     
     func build(parent: Element?)
+    func render(id: String?) -> String
 
 }
 
 extension Page {
     public var description: String { body.description }
+    
+    public func render(id: String? = nil) -> String {
+        return body.render(id: id)
+    }
     
     public func build(parent: Element? = nil) {
         body.build(parent: parent)
@@ -44,14 +60,6 @@ extension Page {
         lhs.hashValue == rhs.hashValue
     }
     
-//    public static func ==(lhs: Self, rhs: any Page) -> Bool {
-//        lhs.hashValue == rhs.hashValue
-//    }
-//    
-//    public static func ==(lhs: any Page, rhs: Self) -> Bool {
-//        lhs.hashValue == rhs.hashValue
-//    }
-    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(body)
         for (key, value) in attributes {
@@ -61,3 +69,8 @@ extension Page {
     }
 }
 
+
+//extension Page {
+//    
+//
+//}

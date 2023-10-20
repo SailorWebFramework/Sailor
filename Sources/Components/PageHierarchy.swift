@@ -9,21 +9,24 @@ import Foundation
 import SwiftSoup
 
 public final class PageHierarchy {
-    static var shared: PageHierarchy?
+    //    static var shared: PageHierarchy?
     var root: any Page
     
     public init(root: some Page) {
         self.root = root
-        Self.shared = self
+        //        Self.shared = self
         
     }
     
+    
+    /// renders page
     public func render() -> Document {
         do {
             // Create a new, empty document
             let doc = Document.createShell("")
             
-            self.root.build(parent: doc.body())
+            try doc.body()?.append(self.root.render(id: "0"))
+//            self.root.build(parent: doc.body())
 
             print("HTML:\n", try doc.html())
             
@@ -36,17 +39,36 @@ public final class PageHierarchy {
         return Document("")
     }
     
+    /// builds initial page to filesys
     public func build(loc: URL, isDebug: Bool = true) {
-        var doc = render()
+//        let doc = render()
+        let indexhtml: URL = loc.appendingPathComponent("index.html")
+        var output = self.root.render(id: "0")
+
         do {
+            
+
             if isDebug {
-                try doc.head()?.append("""
-                <script type="text/javascript" src="https://livejs.com/live.js"></script>
-            """)
+//                try doc.head()?.append("""
+//                <script type="text/javascript" src="https://livejs.com/live.js"></script>
+//            """)
+                output = """
+                <html>
+                 <head>
+                  <script type="text/javascript" src="https://livejs.com/live.js"></script>
+                 </head>
+                \(output)
+                </html>
+                """
             }
             
-            try doc.html().write(to: loc, atomically: true, encoding: .utf8)
-        } catch {  }
+            try output.write(to: indexhtml, atomically: true, encoding: .utf8)
+
+//            try doc.html().write(to: indexhtml, atomically: true, encoding: .utf8)
+        } catch(let error) {
+            print(error)
+        }
+        
     }
     
 }

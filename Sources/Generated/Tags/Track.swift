@@ -17,7 +17,6 @@ public struct Track: HTMLElement {
     }
     
     public var attributes: Attributes
-
     var children: [any Page]
     var content: String
     

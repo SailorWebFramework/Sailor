@@ -23,6 +23,11 @@ extension String: Page {
     
     public var body: some Page { self }
     
+    // overrides render
+    public func render(id: String?) -> String {
+        return "<span \(self.attributes.render())>\(self)</span>\n"
+    }
+    
     public func build(parent: SwiftSoup.Element? = nil) {
         do {
             // TODO: find a way for literals to work with style?

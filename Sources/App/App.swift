@@ -33,9 +33,7 @@ final class App {
     /// global state accessable from any element must be unique type
     static var environment: [Any] = []
     
-    
     static let document = JSObject.global.document
-
 
     private static var builtDOM: any Page = Div()
     private static var virtualDOM: any Page {
@@ -47,11 +45,6 @@ final class App {
     }
         
     /// Recieves string from WASM, map to recieve+event call
-    @_silgen_name("send")
-    private static func reciever(_ content: String) {
-        //TODO: somehow make this call call recieve
-    }
-    
     /// Recieve events from JavaScript
     static func recieve(_ event: Event) {
         Self.states[event.id] = event.value
@@ -60,11 +53,6 @@ final class App {
     }
     
     /*
-     elementID: organized
-     
-     state indicies (comma seperated) + "|" + pagename/parsed
-     0,1,2,3|asdfd
-     
      send update to js
     */
     
@@ -73,13 +61,47 @@ final class App {
         let newDOM = virtualDOM
         
         // check if dom must be updated
-        if builtDOM == newDOM { return false }
         
         // TODO: update js dom vs newDOM and step through recursively call send update to update page in js
-//        for page in builtDOM.body {
-//
-//        }
+        func diff(_ builtDOMTree: any Page, _ virtualDOMTree: any Page) {
+            // check if current tree is the same, if so return
+            if builtDOMTree == virtualDOMTree { return }
+
+            // check if HTMLElements or custom elements not equal
+            guard
+                let builtDOMTree = builtDOMTree as? any HTMLElement,
+                let virtualDOMTree = virtualDOMTree as? any HTMLElement
+            else {
+                // if at least one custom element rebuild node
+                return
+            }
+            
+            
+            // if content or attricutes are diff update content and attributes
+            
+//            if builtDOMTree.content != virtualDOMTree.content ||
+//                builtDOMTree.attributes != virtualDOMTree.attributes {
+//                sendUpdate(elementID: String, value: some Page)
+//                return
+//            }
+
+            
+            // loop over children, if eq, do nothing
+            for i in 0..<virtualDOMTree.children.count {
+                let virtual = virtualDOMTree.children[i]
+                let build = virtualDOMTree.children[i]
+                
+                // TODO: if i delete a node between two nodes id will get messed up
+                // TODO: also the diff id will mess things up dont id until after diff? or cache ids
+                // if not equal diff the two
+//                if virtual != build {
+//                    diff(build, virtual)
+//                }
+            }
+        }
         
+//        diff(builtDOM, newDOM)
+//        Self.builtDOM = virtualDOM
         
         return true
     }
@@ -93,12 +115,17 @@ final class App {
         updatedElement.innerHTML = JSValue(stringLiteral: value.description)
     }
     
-    
     static func build(loc: URL) {
         // build pages
         pageHierarchy?.build(loc: loc)
         
         // TODO: build css files
+    }
+    
+    /// TODO: launches event listeners that call App.recieve server in wasm
+    /// maybe move to App rather than PageHierarchy
+    public func start() {
+//        App.createListeners()
     }
 
 }
