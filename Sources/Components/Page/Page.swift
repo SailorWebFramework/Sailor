@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftSoup
+import JavaScriptKit
 
 public typealias Attributes = [Attribute: any AttributeValue]
 
@@ -27,19 +27,19 @@ public protocol Page: Hashable, CustomStringConvertible {
     var body: Body { get }
     var attributes: Attributes { get set }
     
-    func build(parent: Element?)
-    func render(id: String?) -> String
+    func build(parent: JSValue)
+    // func render(id: String?) -> String
 
 }
 
 extension Page {
     public var description: String { body.description }
     
-    public func render(id: String? = nil) -> String {
-        return body.render(id: id)
-    }
+    // public func render(id: String? = nil) -> String {
+    //     return body.render(id: id)
+    // }
     
-    public func build(parent: Element? = nil) {
+    public func build(parent: JSValue) {
         body.build(parent: parent)
     }
     
@@ -70,7 +70,3 @@ extension Page {
 }
 
 
-//extension Page {
-//    
-//
-//}

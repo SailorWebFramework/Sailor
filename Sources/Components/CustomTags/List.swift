@@ -6,7 +6,9 @@
 //
 
 import Foundation
-import SwiftSoup
+import JavaScriptKit
+
+//import SwiftSoup
 
 //struct Nothing: HTMLElement {
 //    var element = Element(Tag(""), "")
@@ -45,7 +47,7 @@ protocol Listable: HTMLElement {
 // TODO: make new file and consider changing name to avoid SwiftUI collision?
 // TODO: maybe override init for OL element and use it like this?
 public struct List: Listable {
-    var element = Element(Tag(""), "")
+    var element = Element("")
 
     public var attributes: Attributes
 
@@ -69,31 +71,26 @@ public struct List: Listable {
 
     }
     
-    public func build(parent: Element?) {
+    public func build(parent: JSValue) {
         do {
             // loop over children component if any
             for (i, child) in children.enumerated() {
-                if let childHTML = child as? (any HTMLElement) {
-                    try childHTML.element.attr("id", "\((try? parent?.attr("id")) ?? ""):\(i)")
-                }
-                
                 child.build(parent: parent)
-
             }
-                        
+
         } catch {
             // TODO: throw meaningful errors
             print("ERROR PARSING HTML")
         }
     }
     
-    public func render(id: String?) -> String {
-        var outputChildren = ""
+    // public func render(id: String?) -> String {
+    //     var outputChildren = ""
         
-        for (i,page) in children.enumerated() {
-            outputChildren.append(page.render(id: (id ?? "") + ":\(i)") + "\n")
-        }
+    //     for (i,page) in children.enumerated() {
+    //         outputChildren.append(page.render(id: (id ?? "") + ":\(i)") + "\n")
+    //     }
         
-        return outputChildren
-    }
+    //     return outputChildren
+    // }
 }

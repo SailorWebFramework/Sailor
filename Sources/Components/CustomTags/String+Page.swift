@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import SwiftSoup
+import JavaScriptKit
+//import SwiftSoup
 
 extension String: AttributeValue {
     public func render() -> String { self }
@@ -17,7 +18,8 @@ extension String: Page {
     public var attributes: Attributes {
         get { .init() }
         set {
-            raise(Int32(kNSLNotImplementedYet))
+            print("STRING:PAGE NOT IMPLEMENTED SET")
+            // raise(Int32(kNSLNotImplementedYet))
         }
     }
     
@@ -28,7 +30,7 @@ extension String: Page {
         return "<span \(self.attributes.render())>\(self)</span>\n"
     }
     
-    public func build(parent: SwiftSoup.Element? = nil) {
+    public func build(parent: JSValue) {
         do {
             // TODO: find a way for literals to work with style?
 //            var element =
@@ -37,7 +39,8 @@ extension String: Page {
 //            }
             
             // TODO: Make \n \t work as expected by adding break tags and tab as expected
-            try parent?.appendText(self)
+            // TODO: READD WITH JSKIT
+            
             
         } catch {
             print("ERROR PARSING HTML")

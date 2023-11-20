@@ -20,7 +20,7 @@ struct Event {
     let value: Int
 }
 
-final class App {
+public final class App {
     static var idIndex: UInt64 = 0
 
     static var cssStyles: [String:Style] = [:]
@@ -33,14 +33,14 @@ final class App {
     /// global state accessable from any element must be unique type
     static var environment: [Any] = []
     
-    static let document = JSObject.global.document
+    public static let document = JSObject.global.document
 
     private static var builtDOM: any Page = Div()
     private static var virtualDOM: any Page {
         pageHierarchy?.root ?? builtDOM
     }
     
-    static func set(_ pageHierarchy: PageHierarchy) {
+    public static func set(_ pageHierarchy: PageHierarchy) {
         Self.pageHierarchy = pageHierarchy
     }
         
@@ -115,9 +115,9 @@ final class App {
         updatedElement.innerHTML = JSValue(stringLiteral: value.description)
     }
     
-    static func build(loc: URL) {
+    public static func build(parent: JSValue) {
         // build pages
-        pageHierarchy?.build(loc: loc)
+        pageHierarchy?.build(parent: parent)
         
         // TODO: build css files
     }
