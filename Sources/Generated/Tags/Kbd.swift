@@ -7,16 +7,16 @@
 //
 
 import Foundation
-import SwiftSoup
 
 public struct Kbd: HTMLElement {
-    var element = Element(Tag("kbd"), "")
+    var element = Element("kbd")
 
     public var body: some Page {
         return self
     }
     
     public var attributes: Attributes
+
     var children: [any Page]
     var content: String
     
@@ -27,7 +27,6 @@ public struct Kbd: HTMLElement {
     }
     
     public init(@PageBuilder _ content: () -> List) {
-        
         self.init(children: content().children, content: "")
     }
     

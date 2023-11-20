@@ -7,16 +7,16 @@
 //
 
 import Foundation
-import SwiftSoup
 
 public struct Rtc: HTMLElement {
-    var element = Element(Tag("rtc"), "")
+    var element = Element("rtc")
 
     public var body: some Page {
         return self
     }
     
     public var attributes: Attributes
+
     var children: [any Page]
     var content: String
     
@@ -27,7 +27,6 @@ public struct Rtc: HTMLElement {
     }
     
     public init(@PageBuilder _ content: () -> List) {
-        
         self.init(children: content().children, content: "")
     }
     

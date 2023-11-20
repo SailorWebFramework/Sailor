@@ -38,16 +38,16 @@ public struct PageBuilder {
 //    }
 //    
 
-    static func buildOptional(_ component: List?) -> List {
+    public static func buildOptional(_ component: List?) -> List {
         if let component = component { return component }
         return List()
     }
 
-    static func buildEither(first component: List) -> List {
+    public static func buildEither(first component: List) -> List {
         return component
     }
 
-    static func buildEither(second component: List) -> List {
+    public static func buildEither(second component: List) -> List {
         return component
     }
     
