@@ -1,40 +1,33 @@
-//import testsLibrary
 import Sailor
-import JavaScriptKit
-import JavaScriptEventLoop
-
 
 struct TestPage: Page {
     var attributes: Attributes = [:]
 
+    @State var hello = 0
+
     var body: some Page {
         Div {
-            Span("HI")
-                .style(
-                    .backgroundColor(.rgb(255,0,0)),
-                    .width(.px(100))
-                )
-            Span("YOOOOOOOO")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
-            Span("HI")
+            Span("Yo Whats UP!!")
+                // .style(
+                //     .backgroundColor(.rgb(255,0,0)),
+                //     .width(.px(100))
+                // )
+            Div("HI its me")
 
             Div {
+                Span("HI\n")
                 Span("HI")
-                Span("HI")
-                Div("HELLLOOO")
+                Div("my number is: \(hello)")
                 Span("HI")
             }
                 .style(
                     .backgroundColor(.rgb(255,0,0)),
                     .width(.px(100))
                 )
+                .onClick {
+                    print("YO \(hello)")
+                    self.hello += 1
+                }
         }
     }
 }

@@ -47,26 +47,26 @@ protocol Listable: HTMLElement {
 // TODO: make new file and consider changing name to avoid SwiftUI collision?
 // TODO: maybe override init for OL element and use it like this?
 public struct List: Listable {
-    var element = Element("")
 
     public var attributes: Attributes
 
     var children: [any Page]
     var content: String
-    
+    var element: JSValue
+
     public var body: some Page {
         return self
     }
     
     public init() {
-        self.children = []
-        self.content = ""
-        self.attributes = .init()
+        self.init([])
     }
 
     public init(_ children: [any Page]) {
         self.children = children
         self.content = ""
+        // TODO: make an empty node?
+        self.element = App.document.createElement("div")
         self.attributes = .init()
 
     }
@@ -83,14 +83,4 @@ public struct List: Listable {
             print("ERROR PARSING HTML")
         }
     }
-    
-    // public func render(id: String?) -> String {
-    //     var outputChildren = ""
-        
-    //     for (i,page) in children.enumerated() {
-    //         outputChildren.append(page.render(id: (id ?? "") + ":\(i)") + "\n")
-    //     }
-        
-    //     return outputChildren
-    // }
 }

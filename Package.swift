@@ -33,8 +33,8 @@ let package = Package(
             name: "Playground",
             dependencies: [
                 "Sailor",
-                .product(name: "JavaScriptKit", package: "JavaScriptKit"),
-                .product(name: "JavaScriptEventLoop", package: "JavaScriptKit")
+                // .product(name: "JavaScriptKit", package: "JavaScriptKit"),
+                // .product(name: "JavaScriptEventLoop", package: "JavaScriptKit")
             ],
             path: "Playground"
         ),
