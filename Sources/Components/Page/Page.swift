@@ -28,16 +28,14 @@ public protocol Page: Hashable, CustomStringConvertible {
     var attributes: Attributes { get set }
     
     func build(parent: JSValue)
-    // func render(id: String?) -> String
+
+    // Events
+    func onClick(_ completion: @escaping () -> Void) -> any Page
 
 }
 
 extension Page {
     public var description: String { body.description }
-    
-    // public func render(id: String? = nil) -> String {
-    //     return body.render(id: id)
-    // }
     
     public func build(parent: JSValue) {
         body.build(parent: parent)
@@ -66,6 +64,14 @@ extension Page {
             hasher.combine(key)
             hasher.combine(value)
         }
+    }
+}
+
+//MARK- Events
+extension Page {
+    // TODO: put like a not implemented flag or somthing, wont work for custom components
+    public func onClick(_ completion: @escaping () -> Void) -> any Page{
+        return self
     }
 }
 

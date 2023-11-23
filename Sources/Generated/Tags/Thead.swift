@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import JavaScriptKit
 
 public struct Thead: HTMLElement {
-    var element = Element("thead")
 
     public var body: some Page {
         return self
@@ -19,11 +19,17 @@ public struct Thead: HTMLElement {
 
     var children: [any Page]
     var content: String
-    
-    public init() {
-        self.children = []
-        self.content = ""
+    var element: JSValue
+
+    private init(children: [any Page], content: String) {
+        self.element = App.document.createElement("thead")
+        self.children = children
+        self.content = content
         self.attributes = .init()
+    }
+
+    public init() {
+        self.init(children: [], content: "")
     }
     
     public init(@PageBuilder _ content: () -> List) {
@@ -32,13 +38,6 @@ public struct Thead: HTMLElement {
     
     public init(_ content: String) {
         self.init(children: [], content: content)
-    }
-
-    private init(children: [any Page], content: String) {
-        self.children = children
-        self.content = content
-        self.attributes = .init()
-
     }
     
 }

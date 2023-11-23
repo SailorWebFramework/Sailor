@@ -58,51 +58,32 @@ public final class App {
     
     // TODO: update the view if the DOM changed
     static func update() -> Bool {
-        let newDOM = virtualDOM
+        print("UPDATING DOM")
+        // if let body = App.document.body.object {
+        //     // Iterate over all child nodes of the body
+        //     let children = body.childNodes.array!
+        //     for child in children {
+        //         // Remove each child from the body
+        //         body.removeChild(child)
+        //     }
+
+        // }
+        
+        // let newDOM = virtualDOM
+
+
+        // self.virtualDOM = 
         
         // check if dom must be updated
         
         // TODO: update js dom vs newDOM and step through recursively call send update to update page in js
-        func diff(_ builtDOMTree: any Page, _ virtualDOMTree: any Page) {
-            // check if current tree is the same, if so return
-            if builtDOMTree == virtualDOMTree { return }
+        // func diff(_ builtDOMTree: inout any Page, _ virtualDOMTree: inout any Page) {
+        //     // check if current tree is the same, if so return
+        //     if builtDOMTree == virtualDOMTree { return }
+        // }  
+        // diff(&builtDOM, &newDOM)
 
-            // check if HTMLElements or custom elements not equal
-            guard
-                let builtDOMTree = builtDOMTree as? any HTMLElement,
-                let virtualDOMTree = virtualDOMTree as? any HTMLElement
-            else {
-                // if at least one custom element rebuild node
-                return
-            }
-            
-            
-            // if content or attricutes are diff update content and attributes
-            
-//            if builtDOMTree.content != virtualDOMTree.content ||
-//                builtDOMTree.attributes != virtualDOMTree.attributes {
-//                sendUpdate(elementID: String, value: some Page)
-//                return
-//            }
 
-            
-            // loop over children, if eq, do nothing
-            for i in 0..<virtualDOMTree.children.count {
-                let virtual = virtualDOMTree.children[i]
-                let build = virtualDOMTree.children[i]
-                
-                // TODO: if i delete a node between two nodes id will get messed up
-                // TODO: also the diff id will mess things up dont id until after diff? or cache ids
-                // if not equal diff the two
-//                if virtual != build {
-//                    diff(build, virtual)
-//                }
-            }
-        }
-        
-//        diff(builtDOM, newDOM)
-//        Self.builtDOM = virtualDOM
-        
         return true
     }
     

@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import JavaScriptKit
 
 public struct Input: HTMLElement {
-    var element = Element("input")
 
     public var body: some Page {
         return self
@@ -19,19 +19,18 @@ public struct Input: HTMLElement {
 
     var children: [any Page]
     var content: String
-    
-    public init() {
-        self.children = []
-        self.content = ""
-        self.attributes = .init()
-    }
-    
+    var element: JSValue
 
     private init(children: [any Page], content: String) {
+        self.element = App.document.createElement("input")
         self.children = children
         self.content = content
         self.attributes = .init()
-
     }
+
+    public init() {
+        self.init(children: [], content: "")
+    }
+    
     
 }

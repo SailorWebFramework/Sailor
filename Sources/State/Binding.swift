@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Binding<Value> {
+public class Binding<Value> {
     let get: () -> Value
     let set: (Value) -> Void
 
