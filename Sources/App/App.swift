@@ -33,7 +33,7 @@ public final class App {
     /// global state accessable from any element must be unique type
     static var environment: [Any] = []
     
-    public static let document = JSObject.global.document
+    public static var document = JSObject.global.document
 
     private static var builtDOM: any Page = Div()
     private static var virtualDOM: any Page {
@@ -59,13 +59,27 @@ public final class App {
     // TODO: update the view if the DOM changed
     static func update() -> Bool {
         print("UPDATING DOM")
-        // if let body = App.document.body.object {
-        //     // Iterate over all child nodes of the body
-        //     let children = body.childNodes.array!
-        //     for child in children {
-        //         // Remove each child from the body
-        //         body.removeChild(child)
-        //     }
+        App.document.body.innerHTML = ""
+        build(parent: App.document.body)
+
+        // TODO: Diffing algorithm
+        // if let page = builtDOM.body as? any HTMLElement {
+        //     print("YOEOOEOEY")
+        //     page.element.remove()
+        // }
+        // if let body = App.document.body {
+            
+        // let children: JSValue = App.document.body
+        // print("CHILDNODES ISNT EMPTY")
+        
+        // Iterate over all child nodes of the body
+        // for child in children.childNodes {
+        //     // Remove each child from the body
+        //     child.remove()
+        // }
+
+        // } else {
+        //     print("NOTHING FOUND IN BODY")
 
         // }
         
@@ -88,13 +102,13 @@ public final class App {
     }
     
     
-    static func sendUpdate(elementID: String, value: some Page) {
-//        Self.document.getElementById(elementID).innerHTML = value.description
+//     static func sendUpdate(elementID: String, value: some Page) {
+// //        Self.document.getElementById(elementID).innerHTML = value.description
         
-        //TODO: MAKE SURE THERE NO SECURITY RISK OF innerHTML
-        var updatedElement = Self.document.getElementById(elementID)
-        updatedElement.innerHTML = JSValue(stringLiteral: value.description)
-    }
+//         //TODO: MAKE SURE THERE NO SECURITY RISK OF innerHTML
+//         // var updatedElement = Self.document.getElementById(elementID)
+//         // updatedElement.innerHTML = JSValue(stringLiteral: value.description)
+//     }
     
     public static func build(parent: JSValue) {
         // build pages

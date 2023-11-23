@@ -41,6 +41,7 @@ public class State<Value> {
     private func setValue(_ value: Value) {
         // TODO: update the Virtual DOM here / send JS update
         App.states[index] = value
+        App.update()
         
     }
 
