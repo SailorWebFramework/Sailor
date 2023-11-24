@@ -31,6 +31,9 @@ public protocol Page: Hashable, CustomStringConvertible {
 
     // Events
     func onClick(_ completion: @escaping () -> Void) -> any Page
+    func onMouseOver(_ completion: @escaping () -> Void) -> any Page
+    func onMouseOut(_ completion: @escaping () -> Void) -> any Page
+    func onKeyDown(_ completion: @escaping (String) -> Void) -> any Page
 
 }
 
@@ -70,9 +73,23 @@ extension Page {
 //MARK- Events
 extension Page {
     // TODO: put like a not implemented flag or somthing, wont work for custom components
-    public func onClick(_ completion: @escaping () -> Void) -> any Page{
+    // ie: throw errors
+    public func onClick(_ completion: @escaping () -> Void) -> any Page {
         return self
     }
+
+    public func onMouseOver(_ completion: @escaping () -> Void) -> any Page {
+        return self
+    }
+
+    public func onMouseOut(_ completion: @escaping () -> Void) -> any Page {
+        return self
+    }
+    
+    public func onKeyDown(_ completion: @escaping (String) -> Void) -> any Page {
+        return self
+    }
+
 }
 
 

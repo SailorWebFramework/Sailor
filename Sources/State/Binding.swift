@@ -7,16 +7,17 @@
 
 import Foundation
 
-public class Binding<Value> {
+@propertyWrapper
+public class Binding<Value: Equatable> {
     let get: () -> Value
     let set: (Value) -> Void
 
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         get { get() }
         set { set(newValue) }
     }
 
-    init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
+    public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
         self.get = get
         self.set = set
     }

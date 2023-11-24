@@ -1,52 +1,19 @@
 //
-//  File.swift
+//  List.swift
 //  
 //
 //  Created by Joshua Davis on 10/12/23.
 //
 
-import Foundation
 import JavaScriptKit
 
-//import SwiftSoup
-
-//struct Nothing: HTMLElement {
-//    var element = Element(Tag(""), "")
-//
-//    public var attributes: Attributes
-//
-//    var children: [any Page]
-//    var content: String
-//    
-//    var body: some Page {
-//        return self
-//    }
-//    
-//    public init() {
-//        self.children = []
-//        self.content = ""
-//        self.attributes = .init()
-//    }
-//    
-//    func build(parent: Element?) { }
-//    
-//    func render(id: String?) -> String { return "" }
-//}
-
-protocol Listable: HTMLElement {
-    
-}
-
 // TODO: make inline arrays work?
-
-//extension [any Page]: Listable {
-//    
-//}
+//extension [any Page]: Listable { }
 
 
 // TODO: make new file and consider changing name to avoid SwiftUI collision?
 // TODO: maybe override init for OL element and use it like this?
-public struct List: Listable {
+public struct List: HTMLElement {
 
     public var attributes: Attributes
 
@@ -72,15 +39,10 @@ public struct List: Listable {
     }
     
     public func build(parent: JSValue) {
-        do {
-            // loop over children component if any
-            for (i, child) in children.enumerated() {
-                child.build(parent: parent)
-            }
-
-        } catch {
-            // TODO: throw meaningful errors
-            print("ERROR PARSING HTML")
+        // loop over children component if any
+        for child in children {
+            child.build(parent: parent)
         }
+
     }
 }

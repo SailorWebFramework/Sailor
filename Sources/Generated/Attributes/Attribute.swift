@@ -11,8 +11,7 @@ import Foundation
 
 // CustomStringConvertible
 public enum Attribute: String, CustomStringConvertible {
-    case src, style, className, alt, width, height //, custom(String)
-    
+    case src, style, className, alt, width, height, tabindex //, custom(String)
     
     public var description: String { self.rawValue }
 }
