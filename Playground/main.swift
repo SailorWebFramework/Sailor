@@ -12,15 +12,10 @@ struct InnerPage: Page {
         }
         .style(.backgroundColor(.rgb(200, 0, 0)))
     }
-
-    func onClick(_ completion: @escaping () -> Void) -> any Page {
-        self.body.onClick {
-            completion()
-        }
-    }
     
 }
 
+// @Route(name: "home")
 struct TestPage: Page {
     var attributes: Attributes = [:]
 
@@ -39,6 +34,7 @@ struct TestPage: Page {
                     print("pressed: \(char)")
                 }
             
+            // @Route(name: "#hello")
             Button("HI: \(thing)")
                 .style(
                     .backgroundColor(bgc),
@@ -48,13 +44,19 @@ struct TestPage: Page {
                     print("YO \(hello)")
                     self.hello += 1
                 }
+            
 
             Input($thing)
-
+                .onBlur {
+                    print("BLURRED: thing")
+                }
             InnerPage(hello: $hello)
-                // .onClick {
-                //     print("pressed inner")
-                // }
+                .onBlur {
+                    print("blur inner")
+                }
+                .onClick {
+                    print("pressed inner")
+                }
 
             Div {
                 Div("my string is: \(Double(hello) * 1.5)")
@@ -72,9 +74,13 @@ struct TestPage: Page {
                 self.bgc = .rgb(0,200,0)
             }
         }
+        // TODO: allow for css files 
+        // .style(
+        //     location: "Sheets/global.css"
+        // )
     }
 }
 
 
-App.initialize(root:TestPage())
+App.initialize(root: TestPage())
 App.build()

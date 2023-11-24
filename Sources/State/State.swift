@@ -44,11 +44,9 @@ public class State<Value: Equatable> {
             print("SKIPPING, No change")
             return
         }
-        App.states[index] = value
         
-        // TODO: maybe pass the index of the state or somthing?
-        // Maybe batch updates eventually
-        _ = App.update(state: index)
+        // TODO: Maybe batch updates eventually
+        App.update(state: index, newValue: value)
         
     }
 
