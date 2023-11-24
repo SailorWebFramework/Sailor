@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-public class State<Value> {
+public class State<Value: Equatable> {
     private let index: Int
 
     public var wrappedValue: Value {
@@ -39,9 +39,16 @@ public class State<Value> {
     }
     
     private func setValue(_ value: Value) {
-        // TODO: update the Virtual DOM here / send JS update
+        // TODO: check if no change conform to equatable?
+        if App.states[index] as? Value == value {
+            print("SKIPPING, No change")
+            return
+        }
         App.states[index] = value
-        App.update()
+        
+        // TODO: maybe pass the index of the state or somthing?
+        // Maybe batch updates eventually
+        _ = App.update(state: index)
         
     }
 

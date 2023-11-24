@@ -13,6 +13,10 @@ extension Unit {
             switch(self) {
             case .px(let amt):
                 return "\(amt)px"
+            case .float(let amt):
+                return "\(amt)"
+            case .int(let amt):
+                return "\(amt)"
             default:
                 return ""
             }
@@ -25,6 +29,7 @@ extension Unit {
              vmin(Double), vmax(Double),
              ch(Double), ex(Double),
              cm(Double), mm(Double), inch(Double), pt(Double), pc(Double),
+             float(Double), int(Int),
              empty
         
     }
