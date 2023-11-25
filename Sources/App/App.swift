@@ -35,6 +35,11 @@ public final class App {
         Self.root = root
     }
 
+    public static func initState(value: Any) -> Int {
+        Self.states.append(value)
+        return Self.states.count - 1
+    }
+
     // TODO: update the view if the DOM changed
     static func update(state: Int, newValue: Any) {
         print("UPDATING DOM")
