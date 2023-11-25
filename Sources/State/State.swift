@@ -28,8 +28,7 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-        self.index = App.states.count
-        App.states.append(wrappedValue)
+        self.index = App.initState(value: wrappedValue)
 
     }
     
@@ -41,7 +40,6 @@ public class State<Value: Equatable> {
     private func setValue(_ value: Value) {
         // TODO: check if no change conform to equatable?
         if App.states[index] as? Value == value {
-            print("SKIPPING, No change")
             return
         }
         

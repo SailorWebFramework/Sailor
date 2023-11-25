@@ -33,6 +33,10 @@ struct TestPage: Page {
                 .onKeyDown { char in
                     print("pressed: \(char)")
                 }
+
+                .onClick {
+                    print("clicked whats up:")
+                }
             
             // @Route(name: "#hello")
             Button("HI: \(thing)")
