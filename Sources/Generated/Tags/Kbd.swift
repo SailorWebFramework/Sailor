@@ -19,6 +19,10 @@ public struct Kbd: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "kbd"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

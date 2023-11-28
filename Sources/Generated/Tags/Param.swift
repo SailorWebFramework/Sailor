@@ -19,6 +19,10 @@ public struct Param: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "param"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

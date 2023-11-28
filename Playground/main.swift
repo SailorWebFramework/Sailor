@@ -10,7 +10,10 @@ struct InnerPage: Page {
             Div("Yo Whats UP!! Im \(hello) years old")
             Div("Press me anywhere")
         }
-        .style(.backgroundColor(.rgb(200, 0, 0)))
+        .style(
+            .backgroundColor(.rgb(200, 0, 0)),
+            .display(.inlineBlock)
+        )
     }
     
 }
@@ -25,7 +28,7 @@ struct TestPage: Page {
 
     var body: some Page {
         Div {
-            Span("Yo Whats UP!!")
+            Span("Yo Whats UP!! \(hello)")
                 // TODO: make this better somehow?
                 // .attribute(.tabindex(.int(0))) // probably this
                 .attribute(.tabindex, value: Unit.Dimention.int(0))
@@ -45,38 +48,38 @@ struct TestPage: Page {
                     .width(.px(100))
                 )
                 .onClick {
-                    print("YO \(hello)")
+                    print("YO")
                     self.hello += 1
                 }
             
 
-            Input($thing)
-                .onBlur {
-                    print("BLURRED: thing")
-                }
-            InnerPage(hello: $hello)
-                .onBlur {
-                    print("blur inner")
-                }
-                .onClick {
-                    print("pressed inner")
-                }
+            // Input($thing)
+            //     .onBlur {
+            //         print("BLURRED: thing")
+            //     }
+            // InnerPage(hello: $hello)
+            //     .onBlur {
+            //         print("blur inner")
+            //     }
+            //     .onClick {
+            //         print("pressed inner")
+            //     }
 
-            Div {
-                Div("my string is: \(Double(hello) * 1.5)")
-            }
-            .style(
-                .backgroundColor(bgc),
-                .width(.px(100))
-            )
-            .onMouseOver {
-                print("OVER HERE")
-                self.bgc = .rgb(200,0,0)
-            }
-            .onMouseOut {
-                print("OUT HERE")
-                self.bgc = .rgb(0,200,0)
-            }
+            // Div {
+            //     Div("my string is: \(Double(hello) * 1.5)")
+            // }
+            // .style(
+            //     .backgroundColor(bgc),
+            //     .width(.px(100))
+            // )
+            // .onMouseOver {
+            //     print("OVER HERE")
+            //     self.bgc = .rgb(200,0,0)
+            // }
+            // .onMouseOut {
+            //     print("OUT HERE")
+            //     self.bgc = .rgb(0,200,0)
+            // }
         }
         // TODO: allow for css files 
         // .style(

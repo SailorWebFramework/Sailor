@@ -19,6 +19,10 @@ public struct Sup: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "sup"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

@@ -19,6 +19,10 @@ public struct Del: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "del"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

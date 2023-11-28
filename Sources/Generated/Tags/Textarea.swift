@@ -19,6 +19,10 @@ public struct Textarea: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "textarea"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

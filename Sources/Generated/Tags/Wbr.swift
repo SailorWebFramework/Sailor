@@ -19,6 +19,10 @@ public struct Wbr: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "wbr"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

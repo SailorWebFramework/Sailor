@@ -22,7 +22,7 @@ extension String: Page {
     
     public var body: some Page { self }
     
-    public func build(parent: JSValue) {
+    public func build(parent: JSValue, virtualDOM: DOMNode) {
         // TODO: Make \n \t work as expected by adding break tags and tab as expected
         // TODO: find a way for literals to work with style & attrubutes?
         

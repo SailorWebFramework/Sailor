@@ -1,0 +1,3 @@
+
+
+extension Int: CSSValue, AttributeValue { }

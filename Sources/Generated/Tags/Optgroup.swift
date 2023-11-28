@@ -19,6 +19,10 @@ public struct Optgroup: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "optgroup"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

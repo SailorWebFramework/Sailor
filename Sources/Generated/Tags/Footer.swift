@@ -19,6 +19,10 @@ public struct Footer: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "footer"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

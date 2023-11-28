@@ -9,13 +9,16 @@
 import JavaScriptKit
 
 // TODO: consider renaming to View to be more similar to swiftUI?
-public protocol Page: Hashable, CustomStringConvertible {
+public protocol Page: Hashable, Equatable, CustomStringConvertible {
     associatedtype Body: Page
 
     var body: Body { get }
+    // TODO: remove attributes and only have in HTMLElement
     var attributes: Attributes { get set }
     
-    func build(parent: JSValue)
+    func build(parent: JSValue, virtualDOM: DOMNode)
+    func outerEquals(to page: any Page) -> Bool 
+    //func innerEquals(to page: any Page)
 
     // Events
     func onClick(_ completion: @escaping () -> Void) -> any Page

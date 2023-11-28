@@ -19,6 +19,10 @@ public struct Col: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "col"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

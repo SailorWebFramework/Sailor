@@ -19,6 +19,7 @@ public class Binding<Value: Equatable> {
 
     public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
         self.get = get
+        // TODO: when using the init redraw DOM
         self.set = set
     }
     

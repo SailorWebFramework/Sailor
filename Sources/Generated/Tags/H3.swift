@@ -19,6 +19,10 @@ public struct H3: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "h3"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

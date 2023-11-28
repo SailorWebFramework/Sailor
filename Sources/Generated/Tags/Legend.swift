@@ -19,6 +19,10 @@ public struct Legend: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "legend"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

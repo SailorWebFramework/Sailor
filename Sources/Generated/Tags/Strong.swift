@@ -19,6 +19,10 @@ public struct Strong: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "strong"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

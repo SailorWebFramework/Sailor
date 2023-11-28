@@ -19,6 +19,10 @@ public struct Data: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "data"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

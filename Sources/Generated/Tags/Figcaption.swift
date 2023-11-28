@@ -19,6 +19,10 @@ public struct Figcaption: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "figcaption"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {
