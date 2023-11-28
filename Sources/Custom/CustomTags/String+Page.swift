@@ -8,7 +8,7 @@
 import JavaScriptKit
 
 extension String: AttributeValue {
-    public func render() -> String { self }
+    // public func render() -> String { self }
 }
 
 extension String: Page {

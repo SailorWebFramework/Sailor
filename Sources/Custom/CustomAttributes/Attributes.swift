@@ -4,11 +4,17 @@ import JavaScriptKit
 
 public typealias Attributes = [Attribute: any AttributeValue]
 
-extension Attributes {
-    func render() -> String {
+extension Attributes: CustomStringConvertible {
+
+    //TODO: I think this is not used, depricated
+    var description: String {
+        // TODO: make this more efficient temporarily sorting all the keys before to ensure same rendering
+        let keysSorted = self.keys.sorted()
         var output = ""
-        for (k, v) in self {
-            output += "\(k.description)=\"\(v.description)\""
+        for key in keysSorted {
+            if let value = self[key] {
+                output += "\(key.description)=\"\(value.description)\""
+            }
         }
         return output
     }
@@ -30,20 +36,3 @@ extension Attributes: Equatable {
         return true
     }
 }
-
-// extension Attributes: Equatable {
-//     public static func ==(lhs: Attributes, rhs: Attributes) -> Bool {
-//         guard lhs.count == rhs.count else { return false }
-
-//         for (key, lhsValue) in lhs {
-//             guard let rhsValue = rhs[key] else { return false }
-
-//             // Check if both values are of the same type and compare them
-//             if lhsValue != rhsValue {
-//                 return false
-//             }
-//         }
-
-//         return true
-//     }
-// }

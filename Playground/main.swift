@@ -53,10 +53,10 @@ struct TestPage: Page {
                 }
             
 
-            // Input($thing)
-            //     .onBlur {
-            //         print("BLURRED: thing")
-            //     }
+            Input($thing)
+                .onBlur {
+                    print("BLURRED: thing")
+                }
             // InnerPage(hello: $hello)
             //     .onBlur {
             //         print("blur inner")
