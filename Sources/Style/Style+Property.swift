@@ -8,9 +8,13 @@
 import Foundation
 
 public extension Style {
-    struct Property: Hashable {
+    struct Property: Hashable, Comparable {
         public static func == (lhs: Property, rhs: Property) -> Bool {
             lhs.hashValue == rhs.hashValue
+        }
+
+        public static func <(lhs: Property, rhs: Property) -> Bool {
+            lhs.name < rhs.name
         }
         
         public func hash(into hasher: inout Hasher) {

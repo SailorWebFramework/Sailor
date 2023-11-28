@@ -27,11 +27,14 @@ public struct Style: AttributeValue {
     }
     
     public var description: String {
+        // TODO: make this more efficient temporarily sorting all the keys before to ensure same rendering
+        let keysSorted = self.properties.sorted()
         var output = ""
-        
-        for property in properties {
+        for property in keysSorted {
             output += "\(property.name): \(property.value);"
         }
+
+        print("STYLING VALUE")
         
         return output
     }
