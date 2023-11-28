@@ -19,6 +19,10 @@ public struct Time: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "time"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

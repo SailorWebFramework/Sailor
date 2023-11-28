@@ -19,6 +19,10 @@ public struct Rtc: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "rtc"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

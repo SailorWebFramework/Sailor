@@ -28,7 +28,7 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-        self.index = App.initState(value: wrappedValue)
+        self.index = App.newState(value: wrappedValue)
 
     }
     

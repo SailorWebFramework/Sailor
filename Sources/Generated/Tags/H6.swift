@@ -19,6 +19,10 @@ public struct H6: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "h6"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

@@ -19,6 +19,10 @@ public struct Canvas: HTMLElement {
 
     var children: [any Page]
     var content: String
+    var tagName: String {
+        "canvas"
+    }
+    
     var element: JSValue
 
     private init(children: [any Page], content: String) {

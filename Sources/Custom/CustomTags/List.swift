@@ -20,6 +20,9 @@ public struct List: HTMLElement {
     var children: [any Page]
     var content: String
     var element: JSValue
+    var tagName: String {
+        "List"
+    }
 
     public var body: some Page {
         return self
@@ -38,10 +41,10 @@ public struct List: HTMLElement {
 
     }
     
-    public func build(parent: JSValue) {
+    public func build(parent: JSValue, virtualDOM: DOMNode) {
         // loop over children component if any
         for child in children {
-            child.build(parent: parent)
+            child.build(parent: parent, virtualDOM: virtualDOM)
         }
 
     }

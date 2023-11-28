@@ -27,15 +27,13 @@ public struct Style: AttributeValue {
     }
     
     public var description: String {
-//        public func render() -> String {
-            var output = ""
-            
-            for property in properties {
-                output += "\(property.name): \(property.value);"
-            }
-            
-            return output
-//        }
+        var output = ""
+        
+        for property in properties {
+            output += "\(property.name): \(property.value);"
+        }
+        
+        return output
     }
     
     // TODO: make a named init with mustache

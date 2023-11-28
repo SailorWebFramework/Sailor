@@ -10,7 +10,7 @@ import Foundation
 //TODO: consider leaving only custom and makeing whole attribute lib using extensions and custom Attributes
 
 // CustomStringConvertible
-public enum Attribute: String, CustomStringConvertible {
+public enum Attribute: String, CustomStringConvertible, Equatable {
     case src, style, className, alt, width, height, tabindex //, custom(String)
     
     public var description: String { self.rawValue }
