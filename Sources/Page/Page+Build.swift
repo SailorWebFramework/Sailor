@@ -15,7 +15,7 @@ extension Page {
         // TODO: virtualDOM.append(DOMNode())
         var domNode = DOMNode(
             page: self, 
-            element: nil, // nil
+            element: parent, // nil
             attributes: self.attributes, // [:]
             parent: virtualDOM
         )

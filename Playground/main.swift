@@ -28,6 +28,15 @@ struct TestPage: Page {
 
     var body: some Page {
         Div {
+
+            if hello == 5 {
+                Div("Yo")
+            } else {
+                Div("Yo")
+                Div("Yo")
+                Div("Yo")
+
+            }
             Span("Yo Whats UP!! \(hello)")
                 // TODO: make this better somehow?
                 // .attribute(.tabindex(.int(0))) // probably this

@@ -33,8 +33,6 @@ public struct Style: AttributeValue {
         for property in keysSorted {
             output += "\(property.name): \(property.value);"
         }
-
-        print("STYLING VALUE")
         
         return output
     }

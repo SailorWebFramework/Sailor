@@ -25,49 +25,51 @@ extension App {
         // App.forceUpdate()
 
         func diff(page: any Page, domNode: DOMNode) {
-            // somehow this updates page
-            let comparison = domNode.compareOuter(to: page) //domNode.compare(to: page)
-            // let comparison = domNode.compareInner(to: page) //domNode.compare(to: page)
+            // somehow this may update page so stored value?
+            let comparison = domNode.compareOuter(to: page) // domNode.compare(to: page)
 
+            // debug prints, remove these prints eventually 
             print(type(of: page), type(of: domNode.page))
             print("COMPARING: ", comparison)
-            
+            print("attribtues: ", domNode.attributes, page.attributes)
+
             if let dompage = domNode.page as? any HTMLElement,
                let page = page as? any HTMLElement {
                 print("content: ", dompage.content, page.content)
-                print("attribtues: ", dompage.attributes, page.attributes)
-                print("children: ", dompage.children, page.children)
             }
 
             // check comparison
             if !comparison {
-                print("REPLACING ^ above:")
+                // replace element if it is not the same
                 domNode.replace(page)
-
-                // if let page = page as? any HTMLElement {
-                //     // TODO: better match to node 
-                //     var index = 0
-                //     while page.children.count > index && domNode.children.count > index {
-                //         diff(page: page.children[index], domNode: domNode.children[index])
-                //         index += 1
-                //     }
-
-                //     if page.children.count == 0 {
-                //         domNode.replace(page)
-                //     }
-                // }
+                print("REPLACING ^ above:")
             } 
-            // else {
-                // print("CHILDREN:", domNode.children.count)
 
+            // TODO: Deal with deletions and additions not just modifications
             if let page = page as? any HTMLElement {
-
+                // Self.match(to: page,  parent: domNode)
                 var index = 0
                 while page.children.count > index && domNode.children.count > index {
                     diff(page: page.children[index], domNode: domNode.children[index])
                     index += 1
                 }
+
                 // TODO: tailcase
+                // add extra elements
+                // if page.children.count > domNode.children.count {
+                //     for i in domNode.children.count..<page.children.count {
+                //         // TODO: build the new page, remove parent
+                //         page.build(parent: domNode.element, virtualDOM: domNode)
+                        
+                //     }
+                // }
+
+                // // remove extra elements
+                if page.children.count < domNode.children.count {
+                    for i in page.children.count..<domNode.children.count {
+                        domNode.children[i].remove()
+                    }
+                }
 
             } else {    
                 // TODO: maybe replace with .first cuz should only be one child
@@ -75,7 +77,6 @@ extension App {
                     diff(page: page.body, domNode: child)
                 }
             }
-            // }
 
         }
 
