@@ -11,18 +11,25 @@ import JavaScriptKit
 extension Page {
     public var description: String { body.description }
 
-    public func build(parent: JSValue, virtualDOM: DOMNode) {
-        // TODO: virtualDOM.append(DOMNode())
-        var domNode = DOMNode(
+    public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+        if let domNode = domNode {
+            domNode.page = self
+            domNode.element = parentNode.element
+            domNode.attributes = self.attributes
+            domNode.parent = parentNode
+            body.build(parentNode: domNode)
+            return
+        }
+        let newdNode = DOMNode(
             page: self, 
-            element: parent, // nil
+            element: parentNode.element, // nil
             attributes: self.attributes, // [:]
-            parent: virtualDOM
+            parent: parentNode
         )
 
-        virtualDOM.append(domNode)
+        parentNode.append(newdNode)
+        body.build(parentNode: newdNode)
 
-        body.build(parent: parent, virtualDOM: domNode)
     }
     
     public func attribute(_ type: Attribute, value: some AttributeValue) -> Self {

@@ -42,15 +42,9 @@ public final class App {
         // build pages
         // TODO: not this? abstract body away?
         Self.virtualDOM = DOMNode(page: Body(), element: App.document.body)
-        // Self.states = []
-
-        // print("B4:", Self.states)
-
         if let root = Self.root {
-            root.build(parent: App.document.body, virtualDOM: Self.virtualDOM)
+            root.build(parentNode: Self.virtualDOM)
         }
-
-        // print("AFTER:", Self.states)
         
         // TODO: build css files
 

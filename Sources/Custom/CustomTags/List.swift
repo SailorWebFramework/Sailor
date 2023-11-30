@@ -36,16 +36,16 @@ public struct List: HTMLElement {
         self.children = children
         self.content = ""
         // TODO: make an empty node?
-        self.element = App.document.createElement("div")
+        self.element = App.document.createElement("div") // not real html element
         self.attributes = .init()
 
     }
     
-    public func build(parent: JSValue, virtualDOM: DOMNode) {
-        // loop over children component if any
-        for child in children {
-            child.build(parent: parent, virtualDOM: virtualDOM)
-        }
+    // public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+    //     // loop over children component if any
+    //     for child in children {
+    //         child.build(parentNode: parentNode)
+    //     }
 
-    }
+    // }
 }
