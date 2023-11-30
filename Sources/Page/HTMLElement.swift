@@ -9,15 +9,13 @@ import Foundation
 import JavaScriptKit
 
 protocol HTMLElement: Page {
+    // TODO: either keep (prob just keep element), domNode, tagName, or children
     var element: JSValue { get set }
     // var domNode: DOMNode { get set }
-    var tagName: String { get }
+    var tagName: String { get } 
     var children: [any Page] { get set }
     var content: String { get set }
 
-    // func updateInner(domNode: DOMNode)
-    // func updateAttributes(domNode: DOMNode)
-    // func remove(domNode: DOMNode)
 }
 
 extension HTMLElement {
@@ -25,33 +23,43 @@ extension HTMLElement {
     public var description: String { "TODO" }
 
     // TODO: just pass in parentNode and no parent
-    public func build(parent: JSValue, virtualDOM: DOMNode) {
-        var curElement = self.element
+    public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+        let newdNode = domNode == nil ? DOMNode(
+            page: self, 
+            element: self.element, //App.document.createElement(self.tagName), 
+            parent: parentNode
+        ) : domNode! // force unwrappping but should be fine?
 
-        let domNode = DOMNode(page: self, element: self.element, parent: virtualDOM)
-
+        // let newdNode = DOMNode(
+        //     page: self, 
+        //     element: self.element, //App.document.createElement(self.tagName), 
+        //     parent: parentNode
+        // ) 
         // add content
-        domNode.content = self.content
+        newdNode.content = self.content
 
         if !self.content.isEmpty {
-            curElement.textContent = JSValue.string(self.content)
+            newdNode.element?.textContent = JSValue.string(self.content)
         }
 
         // add attributes
-        domNode.attributes = self.attributes
+        newdNode.attributes = self.attributes
 
         for (key, value) in self.attributes {
-            _ = curElement.setAttribute(key.description, value.description)
+            _ = newdNode.element?.setAttribute(key.description, value.description)
         }
 
         // add children
         for (_, child) in children.enumerated() {
-            child.build(parent: curElement, virtualDOM: domNode)
+            child.build(parentNode: newdNode)
         }
 
         // add to DOM
-        _ = parent.appendChild(curElement)
-        virtualDOM.append(domNode)
+        _ = parentNode.element?.appendChild(self.element)
+
+        if domNode == nil {
+            parentNode.append(newdNode)
+        }
     }
     
 }

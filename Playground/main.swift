@@ -28,44 +28,49 @@ struct TestPage: Page {
 
     var body: some Page {
         Div {
+            Div("HEYO")
 
-            if hello == 5 {
-                Div("Yo")
-            } else {
-                Div("Yo")
-                Div("Yo")
-                Div("Yo")
+            // Div("HEYO")
 
-            }
-            Span("Yo Whats UP!! \(hello)")
-                // TODO: make this better somehow?
-                // .attribute(.tabindex(.int(0))) // probably this
-                .attribute(.tabindex, value: Unit.Dimention.int(0))
+            // Div("HEYO \(hello)")
 
-                .onKeyDown { char in
-                    print("pressed: \(char)")
-                }
+            // Div("HEYO \(hello+1)")
+            // Div("HEYO \(hello+2)")
+            // Div("HEYO \(hello+3)")
 
-                .onClick {
-                    print("clicked whats up:")
-                }
+            // if hello == 5 {
+            //     Div("Yo")
+            // }
+
+            // Span("Yo Whats UP!! \(hello)")
+            //     // TODO: make this better somehow?
+            //     // .attribute(.tabindex(.int(0))) // probably this
+            //     .attribute(.tabindex, value: Unit.Dimention.int(0))
+
+            //     .onKeyDown { char in
+            //         print("pressed: \(char)")
+            //     }
+
+            //     .onClick {
+            //         print("clicked whats up:")
+            //     }
             
-            // @Route(name: "#hello")
-            Button("HI: \(thing)")
-                .style(
-                    .backgroundColor(bgc),
-                    .width(.px(100))
-                )
-                .onClick {
-                    print("YO")
-                    self.hello += 1
-                }
+            // // @Route(name: "#hello")
+            // Button("HI: \(thing)")
+            //     .style(
+            //         .backgroundColor(bgc),
+            //         .width(.px(100))
+            //     )
+            //     .onClick {
+            //         print("YO")
+            //         self.hello += 1
+            //     }
             
 
-            Input($thing)
-                .onBlur {
-                    print("BLURRED: thing")
-                }
+            // Input($thing)
+            //     .onBlur {
+            //         print("BLURRED: thing")
+            //     }
             // InnerPage(hello: $hello)
             //     .onBlur {
             //         print("blur inner")

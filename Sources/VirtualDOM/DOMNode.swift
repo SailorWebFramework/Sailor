@@ -1,28 +1,17 @@
 
 import JavaScriptKit
 
-//{
-//   name: TestPage
-//   content: ""
-//   states: [0, 1, 2, 3] // opt: states can only be passed down not up
-//   attributes: ["src": hello", "width": 10]
-//   body: { name: Div, content: "hello world", body: {} }
-//
-//
-//}
+//TODO: I think i should put list as a DOMNODE for optimization purposes
 public class DOMNode {
     public var content: String
     public var attributes: Attributes
-    public var children: [DOMNode] // rename to children
+    public var children: [DOMNode]
     public var parent: DOMNode?
-    public var page: any Page // TODO: somehow make this HTMLElement? right now im just casting
+    public var page: any Page 
 
     // once you do this build, remove and update can just pass around DOMNode
     // also maybe remove element from page and only keep in DOMNode
     public var element: JSValue?
-    // {
-    //     ((self.page as? HTMLElement).element)
-    // }
 
     init(page: any Page, element: JSValue? = nil, content: String = "", attributes: Attributes = [:], children: [DOMNode] = [], parent: DOMNode? = nil) {
         self.page = page
@@ -35,7 +24,6 @@ public class DOMNode {
 
     func updateAttributes(attributes: Attributes? = nil) {
         // TODO: make this more effieciet and diff the attributes
-
         // copy and update? seems weird
         if var htmlPageCopy = self.page as? any HTMLElement, attributes != nil {
             if let attributes = attributes {
@@ -66,7 +54,9 @@ public class DOMNode {
 
     func updateInner(content: String? = nil, children: [any Page]? = nil) {
         // TODO: double check logic
-        
+
+        print("UPDATING \(type(of: self.page))")
+
         // Unsafe but probably fine
         if var htmlPageCopy = self.page as? any HTMLElement, children != nil || content != nil {
             if let children = children {
@@ -88,21 +78,20 @@ public class DOMNode {
         }
 
         // add content
-        self.content = page.content
-
-        if !self.content.isEmpty {
+        if self.content != page.content {
+            self.content = page.content
             element.textContent = JSValue.string(self.content)
         }
 
         // remove all old children
-        // for child in self.children {
-        //     child.remove()
-        // }
+        for child in self.children {
+            child.remove()
+        }
 
         // add new children
-        // for child in page.children {
-        //     child.build(parent: element, virtualDOM: parent)
-        // }
+        for child in page.children {
+            child.build(parentNode: parent)
+        }
     }
 
     func append(_ domNode: DOMNode) {
@@ -124,6 +113,38 @@ public class DOMNode {
             element.printTree()
         }
 
+    }
+
+    func removePageFromDOM(_ node: DOMNode) {
+        if let page = node.page as? any HTMLElement {
+            print("REMOVING \(type(of: node.page))")
+
+            if !(page is List) {
+                _ = element?.remove()
+            }
+
+
+        }
+
+        for child in children {
+            removePageFromDOM(child)
+        }
+
+        // if let page = page as? List {
+        //     for child in page.children {
+        //         removePageFromDOM(child)
+        //     }
+
+        // } else if let page = page as? any HTMLElement {
+        //     print("REMOVING \(type(of: self.page))")
+        //     _ = element?.remove()
+        //     for child in page.children {
+        //         removePageFromDOM(child)
+        //     }
+
+        // } else {
+        //     removePageFromDOM(page.body)
+        // }
     }
 
 
@@ -148,24 +169,24 @@ public class DOMNode {
             }
         } else {
             print("REMOVING AND REPLACING")
-            // if old page is html and new page is not
-            // if old is and new is
-            // if old isnt but new is
 
-            if var element = self.element {
-                _ = element.remove()
-            }
+            // remove old html elements
+            self.removePageFromDOM(self)
+            
+            // remove children
+            self.children = []
 
+            // make a new page on this domnode
             self.page = page
-
-            if let newElement = (self.page as? any HTMLElement)?.element {
-                self.element = newElement
-            } else {
-                self.element = nil
+            
+            // rebuild this new page (should never fail? only optional for Body())
+            if let parent = self.parent {
+                self.page.build(parentNode: parent, domNode: self)
             }
 
-            self.updateAttributes()
-            self.updateInner()
+            // build appends to parent again
+            // self.parent?.children.removeLast()
+
         }
     }
 
@@ -173,7 +194,9 @@ public class DOMNode {
         //TODO: may have to recursivly call this on all children
         guard var element = self.element else { return }
 
-        _ = element.remove()
+        if self.page is any HTMLElement {
+            _ = element.remove()
+        }
         
         print("trying to remove from parent")
         if let parent = self.parent {
@@ -187,6 +210,8 @@ public class DOMNode {
 
     }
 
+
+    // TODO: these meathods feel weird / pointless
     func compareOuter(to page: any Page) -> Bool {
         return self.page.outerEquals(to: page)
     }
