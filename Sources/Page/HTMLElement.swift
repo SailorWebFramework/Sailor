@@ -23,18 +23,13 @@ extension HTMLElement {
     public var description: String { "TODO" }
 
     // TODO: just pass in parentNode and no parent
-    public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+    public func build(parentNode: DOMNode, domNode: DOMNode?) {
         let newdNode = domNode == nil ? DOMNode(
             page: self, 
             element: self.element, //App.document.createElement(self.tagName), 
             parent: parentNode
         ) : domNode! // force unwrappping but should be fine?
 
-        // let newdNode = DOMNode(
-        //     page: self, 
-        //     element: self.element, //App.document.createElement(self.tagName), 
-        //     parent: parentNode
-        // ) 
         // add content
         newdNode.content = self.content
 

@@ -16,6 +16,7 @@ public protocol Page: Hashable, Equatable, CustomStringConvertible {
     // TODO: remove attributes and only have in HTMLElement
     var attributes: Attributes { get set }
     
+    func build(parentNode: DOMNode)
     func build(parentNode: DOMNode, domNode: DOMNode?)
     func outerEquals(to page: any Page) -> Bool 
     //func innerEquals(to page: any Page)

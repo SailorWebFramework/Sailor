@@ -7,9 +7,7 @@
 
 import JavaScriptKit
 
-extension String: AttributeValue {
-    // public func render() -> String { self }
-}
+extension String: AttributeValue { }
 
 extension String: Page {
     // TODO: find a way for literals to work with attributes? maybe a global store
@@ -22,18 +20,19 @@ extension String: Page {
     
     public var body: some Page { self }
     
-    public func build(parent: JSValue, virtualDOM: DOMNode) {
-        // TODO: Make \n \t work as expected by adding break tags and tab as expected
-        // TODO: find a way for literals to work with style & attrubutes?
+    // TODO: remake
+    // public func build(parent: JSValue, virtualDOM: DOMNode) {
+    //     // TODO: Make \n \t work as expected by adding break tags and tab as expected
+    //     // TODO: find a way for literals to work with style & attrubutes?
         
-        var curElement = App.document.createElement("p")
+    //     var curElement = App.document.createElement("p")
 
-        // add content
-        if !self.isEmpty {
-            curElement.textContent = JSValue.string(self)
-        }
+    //     // add content
+    //     if !self.isEmpty {
+    //         curElement.textContent = JSValue.string(self)
+    //     }
         
-        _ = parent.appendChild(curElement)
+    //     _ = parent.appendChild(curElement)
 
-    }
+    // }
 }

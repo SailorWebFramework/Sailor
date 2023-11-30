@@ -28,7 +28,7 @@ struct TestPage: Page {
 
     var body: some Page {
         Div {
-            Div("HEYO")
+            // Div("HEYO")
 
             // Div("HEYO")
 
@@ -55,7 +55,7 @@ struct TestPage: Page {
             //         print("clicked whats up:")
             //     }
             
-            // // @Route(name: "#hello")
+            // @Route(name: "#hello")
             // Button("HI: \(thing)")
             //     .style(
             //         .backgroundColor(bgc),
@@ -79,21 +79,21 @@ struct TestPage: Page {
             //         print("pressed inner")
             //     }
 
-            // Div {
-            //     Div("my string is: \(Double(hello) * 1.5)")
-            // }
-            // .style(
-            //     .backgroundColor(bgc),
-            //     .width(.px(100))
-            // )
-            // .onMouseOver {
-            //     print("OVER HERE")
-            //     self.bgc = .rgb(200,0,0)
-            // }
-            // .onMouseOut {
-            //     print("OUT HERE")
-            //     self.bgc = .rgb(0,200,0)
-            // }
+            Div {
+                Div("my string is: \(Double(hello) * 1.5)")
+            }
+            .style(
+                .backgroundColor(bgc),
+                .width(.px(100))
+            )
+            .onMouseOver {
+                print("OVER HERE")
+                self.bgc = .rgb(200,0,0)
+            }
+            .onMouseOut {
+                print("OUT HERE")
+                self.bgc = .rgb(0,200,0)
+            }
         }
         // TODO: allow for css files 
         // .style(

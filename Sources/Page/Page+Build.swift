@@ -11,7 +11,11 @@ import JavaScriptKit
 extension Page {
     public var description: String { body.description }
 
-    public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+    public func build(parentNode: DOMNode) {
+        self.build(parentNode: parentNode, domNode: nil)
+    }
+
+    public func build(parentNode: DOMNode, domNode: DOMNode?) {
         if let domNode = domNode {
             domNode.page = self
             domNode.element = parentNode.element
