@@ -19,6 +19,7 @@ public protocol Page: Hashable, Equatable, CustomStringConvertible {
     func build(parentNode: DOMNode)
     func build(parentNode: DOMNode, domNode: DOMNode?)
     func outerEquals(to page: any Page) -> Bool 
+    func equals(to page: any Page) -> Bool
     //func innerEquals(to page: any Page)
 
     // Events

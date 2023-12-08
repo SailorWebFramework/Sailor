@@ -18,7 +18,33 @@ struct InnerPage: Page {
     
 }
 
-// @Route(name: "home")
+//@StaticHTML
+//@NoAttributes
+//@main
+//struct Test2Page: Page {
+//    var attributes: Attributes = [:]
+//
+//    @Binding var hello: Int
+//
+//    var body: some Page {
+//        Div {
+////            @Route(name: "home")
+//            InnerPage(hello: self._hello)
+//
+////            @Route(name: "testroute")
+//            Div("Yo Whats UP!! Im \(hello) years old")
+//
+////            @Route(name: "thirdRoute")
+//            Div("Press me anywhere")
+//        }
+//        .style(
+//            .backgroundColor(.rgb(200, 0, 0)),
+//            .display(.inlineBlock)
+//        )
+//    }
+//
+//}
+
 struct TestPage: Page {
     var attributes: Attributes = [:]
 
@@ -28,56 +54,60 @@ struct TestPage: Page {
 
     var body: some Page {
         Div {
-            // Div("HEYO")
+            Div("HEYO")
+            Div("TEST")
+            
+            List([
+                Div("HEYO \(hello)"),
+                Div("HEYO \(hello+1)"),
+                Div("HEYO \(hello+2)"),
+                Div("HEYO \(hello+3)")
+            ])
 
-            // Div("HEYO")
+            if hello > 1 && hello < 10 {
+                Div("Yo")
+                Div("Yo")
+                Div("Yo")
+            } else {
+                Div("hey")
+            }
 
-            // Div("HEYO \(hello)")
+            Span("Yo Whats UP!! \(hello)")
+                // TODO: make this better somehow?
+                // .attribute(.tabindex(.int(0))) // probably this
+                .attribute(.tabindex, value: Unit.Dimention.int(0))
 
-            // Div("HEYO \(hello+1)")
-            // Div("HEYO \(hello+2)")
-            // Div("HEYO \(hello+3)")
+                .onKeyDown { char in
+                    print("pressed: \(char)")
+                }
 
-            // if hello == 5 {
-            //     Div("Yo")
-            // }
-
-            // Span("Yo Whats UP!! \(hello)")
-            //     // TODO: make this better somehow?
-            //     // .attribute(.tabindex(.int(0))) // probably this
-            //     .attribute(.tabindex, value: Unit.Dimention.int(0))
-
-            //     .onKeyDown { char in
-            //         print("pressed: \(char)")
-            //     }
-
-            //     .onClick {
-            //         print("clicked whats up:")
-            //     }
+                .onClick {
+                    print("clicked whats up:")
+                }
             
             // @Route(name: "#hello")
-            // Button("HI: \(thing)")
-            //     .style(
-            //         .backgroundColor(bgc),
-            //         .width(.px(100))
-            //     )
-            //     .onClick {
-            //         print("YO")
-            //         self.hello += 1
-            //     }
+            Button("HI: \(thing)")
+                .style(
+                    .backgroundColor(bgc),
+                    .width(.px(100))
+                )
+                .onClick {
+                    print("YO")
+                    self.hello += 1
+                }
             
 
-            // Input($thing)
-            //     .onBlur {
-            //         print("BLURRED: thing")
-            //     }
-            // InnerPage(hello: $hello)
-            //     .onBlur {
-            //         print("blur inner")
-            //     }
-            //     .onClick {
-            //         print("pressed inner")
-            //     }
+            Input($thing)
+                .onBlur {
+                    print("BLURRED: thing")
+                }
+            InnerPage(hello: $hello)
+                .onBlur {
+                    print("blur inner")
+                }
+                .onClick {
+                    print("pressed inner")
+                }
 
             Div {
                 Div("my string is: \(Double(hello) * 1.5)")
