@@ -98,36 +98,39 @@ public class DOMNode {
         self.children.append(domNode)
     }
 
-    func printTree() {
-        if let htmlPage = self.page as? any HTMLElement {
-            print("HTML:\(type(of: self.page))")
+    func printTree(_ tabAmt: Int = 0) {
+        if self.page is any HTMLElement {
+            print(("\t" * tabAmt) + "HTMLE:\(type(of: self.page))")
         } else {
-            print("Type:\(type(of: self.page))")
+            print(("\t" * tabAmt) + "Type:\(type(of: self.page))")
         }
-        print("Content: \(self.content)")
-        print("Attributes: \(self.attributes)")
-
-        print("Body:")
+        print(("\t" * tabAmt) + "Content: \(self.content)")
+        print(("\t" * tabAmt) + "Attributes: \(self.attributes)")
+        print(("\t" * tabAmt) + "Body:")
 
         for element in children {
-            element.printTree()
+            element.printTree(tabAmt + 1)
         }
 
     }
 
-    func removePageFromDOM(_ node: DOMNode) {
-        if let page = node.page as? any HTMLElement {
-            print("REMOVING \(type(of: node.page))")
+    func remove() {
+        self.removePageFromDOM()
+        self.parent?.children.removeAll { $0 === self }
+    }
+
+    func removePageFromDOM() {
+        if let page = self.page as? any HTMLElement {
+            print("REMOVING \(type(of: self.page))")
 
             if !(page is List) {
                 _ = element?.remove()
             }
 
-
         }
 
         for child in children {
-            removePageFromDOM(child)
+            child.removePageFromDOM()
         }
 
         // if let page = page as? List {
@@ -148,30 +151,33 @@ public class DOMNode {
     }
 
 
+    // replace current page with new page
     func replace(_ page: any Page) {
         // TODO: replace tag with another
         // TODO: edit if its not an HTMLElement
 
         if type(of: page) == type(of: self.page) {
-            if !(page == self.page) {
 
-                if !(page.attributes == self.page.attributes) {
-                    print("UPDATING ATTRIBUTES")
-                    self.updateAttributes(attributes: page.attributes)
-                }
-                
-                if !(page == self.page), let htmlPage = page as? any HTMLElement {
-                    print("UPDATING updateInner")
-                    self.updateInner(content: htmlPage.content, children: htmlPage.children)
-                } else {
-                    print("UPDATING page element, i dont think possible")
-                }
+            // update attributes
+            if !(page.attributes == self.page.attributes) {
+                print("UPDATING ATTRIBUTES")
+                self.updateAttributes(attributes: page.attributes)
             }
+
+            // update content and children
+            if !(self.page.equals(to: page)), 
+               let content = (page as? any HTMLElement)?.content,
+               let children = (page as? any HTMLElement)?.children 
+            {
+                print("UPDATING Content/Children")
+                self.updateInner(content: content, children: children)
+            } 
+            
         } else {
             print("REMOVING AND REPLACING")
 
             // remove old html elements
-            self.removePageFromDOM(self)
+            self.removePageFromDOM()
             
             // remove children
             self.children = []
@@ -183,32 +189,29 @@ public class DOMNode {
             if let parent = self.parent {
                 self.page.build(parentNode: parent, domNode: self)
             }
-
-            // build appends to parent again
-            // self.parent?.children.removeLast()
-
+            
         }
     }
 
-    public func remove() {
-        //TODO: may have to recursivly call this on all children
-        guard var element = self.element else { return }
+    // public func remove() {
+    //     //TODO: may have to recursivly call this on all children
+    //     guard var element = self.element else { return }
 
-        if self.page is any HTMLElement {
-            _ = element.remove()
-        }
+    //     if self.page is any HTMLElement {
+    //         _ = element.remove()
+    //     }
         
-        print("trying to remove from parent")
-        if let parent = self.parent {
-            print("removing:", parent.children.count)
-            parent.children.removeAll { $0 === self }
-            print("after:", parent.children.count)
+    //     print("trying to remove from parent")
+    //     if let parent = self.parent {
+    //         print("removing:", parent.children.count)
+    //         parent.children.removeAll { $0 === self }
+    //         print("after:", parent.children.count)
 
-        }
+    //     }
 
-        // TODO: Free page in memory
+    //     // TODO: Free page in memory
 
-    }
+    // }
 
 
     // TODO: these meathods feel weird / pointless

@@ -44,6 +44,23 @@ extension Page {
 }
 
 extension Page {
+
+    public func equals(to page: any Page) -> Bool {
+        if page is any HTMLElement {
+            print("IAM HTML ELEMENT")
+            return false
+        }
+        if !outerEquals(to: page) {
+            return false
+        }
+
+        if !self.body.equals(to: page.body) {
+            return false
+        }
+
+        return true
+    }
+
     public func outerEquals(to page: any Page) -> Bool {
         if type(of: self) == type(of: page) {
             return page.attributes == self.attributes

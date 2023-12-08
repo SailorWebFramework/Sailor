@@ -71,6 +71,28 @@ extension HTMLElement {
 }
 
 extension HTMLElement {
+    
+    public func equals(to page: any Page) -> Bool {
+        if !outerEquals(to: page) {
+            return false
+        }
+
+        guard let otherpage = page as? any HTMLElement else {
+            return false
+        }
+
+        if otherpage.children.count != self.children.count {
+            return false
+        }
+
+        for (i, child) in children.enumerated() {
+            if !child.equals(to: otherpage.children[i]) {
+                return false
+            }
+        }
+
+        return true
+    }
 
     // TODO: maybe this shouldnt test content because thats techinically inner?
     public func outerEquals(to page: any Page) -> Bool {
@@ -88,3 +110,13 @@ extension HTMLElement {
         return false
     }
 }
+
+
+// extension HTMLElement {
+//     public func attribute(_ type: Attribute, value: some AttributeValue) -> Self {
+//         var copy = self
+//         domNode.attributes[type] = value
+//         copy.attributes[type] = value
+//         return copy
+//     }
+// }

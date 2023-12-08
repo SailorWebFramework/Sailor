@@ -13,6 +13,15 @@ public func ==(lhs: any Page, rhs: any Page) -> Bool {
 
 //MARK- Equatable, Hashable
 extension Page {
+
+    // public static func ==(lhs: any Page, rhs: any Page) -> Bool {
+    //     lhs.equals(to: rhs)
+    // }
+
+    // public static func !=(lhs: any Page, rhs: any Page) -> Bool {
+    //     !lhs.equals(to: rhs)
+    // }
+
     public static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
@@ -23,5 +32,6 @@ extension Page {
             hasher.combine(key)
             hasher.combine(value)
         }
+
     }
 }

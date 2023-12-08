@@ -21,7 +21,7 @@ public struct List: HTMLElement {
     var content: String
     var element: JSValue
     var tagName: String {
-        "List"
+        "div"
     }
 
     public var body: some Page {
@@ -42,9 +42,19 @@ public struct List: HTMLElement {
     }
     
     // public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
+    //     let newdNode = domNode == nil ? DOMNode(
+    //         page: self, 
+    //         element: self.element,
+    //         parent: parentNode
+    //     ) : domNode! // force unwrappping but should be fine?
+
     //     // loop over children component if any
     //     for child in children {
-    //         child.build(parentNode: parentNode)
+    //         child.build(parentNode: newdNode)
+    //     }
+
+    //     if domNode == nil {
+    //         parentNode.append(newdNode)
     //     }
 
     // }

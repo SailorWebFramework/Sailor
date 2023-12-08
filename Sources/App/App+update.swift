@@ -28,12 +28,12 @@ extension App {
 
     static func diff(page: any Page, domNode: DOMNode) {
         // hide list while diffing, go into its children
-        if let page = page as? List {
-            for child in page.children {
-                diff(page: child, domNode: domNode)   
-            }
-            return
-        }
+        // if let page = page as? List {
+        //     for child in page.children {
+        //         diff(page: child, domNode: domNode)   
+        //     }
+        //     return
+        // }
 
         // somehow this may update page so stored value?
         let comparison = domNode.compareOuter(to: page) // domNode.compare(to: page)
@@ -110,7 +110,6 @@ extension App {
                 // }
 
                 pageQueue.append(page.children[pindex])
-
                 pindex += 1
 
             }
