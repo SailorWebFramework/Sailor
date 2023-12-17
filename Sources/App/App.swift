@@ -23,7 +23,7 @@ public final class App {
     internal static var states: [Any] = []
 
     internal static var root: (any Page)? = nil
-    internal static var virtualDOM: DOMNode = DOMNode(page: Body(), element: App.document.body)
+    internal static var virtualDOM: DOMNode? = nil
 
     public static func initialize(root: any Page) {
         Self.root = root
@@ -40,10 +40,14 @@ public final class App {
     
     public static func build() {
         // build pages
-        // TODO: not this? abstract body away?
+        // TODO: not this? abstract body away? also is tagName neccisary if page copy is there. 
+        // Does page copy need to be there?
         Self.virtualDOM = DOMNode(page: Body(), element: App.document.body)
-        if let root = Self.root {
-            root.build(parentNode: Self.virtualDOM)
+        
+        if let root = Self.root,
+           let virtualDOM = Self.virtualDOM
+        {
+            root.build(parentNode: virtualDOM)
         }
         
         // TODO: build css files

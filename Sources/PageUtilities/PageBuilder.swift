@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol Pageable { }
-
+//protocol Pageable { }
 
 // TODO: divs can only take in a List now
 // TODO: if array is entered locked into array, if single locked in to single
@@ -19,35 +18,27 @@ public struct PageBuilder {
         return List(children)
     }
     
-//    static func buildOptional(_ component: (any Page)?) -> any Page {
-//        if let component = component { return component }
-//        return Nothing()
-//    }
-//
-//    static func buildEither(first component: any Page) -> any Page {
-//        return component
-//    }
-//
-//    static func buildEither(second component: any Page) -> any Page {
-//        return component
-//    }
-    
-    // TODO: should this be removed , currently use List instead
-//    public static func buildBlock(_ children: [any Page]...) -> any Page {
-//        return List(children.flatMap { $0 })
-//    }
-//    
-
     public static func buildOptional(_ component: List?) -> List {
         if let component = component { return component }
         return List()
     }
-
+    
+    // TODO: make it so if there is one element in the List than it doesnt implicitly wrap in a div
     public static func buildEither(first component: List) -> List {
+//        if component.children.count == 1,
+//           let first = component.children.first
+//        {
+//            return first
+//        }
         return component
     }
 
     public static func buildEither(second component: List) -> List {
+//        if component.children.count == 1,
+//           let first = component.children.first
+//        {
+//            return first
+//        }
         return component
     }
     
