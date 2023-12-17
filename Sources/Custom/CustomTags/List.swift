@@ -13,20 +13,19 @@ import JavaScriptKit
 
 // TODO: make new file and consider changing name to avoid SwiftUI collision?
 // TODO: maybe override init for OL element and use it like this?
+
+// TODO: remove list and just use Div?
 public struct List: HTMLElement {
 
-    public var attributes: Attributes
-
+    var attributes: Attributes
+    var events: Events
     var children: [any Page]
     var content: String
-    var element: JSValue
-    var tagName: String {
-        "div"
-    }
+    
+    // TODO: name this something else? error?
+    var name: String { "div" }
 
-    public var body: some Page {
-        return self
-    }
+    public var body: some Page { self }
     
     public init() {
         self.init([])
@@ -35,27 +34,25 @@ public struct List: HTMLElement {
     public init(_ children: [any Page]) {
         self.children = children
         self.content = ""
-        // TODO: make an empty node?
-        self.element = App.document.createElement("div") // not real html element
+        self.events = [:]
         self.attributes = .init()
 
     }
     
-    // public func build(parentNode: DOMNode, domNode: DOMNode? = nil) {
-    //     let newdNode = domNode == nil ? DOMNode(
-    //         page: self, 
-    //         element: self.element,
-    //         parent: parentNode
-    //     ) : domNode! // force unwrappping but should be fine?
-
-    //     // loop over children component if any
-    //     for child in children {
-    //         child.build(parentNode: newdNode)
-    //     }
-
-    //     if domNode == nil {
-    //         parentNode.append(newdNode)
-    //     }
-
-    // }
+    // TODO: annoying i have to update this custom
+//    public func build(parentNode: DOMNode) {
+//        let domNode = DOMNode(
+//            page: self,
+//            // TODO: this is maybe fine but element for a page element is its parent
+//            element: parentNode.element,
+//            parent: parentNode
+//        )
+//
+//        parentNode.append(domNode)
+//
+//        for child in self.children {
+//            child.build(parentNode: domNode)
+//        }
+//
+//    }
 }

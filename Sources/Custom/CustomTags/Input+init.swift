@@ -13,20 +13,30 @@ extension Input {
     public init(_ input: Binding<String>) {
         self.init()
         
-        self.element.value = JSValue.string(input.get())
+        // self.element.value = JSValue.string(input.get())
 
-        _ = self.element.addEventListener(
-            "input",
-            JSClosure { event in
-                guard let target = event.first?.target.value.string else {
-                    return .undefined
-                }
-                
-                input.set(target)
-                
+        self.attributes[.value] = input.get()
+        self.events["input"] = JSClosure { event in
+            guard let target = event.first?.target.value.string else {
                 return .undefined
             }
-        )
+            
+            input.set(target)
+            
+            return .undefined
+        }
+        // _ = self.element.addEventListener(
+        //     "input",
+        //     JSClosure { event in
+        //         guard let target = event.first?.target.value.string else {
+        //             return .undefined
+        //         }
+                
+        //         input.set(target)
+                
+        //         return .undefined
+        //     }
+        // )
     }
 }
 
