@@ -15,21 +15,21 @@ public struct H6: HTMLElement {
         return self
     }
     
-    public var attributes: Attributes
+    var name: String {
+        "h6"
+    }
+
+    var attributes: Attributes
+    var events: [String: JSClosure]
 
     var children: [any Page]
     var content: String
-    var tagName: String {
-        "h6"
-    }
-    
-    var element: JSValue
 
-    private init(children: [any Page], content: String) {
-        self.element = App.document.createElement("h6")
+    private init(children: [any Page], content: String) {          
         self.children = children
         self.content = content
         self.attributes = .init()
+        self.events = [:]
     }
 
     public init() {

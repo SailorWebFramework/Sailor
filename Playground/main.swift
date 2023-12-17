@@ -7,16 +7,33 @@ struct InnerPage: Page {
 
     var body: some Page {
         Div {
-            Div("Yo Whats UP!! Im \(hello) years old")
-            Div("Press me anywhere")
+            Div {
+                Div("Yo Whats UP!! Im \(hello) years old")
+                Div("Press me anywhere")
+                
+                Div("Press me anywhere")
+                Div {
+                    Div("Yo Whats UP!! Im \(hello) years old")
+                    Div("Press me anywhere")
+                    
+                    Div("Press me anywhere")
+
+                }
+                .style(
+                    .backgroundColor(.rgb(0, 200, 0)),
+                    .display(.inlineBlock)
+                )
+            }
+            .style(
+                .backgroundColor(.rgb(200, 0, 0)),
+                .display(.inlineBlock)
+            )
         }
-        .style(
-            .backgroundColor(.rgb(200, 0, 0)),
-            .display(.inlineBlock)
-        )
     }
     
 }
+
+
 
 //@StaticHTML
 //@NoAttributes
@@ -50,7 +67,7 @@ struct TestPage: Page {
 
     @State var hello = 0
     @State var bgc: Unit.Color = .rgb(0,0,200)
-    @State var thing: String = ""
+    @State var thing: String = "HEY PLACEHOLDER"
 
     var body: some Page {
         Div {
@@ -132,6 +149,35 @@ struct TestPage: Page {
     }
 }
 
+struct TestTwoPage: Page {
+    
+    @State var hello: Int = 0
+    @State var inputstring: String = "Starting"
+
+    var body: some Page {
+        Div {
+            Div("Im \(hello) years old")
+            Div("Im \(hello) years old")
+            if hello > 5 && hello < 10 {
+                Div("Im \(hello) years old")
+                Div("Im \(hello) years old")
+            } else {
+                Input($inputstring)
+            }
+            
+            Input($inputstring)
+
+            Button("Press me anywhere")
+                .style(
+                    .backgroundColor(.rgb(0, 200, 0))
+            )
+            .onClick {
+                hello += 1
+            }
+       }
+   }
+
+}
 
 App.initialize(root: TestPage())
 App.build()

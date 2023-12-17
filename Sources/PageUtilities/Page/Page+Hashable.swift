@@ -28,10 +28,10 @@ extension Page {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(body)
-        for (key, value) in attributes {
-            hasher.combine(key)
-            hasher.combine(value)
-        }
+        // for (key, value) in attributes {
+        //     hasher.combine(key)
+        //     hasher.combine(value)
+        // }
 
     }
 }
