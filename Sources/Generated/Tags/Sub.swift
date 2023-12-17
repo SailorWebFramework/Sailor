@@ -15,21 +15,21 @@ public struct Sub: HTMLElement {
         return self
     }
     
-    public var attributes: Attributes
+    var name: String {
+        "sub"
+    }
+
+    var attributes: Attributes
+    var events: [String: JSClosure]
 
     var children: [any Page]
     var content: String
-    var tagName: String {
-        "sub"
-    }
-    
-    var element: JSValue
 
-    private init(children: [any Page], content: String) {
-        self.element = App.document.createElement("sub")
+    private init(children: [any Page], content: String) {          
         self.children = children
         self.content = content
         self.attributes = .init()
+        self.events = [:]
     }
 
     public init() {

@@ -15,21 +15,21 @@ public struct Video: HTMLElement {
         return self
     }
     
-    public var attributes: Attributes
+    var name: String {
+        "video"
+    }
+
+    var attributes: Attributes
+    var events: [String: JSClosure]
 
     var children: [any Page]
     var content: String
-    var tagName: String {
-        "video"
-    }
-    
-    var element: JSValue
 
-    private init(children: [any Page], content: String) {
-        self.element = App.document.createElement("video")
+    private init(children: [any Page], content: String) {          
         self.children = children
         self.content = content
         self.attributes = .init()
+        self.events = [:]
     }
 
     public init() {

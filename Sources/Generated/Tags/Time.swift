@@ -15,21 +15,21 @@ public struct Time: HTMLElement {
         return self
     }
     
-    public var attributes: Attributes
+    var name: String {
+        "time"
+    }
+
+    var attributes: Attributes
+    var events: [String: JSClosure]
 
     var children: [any Page]
     var content: String
-    var tagName: String {
-        "time"
-    }
-    
-    var element: JSValue
 
-    private init(children: [any Page], content: String) {
-        self.element = App.document.createElement("time")
+    private init(children: [any Page], content: String) {          
         self.children = children
         self.content = content
         self.attributes = .init()
+        self.events = [:]
     }
 
     public init() {
