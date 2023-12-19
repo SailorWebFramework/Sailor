@@ -19,11 +19,11 @@ public class DOMNode {
     /// child dom nodes contained by this HTMLElement, only one child (ie: body) for a Page
     public var children: [DOMNode]
     
-    /// 
+    /// weak reference to parent node in dom tree
     weak public var parent: DOMNode?
 
     ///
-    // TODO: remove this? i only need the type that it is
+    // TODO: remove this? i only need the type that it is? edit: i think i need this (at least in custom componenets) to track state
     public var page: any Page 
 
     /// the javascript pointer to element in the DOM
@@ -76,7 +76,7 @@ public class DOMNode {
     }
     
     deinit {
-        print("YOUR MOM")
+        print("Deallocated DOMNODE")
         print(self)
     }
 

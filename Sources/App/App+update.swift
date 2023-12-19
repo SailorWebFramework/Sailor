@@ -3,25 +3,28 @@ import JavaScriptKit
 
 extension App {
 
+    // TODO: make sure this works, or depricate it?
     static func forceUpdate() {
+        guard let rootNode = self.virtualDOM?.children.first else { return }
+        
         App.document.body.innerHTML = ""
-        build()
+        build(root: rootNode.page)
     }
     
     /// updates a state variable to a value and redraws neccisary parts of the DOM
     static func update(state: StateNode, newValue: StateValue) {
-        guard let root = self.root else { return }
-        guard let rootDomNode = self.virtualDOM?.children.first else { return }
+        guard let rootNode = self.virtualDOM?.children.first else { return }
 
         // update the state
-//        Self.states[state] = newValue
         state.value = newValue
         
-        // uncomment to force update every state change
+        // diff and update the state
+        diff(page: rootNode.page, domNode: rootNode)
+
+        // deprecated: uncomment to force update every state change
         // App.forceUpdate()
         
-        diff(page: root, domNode: rootDomNode)
-        
+        // debug printing
         print("PRINTING TREE")
         self.virtualDOM?.printTree()
         print("States nodes:", states.total())
