@@ -12,9 +12,6 @@ import Foundation
 @propertyWrapper
 public class State<Value: Equatable> {
     
-    //TODO: make states in App and linked list and have this be a pointer?
-//    private let index: Int
-    
     private var node: StateNode
 
     public var wrappedValue: Value {
@@ -34,12 +31,11 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-//        self.index = App.newState(value: wrappedValue)
-        
         self.node = App.states.pushAfter(wrappedValue)
 
     }
     
+    // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
     deinit {
         print("Deinitializing State")
         self.node.remove()

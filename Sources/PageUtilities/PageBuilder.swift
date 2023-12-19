@@ -7,39 +7,40 @@
 
 import Foundation
 
-//protocol Pageable { }
-
-// TODO: divs can only take in a List now
-// TODO: if array is entered locked into array, if single locked in to single
-// TODO: Make non-static logic components
 @resultBuilder
 public struct PageBuilder {
-    public static func buildBlock(_ children: any Page...) -> List {
+    public static func buildBlock(_ children: any Page...) -> any Page {
         return List(children)
     }
     
-    public static func buildOptional(_ component: List?) -> List {
-        if let component = component { return component }
-        return List()
+    public static func buildOptional(_ component: (any Page)?) -> any Page {
+        // if the if is without an else place a dummy div for reconcelliation
+        guard let component = component else { return List() }
+    
+        return checkAndRemoveSingleListElement(from: component)
     }
     
-    // TODO: make it so if there is one element in the List than it doesnt implicitly wrap in a div
-    public static func buildEither(first component: List) -> List {
-//        if component.children.count == 1,
-//           let first = component.children.first
-//        {
-//            return first
-//        }
-        return component
+    public static func buildEither(first component: any Page) -> any Page {
+        return checkAndRemoveSingleListElement(from: component)
     }
 
-    public static func buildEither(second component: List) -> List {
+    public static func buildEither(second component: any Page) -> any Page {
+        return checkAndRemoveSingleListElement(from: component)
+    }
+    
+    // TODO: remove the list if there is only one child and put it as a Div
+    // I think the problem is it runs through the build function and adds the node before it gets here
+    private static func checkAndRemoveSingleListElement(from component: any Page) -> any Page {
+        guard let component = component as? List else { return component }
+           
+        
 //        if component.children.count == 1,
-//           let first = component.children.first
-//        {
+//           let first = component.children.first {
 //            return first
 //        }
+        
         return component
+//        return Div(component.children)
     }
     
 }

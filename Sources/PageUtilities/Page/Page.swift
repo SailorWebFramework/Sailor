@@ -7,18 +7,14 @@
 
 import Foundation
 
-public protocol Page: Hashable, Equatable, CustomStringConvertible {
+public protocol Page: CustomStringConvertible {
     associatedtype Body: Page
     
     /// body of the page element, resultBuilder can contain HTMLElements and custom Page elements
     var body: Body { get }
     
+    // TODO: remove build from Page & HTMLElement, make like a BuildPage class so its hidden
     ///
     func build(parentNode: DOMNode)
 
-    ///
-    func style(_ style: Style) -> any Page
-    
-    ///
-    func attribute(_ type: Attribute, value: some AttributeValue) -> any Page
 }
