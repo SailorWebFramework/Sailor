@@ -12,21 +12,24 @@ public class DOMNode {
 
     /// HTML events added to this node
     public var events: Events
+    
+    /// event closure references for each rendered event
+    public var eventClosures: [String:JSClosure]
 
     /// child dom nodes contained by this HTMLElement, only one child (ie: body) for a Page
     public var children: [DOMNode]
     
-    /// 
-    public var parent: DOMNode?
+    /// weak reference to parent node in dom tree
+    weak public var parent: DOMNode?
 
     ///
-    // TODO: remove this?
+    // TODO: remove this? i only need the type that it is? edit: i think i need this (at least in custom componenets) to track state
     public var page: any Page 
 
     /// the javascript pointer to element in the DOM
     public var element: JSValue?
     
-    public var isHTMLElement: Bool { self.page is any HTMLElement }
+//    public var isHTMLElement: Bool { self.page is any HTMLElement }
 
     // TODO: maybe remove page, raplace with type?
     init(
@@ -44,12 +47,15 @@ public class DOMNode {
         self.content = content
         self.children = children
         self.attributes = attributes
+                
         self.events = events
+        self.eventClosures = [:]
         
         self.element = element
-        
-//        print("BUILDING: \(type(of: self.page))")
 
+//        print("BUILDING: \(type(of: self.page))")
+        
+        // TODO: maybe use update functions here to look nicer?
         if self.element != nil {
         
             if !self.content.isEmpty {
@@ -60,12 +66,18 @@ public class DOMNode {
                 _ = self.element?.setAttribute(key.description, value.description)
             }
             
-            for (eventName, jsclosure) in self.events {
-                _ = self.element?.addEventListener(eventName, jsclosure)
+            for (eventName, event) in self.events {
+                eventClosures[eventName] = event.getClosure()
+                _ = self.element?.addEventListener(eventName, eventClosures[eventName])
             }
 
         }
 
+    }
+    
+    deinit {
+        print("Deallocated DOMNODE")
+        print(self)
     }
 
     public func renderToDOM() {
@@ -80,10 +92,12 @@ public class DOMNode {
     public func removeFromParent() {
         // remove from parent
         self.parent?.children.removeAll { $0 === self }
+        self.parent = nil
     }
     
     public func reset(to page: any Page) {
         self.remove()
+        
         self.page = page
 
         if let page = page as? any HTMLElement {
@@ -105,6 +119,11 @@ public class DOMNode {
         self.events = [:]
         self.content = ""
 
+    }
+    
+    public func delete() {
+        self.remove()
+        self.removeFromParent()
     }
 
     private func removeDeepFromDOM() {

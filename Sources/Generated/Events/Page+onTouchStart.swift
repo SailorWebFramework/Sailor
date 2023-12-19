@@ -10,15 +10,14 @@ extension Page {
                 completion(value)
             }
         }
-
-        copy.events["touchstart"] = JSClosure { event in
-            guard let touches = event.first?.touches.object else {
-                return .undefined
+        copy.events["touchstart"] = Event(
+            name: "touchstart", 
+            build: { eventResult in
+                if case let EventResult.object(value) = eventResult {
+                    completion(value)
+                }
             }
-            completion(touches)
-
-            return .undefined
-        }
+        )
 
         return copy
     }

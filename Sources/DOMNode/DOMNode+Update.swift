@@ -12,14 +12,16 @@ extension DOMNode {
     
     func update(events: Events) {
         
-        for (eventName, jsclosure) in self.events {
-            _ = self.element?.removeEventListener(eventName, jsclosure)
+        for (eventName, event) in self.events {
+            _ = self.element?.removeEventListener(eventName, eventClosures[eventName])
         }
         
+        self.eventClosures = [:]
         self.events = events
         
-        for (eventName, jsclosure) in self.events {
-            _ = self.element?.addEventListener(eventName, jsclosure)
+        for (eventName, event) in self.events {
+            eventClosures[eventName] = event.getClosure()
+            _ = self.element?.addEventListener(eventName, eventClosures[eventName])
         }
         
     }
@@ -45,7 +47,7 @@ extension DOMNode {
 
         // remove all old children
         for child in self.children {
-            child.remove()
+            child.delete()
         }
 
         // free old children from memory

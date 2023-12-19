@@ -10,12 +10,9 @@ extension Page {
                 completion()
             }
         }
-
-        copy.events["doubleclick"] = JSClosure { event in
+        copy.events["doubleclick"] = Event(name: "doubleclick", build: { _ in
             completion()
-
-            return .undefined
-        }
+        })
 
         return copy
     }

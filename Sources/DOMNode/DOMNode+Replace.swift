@@ -10,12 +10,11 @@ import Foundation
 
 extension DOMNode {
     
+    // TODO: remove from state in replace
     /// replace current domnode page with new page
     func replace(_ page: any Page) {
         
-//        self.remove()
         self.reset(to: page)
-//        self.page = page
         
         if let page = self.page as? any HTMLElement {
             update(attributes: page.attributes)
@@ -24,6 +23,8 @@ extension DOMNode {
             update(children: page.children)
 
         }
+        
+        self.renderToDOM()
 
     }
 }

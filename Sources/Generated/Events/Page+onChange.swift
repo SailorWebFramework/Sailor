@@ -10,15 +10,14 @@ extension Page {
                 completion(value)
             }
         }
-
-        copy.events["change"] = JSClosure { event in
-            guard let value = event.first?.value.string else {
-                return .undefined
+        copy.events["change"] = Event(
+            name: "change", 
+            build: { eventResult in
+                if case let EventResult.string(value) = eventResult {
+                    completion(value)
+                }
             }
-            completion(value)
-
-            return .undefined
-        }
+        )
 
         return copy
     }

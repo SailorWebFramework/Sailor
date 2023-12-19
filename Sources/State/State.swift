@@ -7,9 +7,12 @@
 
 import Foundation
 
+
+//TODO: use reflections Mirror maybe
 @propertyWrapper
 public class State<Value: Equatable> {
-    private let index: Int
+    
+    private var node: StateNode
 
     public var wrappedValue: Value {
         get {
@@ -28,24 +31,45 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-        self.index = App.newState(value: wrappedValue)
+        self.node = App.states.pushAfter(wrappedValue)
 
+    }
+    
+    // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
+    deinit {
+        print("Deinitializing State")
+        self.node.remove()
+    }
+    
+    // TODO: update the index and remove old state / make this a pointer to Value
+    public func inject(index: Value) {
+        
+//        self.index = index
     }
     
     private func getValue() -> Value {
         // TODO: UNSAFE, but probably fine
-        (App.states[index] as! Value)
+//        (App.states[index] as! Value)
+        self.node.value as! Value
     }
     
     private func setValue(_ value: Value) {
         // TODO: check if no change conform to equatable?
-        if App.states[index] as? Value == value {
+//        if App.states[index] as? Value == value {
+//            return
+//        }
+        
+        if self.node.value as? Value == value {
             return
         }
         
-        // TODO: Maybe batch updates eventually
-        App.update(state: index, newValue: value)
-        
+//        if let node = self.node {
+
+            // TODO: Maybe batch updates eventually
+        App.update(state: self.node, newValue: value)
+            
+//        }
+
     }
 
 }

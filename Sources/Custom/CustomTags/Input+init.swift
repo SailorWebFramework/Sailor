@@ -9,34 +9,31 @@ import JavaScriptKit
 
 extension Input {
     
-    // TODO: FIX UNFOCUSED TEXT BY NOT REBUILDING THE ENTIRE VIEW
+    // TODO: FIX event Binding/State doesnt update the event only the other way around/\.
+    // CREATE GLOBAL EVENTS THAT WHEN STATE CHANGES UPDATES VALUES ACROSS APP
     public init(_ input: Binding<String>) {
         self.init()
+                
+        // TODO: value doesnt need to update every state change? every reload this changes
+        // Store initial values globally
         
-        // self.element.value = JSValue.string(input.get())
-
+//        if self.attributes[.value] == nil {
         self.attributes[.value] = input.get()
-        self.events["input"] = JSClosure { event in
-            guard let target = event.first?.target.value.string else {
-                return .undefined
+//        }
+        
+        self.events["input"] = Event(
+            name: "input",
+            build: { eventResult in
+                guard case let .string(value) = eventResult else {
+                    return
+                }
+                
+                input.set(value)
+
             }
-            
-            input.set(target)
-            
-            return .undefined
-        }
-        // _ = self.element.addEventListener(
-        //     "input",
-        //     JSClosure { event in
-        //         guard let target = event.first?.target.value.string else {
-        //             return .undefined
-        //         }
-                
-        //         input.set(target)
-                
-        //         return .undefined
-        //     }
-        // )
+        )
+
+    
     }
 }
 

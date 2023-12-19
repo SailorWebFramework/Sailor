@@ -3,26 +3,31 @@ import JavaScriptKit
 
 extension App {
 
+    // TODO: make sure this works, or depricate it?
     static func forceUpdate() {
+        guard let rootNode = self.virtualDOM?.children.first else { return }
+        
         App.document.body.innerHTML = ""
-        build()
+        build(root: rootNode.page)
     }
     
     /// updates a state variable to a value and redraws neccisary parts of the DOM
-    static func update(state: Int, newValue: Any) {
-        guard let root = self.root else { return }
-        guard let rootDomNode = self.virtualDOM?.children.first else { return }
+    static func update(state: StateNode, newValue: StateValue) {
+        guard let rootNode = self.virtualDOM?.children.first else { return }
 
         // update the state
-        Self.states[state] = newValue
+        state.value = newValue
         
-        // uncomment to force update every state change
+        // diff and update the state
+        diff(page: rootNode.page, domNode: rootNode)
+
+        // deprecated: uncomment to force update every state change
         // App.forceUpdate()
         
-        diff(page: root, domNode: rootDomNode)
-        
+        // debug printing
         print("PRINTING TREE")
         self.virtualDOM?.printTree()
+        print("States nodes:", states.total())
 
     }
 
@@ -66,6 +71,8 @@ extension App {
         let (oldSize, newSize) = (domNode.children.count, page.children.count)
         let endRange = min(oldSize, newSize)
         
+//        print("SIZE DIFF:", oldSize, newSize, endRange)
+        
         for i in 0..<endRange {
             diff(page: page.children[i], domNode: domNode.children[i])
         }
@@ -73,14 +80,15 @@ extension App {
         // if old dom had more elements than new dom
         if oldSize > newSize {
             for i in (endRange..<oldSize).reversed() {
-                domNode.children[i].remove()
-                domNode.children[i].removeFromParent()
+                print("Remving SHOULD DEALLOC:", domNode.children[i])
+                domNode.children[i].delete()
             }
         }
         
         // if old dom had less elements than new dom
         if oldSize < newSize {
             for i in endRange..<newSize {
+//                print("Building New:", page.children[i])
                 page.children[i].build(parentNode: domNode)
             }
         }

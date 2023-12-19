@@ -10,12 +10,9 @@ extension Page {
                 completion()
             }
         }
-
-        copy.events["mouseover"] = JSClosure { event in
+        copy.events["mouseover"] = Event(name: "mouseover", build: { _ in
             completion()
-
-            return .undefined
-        }
+        })
 
         return copy
     }
