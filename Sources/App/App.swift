@@ -9,24 +9,20 @@ import Foundation
 import JavaScriptKit
 
 public final class App {
-    // static var cssStyles: [String:Style] = [:]
-    
-    /// global state accessable from any element must be unique type?
-    // static var environment: [Any] = []
+    // TODO: css files
+    // static var css: [String:Style] = [:]
     
     public static var document = JSObject.global.document
     public static let console = JSObject.global.console
-    
-    /// the global values of all the states in application
-//    internal static var states: [Any] = []
-    
+
     /// the head of the linked list that housees global values of all the states in application
-    internal static var states: StateNode = StateNode(value: Date().timeIntervalSince1970)
+    internal static var states: StateNode = StateNode(value: Date())
     
     /// dictionary of events that rely on certain states
-    internal static var events: [Int: JSClosure] = [:]
-
-//    internal static var stateInitialValues: [Any] = []
+    //internal static var events: [Int: JSClosure] = [:]
+    
+    /// global state accessable from any element must be unique type?
+    //static var environment: StateNode = StateNode(value: Date().timeIntervalSince1970)
 
     /// root page being rendered
     internal static var root: (any Page)? = nil
@@ -58,12 +54,10 @@ public final class App {
             root.build(parentNode: virtualDOM)
         }
         
-//        Self.virtualDOM = nil
-        
+//        self.root =
+                
         // TODO: build css files
 
-        // TODO: remove debug tree
-        // Self.virtualDOM.printTree()
     }
     
 }
