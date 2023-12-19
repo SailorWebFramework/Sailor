@@ -8,8 +8,6 @@
 import Foundation
 import JavaScriptKit
 
-public typealias Events = [String: JSClosure]
-
 internal protocol HTMLElement: Page {
     /// HTML tag name, all lowercased
     var name: String { get }

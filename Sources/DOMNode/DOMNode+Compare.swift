@@ -14,13 +14,14 @@ extension DOMNode {
         return type(of: self.page) == type(of: page)
     }
 
-    // TODO: these meathods feel weird / pointless
     func compareAttributes(to page: any Page) -> Bool {
         return self.attributes == (page as? any HTMLElement)?.attributes ?? [:]
     }
     
+    // TODO: get compare events working properly??
     func compareEvents(to page: any Page) -> Bool {
-        return self.events == (page as? any HTMLElement)?.events ?? [:]
+        return false
+//        return self.events == (page as? any HTMLElement)?.events ?? [:]
     }
     
     /// compares the outer html to page, compares the tag, attributes, and events

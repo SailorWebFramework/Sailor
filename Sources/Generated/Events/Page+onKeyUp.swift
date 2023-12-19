@@ -10,15 +10,14 @@ extension Page {
                 completion(value)
             }
         }
-
-        copy.events["keyup"] = JSClosure { event in
-            guard let key = event.first?.key.string else {
-                return .undefined
+        copy.events["keyup"] = Event(
+            name: "keyup", 
+            build: { eventResult in
+                if case let EventResult.string(value) = eventResult {
+                    completion(value)
+                }
             }
-            completion(key)
-
-            return .undefined
-        }
+        )
 
         return copy
     }

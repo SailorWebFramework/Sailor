@@ -10,29 +10,37 @@ import JavaScriptKit
 
 public final class App {
     // static var cssStyles: [String:Style] = [:]
-        
-
     
-    /// global state accessable from any element must be unique type
+    /// global state accessable from any element must be unique type?
     // static var environment: [Any] = []
     
     public static var document = JSObject.global.document
     public static let console = JSObject.global.console
     
     /// the global values of all the states in application
-    internal static var states: [Any] = []
+//    internal static var states: [Any] = []
+    
+    /// the head of the linked list that housees global values of all the states in application
+    internal static var states: StateNode = StateNode(value: Date().timeIntervalSince1970)
+    
+    /// dictionary of events that rely on certain states
+    internal static var events: [Int: JSClosure] = [:]
 
+//    internal static var stateInitialValues: [Any] = []
+
+    /// root page being rendered
     internal static var root: (any Page)? = nil
+    
+    /// root node of virtual dom stored in memory as a tree
     internal static var virtualDOM: DOMNode? = nil
 
     public static func initialize(root: any Page) {
         Self.root = root
     }
 
-    public static func newState(value: Any) -> Int {
-        Self.states.append(value)
-        return Self.states.count - 1
-    }
+//    public static func newState(value: StateValue) -> StateNode {
+//        return Self.states.pushAfter(value)
+//    }
     
     public static func console(error: Error) {
         _ = Self.console.error("Error: \(error.localizedDescription)")
@@ -49,6 +57,8 @@ public final class App {
         {
             root.build(parentNode: virtualDOM)
         }
+        
+//        Self.virtualDOM = nil
         
         // TODO: build css files
 
