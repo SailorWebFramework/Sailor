@@ -57,8 +57,6 @@ Attributes are applied as a modifier after the initilizer in a SwiftUI-like mann
 
 ```swift
 struct Example3Page: Page {
-    var attributes: Attributes = [:]
-
     var body: some Page {
         Div{
             Span("Hello world")
@@ -76,8 +74,6 @@ Because style attribute is so common it has its own function on all HTMLElements
 
 ```swift
 struct Example3Page: Page {
-    var attributes: Attributes = [:]
-
     var body: some Page {
         Div()
         .style(
@@ -93,8 +89,6 @@ Some components (like image) that expect tags to be utilized more readily have t
 
 ```swift
 struct Example4Page: Page {
-    var attributes: Attributes = [:]
-
     var body: some Page {
         Div{
             Img(src: "www.imagegoeshere.com")
@@ -109,8 +103,6 @@ To add inline-styles to components use the .style(...) function and add styles i
 
 ```swift
 struct Example5Page: Page {
-    var attributes: Attributes = [:]
-
     var body: some Page {
         Div{
             Span("Hello world")
@@ -132,8 +124,6 @@ __cons__: must be in a specific order when adding css parameters (this is why th
 
 ```swift
 struct Example5Page: Page {
-    var attributes: Attributes = [:]
-
     var body: some Page {
         Div{
             Span("Hello world")
@@ -173,8 +163,6 @@ In HTML text elements (like P and Span) can have modifiers within them. "\n" and
 
 ```swift
 struct TextPage: Page {
-    var attributes: Attributes = [:]
-
     var foo: String
     var bar: Int
 
@@ -215,8 +203,6 @@ State variables are stored globally in App and function similarly to swiftUI.
 
 ```swift
 struct ExampleStatePage: Page {
-    var attributes: Attributes = [:]
-
     // creates a new global state
     @State var foo = 0
 
@@ -239,8 +225,6 @@ struct ExampleStatePage: Page {
 
 ```swift
 struct ExampleStatePage: Page {
-    var attributes: Attributes = [:]
-
     //passed in by parent component, maps to same global state
     @Binding var foo: Int
 
@@ -281,8 +265,6 @@ These can be attached to any HTMLElement. The DOM only rerenders once the @State
 
 ```swift
 struct ExampleStatePage: Page {
-    var attributes: Attributes = [:]
-
     // passed in by application, accessable in any componenet, in global state
     @Environment var foo: Int
 
