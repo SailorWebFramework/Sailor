@@ -1,8 +1,12 @@
 # Sailor
 A web frontend framework built in swift.
 
-**Currently only static site builds work, however adding state is planned
-**Also, very early stages not all Tags, Attributes, and CSS Properties
+
+![Sailor Logo](https://i.ibb.co/tZ4vRD7/DALL-E-2023-12-19-04-26-35-Revise-the-first-logo-design-for-the-Sailor-frontend-web-framework-ensuri.png)
+
+## Getting Started
+
+... TODO, sorry this is empty right now, instructions on how to start making websites with Sailor coming soon 👀
 
 
 ## Usage
@@ -11,7 +15,6 @@ Sailor adopts a SwiftUI-like syntax for HTML. Below is an example view
 
 ```swift
 struct ExamplePage: Page {
-    var attributes: Attributes = [:]
 
     var body: some Page {
         Span("Hello world")
@@ -23,7 +26,6 @@ Pages are root components of sailor and can be nested. All HTML elements are the
 
 ```swift
 struct Example2Page: Page {
-    var attributes: Attributes = [:]
 
     var body: some Page {
         Div {
@@ -39,20 +41,18 @@ The above code is equivalent to the following...
 ```html
 <body>
     <div>
-        <div>
-            <span>Hello World</span>
-        </div>
+        <span>Hello World</span>
         <span>Goodbye World</span>
     </div>
 </body>
 ```
 
-
 Sailor utilizes a resultBuilder like swiftUI for the body of tags, or if the tag takes string content then that is passed into the initializer instead.
 
-## Attributes
 
-Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner.
+## Attributes (only small amount of attributes componenets supported right now)
+
+Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner. Attributes can only be applied to HTMLElements.
 
 
 ```swift
@@ -71,6 +71,24 @@ struct Example3Page: Page {
 Attribute name is an Enum with all attributes. To add Custom attributes globally for custom components
 
 
+Because style attribute is so common it has its own function on all HTMLElements and can be added below, however can still be used in the .attribute(...) function.
+
+
+```swift
+struct Example3Page: Page {
+    var attributes: Attributes = [:]
+
+    var body: some Page {
+        Div()
+        .style(
+            .backgroundColor(.rgb(200, 0, 0)),
+            .display(.inlineBlock)
+        )
+    }
+}
+```
+
+
 Some components (like image) that expect tags to be utilized more readily have the attribute built into its initializer.
 
 ```swift
@@ -85,67 +103,71 @@ struct Example4Page: Page {
 }
 ```
 
-## Custom Attributes
+## Style (only small amount of style componenets supported right now)
 
-On custom components you can use attributes by looking at the attributes item in the page.
-It is a typealias for [AttributeType: any AttributeValue].
+To add inline-styles to components use the .style(...) function and add styles in any order.
 
 ```swift
-
-struct InnerCustomPage: Page {
+struct Example5Page: Page {
     var attributes: Attributes = [:]
 
     var body: some Page {
         Div{
-            // if src was passed down
-            if let src = attributes[.src] {
-                Span(src.description)
-                Img(src: src)
-            } else { //if src was not passed down
-                let defaultURL = "www.defaulturlimage.com"
-                Span(defaultURL)
-                Img(src: defaultURL)
-            }
+            Span("Hello world")
         }
-    }
-}
-
-struct MyCustomPage: Page {
-    var attributes: Attributes = [:]
-
-    var body: some Page {
-        Div{
-            InnerCustomPage()
-                .attribute(.src, "www.imagegoeshere.com")
-        }
+        .style(
+            .backgroundColor(.rgb(255, 0, 0)),
+            .width(.px(50)),
+            .height(.vh(4))
+        )
     }
 }
 ```
 
-If you would like to pass custom elements to a sub-Page create a custom initializer.
+Second initializer of .style that includes named paramenters. 
+__pros__: more consise and readable, only allows for one of each kind of style tag to avoid overriding your own values.
+
+
+__cons__: must be in a specific order when adding css parameters (this is why this might never be available).
 
 ```swift
-struct MyCustom2Page: Page {
+struct Example5Page: Page {
     var attributes: Attributes = [:]
-
-    var foo: String
-    var bar: Int
-
-    init(foo: String, bar: Int) {
-        self.foo = foo
-        self.bar = bar
-    }
 
     var body: some Page {
         Div{
-            Span("foo is \(self.foo)")
-            Span("bar is \(self.bar)")
+            Span("Hello world")
         }
+        .style(
+            backgroundColor: .rgb(255, 0, 0),
+            width: .px(50),
+            height: .vh(4)
+        )
     }
 }
 ```
 
-## Text
+
+These style are enums with associated values that take in certain units.
+
+### Units
+
+__currently supported__
+**Dimention** -> used for any unit of length in styles
+**Color** -> used for any unit of color (rgb, hsl, ...)
+
+
+## Events
+
+** Events will be created with state
+
+
+will be meathod on a page
+
+...onClick, onHover, ..., and so on
+
+
+## Text (COMING SOON)
 
 In HTML text elements (like P and Span) can have modifiers within them. "\n" and "\t" automatically convert to their HTML counterparts.
 
@@ -178,88 +200,17 @@ struct TextPage: Page {
 }
 ```
 
-## Style
 
-To add inline-styles to components use the .style(...) function and add styles in any order.
+## State (Mostly working, a bit buggy)
 
-```swift
-struct Example5Page: Page {
-    var attributes: Attributes = [:]
+Utilizes JavascriptKit and SwiftWASM to build and update the DOM on state changes.
 
-    var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .style(
-            .backgroundColor(.rgb(255, 0, 0)),
-            .width(.px(50)),
-            .height(.vh(4))
-        )
-    }
-}
-```
+Sailor currently uses a Virtual-DOM that is kept in memory in Swift that is checked before interacting with the DOM.
 
-** Coming soon (probably) (maybe)
+Currently implementing ID property that allows DOM elements to smartly diff more accuratly with complex additions
 
 
-Second initializer of .style that includes named paramenters. 
-__pros__: more consise and readable, only allows for one of each kind of style tag to avoid overriding your own values.
-
-
-__cons__: must be in a specific order when adding css parameters (this is why this might never be available).
-
-```swift
-struct Example5Page: Page {
-    var attributes: Attributes = [:]
-
-    var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .style(
-            backgroundColor: .rgb(255, 0, 0),
-            width: .px(50),
-            height: .vh(4)
-        )
-    }
-}
-```
-
-
-
-These style are enums with associated values that take in certain units.
-
-### Units
-
-__currently supported__
-**Dimention** -> used for any unit of length in styles
-**Color** -> used for any unit of color (rgb, hsl, ...)
-
-
-## Events
-
-** Events will be created with state
-
-
-will be meathod on a page
-
-
-
-...onClick, onHover, ..., and so on
-
-## State
-*This section is currently being worked on...
-
-
-The idea is to keep a virtual DOM in Swift and have the HTML/Javascript call Swift in WASM with state changes. Swift will update the Virtual DOM, diff, and send back the dom updates to javascript or using JavaScriptKit.
-
-
-Currently implementing by not exposing the ID attribute to users and using ID to select which components to update by looping over the elements of changed state varibles that may have modified the dom.
-
-
-ID probably will be calculated by going down the Page Tree and assigning a value at runtime time to avoid needing an extra bogus variable state in a Page. However must be calculated consistently to avoid updating the wrong DOM elements.
-
-State variables will be stored globally in App and should function similarly to swiftUI.
+State variables are stored globally in App and function similarly to swiftUI.
 
 
 ```swift
@@ -310,6 +261,23 @@ struct ExampleStatePage: Page {
 ```
 
 
+## Events
+
+Events are Sailor's version of event listners on DOM properties. for example "onClick", "onMouseOver", ...
+
+These can be attached to any HTMLElement. The DOM only rerenders once the @State or @Binding values change
+
+```swift
+...
+    Div{
+        Span("Hello \(foo)")
+            .onClick {
+                foo += 1
+            }
+    }
+...
+```
+
 
 ```swift
 struct ExampleStatePage: Page {
@@ -336,14 +304,20 @@ struct ExampleStatePage: Page {
 
 
 
+## Routing (Not Implementing)
 
-## EVEN MORE FUTURE
+The idea is to use Swift attached Macros to add routes to Pages
 
+## FUTURE??
 
-NVVM? create StateObjects like in SwiftUI
+- Complex Animations?
 
+- create StateObjects and Evironment variables like in SwiftUI
 
-Create custom library built on the HTMLElements to be more similar to SwiftUI.
+- Create custom library built on the HTMLElements to be more similar to SwiftUI.
 
-
-Somehow interact with swiftUI to build native iOS
+- Use CSS Files to help with styling
+  
+- Create Build tool to easily run on IOS, Android with Ionic?
+  
+- (SUPER STRETCH) Somehow interact with swiftUI to build native iOS
