@@ -4,12 +4,13 @@ struct InnerPage: Page {
     var attributes: Attributes = [:]
 
     @Binding var hello: Int
+    @State var goodbye: Int = 0
 
     var body: some Page {
         Div {
             Div {
                 Div("Yo Whats UP!! Im \(hello) years old")
-                Div("Press me anywhere")
+                Div("Press me anywhere, \(goodbye)")
                 
                 Div("Press me anywhere")
                 Div {
@@ -18,6 +19,8 @@ struct InnerPage: Page {
                     
                     Div("Press me anywhere")
 
+                }.onClick {
+                    goodbye += 1
                 }
                 .style(
                     .backgroundColor(.rgb(0, 200, 0)),
@@ -149,35 +152,69 @@ struct TestPage: Page {
     }
 }
 
+struct HeyPage: Page {
+    @State var hey = 2
+    var body: some Page {
+        Div {
+//            Div("HELLO \(hey)")
+            Div("HELLO")
+            Div("HELLO")
+            Div("HELLO")
+
+//                .onClick {
+//                    hey += 1
+//                }
+        }
+    }
+}
+
 struct TestTwoPage: Page {
     
     @State var hello: Int = 0
+    @State var color: Unit.Color = .rgb(0, 200, 0)
+
     @State var inputstring: String = "Starting"
 
     var body: some Page {
         Div {
-            Div("Im \(hello) years old")
-            Div("Im \(hello) years old")
-            if hello > 5 && hello < 10 {
-                Div("Im \(hello) years old")
-                Div("Im \(hello) years old")
-            } else {
-                Input($inputstring)
+            Div("BR \(hello) years old")
+//            Div("BR \(hello) years old")
+            .style(
+                .backgroundColor(color)
+            )
+            .onMouseOver {
+                color = color == .rgb(0, 200, 0) ? .rgb(200, 0, 200) : .rgb(0, 200, 0)
             }
+            if hello % 2 == 0 {
+                HeyPage()
+                //                InnerPage(hello: $hello)
+                //                Div("AN \(hello) years old")
+                //                Div("CS \(hello) years old")
+                //                Div("BS \(hello) years old")
+
+            }
+//                Div("LL \(hello) years old")
             
-            Input($inputstring)
+//            } else {
+//                Input($inputstring)
+//
+//            }
+            
+//            InnerPage(hello: $hello)
+            
+//            Input($inputstring)
 
             Button("Press me anywhere")
                 .style(
                     .backgroundColor(.rgb(0, 200, 0))
-            )
-            .onClick {
-                hello += 1
-            }
+                )
+                .onClick {
+                    hello += 1
+                }
        }
    }
 
 }
 
-App.initialize(root: TestPage())
+App.initialize(root: TestTwoPage())
 App.build()

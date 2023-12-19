@@ -9,12 +9,13 @@ extension App {
     }
     
     /// updates a state variable to a value and redraws neccisary parts of the DOM
-    static func update(state: Int, newValue: Any) {
+    static func update(state: StateNode, newValue: StateValue) {
         guard let root = self.root else { return }
         guard let rootDomNode = self.virtualDOM?.children.first else { return }
 
         // update the state
-        Self.states[state] = newValue
+//        Self.states[state] = newValue
+        state.value = newValue
         
         // uncomment to force update every state change
         // App.forceUpdate()
@@ -23,6 +24,7 @@ extension App {
         
         print("PRINTING TREE")
         self.virtualDOM?.printTree()
+        print("States nodes:", states.total())
 
     }
 
@@ -66,6 +68,8 @@ extension App {
         let (oldSize, newSize) = (domNode.children.count, page.children.count)
         let endRange = min(oldSize, newSize)
         
+//        print("SIZE DIFF:", oldSize, newSize, endRange)
+        
         for i in 0..<endRange {
             diff(page: page.children[i], domNode: domNode.children[i])
         }
@@ -73,14 +77,15 @@ extension App {
         // if old dom had more elements than new dom
         if oldSize > newSize {
             for i in (endRange..<oldSize).reversed() {
-                domNode.children[i].remove()
-                domNode.children[i].removeFromParent()
+                print("Remving SHOULD DEALLOC:", domNode.children[i])
+                domNode.children[i].delete()
             }
         }
         
         // if old dom had less elements than new dom
         if oldSize < newSize {
             for i in endRange..<newSize {
+//                print("Building New:", page.children[i])
                 page.children[i].build(parentNode: domNode)
             }
         }

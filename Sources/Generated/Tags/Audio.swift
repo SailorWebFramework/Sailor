@@ -20,7 +20,7 @@ public struct Audio: HTMLElement {
     }
 
     var attributes: Attributes
-    var events: [String: JSClosure]
+    var events: Events
 
     var children: [any Page]
     var content: String

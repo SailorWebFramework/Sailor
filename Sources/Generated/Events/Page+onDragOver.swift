@@ -10,15 +10,14 @@ extension Page {
                 completion(value)
             }
         }
-
-        copy.events["dragover"] = JSClosure { event in
-            guard let dataTransfer = event.first?.dataTransfer.object else {
-                return .undefined
+        copy.events["dragover"] = Event(
+            name: "dragover", 
+            build: { eventResult in
+                if case let EventResult.object(value) = eventResult {
+                    completion(value)
+                }
             }
-            completion(dataTransfer)
-
-            return .undefined
-        }
+        )
 
         return copy
     }
