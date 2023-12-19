@@ -7,14 +7,39 @@
 
 import Foundation
 
+
+
+
 //MARK - Hashable
 extension HTMLElement {
+    
+    // TODO: where does this go?
+//    static public func ==(lhs: any Page, rhs: any Page) -> Bool {
+//        rhs.description == rhs.description
+//    }
+
+    public static func ==(lhs: any HTMLElement, rhs: any HTMLElement) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+
+    
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(content)
+        hasher.combine(self.content)
+        hasher.combine(self.name)
         
-        for child in children {
-            hasher.combine(child)
-        }
+        // TODO: attributes and events conformence to hashable
+//        hasher.combine(self.attributes)
+//        hasher.combine(self.events)
+        // TODO: should this be here
+        hasher.combine(self.children.count)
+
+//        for child in children {
+//            hasher.combine(child)
+//        }
     }
 }
 

@@ -20,21 +20,40 @@ public struct Wbr: HTMLElement {
     }
 
     var attributes: Attributes
-    var events: [String: JSClosure]
+    var events: Events
 
     var children: [any Page]
     var content: String
 
-    private init(children: [any Page], content: String) {          
+    private init(children: [any Page] = [], content: String = "") {          
         self.children = children
         self.content = content
         self.attributes = .init()
         self.events = [:]
     }
 
-    public init() {
+    public init(_ children: [any Page]) {          
+        self.init(children: children, content: "")
+    }
+    public init() {          
         self.init(children: [], content: "")
     }
-    
+
+
+    //MARK- ATTRIBUTES
+    public func style(_ properties: Style.Property...) -> Self {
+        return style(Style(properties))
+    }
+
+    public func style(_ style: Style) -> Self {
+        return attribute(.style, value: style)
+    }
+
+    public func attribute(_ type: Attribute, value: some AttributeValue) -> Self {
+        if self.attributes[type]?.description == value.description { return self }
+        var copy = self
+        copy.attributes[type] = value
+        return copy
+    }
     
 }

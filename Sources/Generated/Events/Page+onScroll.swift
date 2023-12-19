@@ -10,12 +10,9 @@ extension Page {
                 completion()
             }
         }
-
-        copy.events["scroll"] = JSClosure { event in
+        copy.events["scroll"] = Event(name: "scroll", build: { _ in
             completion()
-
-            return .undefined
-        }
+        })
 
         return copy
     }
