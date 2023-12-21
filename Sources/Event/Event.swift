@@ -9,23 +9,19 @@ import Foundation
 
 public typealias Events = [String: Event]
 
-// TODO: should i just use event name
-public struct Event {
-    
+public struct Event: CustomStringConvertible {
+    public var description: String {
+        "Event(name:\(name))"
+    }
     /// name of the javascript event
     var name: String
     
-    /// the function to update this event when the state changed
-//    var update: (any EventResult) -> Void
+    /// the swift action that results from the actual event listener
+    var action: (EventResult) -> Void
     
-    // TODO: rename to like action
-    /// the function to build the actual event listener 
-    var build: (EventResult) -> Void
-    
-    /// index to the state the event relies on, if any
-    var stateIndex: Int? = nil
+    init(name: String, action: @escaping (EventResult) -> Void) {
+        self.name = name
+        self.action = action
+    }
     
 }
-
-
-

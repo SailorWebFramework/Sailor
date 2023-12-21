@@ -50,21 +50,5 @@ public struct List: HTMLElement {
          copy.attributes[type] = value
          return copy
      }
-    
-    // TODO: annoying i have to update this custom
-//    public func build(parentNode: DOMNode) {
-//        let domNode = DOMNode(
-//            page: self,
-//            // TODO: this is maybe fine but element for a page element is its parent
-//            element: parentNode.element,
-//            parent: parentNode
-//        )
-//
-//        parentNode.append(domNode)
-//
-//        for child in self.children {
-//            child.build(parentNode: domNode)
-//        }
-//
-//    }
+
 }

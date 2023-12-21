@@ -12,7 +12,7 @@ extension Page {
         }
         copy.events["dragstart"] = Event(
             name: "dragstart", 
-            build: { eventResult in
+            action: { eventResult in
                 if case let EventResult.object(value) = eventResult {
                     completion(value)
                 }

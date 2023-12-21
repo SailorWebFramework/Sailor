@@ -10,7 +10,7 @@ extension Page {
                 completion()
             }
         }
-        copy.events["click"] = Event(name: "click", build: { _ in
+        copy.events["click"] = Event(name: "click", action: { _ in
             completion()
         })
 

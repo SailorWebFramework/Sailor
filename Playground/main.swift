@@ -152,19 +152,20 @@ import Sailor
 
 struct HeyPage: Page {
     @State var hey = 2
+    @State var blud = true
+    @State var buddy = "suspicioous"
+
     var body: some Page {
         Div {
 //            Div("HELLO \(hey)")
 
+//            Div("HELLO\(hey)")
+//            Div("HELLO\(hey)")
             
-            Span("hlll")
-            
             Div("HELLO")
-            Div("HELLO")
-            Div("HELLO")
-                .style(
-                    .backgroundColor(.rgb(200, 200, 0))
-                )
+//                .style(
+//                    .backgroundColor(.rgb(200, 200, 0))
+//                )
 
 //                .onClick {
 //                    hey += 1
@@ -187,9 +188,7 @@ struct TestTwoPage: Page {
             .style(
                 .backgroundColor(color)
             )
-            .onMouseOver {
-                color = color == .rgb(0, 200, 0) ? .rgb(200, 0, 200) : .rgb(0, 200, 0)
-            }
+
             if hello % 2 == 0 {
                 HeyPage()
                     
@@ -214,15 +213,36 @@ struct TestTwoPage: Page {
                 .style(
                     .backgroundColor(.rgb(0, 200, 0))
                 )
-                .onClick {
+                .onMouseOut {
+                    color = color == .rgb(0, 200, 0) ? .rgb(200, 0, 200) : .rgb(0, 200, 0)
                     hello += 1
                 }
+//                .onClick {
+//                    hello += 1
+//                }
        }
         .style(
             .backgroundColor(.rgb(0, 0, 200))
        )
    }
 
+}
+
+
+struct Hey1Page: Page {
+    var body: some Page {
+        Span("hello")
+    }
+}
+
+struct Hey2Page: Page {
+    var body: some Page {
+        Div {
+            Hey1Page()
+            Span("world")
+
+        }
+    }
 }
 
 App.build(root: TestTwoPage())

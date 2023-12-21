@@ -12,7 +12,7 @@ extension Page {
         }
         copy.events["touchend"] = Event(
             name: "touchend", 
-            build: { eventResult in
+            action: { eventResult in
                 if case let EventResult.object(value) = eventResult {
                     completion(value)
                 }

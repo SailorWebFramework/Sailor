@@ -23,7 +23,7 @@ extension Input {
         
         self.events["input"] = Event(
             name: "input",
-            build: { eventResult in
+            action: { eventResult in
                 guard case let .string(value) = eventResult else {
                     return
                 }
