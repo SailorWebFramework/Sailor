@@ -12,7 +12,7 @@ extension Page {
         }
         copy.events["keyup"] = Event(
             name: "keyup", 
-            build: { eventResult in
+            action: { eventResult in
                 if case let EventResult.string(value) = eventResult {
                     completion(value)
                 }

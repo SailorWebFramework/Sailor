@@ -31,13 +31,15 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-        self.node = App.states.pushAfter(wrappedValue)
+//        self.node = App.states.pushAfter(wrappedValue)
+        self.node = App.states.append(wrappedValue)
+
 
     }
     
     // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
     deinit {
-        print("Deinitializing State")
+        print("Deinitializing State: \(self.node)")
         self.node.remove()
     }
     

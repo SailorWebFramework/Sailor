@@ -13,19 +13,19 @@ extension Page {
         "Page(type: \(type(of: self)))"
     }
 
-    public func build(parentNode: DOMNode) {
-        let domNode = DOMNode(
-            page: self,
-            // TODO: this is maybe fine but element for a page element is its parent
-            element: parentNode.element,
-            parent: parentNode
-        )
-
-        parentNode.append(domNode)
-        
-        body.build(parentNode: domNode)
-
-    }
+//    public func build(parentNode: DOMNode) {
+//        let domNode = DOMNode(
+//            page: self,
+//            // TODO: this is maybe fine but element for a page element is its parent
+//            element: parentNode.element,
+//            parent: parentNode
+//        )
+//
+//        parentNode.append(domNode)
+//        
+//        self.body.build(parentNode: domNode)
+//
+//    }
 
 }
 

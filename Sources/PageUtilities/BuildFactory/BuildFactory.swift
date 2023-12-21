@@ -13,14 +13,12 @@ enum BuildFactory {
     
     // TODO: use this as new build function
     static func build(page: any Page, parentNode: DOMNode) {
+        // if page is an HTMLElement
         if let page = page as? any HTMLElement {
             
             let domNode = DOMNode(
                 page: page,
                 element: App.document.createElement(page.name),
-                content: page.content,
-                attributes: page.attributes,
-                events: page.events,
                 parent: parentNode
             )
             
@@ -32,15 +30,21 @@ enum BuildFactory {
 
             }
             
+            // render to DOM
+            domNode.renderToDOM()
+
             return
 
         }
+        
+        // if page is a custom page
         let domNode = DOMNode(
             page: page,
             // TODO: this is maybe fine but element for a page element is its parent
             element: parentNode.element,
             parent: parentNode
         )
+        
         parentNode.append(domNode)
 
         BuildFactory.build(page: page.body, parentNode: domNode)

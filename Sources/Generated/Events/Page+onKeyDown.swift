@@ -12,7 +12,7 @@ extension Page {
         }
         copy.events["keydown"] = Event(
             name: "keydown", 
-            build: { eventResult in
+            action: { eventResult in
                 if case let EventResult.string(value) = eventResult {
                     completion(value)
                 }

@@ -14,7 +14,6 @@ extension Event {
     func getResultValue(_ eventJSValue: JSValue) -> EventResult {
         
         //TODO: make event map
-//        eventmap[self.name]
         
 //        print("GETTING RESULT VALUE", self.name, eventJSValue.target.value.string)
         if self.name == "input",
@@ -36,7 +35,7 @@ extension Event {
             
             let resultValue = self.getResultValue(firstEvent)
             
-            self.build(resultValue)
+            self.action(resultValue)
 
             return .undefined
         }
