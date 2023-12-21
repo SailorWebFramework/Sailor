@@ -15,4 +15,9 @@ enum InternalError {
     static func listBeingRendered() {
         fatalError("list item is being rendered")
     }
+    
+    static func builtPageShouldHaveBody() {
+        fatalError("diffing error, built page should have a body")
+
+    }
 }

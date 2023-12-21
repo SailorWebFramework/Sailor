@@ -10,7 +10,7 @@ extension Page {
                 completion()
             }
         }
-        copy.events["mouseover"] = Event(name: "mouseover", build: { _ in
+        copy.events["mouseover"] = Event(name: "mouseover", action: { _ in
             completion()
         })
 

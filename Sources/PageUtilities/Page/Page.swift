@@ -15,6 +15,6 @@ public protocol Page: CustomStringConvertible {
     
     // TODO: remove build from Page & HTMLElement, make like a BuildPage class so its hidden
     ///
-    func build(parentNode: DOMNode)
+//    func build(parentNode: DOMNode)
 
 }

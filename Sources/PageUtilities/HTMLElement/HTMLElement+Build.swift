@@ -12,25 +12,26 @@ extension HTMLElement {
         "HTMLElement(type: \(type(of: self)), attributes: \(self.attributes), events: \(self.events), content: \(self.content), children: \(self.children.count))"
     }
     
-    public func build(parentNode: DOMNode) {
-        let domNode = DOMNode(
-            page: self,
-            element: App.document.createElement(self.name),
-            content: self.content,
-            attributes: self.attributes,
-            events: self.events,
-            parent: parentNode
-        )
-        
-        parentNode.append(domNode)
-
-        // add children
-        for (_, child) in children.enumerated() {
-            child.build(parentNode: domNode)
-        }
-
-        domNode.renderToDOM()
-
-    }
+//    public func build(parentNode: DOMNode) {
+//        let domNode = DOMNode(
+//            page: self,
+//            element: App.document.createElement(self.name),
+//            content: self.content,
+//            attributes: self.attributes,
+//            events: self.events,
+//            parent: parentNode
+//        )
+//        
+//        parentNode.append(domNode)
+//        
+//        // add children
+//        for (_, child) in self.children.enumerated() {
+//            child.build(parentNode: domNode)
+//        }
+//
+//
+//        domNode.renderToDOM()
+//
+//    }
     
 }
