@@ -10,7 +10,7 @@ extension Page {
                 completion()
             }
         }
-        copy.events["submit"] = Event(name: "submit", build: { _ in
+        copy.events["submit"] = Event(name: "submit", action: { _ in
             completion()
         })
 

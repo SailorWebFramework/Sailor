@@ -10,7 +10,7 @@ extension Page {
                 completion()
             }
         }
-        copy.events["focus"] = Event(name: "focus", build: { _ in
+        copy.events["focus"] = Event(name: "focus", action: { _ in
             completion()
         })
 

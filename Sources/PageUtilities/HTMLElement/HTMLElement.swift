@@ -26,7 +26,7 @@ protocol HTMLElement: Page, Hashable, Equatable {
 
     // TODO: remove build from this class
     /// build and render the HTML page
-    func build(parentNode: DOMNode)
+//    func build(parentNode: DOMNode)
     
     ///
     func style(_ properties: Style.Property...) -> Self

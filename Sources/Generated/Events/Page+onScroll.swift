@@ -10,7 +10,7 @@ extension Page {
                 completion()
             }
         }
-        copy.events["scroll"] = Event(name: "scroll", build: { _ in
+        copy.events["scroll"] = Event(name: "scroll", action: { _ in
             completion()
         })
 

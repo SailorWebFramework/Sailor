@@ -12,8 +12,8 @@ extension DOMNode {
     
     func update(events: Events) {
         
-        for (eventName, event) in self.events {
-            _ = self.element?.removeEventListener(eventName, eventClosures[eventName])
+        for (eventName, _) in self.eventClosures {
+            _ = self.element?.removeEventListener(eventName, eventClosures[eventName])            
         }
         
         self.eventClosures = [:]
@@ -55,7 +55,8 @@ extension DOMNode {
 
         // add new children
         for child in children {
-            child.build(parentNode: self)
+//            child.build(parentNode: self)
+            BuildFactory.build(page: child, parentNode: self)
         }
     }
     

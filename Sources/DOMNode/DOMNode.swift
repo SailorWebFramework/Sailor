@@ -1,29 +1,36 @@
 
 import JavaScriptKit
 
+public typealias DOMChildNode = LinkedListNode<DOMNode>
+
 // TODO: make internal somehow
 public class DOMNode {
+    public static var total = 0
 
     /// string content on HTML element
     public var content: String
     
     /// HTML attributes attached to this node
     public var attributes: Attributes
-
+    
+    //TODO: maybe remove, dont think i can compare type of action anyway
     /// HTML events added to this node
     public var events: Events
     
     /// event closure references for each rendered event
     public var eventClosures: [String:JSClosure]
-
+    
+    // TODO: Make a linked list
     /// child dom nodes contained by this HTMLElement, only one child (ie: body) for a Page
     public var children: [DOMNode]
+//    public var children: LinkedList<DOMNode>
     
     /// weak reference to parent node in dom tree
     weak public var parent: DOMNode?
+        
+    weak public var node: DOMChildNode?
 
     ///
-    // TODO: remove this? i only need the type that it is? edit: i think i need this (at least in custom componenets) to track state
     public var page: any Page 
 
     /// the javascript pointer to element in the DOM
@@ -31,29 +38,31 @@ public class DOMNode {
     
 //    public var isHTMLElement: Bool { self.page is any HTMLElement }
 
-    // TODO: maybe remove page, raplace with type?
     init(
         page: any Page, 
-        element: JSValue? = nil, 
-        content: String = "", 
-        attributes: Attributes = [:],
-        events: Events = [:],
-        children: [DOMNode] = [], 
+        element: JSValue? = nil,
         parent: DOMNode? = nil
     ) {
         self.page = page
         self.parent = parent
-
-        self.content = content
-        self.children = children
-        self.attributes = attributes
-                
-        self.events = events
+        self.element = element
+        self.children = []
+//        self.children = LinkedList()
         self.eventClosures = [:]
         
-        self.element = element
+        Self.total += 1
 
-//        print("BUILDING: \(type(of: self.page))")
+        if let page = page as? any HTMLElement {
+            self.content = page.content
+            self.attributes = page.attributes
+            self.events = page.events
+
+        } else {
+            self.content = ""
+            self.attributes = [:]
+            self.events = [:]
+        }
+
         
         // TODO: maybe use update functions here to look nicer?
         if self.element != nil {
@@ -76,8 +85,11 @@ public class DOMNode {
     }
     
     deinit {
-        print("Deallocated DOMNODE")
+        Self.total -= 1
+
+        print("Deallocated DOMNODE: total \(Self.total)")
         print(self)
+
     }
 
     public func renderToDOM() {
@@ -85,14 +97,19 @@ public class DOMNode {
     }
 
     public func append(_ domNode: DOMNode) {
+//        let node = self.children.append(domNode)
+//        domNode.node = node
         self.children.append(domNode)
+
+        domNode.parent = self
     }
     
-    
+    // TODO: make better with linked list
     public func removeFromParent() {
         // remove from parent
         self.parent?.children.removeAll { $0 === self }
-        self.parent = nil
+//        self.node?.remove()
+        
     }
     
     public func reset(to page: any Page) {
@@ -114,10 +131,23 @@ public class DOMNode {
         
         // free children in memory
         self.children = []
-        self.element = nil
+//        self.children.clear()
         self.attributes = [:]
-        self.events = [:]
         self.content = ""
+        
+        
+        // remove events
+        for (eventName, closure) in self.eventClosures {
+            print("REMOVING CLOSURES!")
+            _ = self.element?.removeEventListener(eventName, closure)
+        }
+        
+        self.events = [:]
+        self.eventClosures = [:]
+        
+        
+        // remove element reference
+        self.element = nil
 
     }
     
@@ -130,26 +160,34 @@ public class DOMNode {
         if let page = self.page as? any HTMLElement {
             _ = element?.remove()
         }
-
-        for child in children {
+        
+        for child in self.children {
             child.removeDeepFromDOM()
         }
         
     }
     
     public func printTree(_ tabAmt: Int = 0) {
-        if self.page is any HTMLElement {
-            print(("\t" * tabAmt) + "HTMLE:\(type(of: self.page))")
-        } else {
-            print(("\t" * tabAmt) + "Type:\(type(of: self.page))")
-        }
+//        if self.page is any HTMLElement {
+//            print(("\t" * tabAmt) + "HTMLE:\(type(of: self.page))")
+//        } else {
+//            print(("\t" * tabAmt) + "Type:\(type(of: self.page))")
+//        }
+        
+        print(("\t" * tabAmt) + "Type:\(type(of: self.page))")
+
         print(("\t" * tabAmt) + "Content: \(self.content)")
         print(("\t" * tabAmt) + "Attributes: \(self.attributes)")
-        print(("\t" * tabAmt) + "Body:")
+        print(("\t" * tabAmt) + "Events: \(self.events)")
+
+        print(("\t" * tabAmt) + "{")
 
         for element in children {
             element.printTree(tabAmt + 1)
         }
+        
+        print(("\t" * tabAmt) + "}")
+
 
     }
 
