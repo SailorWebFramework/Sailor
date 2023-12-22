@@ -8,8 +8,10 @@ public class DOMNode {
     public static var total = 0
 
     /// string content on HTML element
-    public var content: String
-    
+//    public var content: String
+        
+    public var content: TagContent? = nil
+
     /// HTML attributes attached to this node
     public var attributes: Attributes
     
@@ -23,13 +25,12 @@ public class DOMNode {
     // TODO: Make a linked list
     /// child dom nodes contained by this HTMLElement, only one child (ie: body) for a Page
     public var children: [DOMNode]
+    
 //    public var children: LinkedList<DOMNode>
     
     /// weak reference to parent node in dom tree
     weak public var parent: DOMNode?
         
-    weak public var node: DOMChildNode?
-
     ///
     public var page: any Page 
 
@@ -47,7 +48,6 @@ public class DOMNode {
         self.parent = parent
         self.element = element
         self.children = []
-//        self.children = LinkedList()
         self.eventClosures = [:]
         
         Self.total += 1
@@ -58,7 +58,7 @@ public class DOMNode {
             self.events = page.events
 
         } else {
-            self.content = ""
+            self.content = nil
             self.attributes = [:]
             self.events = [:]
         }
@@ -66,9 +66,8 @@ public class DOMNode {
         
         // TODO: maybe use update functions here to look nicer?
         if self.element != nil {
-        
-            if !self.content.isEmpty {
-                self.element?.textContent = JSValue.string(self.content)
+            if case let .text(value) = self.content {
+                self.element?.textContent = JSValue.string(value)
             }
 
             for (key, value) in self.attributes {
@@ -133,7 +132,7 @@ public class DOMNode {
         self.children = []
 //        self.children.clear()
         self.attributes = [:]
-        self.content = ""
+        self.content = nil
         
         
         // remove events

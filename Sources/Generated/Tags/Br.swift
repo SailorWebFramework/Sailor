@@ -11,32 +11,34 @@ import JavaScriptKit
 
 public struct Br: HTMLElement {
 
+    public var name: String { "br" }
+
     public var body: some Page {
+        InternalError.recursingInPageBody(name: "br")
         return self
     }
     
-    var name: String {
-        "br"
-    }
-
     var attributes: Attributes
     var events: Events
 
-    var children: [any Page]
-    var content: String
+    // var children: [any Page]
+    var content: TagContent
 
-    private init(children: [any Page] = [], content: String = "") {          
-        self.children = children
-        self.content = content
+    public init() {   
+        self.init("")       
+    }
+
+    public init(@PageBuilder _ content: @escaping () -> any Operator) {
+        self.content = .list(content)
         self.attributes = .init()
         self.events = [:]
-    }
 
-    public init(_ children: [any Page]) {          
-        self.init(children: children, content: "")
     }
-    public init() {          
-        self.init(children: [], content: "")
+    
+    public init(_ text: String) {
+        self.content = .text(text)
+        self.attributes = .init()
+        self.events = [:]
     }
 
 

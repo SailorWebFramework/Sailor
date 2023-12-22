@@ -7,8 +7,9 @@
 
 import Foundation
 
+public typealias StateValue = any Equatable
+typealias StateNode = LinkedListNode<StateValue>
 
-//TODO: use reflections Mirror maybe
 @propertyWrapper
 public class State<Value: Equatable> {
     
@@ -41,12 +42,6 @@ public class State<Value: Equatable> {
     deinit {
         print("Deinitializing State: \(self.node)")
         self.node.remove()
-    }
-    
-    // TODO: update the index and remove old state / make this a pointer to Value
-    public func inject(index: Value) {
-        
-//        self.index = index
     }
     
     private func getValue() -> Value {
