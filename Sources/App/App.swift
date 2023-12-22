@@ -38,14 +38,15 @@ public final class App {
     
     public static func build(root: any Page) {
         // Does page copy need to be there?
-        Self.virtualDOM = DOMNode(page: Body(), element: App.document.body)
+        Self.virtualDOM = DOMNode(page: root, element: App.document.body)
 
         if let virtualDOM = Self.virtualDOM {
-            BuildFactory.build(page: root, parentNode: virtualDOM)
+            BuildFactory.build(page: root.body, parentNode: virtualDOM)
         }
         
-//        Self.virtualDOM?.printTree()
-//        print("States nodes:", states.total())
+        Self.virtualDOM?.printTree()
+        print("States nodes:")
+        states.printList()
         // TODO: build css files
 
     }

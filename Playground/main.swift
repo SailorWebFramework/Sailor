@@ -230,19 +230,36 @@ struct TestTwoPage: Page {
 
 
 struct Hey1Page: Page {
+    @State var hello: Int = 1
+
     var body: some Page {
-        Span("hello")
+        Div("hello: \(hello)")
     }
 }
 
 struct Hey2Page: Page {
+    @State var myName: Int = 0
+
     var body: some Page {
         Div {
-            Hey1Page()
+            
+            if myName % 2 == 1 {
+                Hey1Page()
+            }
+            
+            Div("HELLO: \(myName)")
+
+            Div {
+                Div("SO: \(myName)")
+            }
+            .onClick {
+                myName += 1
+            }
+
             Span("world")
 
         }
     }
 }
 
-App.build(root: TestTwoPage())
+App.build(root: Hey2Page())

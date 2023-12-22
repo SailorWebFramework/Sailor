@@ -10,25 +10,29 @@ import Foundation
 
 extension DOMNode {
     
+    
+    func diffAndReplaceOuter(_ page: any HTMLElement) {
+        
+        if !self.compareAttributes(to: page) {
+            self.update(attributes: page.attributes)
+        }
+        
+        if !self.compareTextContent(to: page),
+           case let .text(textContent) = page.content {
+            self.update(textContent: textContent)
+        }
+
+        // TODO: fix this? do i need this?
+        if !self.compareEvents(to: page) {
+            self.update(events: page.events)
+        }
+        
+    }
+    
     // TODO: remove from state in replace
     // TODO: make page a constant and delete this node from linked list
     /// replace current domnode page with new page
     func replace(_ page: any Page) {
-        
-//        if !domNode.compareAttributes(to: page) {
-//            domNode.update(attributes: page.attributes)
-//        }
-//
-//        if !domNode.compareContent(to: page) {
-//            domNode.update(content: page.content)
-//        }
-        
-//
-//        // TODO: fix this? do i need this?
-//        if !domNode.compareEvents(to: page) {
-//            domNode.update(events: page.events)
-//        }
-        
         
         self.reset(to: page)
         
@@ -36,7 +40,6 @@ extension DOMNode {
             update(attributes: page.attributes)
             update(events: page.events)
             update(content: page.content)
-            update(children: page.children)
 
         }
         

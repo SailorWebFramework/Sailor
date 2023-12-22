@@ -42,32 +42,65 @@ extension DOMNode {
         }
     }
     
-    func update(children: [any Page]) {
-        // TODO: make this more effiecient and diff the children?
-
-        // remove all old children
-        for child in self.children {
-            child.delete()
-        }
-
-        // free old children from memory
-        self.children = []
-
-        // add new children
-        for child in children {
-//            child.build(parentNode: self)
-            BuildFactory.build(page: child, parentNode: self)
-        }
+//    func update(children: [any Page]) {
+//        // TODO: make this more effiecient and diff the children?
+//
+//        // remove all old children
+//        for child in self.children {
+//            child.delete()
+//        }
+//
+//        // free old children from memory
+//        self.children = []
+//
+//        // add new children
+//        for child in children {
+////            child.build(parentNode: self)
+//            BuildFactory.build(page: child, parentNode: self)
+//        }
+//    }
+    
+    func update(textContent: String) {
+        // add content
+        if case let .text(current) = self.content,
+           textContent == current { return }
+        
+        self.element?.textContent = JSValue.string(textContent)
+        
     }
     
-    func update(content: String) {
-        // add content
-        if self.content == content {
-            return
+    func update(content: TagContent) {
+        switch content {
+            
+        case .text(let text):
+            // add content
+            if case let .text(current) = self.content,
+               text == current { return }
+            
+//            self.content = .text(content)
+            self.element?.textContent = JSValue.string(text)
+            
+        case .list(let content):
+            // TODO: make this more effiecient and diff the children?
+
+            // remove all old children
+            for child in self.children {
+                child.delete()
+            }
+
+            // free old children from memory
+            self.children = []
+            
+            let newChildren = content().children
+            
+            // add new children
+            for child in newChildren {
+                BuildFactory.build(page: child, parentNode: self)
+            }
+                        
         }
         
         self.content = content
-        self.element?.textContent = JSValue.string(self.content)
-        
+
     }
 }
