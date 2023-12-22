@@ -11,45 +11,37 @@ import JavaScriptKit
 
 public struct Colgroup: HTMLElement {
 
+    public var name: String { "colgroup" }
+
     public var body: some Page {
+        InternalError.recursingInPageBody(name: "colgroup")
         return self
     }
     
-    var name: String {
-        "colgroup"
-    }
-
     var attributes: Attributes
     var events: Events
 
-    var children: [any Page]
-    var content: String
+    // var children: [any Page]
+    var content: TagContent
 
-    private init(children: [any Page] = [], content: String = "") {          
-        self.children = children
-        self.content = content
+    public init() {   
+        self.init("")       
+    }
+
+    public init(@PageBuilder _ content: @escaping () -> any Operator) {
+        self.content = .list(content)
+        self.attributes = .init()
+        self.events = [:]
+
+    }
+    
+    public init(_ text: String) {
+        self.content = .text(text)
         self.attributes = .init()
         self.events = [:]
     }
 
-    public init(_ children: [any Page]) {          
-        self.init(children: children, content: "")
-    }
-    public init() {          
-        self.init(children: [], content: "")
-    }
 
-    public init(@PageBuilder _ content: () -> any Page) {
-        if let page = content() as? List {
-            self.init(children: page.children, content: "")
-        } else {
-            self.init(children: [content()], content: "")
-        }
-    }
-    
-    public init(_ content: String) {
-        self.init(children: [], content: content)
-    }
 
     //MARK- ATTRIBUTES
     public func style(_ properties: Style.Property...) -> Self {

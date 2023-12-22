@@ -8,12 +8,19 @@
 import Foundation
 import JavaScriptKit
 
-protocol HTMLElement: Page, Hashable, Equatable {
+public enum TagContent {
+    case text(String), list(() -> any Operator) //list(() -> List)
+}
+
+// TODO: add ID HERe
+// , Hashable, Equatable
+protocol HTMLElement: Page {
+
     /// HTML tag name, all lowercased
     var name: String { get }
     
     /// text content within HTML tag
-    var content: String { get set }
+//    var content: String { get set }
     
     /// attributes on HTML tag
     var attributes: Attributes { get set }
@@ -22,7 +29,9 @@ protocol HTMLElement: Page, Hashable, Equatable {
     var events: Events { get set }
     
     /// children within HTML tags
-    var children: [any Page] { get set }
+//    var children: [any Page] { get set }
+    
+    var content: TagContent { get set }
 
     // TODO: remove build from this class
     /// build and render the HTML page

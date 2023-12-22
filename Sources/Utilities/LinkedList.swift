@@ -65,6 +65,13 @@ public class LinkedList<Value>: Sequence {
         return LinkedListIterator(current: head)
     }
     
+    
+    public func printList() {
+        for state in self {
+            Swift.print(state)
+        }
+    }
+    
 }
 
 public class LinkedListIterator<Value>: IteratorProtocol {

@@ -14,8 +14,8 @@ extension DOMNode {
         return type(of: self.page) == type(of: page)
     }
 
-    func compareAttributes(to page: any Page) -> Bool {
-        return self.attributes == (page as? any HTMLElement)?.attributes ?? [:]
+    func compareAttributes(to page: any HTMLElement) -> Bool {
+        return self.attributes == page.attributes
     }
     
     // TODO: get compare events working properly??
@@ -25,19 +25,22 @@ extension DOMNode {
     }
     
     /// compares the outer html to page, compares the tag, attributes, and events
-    func compareOuter(to page: any Page) -> Bool {
-        return compareTag(to: page) && compareAttributes(to: page) && compareEvents(to: page)
-    }
+    // func compareOuter(to page: any Page) -> Bool {
+    //     return compareTag(to: page) && compareAttributes(to: page) && compareEvents(to: page)
+    // }
     
-    func compareContent(to page: any Page) -> Bool {
-        return self.content == (page as? any HTMLElement)?.content ?? ""
-    }
-    
-    func compareChildrenSize(to page: any Page) -> Bool {
-        // TODO: better compare
+     func compareTextContent(to page: any HTMLElement) -> Bool {
+         guard case let .text(newText) = page.content else { return false }
+         guard case let .text(curText) = self.content else { return false }
 
-        return self.children.count == (page as? any HTMLElement)?.children.count ?? 0
-    }
+         return newText == curText
+     }
+    
+    // func compareChildrenSize(to page: any Page) -> Bool {
+    //     // TODO: better compare
+
+    //     return self.children.count == (page as? any HTMLElement)?.children.count ?? 0
+    // }
     
 //    func compareChildren(to page: any Page) -> Bool {
 //        // TODO: better compare
