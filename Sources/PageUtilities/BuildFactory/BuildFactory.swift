@@ -6,22 +6,35 @@
 //
 
 import Foundation
-
+import JavaScriptKit
 
 /// builder of pages
 enum BuildFactory {
     
-    // TODO: use this as new build function
-    static func build(page: any Page, parentNode: DOMNode) {
-        // TODO: dont render list change pagebuilder conditional to wrap in a div?
+    // TODO: ??
+    static func rebuild() {
+        
+    }
+    
+    static func build(page: any Page, parentNode: PageNode) {
+        let aboveElement: JSObject
+        
+        if let parentElement = (parentNode as? HTMLNode)?.element {
+            aboveElement = parentElement
+        } else if let upperElement = parentNode.aboveElement {
+            aboveElement = upperElement
+        } else {
+            // TODO: throw error
+            return
+        }
+        
         // if page is an Operator
         if let page = page as? any Operator {
 
             // create new virtual dom node
-            let domNode = DOMNode(
+            let domNode = OperatorNode(
                 page: page,
-                element: parentNode.element,
-                parent: parentNode
+                aboveElement: aboveElement
             )
 
             // add new node as a child of the current parent
@@ -40,22 +53,17 @@ enum BuildFactory {
         if let page = page as? any HTMLElement {
             
             // create new virtual dom node
-            let domNode = DOMNode(
+            let domNode = HTMLNode(
                 page: page,
-                element: App.document.createElement(page.name),
-                parent: parentNode
+                aboveElement: aboveElement
             )
             
             // add new node as a child of the current parent
             parentNode.append(domNode)
             
-            // add children
+            // run the page builder closure to create an operator node
             if case let .list(listpage) = page.content {
-                let children = listpage().children
-                for (_, child) in children.enumerated() {
-                    BuildFactory.build(page: child, parentNode: domNode)
-
-                }
+                BuildFactory.build(page: listpage(), parentNode: domNode)
             }
             
             // render to DOM
@@ -66,11 +74,9 @@ enum BuildFactory {
         }
         
         // if page is a custom page
-        let domNode = DOMNode(
+        let domNode = PageNode(
             page: page,
-            // TODO: this is maybe fine but element for a page element is its parent
-            element: parentNode.element,
-            parent: parentNode
+            aboveElement: aboveElement
         )
         
         parentNode.append(domNode)

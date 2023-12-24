@@ -5,9 +5,12 @@
 //  Created by Joshua Davis on 10/12/23.
 //
 
+import Foundation
 import JavaScriptKit
 
 public struct Conditional: Operator {
+    
+    public var id: UUID = UUID()
     
     public var children: [any Page]
 
