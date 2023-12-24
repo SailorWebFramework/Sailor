@@ -229,11 +229,17 @@ struct TestTwoPage: Page {
 }
 
 
+//@Route("\about")
 struct Hey1Page: Page {
     @State var hello: Int = 1
 
     var body: some Page {
-        Div("hello: \(hello)")
+        Div {
+            Div("hello: \(hello)")
+                .onClick {
+                    hello += 1
+                }
+        }
     }
 }
 
@@ -248,13 +254,22 @@ struct Hey2Page: Page {
             }
             
             Div("HELLO: \(myName)")
+                .style(.backgroundColor(.rgb(200, 0, 0)))
 
             Div {
                 Div("SO: \(myName)")
+                
+                Div("Y: \(myName)")
+                Div("OH: \(myName)")
+
             }
             .onClick {
                 myName += 1
             }
+            .onMouseOver {
+                
+            }
+            
 
             Span("world")
 

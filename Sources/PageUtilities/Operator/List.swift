@@ -8,7 +8,7 @@
 import JavaScriptKit
 import Foundation
 
-public struct Container: Operator {
+public struct List: Operator {
     
     public var id: UUID = UUID()
 
