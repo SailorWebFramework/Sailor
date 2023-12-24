@@ -11,21 +11,32 @@ import JavaScriptKit
 public class OperatorNode: PageNode {
     
     public var id: UUID?
-    
-    // TODO: make element here and maybe page? weak eleement
+        
+    override public var description: String {
+        "OperatorNode(type: \(type(of:self.page)), id: \(self.id), children: \(self.children.count))"
+    }
     
     init(
         page: any Operator,
-        element: JSObject,
-        parent: DOMNode? = nil
+        aboveElement: JSObject//,
+        //parent: PageNode
     ) {
         self.id = page.id
-        super.init(page: page, element: element, parent: parent)
+        super.init(page: page, aboveElement: aboveElement)
     }
     
-    func compareTag(to page: any Operator) -> Bool {
-        return page.id == self.id
-    }
-    
+//    public func replace(_ page: any Operator) {
+//        
+//        self.removeFromDOM()
+//        self.removeFromParent()
+//
+//        self.page = page
+//        
+////        BuildFactory.rebuild(self)
+//    }
+//    
+//    func compareTag(to page: any Operator) -> Bool {
+//        return page.id == self.id
+//    }
     
 }

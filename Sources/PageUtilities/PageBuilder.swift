@@ -16,7 +16,7 @@ public struct PageBuilder {
 //            return list
 //        }
 //
-        return Container(children)
+        return List(children)
     }
     
     public static func buildOptional(_ component: (any Operator)?) -> any Operator {
