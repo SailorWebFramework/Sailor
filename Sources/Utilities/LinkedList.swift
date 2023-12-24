@@ -8,7 +8,11 @@
 import Foundation
 public class LinkedList<Value>: Sequence {
     
-    var head: LinkedListNode<Value>? = nil
+    private var head: LinkedListNode<Value>? = nil
+    
+    var isEmpty: Bool {
+        count == 0
+    }
 
     var count: Int {
         if let head = head {
@@ -30,9 +34,12 @@ public class LinkedList<Value>: Sequence {
     }
     
     func clear() {
-        while self.head != nil {
-            self.remove(self.head)
-        }
+        
+        self.head?.prev?.next = nil
+        self.head = nil
+//        while self.head != nil {
+//            self.remove(self.head)
+//        }
         
     }
     
@@ -95,8 +102,8 @@ public class LinkedListIterator<Value>: IteratorProtocol {
 public class LinkedListNode<Value>: CustomStringConvertible {
 
     public var value: Value
-    private(set) var next: LinkedListNode?
-    private(set) var prev: LinkedListNode?
+    fileprivate(set) var next: LinkedListNode?
+    weak fileprivate(set) var prev: LinkedListNode?
     
     public var description: String {
         "[\(value)]"
@@ -115,12 +122,21 @@ public class LinkedListNode<Value>: CustomStringConvertible {
         self.prev = prev
     }
     
+    public func replace(with node: LinkedListNode) {
+        node.prev = self.prev
+        node.next = self.next
+        self.prev?.next = node
+        self.next?.prev = node
+        
+        self.next = nil
+    }
+    
     public func remove() {
         self.prev?.next = self.next
         self.next?.prev = self.prev
         
         self.next = nil
-        self.prev = nil
+//        self.prev = nil
     }
     
     public func pushAfter(_ value: Value) -> LinkedListNode {
