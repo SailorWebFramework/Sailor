@@ -37,9 +37,7 @@ public class DOMNode {
     /// the javascript pointer to element in the DOM
     public var element: JSValue?
     
-//    public var isHTMLElement: Bool { self.page is any HTMLElement }
-
-    init(
+    internal init(
         page: any Page, 
         element: JSValue? = nil,
         parent: DOMNode? = nil

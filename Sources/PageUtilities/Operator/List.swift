@@ -6,10 +6,12 @@
 //
 
 import JavaScriptKit
-
+import Foundation
 
 public struct Container: Operator {
     
+    public var id: UUID = UUID()
+
     public var children: [any Page]
 
     public var body: some Page {
