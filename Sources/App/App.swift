@@ -49,8 +49,7 @@ public final class App {
             BuildFactory.build(page: root.body, parentNode: bodyNode)
         }
         
-        Self.bodyNode?.print()
-        print("States nodes:")
+        Self.bodyNode?.printNode()
         states.printList()
         // TODO: build css files
 
