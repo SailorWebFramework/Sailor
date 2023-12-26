@@ -24,6 +24,7 @@ public class PageNode: CustomStringConvertible {
 //    public var children: [PageNode]
     
     public var children: LinkedList<PageNode>
+//    public var children: [PageNode]
     
     /// weak reference to parent node in dom tree
 //    weak public var parent: PageNode?
@@ -43,7 +44,8 @@ public class PageNode: CustomStringConvertible {
 
     public init(
         page: any Page,
-        aboveElement: JSObject
+        aboveElement: JSObject//,
+//        parent: PageNode?
     ) {
         self.page = page
         
@@ -51,9 +53,12 @@ public class PageNode: CustomStringConvertible {
         self.children = LinkedList()
         self.node = nil
 
+//        self.children = []
+//        self.parent = parent
+
     }
     
-    public func print() {
+    public func printNode() {
         Swift.print(self.stackString(tabs: 4))
     }
     
@@ -97,12 +102,15 @@ public class PageNode: CustomStringConvertible {
     
     func replace(using page: any Page) {
         guard let aboveElement = aboveElement else { return }
-        
+        Swift.print("PRE REPLACE")
+        self.removeFromDOM()
+
         if let page = page as? any HTMLElement {
             replace(with:
                 HTMLNode(
                     page: page,
-                    aboveElement: aboveElement
+                    aboveElement: aboveElement,
+                    element: (self as? HTMLNode)?.element
                 )
             )
         } else if let page = page as? any Operator {
@@ -129,7 +137,7 @@ public class PageNode: CustomStringConvertible {
     public func build() {
         
         // TODO: any build things here
-        
+
         for child in self.children {
             child.build()
         }
@@ -137,21 +145,36 @@ public class PageNode: CustomStringConvertible {
         renderToDOM()
     }
     
-    func replace(with pageNode: PageNode) {
-        self.removeFromDOM()
-//        self.removeFromParent()
-
-        self.node?.replace(with: PageListNode(value: pageNode))
-        
-        self.build()
+    public func update(using page: any Page) {
+        // TODO: ?
     }
     
+    private func replace(with pageNode: PageNode) {
+        Swift.print("REPLACING")
+
+        pageNode.build()
+        
+//        pageNode.printNode()
+        
+        if let node = self.node {
+            let anode = PageListNode(value: pageNode)
+            print("NODE!!!!, \(anode)")
+            node.replace(with: anode)
+
+        }
+        
+        Swift.print("BUILIDNG")
+    }
+    
+    
+    // TODO: REMOVE & REMOVE FROM DOM NOT WORKING MAKES HANG
     internal func remove() {
         // free children in memory
 //        self.children = []
         
+        Swift.print("CLEAING LL")
         self.children.clear()
-        
+                
     }
     
     public func removeFromDOM() {

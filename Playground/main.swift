@@ -235,7 +235,7 @@ struct Hey1Page: Page {
 
     var body: some Page {
         Div {
-            Div("hello: \(hello)")
+            Div("brrr: \(hello)")
                 .onClick {
                     hello += 1
                 }
@@ -249,30 +249,27 @@ struct Hey2Page: Page {
     var body: some Page {
         Div {
             
-            if myName % 2 == 1 {
+            if myName % 2 == 0 {
                 Hey1Page()
             }
             
-            Div("HELLO: \(myName)")
-                .style(.backgroundColor(.rgb(200, 0, 0)))
+//            Hey1Page()
+//            Hey1Page()
 
             Div {
-                Div("SO: \(myName)")
+                Div("HELLO: \(myName)")
+                    .style(.backgroundColor(.rgb(200, 0, 0)))
                 
-                Div("Y: \(myName)")
-                Div("OH: \(myName)")
+                Div("yuh: \(myName + 1)")
+                Div("skee: \(myName + 2)")
+                Div("SOR: \(myName)")
 
             }
+            Div("SOL: \(myName + 242)")
             .onClick {
                 myName += 1
             }
-            .onMouseOver {
-                
-            }
             
-
-            Span("world")
-
         }
     }
 }
