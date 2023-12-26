@@ -8,7 +8,7 @@
 import Foundation
 public class LinkedList<Value>: Sequence {
     
-    private var head: LinkedListNode<Value>? = nil
+    private(set) var head: LinkedListNode<Value>? = nil
     
     var isEmpty: Bool {
         count == 0
@@ -17,12 +17,10 @@ public class LinkedList<Value>: Sequence {
     var count: Int {
         if let head = head {
             let start = head
-            print(start)
             var current: LinkedListNode<Value>? = head.next
             var total = 1
             
             while current !== start {
-                print(current)
                 current = current?.next
                 total += 1
             }
@@ -31,6 +29,35 @@ public class LinkedList<Value>: Sequence {
         }
         
         return 0
+    }
+    
+    subscript(index: Int) -> Value? {
+        if index == 0 {
+            // TODO: throw error
+            return head?.value
+        }
+
+        var current: LinkedListNode<Value>? = head?.next
+        var total = 1
+
+        if let head = head {
+            let start = head
+
+            current = head.next
+            
+            while current !== start && total == index {
+                current = current?.next
+                total += 1
+            }
+
+        }
+        
+        if total != index {
+            return nil
+        }
+        
+        // TODO: throw error if out of range?
+        return current?.value
     }
     
     func clear() {
@@ -44,12 +71,11 @@ public class LinkedList<Value>: Sequence {
     }
     
     func append(_ value: Value) -> LinkedListNode<Value> {
-        if let head = head {
-            return head.pushAfter(value)
+        if let last = head?.prev {
+            return last.pushAfter(value)
         }
         
         let node = LinkedListNode(value: value)
-        
         self.head = node
         
         return node
@@ -60,8 +86,6 @@ public class LinkedList<Value>: Sequence {
         if let head = head {
             if head.next === head.prev && head === node {
                 self.head = nil
-            } else {
-                self.head = node
             }
         }
         
@@ -74,9 +98,14 @@ public class LinkedList<Value>: Sequence {
     
     
     public func printList() {
+        var output = "States: "
         for state in self {
-            Swift.print(state)
+            output += "[\(state)],"
         }
+        output += ";; COUNT: \(count)"
+
+        Swift.print(output)
+
     }
     
 }
@@ -116,6 +145,10 @@ public class LinkedListNode<Value>: CustomStringConvertible {
 
     }
     
+    deinit {
+        print("FREEING NODE: [\(value)]")
+    }
+    
     private init(value: Value, next: LinkedListNode?, prev: LinkedListNode?) {
         self.value = value
         self.next = next
@@ -125,6 +158,7 @@ public class LinkedListNode<Value>: CustomStringConvertible {
     public func replace(with node: LinkedListNode) {
         node.prev = self.prev
         node.next = self.next
+        
         self.prev?.next = node
         self.next?.prev = node
         
@@ -147,9 +181,12 @@ public class LinkedListNode<Value>: CustomStringConvertible {
     }
     
     private func pushAfter(_ node: LinkedListNode) {
+        node.prev = self
+        node.next = self.next
+        
         self.next?.prev = node
         self.next = node
-
+        
     }
     
     public func pushBefore(_ value: Value) -> LinkedListNode {
@@ -159,6 +196,9 @@ public class LinkedListNode<Value>: CustomStringConvertible {
     }
     
     private func pushBefore(_ node: LinkedListNode) {
+        node.prev = self.prev
+        node.next = self
+        
         self.prev?.next = node
         self.prev = node
     }

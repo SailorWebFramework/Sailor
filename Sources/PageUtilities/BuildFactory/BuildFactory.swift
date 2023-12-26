@@ -19,6 +19,8 @@ enum BuildFactory {
     static func build(page: any Page, parentNode: PageNode) {
         let aboveElement: JSObject
         
+//        print("building page: \(page.description)")
+        
         if let parentElement = (parentNode as? HTMLNode)?.element {
             aboveElement = parentElement
         } else if let upperElement = parentNode.aboveElement {
@@ -43,7 +45,6 @@ enum BuildFactory {
             // add children
             for child in page.children {
                 BuildFactory.build(page: child, parentNode: domNode)
-
             }
             
             return
