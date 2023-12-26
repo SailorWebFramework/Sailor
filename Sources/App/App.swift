@@ -2,57 +2,18 @@
 //  File.swift
 //  
 //
-//  Created by Joshua Davis on 10/6/23.
+//  Created by Joshua Davis on 12/26/23.
 //
 
 import Foundation
-import JavaScriptKit
 
-public final class App {
-    // TODO: css files
-    // static var css: [String:Style] = [:]
-    
-    
-    public static var document = JSObject.global.document
-    public static let console = JSObject.global.console
 
-    /// the head of the linked list that housees global values of all the states in application
-    internal static var states: LinkedList<StateValue> = LinkedList() //StateNode(value: Date())
-    
-    /// global state accessable from any element must be unique type?
-    //static var environment: StateNode = StateNode(value: Date().timeIntervalSince1970)
+public protocol App: Page {
+    init()
+}
 
-    /// dictionary of events that rely on certain states
-    //internal static var events: [Int: JSClosure] = [:]
-
-    /// root node of virtual dom stored in memory as a tree
-//    internal static var virtualDOM: CustomNode? = nil
-    
-    /// root node of the HTML body in memory as the virtual dom
-    internal static var bodyNode: CustomNode? = nil
-    internal static var headNode: CustomNode? = nil
-
-    public static func main() { }
-    
-    public static func console(error: Error) {
-        _ = Self.console.error("Error: \(error.localizedDescription)")
+extension App {
+    public static func main() {
+        SailorGlobal.build(root: Self().body)
     }
-    
-    public static func build(root: any Page) {
-        guard let documentBody = App.document.body.object else { return }
-        
-        // set the root node of body dom tree
-        Self.bodyNode = CustomNode(page: root, aboveElement: documentBody)
-       
-        // build virtual dom body
-        if let bodyNode = Self.bodyNode {
-            BuildFactory.build(page: root.body, parentNode: bodyNode)
-        }
-        
-        Self.bodyNode?.printNode()
-        states.printList()
-        // TODO: build css files
-
-    }
-    
 }
