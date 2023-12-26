@@ -10,7 +10,14 @@ import JavaScriptKit
 
 // TODO:
 
-public class HTMLNode: PageNode {
+final public class HTMLNode: PageNode {
+    public var children: [any PageNode]
+    
+    weak public var parent: (any PageNode)?
+    
+    weak public var aboveElement: JavaScriptKit.JSObject?
+    
+    public var page: any Page
     
     /// string content on HTML element
     public var content: TagContent
@@ -24,33 +31,41 @@ public class HTMLNode: PageNode {
     /// the javascript pointer to element in the DOM
     public var element: JSObject?
 
-    override public var description: String {
+    public var description: String {
         "HTMLNode(type: \(type(of:self.page)), attributes: \(self.attributes), content: \(self.content)), events: \(self.events.keys), children: \(self.children.count))"
     }
     
     init(
         page: any HTMLElement,
         aboveElement: JSObject,
-        element: JSObject? = nil
+        element: JSObject? = nil,
+        parent: any PageNode
     ) {
-        
         self.content = page.content
         self.attributes = page.attributes
         self.events = [:]
+
+        self.page = page
+        self.aboveElement = aboveElement
+        self.parent = parent
+        self.children = []
         
         if element != nil {
             self.element = element
         } else {
-            self.element = App.document.createElement(page.name).object
+            self.element = SailorGlobal.document.createElement(page.name).object
         }
         
-        super.init(page: page, aboveElement: aboveElement)
-        
-        
-        self.setup(page: page)
     }
-
-    private func setup(page: any HTMLElement) {
+//
+//    private func setup(page: any HTMLElement) {
+//
+//    }
+//
+    
+    public func add() {
+        guard let page = self.page as? any HTMLElement else { return }
+        
         build(events: page.events)
         
         if case let .text(value) = page.content {
@@ -58,21 +73,28 @@ public class HTMLNode: PageNode {
         }
 
         build(attributes: page.attributes)
+
     }
     
-    
-    public override func renderToDOM() {
-        _ = aboveElement?.appendChild?(self.element)
-    }
-    
-    public override func append(_ domNode: PageNode) {
-        super.append(domNode)
-        if let element = self.element {
-            domNode.aboveElement = self.element
+    public func remove() {
+        for (name, closure) in self.events {
+            _ = self.element?.removeEventListener?(name, closure)
         }
+        
+        self.events = [:]
+        
+        self.content = .text("")
+        
+        // remove old attributes
+        for (name, _) in self.attributes {
+            _ = self.element?.removeAttribute?(name.description)
+        }
+        
+        self.attributes = [:]
+
     }
     
-    public override func update(using page: any Page) {
+    public func update(using page: any Page) {
         // TODO: ?
         guard let page = page as? any HTMLElement else { return }
         
@@ -89,43 +111,8 @@ public class HTMLNode: PageNode {
                 build(textContent: value)
             }
         }
+        
+        self.content = page.content
     }
-    
-    internal override func remove() {
-        super.remove()
-        
-        for (name, closure) in self.events {
-            _ = self.element?.removeEventListener?(name, closure)
-        }
-        
-        self.events = [:]
-        
-        self.content = .text("")
-        
-        // remove old attributes
-        for (name, _) in self.attributes {
-            _ = self.element?.removeAttribute?(name.description)
-        }
-        
-        self.attributes = [:]
-        
-        _ = self.element?.remove?()
-
-    }
-    
-//    func replace(_ page: any HTMLElement) {
-//        
-//        self.removeFromDOM()
-//        self.removeFromParent()
-//
-//        self.page = page
-//        
-//        
-//        // TODO:
-////        BuildFactory.rebuild(self)
-//        
-//        self.renderToDOM()
-//
-//    }
     
 }

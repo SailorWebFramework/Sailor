@@ -1,7 +1,7 @@
 
 import JavaScriptKit
 
-extension App {
+extension SailorGlobal {
 
     // TODO: make sure this works, or depricate it?
 //    static func forceUpdate() {
@@ -30,7 +30,7 @@ extension App {
     
     // TODO: remove page from diff and just verify domNodes??? mayb
     // TODO: FIX
-    static func diff(page: any Page, domNode: PageNode) {
+    static func diff(page: any Page, domNode: any PageNode) {
         print("d:", domNode, "||", "PAGE:", page)
 
         // compare and replace tag if its not the same
@@ -43,26 +43,23 @@ extension App {
         // TODO: fix this
         if let page = page as? any HTMLElement {
             // if page is html element
-            print("doing HTML node: \(page)")
-            
+            print("updating HTML node: \(page)")
+            domNode.update(using: page)
+
             switch page.content {
             case .text(_):
-                if domNode.children.isEmpty {
-                    print("UPDATING CHILDREN TEXT")
-                    domNode.update(using: page)
-                    return
-                } else {
-                    print("REPLACING INNER HTML")
+                if !domNode.children.isEmpty {
+                    print("REPLACING text with HTML")
                     domNode.replace(using: page)
-                    print("AM I STUCK")
-
-                    print(domNode.children.count)
                     return
                 }
             case .list(let makeList):
-                if let listNode = domNode.children[0] {
+                if !domNode.children.isEmpty {
                     print("DIFFING INNER OPERATOR")
-                    diff(page: makeList(), domNode: listNode)
+                    diff(page: makeList(), domNode: domNode.children[0])
+                } else {
+                    print("Making new body in HTML")
+                    domNode.build(child: makeList())
                 }
             }
 
@@ -74,44 +71,39 @@ extension App {
             let (oldSize, newSize) = (domNode.children.count, page.children.count)
             let endRange = min(oldSize, newSize)
             
-            var i = 0
-            var domptr = domNode.children.head
             
-            while i < endRange {
-                if let value = domptr?.value {
-                    diff(page: page.children[i], domNode: value)
+            for i in 0..<endRange {
+                diff(page: page.children[i], domNode: domNode.children[i])
+
+            }
+            
+            // TODO: dont think this is possible currently because size never changes with conditional
+            // TODO: When creating ol items with ids and resizable will need this and have it change
+            // if old dom had more elements than new dom, delete
+            if oldSize > newSize {
+                print("REMOVING EXTRA CHILD")
+                
+                for i in endRange..<oldSize {
+                    domNode.children[i].removeFromDOM()
                 }
-                domptr = domptr?.next
-                i += 1
+
             }
 
-//            // if old dom had more elements than new dom, delete
-//            if oldSize > newSize {
-//                print("REMOVING EXTRA CHILD")
-//                while i < oldSize {
-//                    domptr?.value.delete()
-//                    domptr = domptr?.next
-//                    i += 1
-//                }
-//
-//            }
-//
-//            // if old dom had less elements than new dom, build
-//            if oldSize < newSize {
-//                print("ADDING EXTRA CHILD")
-//                while i < newSize {
-//                    BuildFactory.build(page: page.children[i], parentNode: domNode)
-//                    i += 1
-//                }
-//
-//            }
+            // if old dom had less elements than new dom, build
+            if oldSize < newSize {
+                print("ADDING EXTRA CHILD")
+                for i in endRange..<newSize {
+                    domNode.build(child: page.children[i])
+                }
+
+            }
             
         } else {
             // if is custom page
             // TODO: check id? or somthing
             print("doing custom page: \(page)")
             // TODO: DO ERROR CHECK, should never happen though
-            diff(page: page.body, domNode: domNode.children[0]!)
+            diff(page: page.body, domNode: domNode.children[0])
 
         }
 

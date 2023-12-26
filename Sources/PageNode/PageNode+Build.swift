@@ -2,69 +2,67 @@
 //  File.swift
 //  
 //
-//  Created by Joshua Davis on 12/19/23.
+//  Created by Joshua Davis on 12/26/23.
 //
 
 import Foundation
 import JavaScriptKit
 
-/// builder of pages
-enum BuildFactory {
+extension PageNode {
     
-    // TODO: ??
-    static func rebuild() {
+    // TODO: remove child call? use parent self.parent
+    /// build to current all elements under self and add to DOM
+    func build(child: any Page) {
         
-    }
-    
-    static func build(page: any Page, parentNode: PageNode) {
         let aboveElement: JSObject
-        
-//        print("building page: \(page.description)")
-        
-        if let parentElement = (parentNode as? HTMLNode)?.element {
+                
+        if let parentElement = (self as? HTMLNode)?.element {
             aboveElement = parentElement
-        } else if let upperElement = parentNode.aboveElement {
+        } else if let upperElement = self.aboveElement {
             aboveElement = upperElement
         } else {
             // TODO: throw error
+            fatalError("aboveElement is nil, No Renderable location to render Element")
             return
         }
         
         // if page is an Operator
-        if let page = page as? any Operator {
+        if let page = child as? any Operator {
 
             // create new virtual dom node
             let domNode = OperatorNode(
                 page: page,
-                aboveElement: aboveElement
+                aboveElement: aboveElement,
+                parent: self
             )
 
             // add new node as a child of the current parent
-            parentNode.append(domNode)
+            self.append(domNode)
 
             // add children
             for child in page.children {
-                BuildFactory.build(page: child, parentNode: domNode)
+                domNode.build(child: child)
             }
             
             return
         }
         
         // if page is an HTMLElement
-        if let page = page as? any HTMLElement {
+        if let page = child as? any HTMLElement {
             
             // create new virtual dom node
             let domNode = HTMLNode(
                 page: page,
-                aboveElement: aboveElement
+                aboveElement: aboveElement,
+                parent: self
             )
             
             // add new node as a child of the current parent
-            parentNode.append(domNode)
+            self.append(domNode)
             
             // run the page builder closure to create an operator node
             if case let .list(listpage) = page.content {
-                BuildFactory.build(page: listpage(), parentNode: domNode)
+                domNode.build(child: listpage())
             }
             
             // render to DOM
@@ -75,15 +73,15 @@ enum BuildFactory {
         }
         
         // if page is a custom page
-        let domNode = PageNode(
-            page: page,
-            aboveElement: aboveElement
+        let domNode = CustomNode(
+            page: child,
+            aboveElement: aboveElement,
+            parent: self
         )
         
-        parentNode.append(domNode)
+        self.append(domNode)
 
-        BuildFactory.build(page: page.body, parentNode: domNode)
+        domNode.build(child: child.body)
 
     }
-    // TODO: consider putting the Update & Build functions that were in App class here
 }
