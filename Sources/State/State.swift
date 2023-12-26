@@ -33,7 +33,7 @@ public class State<Value: Equatable> {
     
     public init(wrappedValue: Value) {
 //        self.node = App.states.pushAfter(wrappedValue)
-        self.node = App.states.append(wrappedValue)
+        self.node = SailorGlobal.states.append(wrappedValue)
 
 
     }
@@ -63,7 +63,7 @@ public class State<Value: Equatable> {
 //        if let node = self.node {
 
             // TODO: Maybe batch updates eventually
-        App.update(state: self.node, newValue: value)
+        SailorGlobal.update(state: self.node, newValue: value)
             
 //        }
 
