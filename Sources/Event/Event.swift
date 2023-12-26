@@ -9,6 +9,7 @@ import Foundation
 
 public typealias Events = [String: Event]
 
+// TODO: remove event and just use [String: (EventResult) -> Void]
 public struct Event: CustomStringConvertible {
     public var description: String {
         "Event(name:\(name))"
