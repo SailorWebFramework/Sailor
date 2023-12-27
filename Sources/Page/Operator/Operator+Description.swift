@@ -9,6 +9,6 @@ import Foundation
 
 extension Operator {
     public var description: String {
-        "Operator(type: \(type(of: self)), id: \(self.id)"
+        "Operator(type: \(type(of: self)), id: \(self.id), children: \(children.count)"
     }
 }

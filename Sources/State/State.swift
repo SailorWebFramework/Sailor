@@ -32,10 +32,7 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-//        self.node = App.states.pushAfter(wrappedValue)
         self.node = SailorGlobal.states.append(wrappedValue)
-
-
     }
     
     // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
@@ -46,27 +43,19 @@ public class State<Value: Equatable> {
     
     private func getValue() -> Value {
         // TODO: UNSAFE, but probably fine
-//        (App.states[index] as! Value)
         self.node.value as! Value
     }
     
     private func setValue(_ value: Value) {
         // TODO: check if no change conform to equatable?
-//        if App.states[index] as? Value == value {
-//            return
-//        }
         
         if self.node.value as? Value == value {
             return
         }
         
-//        if let node = self.node {
-
-            // TODO: Maybe batch updates eventually
+        // TODO: Maybe batch updates eventually
         SailorGlobal.update(state: self.node, newValue: value)
-            
-//        }
-
+        
     }
 
 }
