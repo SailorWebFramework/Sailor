@@ -1,30 +1,20 @@
 
-
-
 import Foundation
 import Sailor
 
+//@StaticPage
 struct HomePage: Page {
     @State var myName: Int = 0
 
     var body: some Page {
+//        @Route("\about")
         Div {
             
             if myName % 2 == 0 {
                 Hey1Page()
             }
-            
-            Div() {
-                Div("HELLO: \(myName)")
-                    .style(.backgroundColor(.rgb(200, 0, 0)))
-                
-                Div("yuh: \(myName + 1)")
-                Div("skee: \(myName + 2)")
-                Div("SOR: \(myName)")
 
-            }
-
-            Div("SOL: \(myName + 242)")
+            Button("Press me: \(myName)")
             .onClick {
                 myName += 1
             }
@@ -39,7 +29,7 @@ struct Hey1Page: Page {
 
     var body: some Page {
         Div {
-            Div("brrr: \(hello)")
+            Button("brrr: \(hello)")
                 .onClick {
                     hello += 1
                 }

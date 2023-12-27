@@ -11,23 +11,11 @@ import JavaScriptKit
 
 extension PageNode {
     
-//    public func rebuild(renderSelf: Bool = true) {
-//
-//        // TODO: any build things here
-//
-//        for child in self.children {
-//            child.rebuild(renderSelf: true)
-//        }
-//
-//        renderToDOM(renderSelf: renderSelf)
-//    }
-//
-    
-    public func compareTag(to page: any Page) -> Bool {
+    internal func compareTag(to page: any Page) -> Bool {
         return type(of: self.page) == type(of: page)
     }
 
-    public func append(_ domNode: any PageNode) {
+    internal func append(_ domNode: any PageNode) {
         self.children.append(domNode)
         domNode.parent = self
         
@@ -41,14 +29,19 @@ extension PageNode {
         
     }
     
-    // TODO: make better with linked list
-    public func removeFromParent() {
-        self.parent?.children.removeAll { $0 === self }
-    }
-    
+    /// replaces current node with a new node using specified page
     func replace(using page: any Page) {
-        guard let aboveElement = aboveElement else { return }
-        guard let index = parent?.children.firstIndex(where: { $0 === self }) else { return }
+        guard let aboveElement = aboveElement else {
+            fatalError("cant find above Element to replace page")
+        }
+        
+        guard let parent = parent else {
+            fatalError("parent does not exist")
+        }
+        
+        guard let index = parent.children.firstIndex(where: { $0 === self }) else {
+            fatalError("cant find self in parent node")            
+        }
 
         self.removeFromDOM(unrenderSelf: false)
         
@@ -59,41 +52,41 @@ extension PageNode {
                 page: page,
                 aboveElement: aboveElement,
                 element: (self as? HTMLNode)?.element,
-                parent: self
+                parent: parent
             )
-            
+
             if case let .list(makelist) = page.content {
                 pageNode.build(child: makelist())
             }
-            
+
         } else if let page = page as? any Operator {
             pageNode = OperatorNode(
                 page: page,
                 aboveElement: aboveElement,
-                parent: self
+                parent: parent
             )
+            
             for child in page.children {
                 pageNode.build(child: child)
             }
+            
         } else {
             pageNode = CustomNode(
                 page: page,
                 aboveElement: aboveElement,
-                parent: self
+                parent: parent
             )
             pageNode.build(child: page.body)
         }
         
-        parent?.children.insert(pageNode, at: index)
+        parent.children.insert(pageNode, at: index)
 
     }
     
-    /// insert given a pageNode with an already rendered DOM element reference at a given index
-//    private func insert(_ pageNode: any PageNode, at index: Int) {
-//        parent?.children.insert(pageNode, at: index)
-////        pageNode.rebuild(renderSelf: false)
-//        pageNode.build(child: <#T##Page#>)
-//    }
+    // TODO: make better with linked list
+    public func removeFromParent() {
+        self.parent?.children.removeAll { $0 === self }
+    }
 
     public func renderToDOM() {
         renderToDOM(renderSelf: true)
