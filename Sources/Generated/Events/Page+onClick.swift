@@ -6,10 +6,11 @@ extension Page {
 
     public func onClick(_ completion: @escaping () -> Void) -> any Page {
         guard var copy = self as? any HTMLElement else {
-            return Div { self }.onClick { 
+            return Div { self }.onClick {
                 completion()
             }
         }
+        
         copy.events["click"] = Event(name: "click", action: { _ in
             completion()
         })
