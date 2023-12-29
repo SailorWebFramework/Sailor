@@ -41,3 +41,8 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     
 }
 
+//extension PageNode {
+//    deinit {
+//        print("DEINITIALIZING \(self.description)")
+//    }
+//}

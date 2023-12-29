@@ -9,7 +9,10 @@ import Foundation
 public class LinkedList<Value>: Sequence {
     
     private(set) var head: LinkedListNode<Value>? = nil
-    
+        
+    // TODO: tail?
+//    private(set) var tail: LinkedListNode<Value>? = nil
+
     var isEmpty: Bool {
         count == 0
     }
@@ -96,7 +99,7 @@ public class LinkedList<Value>: Sequence {
         return LinkedListIterator(current: head)
     }
     
-    
+    // TODO: remove the states name here, lol why
     public func printList() {
         var output = "States: "
         for state in self {
@@ -161,6 +164,8 @@ public class LinkedListNode<Value>: CustomStringConvertible {
         
         self.prev?.next = node
         self.next?.prev = node
+        
+        self.prev = nil
         
         self.next = nil
     }

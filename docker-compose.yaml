@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+
+  dev:
+    # network_mode: host
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    
+    restart: on-failure

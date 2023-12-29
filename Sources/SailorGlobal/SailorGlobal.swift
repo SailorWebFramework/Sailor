@@ -16,8 +16,7 @@ final class SailorGlobal {
     public static var document = JSObject.global.document
     public static let console = JSObject.global.console
 
-    public static let documentBody = document.body.object! // TODO: im forcing this
-    
+    public static let documentBody = document.body.object // TODO: should i force this
     
     /// the head of the linked list that houses global values of all the states in application
     internal static var states: LinkedList<StateValue> = LinkedList() //StateNode(value: Date())
@@ -38,18 +37,20 @@ final class SailorGlobal {
     internal static var headNode: CustomNode? = nil
     
     public static func build(root: any Page) {
+        guard let documentBody = documentBody else { return }
         
         // set the root node of body dom tree
-        Self.bodyNode = CustomNode(page: root, aboveElement: Self.documentBody)
-       
+        Self.bodyNode = CustomNode(page: root, aboveElement: documentBody)
+
         // build virtual dom body
-        Self.bodyNode?.build(child: root.body)
-        
+        Self.bodyNode?.build(child: Self.bodyNode!.page.body)
+
+        // debug prints
         Self.bodyNode?.printNode()
         Self.states.printList()
-        
-        // TODO: build css files assets?
 
+        // TODO: build css files assets?
+        
     }
-    
+ 
 }
