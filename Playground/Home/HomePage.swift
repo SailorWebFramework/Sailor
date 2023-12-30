@@ -4,19 +4,19 @@ import Sailor
 
 //@StaticPage
 struct HomePage: Page {
-    @State var myName: Int = 0
+    @State var myNum: Int = 0
 
     var body: some Page {
 //        @Route("\about")
         Div {
             
-            if myName % 2 == 0 {
-                Hey1Page()
-            }
+//            if myName % 2 == 0 {
+//                Hey1Page()
+//            }
 
-            Button("Press me: \(myName)")
+            Button("Press me: \(myNum)")
             .onClick {
-                myName += 1
+                myNum += 1
             }
             
         }
