@@ -1,7 +1,5 @@
 // swift-tools-version: 5.8
-
 import PackageDescription
-
 let package = Package(
     name: "Sailor",
     platforms: [
@@ -11,6 +9,9 @@ let package = Package(
         .library(
             name: "Sailor",
             targets: ["Sailor"]),
+        .library(
+            name: "Sailboat",
+            targets: ["Sailboat"]),
         .executable(name: "Playground", targets: ["Playground"])
 
     ],
@@ -21,9 +22,15 @@ let package = Package(
         .target(
             name: "Sailor",
             dependencies: [
+                "Sailboat",
                 .product(name: "JavaScriptKit", package: "JavaScriptKit")
             ],
-            path: "Sources"
+            path: "Sailor"
+        ),
+        .target(
+            name: "Sailboat",
+            dependencies: [],
+            path: "Sailboat"
         ),
         .executableTarget(
             name: "Playground",
@@ -33,12 +40,11 @@ let package = Package(
             path: "Playground"
         ),
         .testTarget(
-            name: "SailorLibraryTests",
+            name: "Tests",
             dependencies: [
-//                "Sailor",
-                .product(name: "JavaScriptKit", package: "JavaScriptKit")
-
-            ]
+                "Sailboat"
+            ],
+            path: "Tests"
         ),
     ]
 )
