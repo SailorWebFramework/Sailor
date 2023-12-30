@@ -10,16 +10,13 @@ import Foundation
 //
 //struct BasicStatefulPage: Page {
 //    @State var hello: Int = 0
-//    var hi: some Page {
+//    var body: some Page {
 //        Div {
 //            Button("hello: \(hello)")
 //                .onClick {
 //                    hello += 1
 //                }
 //        }
-//    }
-//    var body: some Page {
-//       Div("")
 //    }
 //}
 
