@@ -38,7 +38,7 @@ public class State<Value: Equatable> {
     // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
     deinit {
         print("Deinitializing State: \(self.node)")
-        self.node.remove()
+        SailboatGlobal.shared.states.remove(self.node)
     }
     
     private func getValue() -> Value {

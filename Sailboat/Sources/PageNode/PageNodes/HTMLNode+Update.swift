@@ -6,37 +6,34 @@
 //
 
 import Foundation
-import JavaScriptKit
-
-import Sailboat
 
 extension HTMLNode {
     
     internal func build(attributes: Attributes) {
-        for (key, value) in attributes {
-            _ = self.element?.setAttribute?(key.description, value.description)
-        }
+//        for (key, value) in attributes {
+//            _ = self.element?.setAttribute?(key.description, value.description)
+//        }
     }
     
     internal func build(events: Events) {
-        for (name, event) in events {
-            let closure = event.getClosure()
-            self.events[name] = closure
-            _ = self.element?.addEventListener?(name, closure)
-        }
+//        for (name, event) in events {
+//            let closure = event.getClosure()
+//            self.events[name] = closure
+//            _ = self.element?.addEventListener?(name, closure)
+//        }
     }
     
     internal func build(textContent: String) {
-        self.element?.textContent = JSValue.string(textContent)
+//        self.element?.textContent = JSValue.string(textContent)
     }
     
     internal func update(attributes: Attributes) {
         // TODO: make this more effieciet and diff the attributes
 
         // remove old attributes
-        for (name, _) in self.attributes {
-            _ = self.element?.removeAttribute?(name.description)
-        }
+//        for (name, _) in self.attributes {
+//            _ = self.element?.removeAttribute?(name.description)
+//        }
 
         // add new attributes
         self.attributes = attributes
@@ -47,9 +44,9 @@ extension HTMLNode {
     internal func update(events: Events) {
         
         // remove old events
-        for (name, closure) in self.events {
-            _ = self.element?.removeEventListener?(name, closure)
-        }
+//        for (name, closure) in self.events {
+//            _ = self.element?.removeEventListener?(name, closure)
+//        }
 
         self.events = [:]
         
