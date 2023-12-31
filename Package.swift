@@ -44,7 +44,10 @@ let package = Package(
             dependencies: [
                 "Sailboat"
             ],
-            path: "Tests"
+            path: "Tests"//,
+//            swiftSettings: [
+//                .unsafeFlags(["-enforce-exclusivity=none"])
+//            ]
         ),
     ]
 )

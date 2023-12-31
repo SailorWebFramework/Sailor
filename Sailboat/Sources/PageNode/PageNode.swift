@@ -6,9 +6,6 @@
 //
 
 import Foundation
-import JavaScriptKit
-
-import Sailboat
 
 //public typealias PageListNode = LinkedListNode<PageNode>
 
@@ -24,9 +21,6 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     /// weak reference to parent node in dom tree
     var parent: (any PageNode)? { get set }
     
-    /// the parent of the current element in the DOM, if contains a psudo-element is the closest parent element. weak reference
-    var aboveElement: JSObject? { get set }
-
     /// the page element for this node
     var page: any Page { get set }
     
@@ -43,8 +37,21 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     
 }
 
-//extension PageNode {
-//    deinit {
-//        print("DEINITIALIZING \(self.description)")
-//    }
-//}
+extension PageNode {
+    
+    internal func compareTag(to page: any Page) -> Bool {
+        return type(of: self.page) == type(of: page)
+    }
+    
+    internal func append(_ node: any PageNode) {
+        self.children.append(node)
+        node.parent = self
+        
+    }
+    
+    internal func insert(_ node: any PageNode, at index: Int) {
+        self.children.insert(node, at: index)
+        node.parent = self
+        
+    }
+}

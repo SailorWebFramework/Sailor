@@ -7,14 +7,11 @@
 
 import Foundation
 
+// TODO: add a CustomPage and call it page in sailor?
 public protocol Page: CustomStringConvertible {
     associatedtype Body: Page
     
     /// body of the page element, resultBuilder can contain HTMLElements and custom Page elements
     var body: Body { get }
-    
-    // TODO: remove build from Page & HTMLElement, make like a BuildPage class so its hidden
-    ///
-//    func build(parentNode: DOMNode)
 
 }
