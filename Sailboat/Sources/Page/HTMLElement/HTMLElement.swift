@@ -11,6 +11,9 @@ public enum TagContent {
     case text(String), list(() -> any Operator)
 }
 
+// TODO: THIS but maybe also allow multiple events of one type?
+//typealias Events = [String: (EventResult) -> Void]
+
 public protocol HTMLElement: Page {
 
     /// HTML tag name, all lowercased
