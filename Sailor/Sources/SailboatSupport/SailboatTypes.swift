@@ -7,8 +7,6 @@
 
 import Sailboat
 
-// TODO: maybe expose all public things?
-
 public typealias App = Sailboat.App
 public typealias Page = Sailboat.Page
 public typealias State = Sailboat.State

@@ -6,13 +6,13 @@
 //
 
 import Foundation
-//import Sailboat
-//
-//struct BasicStatelessPage: Page {
-//    var body: some Page {
-//        Div {
-//            Button("hello world")
-//        }
-//    }
-//}
-//
+import Sailboat
+
+struct BasicStatelessPage: Page {
+    var body: some Page {
+        Div {
+            Button("hello world")
+        }
+    }
+}
+

@@ -15,15 +15,24 @@ final class SailorGlobal {
     // static var css: [String:Style] = [:]
     
     public static var document = JSObject.global.document
-    
+    public static var head = JSObject.global.head
+
     public static let console = JSObject.global.console
 
     public static let documentBody = document.body.object // TODO: should i force this
-
+    
+    public static var sailboatMananger: any GlobalDOMManager {
+        SailboatGlobal.shared
+    }
+        
     /// root node of the HTML body in memory as the virtual dom
-    internal static var bodyNode: CustomNode? = nil
+    internal static var bodyNode: CustomNode? {
+        sailboatMananger.body
+    }
     
     ///
-    internal static var headNode: CustomNode? = nil
-    
+    internal static var headNode: CustomNode? {
+        sailboatMananger.head
+    }
+
 }

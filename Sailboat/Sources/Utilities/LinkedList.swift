@@ -15,6 +15,21 @@ public class LinkedList<Value>: Sequence {
     
     public init() { }
     
+//    public init(arrayLiteral elements: Value...) {
+//        initialize(elements)
+//    
+//    }
+    
+    public init(_ elements: [Value]) {
+        initialize(elements)
+    }
+    
+    private func initialize(_ elements: [Value]) {
+        for element in elements {
+            _ = self.append(element)
+        }
+    }
+    
     var isEmpty: Bool {
         count == 0
     }
@@ -26,6 +41,11 @@ public class LinkedList<Value>: Sequence {
             var total = 1
             
             while current !== start {
+                if current == nil {
+                    fatalError("Linked List is not circular")
+                } else if total > 1000 {
+                    fatalError("Linked List incorrectly chained")
+                }
                 current = current?.next
                 total += 1
             }
@@ -36,10 +56,11 @@ public class LinkedList<Value>: Sequence {
         return 0
     }
     
-    subscript(index: Int) -> Value? {
+    
+    
+    subscript(index: Int) -> Value {
         if index == 0 {
-            // TODO: throw error
-            return head?.value
+            return head!.value
         }
 
         var current: LinkedListNode<Value>? = head?.next
@@ -50,51 +71,56 @@ public class LinkedList<Value>: Sequence {
 
             current = head.next
             
-            while current !== start && total == index {
+            while current !== start && total < index {
+                if total > index {
+                    fatalError("index out of range")
+                }
+                
                 current = current?.next
                 total += 1
-            }
 
-        }
-        
-        if total != index {
-            return nil
+            }
         }
         
         // TODO: throw error if out of range?
-        return current?.value
+        return current!.value
     }
     
     func clear() {
-        
         self.head?.prev?.next = nil
         self.head = nil
-//        while self.head != nil {
-//            self.remove(self.head)
-//        }
-        
     }
     
     func append(_ value: Value) -> LinkedListNode<Value> {
-        if let last = head?.prev {
-            return last.pushAfter(value)
+        // if at least one item in array
+        
+        if let head = head {
+            if let last = head.prev {
+                return last.pushAfter(value)
+            }
+            fatalError("Linked List is not circular")
         }
+
         
-        let node = LinkedListNode(value: value)
-        self.head = node
-        
-        return node
+        // if self.head == none
+        self.head = LinkedListNode(value: value)
+
+        return self.head!
     }
     
     func remove(_ node: LinkedListNode<Value>?) {
         guard let node = node else { return }
         if let head = head {
-            if head.next === head.prev && head === node {
+            if head.next === head.prev && head === head.next && head === node {
                 self.head = nil
+            } else if head === node {
+                self.head = self.head?.next
             }
+            
+            node.remove()
+            
         }
         
-        node.remove()
     }
     
     public func makeIterator() -> LinkedListIterator<Value> {
@@ -160,7 +186,7 @@ public class LinkedListNode<Value>: CustomStringConvertible {
         self.prev = prev
     }
     
-    public func replace(with node: LinkedListNode) {
+    fileprivate func replace(with node: LinkedListNode) {
         node.prev = self.prev
         node.next = self.next
         
@@ -172,7 +198,7 @@ public class LinkedListNode<Value>: CustomStringConvertible {
         self.next = nil
     }
     
-    public func remove() {
+    fileprivate func remove() {
         self.prev?.next = self.next
         self.next?.prev = self.prev
         
@@ -180,14 +206,14 @@ public class LinkedListNode<Value>: CustomStringConvertible {
 //        self.prev = nil
     }
     
-    public func pushAfter(_ value: Value) -> LinkedListNode {
+    fileprivate func pushAfter(_ value: Value) -> LinkedListNode {
         let node = LinkedListNode(value: value, next: self.next, prev: self)
         self.pushAfter(node)
         return node
         
     }
     
-    private func pushAfter(_ node: LinkedListNode) {
+    fileprivate func pushAfter(_ node: LinkedListNode) {
         node.prev = self
         node.next = self.next
         
@@ -196,13 +222,13 @@ public class LinkedListNode<Value>: CustomStringConvertible {
         
     }
     
-    public func pushBefore(_ value: Value) -> LinkedListNode {
+    fileprivate func pushBefore(_ value: Value) -> LinkedListNode {
         let node = LinkedListNode(value: value, next: self.next, prev: self)
         self.pushBefore(node)
         return node
     }
     
-    private func pushBefore(_ node: LinkedListNode) {
+    fileprivate func pushBefore(_ node: LinkedListNode) {
         node.prev = self.prev
         node.next = self
         

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension PageNode {
     public func printNode() {
         Swift.print(self.stackString(tabs: 4))
