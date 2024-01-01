@@ -14,14 +14,14 @@ final class SailorGlobal {
     // TODO: css files
     // static var css: [String:Style] = [:]
     
-    public static var document = JSObject.global.document
-    public static var head = JSObject.global.head
+    public static let document = JSObject.global.document
+    public static let head = JSObject.global.head
 
     public static let console = JSObject.global.console
 
     public static let documentBody = document.body.object // TODO: should i force this
     
-    public static var sailboatMananger: any GlobalDOMManager {
+    public static var sailboatMananger: any AppManager {
         SailboatGlobal.shared
     }
         
