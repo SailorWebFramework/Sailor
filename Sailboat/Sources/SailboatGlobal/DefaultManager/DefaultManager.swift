@@ -8,9 +8,7 @@
 import Foundation
 
 /// Manager used for testing, does not render to DOM
-open class DefaultManager: GlobalDOMManager {
-
-    public var states: LinkedList<StateValue> = LinkedList()
+open class DefaultManager: AppManager {
     
     public var body: CustomNode? = nil
     public var head: CustomNode? = nil

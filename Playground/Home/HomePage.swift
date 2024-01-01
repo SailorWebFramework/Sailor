@@ -13,11 +13,11 @@ struct HomePage: Page {
 //            if myName % 2 == 0 {
 //                Hey1Page()
 //            }
-
+            Div("HELLO WORLD")
             Button("Press me: \(myNum)")
-            .onClick {
-                myNum += 1
-            }
+//            .onClick {
+//                myNum += 1
+//            }
             
         }
     }

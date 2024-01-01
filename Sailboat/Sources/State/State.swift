@@ -12,8 +12,9 @@ public typealias StateNode = LinkedListNode<StateValue>
 
 @propertyWrapper
 public class State<Value: Equatable> {
+//    private var node: StateNode
     
-    private var node: StateNode
+    private var value: Value
 
     public var wrappedValue: Value {
         get {
@@ -32,30 +33,39 @@ public class State<Value: Equatable> {
     }
     
     public init(wrappedValue: Value) {
-        self.node = SailboatGlobal.shared.states.append(wrappedValue)
+//        self.node = SailboatGlobal.shared.states.append(wrappedValue)
+        self.value = wrappedValue
+//        Self.count += 1
+
     }
     
     // TODO: fix state not deiniting properly look at example, happens when an initially built view leaves the DOM
-    deinit {
-        print("Deinitializing State: \(self.node)")
-        SailboatGlobal.shared.states.remove(self.node)
-    }
+//    deinit {
+////        print("Deinitializing State: \(self.node)")
+////        SailboatGlobal.shared.states.remove(self.node)
+//    }
     
     private func getValue() -> Value {
         // TODO: UNSAFE, but probably fine
-        self.node.value as! Value
+//        self.node.value as! Value
+        self.value
+
     }
     
     private func setValue(_ value: Value) {
         // TODO: check if no change conform to equatable?
         
-        if self.node.value as? Value == value {
+        if self.value == value {
             return
         }
         
-        // TODO: Maybe batch updates eventually
-        SailboatGlobal.shared.update(state: self.node, newValue: value)
+        self.value = value
         
+        SailboatGlobal.shared.update()
+
+        // TODO: Maybe batch updates eventually
+//        SailboatGlobal.shared.update(state: self.node, newValue: value)
+
     }
 
 }
