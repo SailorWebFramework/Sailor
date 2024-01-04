@@ -5,9 +5,25 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-import Foundation
-
-public enum TagContent {
+// TODO: REMOVE TAGCONTENT AND MAKE IT USE BODY AND CONTENT AS TEXT
+public enum TagContent: Equatable {
+    public static func == (lhs: TagContent, rhs: TagContent) -> Bool {
+        if case let .text(lhsString) = lhs,
+           case let .text(rhsString) = rhs
+        {
+            return lhsString == rhsString
+        }
+        
+        if case let .list(_) = lhs,
+           case let .list(_) = rhs
+        {
+            // TODO: This is a little odd, TagContent should just be text and body should be the makeList
+            return true
+        }
+        
+        return false
+    }
+    
     case text(String), list(() -> any Operator)
 }
 

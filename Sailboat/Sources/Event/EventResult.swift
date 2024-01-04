@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 12/17/23.
 //
 
-import Foundation
-
 public enum EventResult {
     case string(String),
          float(Double),

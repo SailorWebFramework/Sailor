@@ -8,15 +8,19 @@
 import XCTest
 @testable import Sailboat
 
+// TODO: tests that test the build mechanics of Sailboat
 final class BasicBuildTests: XCTestCase {
     
     var sailboatManager: (any AppManager)! {
         SailboatGlobal.shared
     }
     
-    override class func setUp() {
+    override func setUp() {
         SailboatGlobal.initialize(DefaultManager())
     }
+    
+    
+    // TODO: add build tests
 //
 //    func testInitialBasicStateMemoryLeak() throws {
 //        sailboatManager.build(page: BasicStatelessPage())
@@ -47,7 +51,7 @@ final class BasicBuildTests: XCTestCase {
 //    }
     
 //    func testStatefulPageBuild() throws {
-//        
+//
 //        sailboatManager.build(page: BasicStatefulPage2())
 //
 ////        XCTAssertEqual(State.count, 3, "State not initialized correctly")
@@ -55,12 +59,10 @@ final class BasicBuildTests: XCTestCase {
 ////        XCTAssertEqual(sailboatManager.states[0] as! Int, 2, "State not initialized correctly")
 ////        XCTAssertEqual(sailboatManager.states[1] as! Int, 1, "State not initialized correctly")
 ////        XCTAssertEqual(sailboatManager.states[2] as! Int, 0, "State not initialized correctly")
-//        
+//
 //        // verify build tree
 //        sailboatManager.body?.printNode()
 //    }
-//    
-    func testLoginFailure() {
-        
-    }
+//
+
 }

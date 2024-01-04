@@ -5,11 +5,13 @@
 //  Created by Joshua Davis on 12/22/23.
 //
 
-import Foundation
+//typealias AnyPage = any Page
+
 
 //public typealias PageListNode = LinkedListNode<PageNode>
 
 public protocol PageNode: AnyObject, CustomStringConvertible {
+//    associatedtype PageType: Page
     
     // LinkedList<PageNode>
     ///
@@ -21,6 +23,9 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     /// weak reference to parent node in dom tree
     var parent: (any PageNode)? { get set }
     
+    
+    // TODO:   do this to not make it any
+
     /// the page element for this node
     var page: any Page { get set }
     
@@ -34,6 +39,8 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     
     /// update this specific nodes elements and update dom
     func update(using page: any Page)
+    
+    func compare(to page: any Page) -> Bool
     
 }
 

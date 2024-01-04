@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 12/17/23.
 //
 
-import Foundation
 import JavaScriptKit
 import Sailboat
 

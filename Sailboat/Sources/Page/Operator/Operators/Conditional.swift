@@ -4,12 +4,11 @@
 //
 //  Created by Joshua Davis on 10/12/23.
 //
-
 import Foundation
 
 public struct Conditional: Operator {
     
-    public var id: UUID = UUID()
+    public var id: UUID? = nil //UUID()
     
     public var children: [any Page]
 

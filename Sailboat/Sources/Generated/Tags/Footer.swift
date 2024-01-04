@@ -6,8 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
-
 public struct Footer: HTMLElement {
 
     public var name: String { "footer" }

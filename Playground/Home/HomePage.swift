@@ -1,23 +1,31 @@
 
-import Foundation
 import Sailor
 
 //@StaticPage
 struct HomePage: Page {
     @State var myNum: Int = 0
+    @State var mystring: String = ""
 
     var body: some Page {
 //        @Route("\about")
         Div {
+            if myNum % 2 == 0 {
+                Div("HELLO WORLD!")
+            } else {
+                Div("YO ITS ME!")
+            }
             
-//            if myName % 2 == 0 {
-//                Hey1Page()
-//            }
-            Div("HELLO WORLD")
+            if myNum % 2 == 0 {
+                Div("YO WORLD! \(mystring)")
+                    .onClick {
+                        mystring += "4"
+                    }
+            }
+
             Button("Press me: \(myNum)")
-//            .onClick {
-//                myNum += 1
-//            }
+            .onClick {
+                myNum += 1
+            }
             
         }
     }

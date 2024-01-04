@@ -9,7 +9,7 @@ import Foundation
 
 public struct List: Operator {
     
-    public var id: UUID = UUID()
+    public var id: UUID? = nil //UUID()
 
     public var children: [any Page]
 

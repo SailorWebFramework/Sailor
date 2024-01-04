@@ -1,5 +1,4 @@
 import Sailor
-import Foundation
 
 @main
 struct TestWebsite: App {    
