@@ -38,4 +38,20 @@ final public class OperatorNode: PageNode {
     
     public func update(using page: any Page) {  }
     
+    public func compare(to page: any Page) -> Bool {
+        guard let page = page as? any Operator else {
+            return false
+        }
+        if page.children.count != self.children.count {
+            return false
+        }
+        
+        return (0..<page.children.count).map { i in
+            children[i].compare(to: page.children[i])
+        }.allSatisfy {
+            $0
+        }
+
+    }
+    
 }

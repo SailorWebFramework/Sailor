@@ -5,9 +5,6 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-import Foundation
-
-
 //TODO: should Binding also take in State index to allow for one state to update elements that share listeners
 @propertyWrapper
 public class Binding<Value: Equatable> {

@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 10/5/23.
 //
 
-import Foundation
 
 extension Unit {
     public enum Dimention: CSSValue, AttributeValue, Equatable {

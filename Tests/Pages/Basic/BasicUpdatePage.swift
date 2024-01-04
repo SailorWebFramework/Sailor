@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
-import Foundation
 import Sailboat
 
 struct BasicUpdatePage: Page {

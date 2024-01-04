@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 10/5/23.
 //
 
-import Foundation
-
 public extension Style {
     struct Property: Hashable, Comparable {
         public static func == (lhs: Property, rhs: Property) -> Bool {

@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-import Foundation
-
 public struct Style: AttributeValue {
     public static func == (lhs: Style, rhs: Style) -> Bool {
         false
