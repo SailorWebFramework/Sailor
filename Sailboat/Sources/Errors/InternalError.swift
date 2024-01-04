@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 12/19/23.
 //
 
-import Foundation
 import Sailboat
 
 enum InternalError {

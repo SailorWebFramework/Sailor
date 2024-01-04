@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 12/16/23.
 //
 
-import Foundation
-
 // TODO: add a CustomPage and call it page in sailor?
 public protocol Page: CustomStringConvertible {
     associatedtype Body: Page

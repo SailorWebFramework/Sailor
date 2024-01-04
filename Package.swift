@@ -42,7 +42,8 @@ let package = Package(
         .testTarget(
             name: "Tests",
             dependencies: [
-                "Sailboat"
+                "Sailboat",
+                "Sailor"
             ],
             path: "Tests"//,
 //            swiftSettings: [

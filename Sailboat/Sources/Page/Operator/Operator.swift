@@ -13,7 +13,7 @@ public protocol Operator: Page, Identifiable {
     
     // children could be an enum with one page or a list of children
     var children: [any Page] { get set }
-    var id: UUID { get set }
+    var id: UUID? { get set }
     
     // TODO:
 //    var staticMember: Bool { get set }

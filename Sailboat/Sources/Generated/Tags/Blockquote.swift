@@ -6,8 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
-
 public struct Blockquote: HTMLElement {
 
     public var name: String { "blockquote" }

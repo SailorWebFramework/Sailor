@@ -6,8 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
-
 public struct H4: HTMLElement {
 
     public var name: String { "h4" }
