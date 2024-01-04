@@ -6,8 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
-
 public struct B: HTMLElement {
 
     public var name: String { "b" }

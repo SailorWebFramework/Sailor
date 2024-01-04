@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 10/5/23.
 //
 
-import Foundation
-
 extension Img {
     public init(src: (any AttributeValue)? = nil, alt: (any AttributeValue)? = nil, width: Unit.Dimention? = nil, height: Unit.Dimention? = nil) {
         self.init()

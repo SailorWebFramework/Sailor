@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
-import Foundation
-
 /// Manager used for testing, does not render to DOM
 open class DefaultManager: AppManager {
     
@@ -15,10 +13,16 @@ open class DefaultManager: AppManager {
 
     public init() { }
     
+    open func build(app: any App) {
+        build(page: app.body)
+    }
+    
     open func build(page: any Page) {
         self.body = CustomNode(page: page)
         
         _ = CustomNode.build(page: self.body!.page.body, parent: self.body!)
+
+        self.body?.printNode()
 
     }
     
@@ -26,6 +30,8 @@ open class DefaultManager: AppManager {
         guard let body = self.body else { return }
         
         update(node: body, with: body.page)
+        
+        self.body?.printNode()
     }
     
 }

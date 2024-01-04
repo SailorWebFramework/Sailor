@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 12/22/23.
 //
 
-import Foundation
 
 final public class HTMLNode: PageNode {
     public var children: [any PageNode]
@@ -65,21 +64,24 @@ final public class HTMLNode: PageNode {
         // TODO: ?
         guard let page = page as? any HTMLElement else { return }
         
-        if !compareAttributes(to: page) {
-            update(attributes: page.attributes)
-        }
-        
-        if !compareEvents(to: page) {
-            update(events: page.events)
-        }
-        
-        if case let .text(value) = page.content {
-            if !compareTextContent(to: value) {
-                build(textContent: value)
-            }
-        }
-        
+        self.attributes = page.attributes
+        self.events = page.events
         self.content = page.content
+        
+        print("UPDATING Content to -> \(self.content)")
+    }
+    
+    public func compare(to page: any Page) -> Bool {
+        guard let page = page as? any HTMLElement else {
+            return false
+        }
+
+        return (
+            compareTag(to: page) &&
+            self.content == page.content &&
+            self.events.keys == page.events.keys &&
+            self.attributes == page.attributes
+        )
     }
     
 }

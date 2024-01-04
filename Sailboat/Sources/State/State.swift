@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-import Foundation
-
 public typealias StateValue = any Equatable
 public typealias StateNode = LinkedListNode<StateValue>
 

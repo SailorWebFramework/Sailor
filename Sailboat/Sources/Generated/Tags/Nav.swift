@@ -6,8 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
-
 public struct Nav: HTMLElement {
 
     public var name: String { "nav" }

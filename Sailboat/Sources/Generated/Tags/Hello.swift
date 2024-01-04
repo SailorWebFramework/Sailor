@@ -6,7 +6,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 //import JavaScriptKit
 
 //public struct Hello: HTMLElement {
