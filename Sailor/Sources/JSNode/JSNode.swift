@@ -18,13 +18,19 @@ final class JSNode: CustomStringConvertible {
     public var children: [JSNode]
     
     internal var element: JSObject
+    
+//    internal var content
     internal var events: [String: [JSClosure]] // Events
     internal var attributes: Attributes
     
     internal weak var parent: JSNode?
 
     var description: String {
-        "JSNode(type: \(tagName), events: \(events.count), attributes: \(attributes), children: \(children.count))"
+        """
+        JSNode(type: \(tagName ?? ""), events: \(events.count), attributes: \(attributes), \(
+                        children.count > 0 ? "children: \(children.count)" : "content: \"\(content ?? "")\""
+        ))
+        """
     }
 
     var tagName: String? {
@@ -52,6 +58,25 @@ final class JSNode: CustomStringConvertible {
         self.init(
             element: divobject
         )
+    }
+    
+    convenience init(_ node: HTMLNode) {
+        guard let page = node.page as? any HTMLElement else {
+            fatalError("page node not HTMLElement")
+        }
+        
+        guard let pageElement = Self.document.createElement(page.name).object else {
+            fatalError("page node not possible")
+        }
+        
+        self.init(
+            element: pageElement,
+            parent: nil,
+            events: [:],
+            attributes: node.attributes
+        )
+        
+        self.update(with: node)
     }
     
     // TODO: force unwrapping?
@@ -123,7 +148,7 @@ final class JSNode: CustomStringConvertible {
         case .text(let value):
             self.editContent(text: value)
         case .list(_):
-            //self.editContent(text: "") // TODO: check this, remove text, what if it was text now its not?
+//            self.editContent(text: "") // TODO: check this, remove text, what if it was text now its not?
             break
 
         }
@@ -186,6 +211,7 @@ final class JSNode: CustomStringConvertible {
         self.children = []
         self.attributes = [:]
         removeEvents()
+        self.editContent(text: "")
 
     }
     

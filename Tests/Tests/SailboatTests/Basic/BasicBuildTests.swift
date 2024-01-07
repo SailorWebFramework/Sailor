@@ -19,6 +19,9 @@ final class BasicBuildTests: XCTestCase {
         SailboatGlobal.initialize(DefaultManager())
     }
     
+    override func tearDown() {
+        SailboatGlobal.shared = nil
+    }
     
     // TODO: add build tests
 //
