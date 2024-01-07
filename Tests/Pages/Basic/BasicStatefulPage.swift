@@ -72,3 +72,77 @@ struct BasicStatefulPage3: Page {
         }
     }
 }
+
+struct BasicStatefulPage4: Page {
+    @State var hello: Int = 0
+    var body: some Page {
+        Div {
+            if hello % 2 == 0 {
+                Div("Inner Div")
+            } else {
+                Div("Other Inner Div")
+            }
+            
+            if hello % 2 == 1 {
+                Div("Inner Div")
+            }
+            
+            Button("hello: \(hello)")
+                .onClick {
+                    hello += 1
+                }
+        }
+    }
+}
+
+struct BasicStatefulPage5: Page {
+    @State var hello: Int = 0
+    var body: some Page {
+        Div {
+            if hello % 3 == 0 {
+                Div("Inner Div")
+                if hello % 2 == 0 {
+                    Div("Inner Div")
+                    if hello % 4 == 0 {
+                        Div("Inner Div")
+                    }
+                }
+            }
+            
+            Button("hello: \(hello)")
+                .onClick {
+                    hello += 1
+                }
+        }
+    }
+}
+
+struct BasicStatefulPage6: Page {
+    @State var hello: Int = 0
+    var body: some Page {
+        Div {
+            if hello % 3 == 0 {
+                Div("First Inner Div")
+            }
+            
+            if hello % 2 == 0 {
+                Div("Second Inner Div")
+            }
+            
+            if hello % 3 == 0 {
+                Div("THird Inner Div")
+            }
+            
+            if hello % 4 == 0 {
+                Div("Fourth Inner Div")
+            } else {
+                Div("HELLO Div")
+            }
+            
+            Button("hello: \(hello)")
+                .onClick {
+                    hello += 1
+                }
+        }
+    }
+}

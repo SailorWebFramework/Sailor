@@ -10,101 +10,56 @@ import Sailboat
 
 extension SailorManager {
     
-    func reconcile(operatorNode: OperatorNode, element: JSNode) {
-        guard let page = operatorNode.page as? any Operator else {
-            fatalError()
-        }
+    // TODO: problem need parent thing and an element reconcile
+    // TODO: make helpers for JSKit stuff and manage all force casting errors
+    
+    /// current node being reconciled and currently built element
+    internal func reconcile(node: any PageNode, element: JSNode) {
+        // TODO: logic to reconcile the DOMTree with the Virtual DOM
+        print(node, "vs.", element)
         
-        // TODO: check id here? managing routing?
-        let (newSize, oldSize) = (operatorNode.children.count, Int(element.children.count))
-//        let endRange = min(oldSize, newSize)
+        if let node = node as? HTMLNode {
+            reconcile(htmlNode: node, element: element)
 
-        var (iNode, iElement) = (0, 0)
-        
-        while iNode < newSize && iElement < oldSize {
-           let child = element.children[iElement]
-           if child.nodeType == 1 {
-               reconcile(node: operatorNode.children[iNode], element: child)
-               
-               iNode += 1
-               iElement += 1
-           } else {
-               iElement += 1
-           }
-        }
+        } else if let node = node as? OperatorNode {
+            reconcile(operatorNode: node, parent: element)
 
-        // if new and old dom same size , end
-        if iNode == newSize && iElement == oldSize {
-           return
-        }
+        } else {
+            if let first = node.children.first {
+                reconcile(node: first, element: element)
 
-        // if js dom had more elements than new dom, delete
-        if iNode >= newSize {
-           print("REMOVING EXTRA CHILDREN")
-           for i in iElement..<oldSize {
-               let child = element.children[i]
-               if child.nodeType == 1 {
-                   child.removeFromDOM()
-               }
-           }
-        }
-
-        // if js dom had less elements than new dom, build
-        if iElement >= oldSize {
-            print("ADDING EXTRA CHILDREN")
-            for i in iNode..<newSize {
-                if let child = operatorNode.children[i] as? HTMLNode {
-                    reconcile(
-                        htmlNode: child,
-                        parent: element
-                    )
-                } else {
-                    reconcile(node: operatorNode.children[i], element: element)
-                }
-                
-//               if operatorNode.children[i] is OperatorNode {
-//                   print("Skipping add because operator")
-//                   reconcile(node: operatorNode.children[i], element: parent)
-//
-//               } else {
-//                   let newElement: JSNode = JSNode()
-//
-//                   parent.addChild(newElement)
-//
-//                   reconcile(node: operatorNode.children[i], element: newElement)
-//                   print("ADDED CHILD")
-//               }
-           }
+//                reconcile(node: first, parent: element)
+            }
         }
     }
     
-    func reconcile(htmlNode: HTMLNode, parent: JSNode) {
-        guard let page = htmlNode.page as? any HTMLElement else {
-            fatalError()
-        }
-        
-        let newElement = JSNode(
-            named: page.name,
-            events: page.events,
-            attributes: page.attributes
-        )
+    func create(htmlNode: HTMLNode, parent: JSNode) {
+        print("CREATING NEW ELEMENT")
+        let newElement = JSNode(htmlNode)
         
         parent.addChild(newElement)
+
+        self.documentNode.printNode()
 
         if let first = htmlNode.children.first {
             reconcile(node: first, element: newElement)
         }
     }
     
-    func reconcile(htmlNode: HTMLNode, element: JSNode) {
-        guard let page = htmlNode.page as? any HTMLElement else {
-            fatalError()
-        }
-        
-        guard let tagName = element.tagName else {
-            print("tagName doesn't exist")
+    func appendChildren(pagenode: any PageNode, onto parent: JSNode) {
+        if let htmlChild = pagenode as? HTMLNode {
+            create(htmlNode: htmlChild, parent: parent)
             return
         }
+        
+        for i in 0..<pagenode.children.count {
+            appendChildren(pagenode: pagenode.children[i], onto: parent)
+        }
+    }
+    
+    func reconcile(htmlNode: HTMLNode, element: JSNode) {
+        guard let page = htmlNode.page as? any HTMLElement else { fatalError() }
+        guard let tagName = element.tagName else { fatalError("tagName doesn't exist") }
         
         let newElement: JSNode
         
@@ -116,35 +71,79 @@ extension SailorManager {
             
         } else {
             // if different replace element
-            newElement = JSNode(named: page.name, events: page.events, attributes: page.attributes)
+            newElement = JSNode(htmlNode)
             element.replace(with: newElement, using: htmlNode)
             
         }
+        
+        self.documentNode.printNode()
 
-        if let first = htmlNode.children.first {
-            reconcile(node: first, element: newElement)
+        if let firstHTML = htmlNode.children.first {
+            reconcile(node: firstHTML, element: newElement)
         }
+        
     }
     
-    
-    // TODO: problem need parent thing and an element reconcile
-    // TODO: make helpers for JSKit stuff and manage all force casting errors
-    
-    /// current node being reconciled and currently built element
-    internal func reconcile(node: any PageNode, element: JSNode) {
-        // TODO: logic to reconcile the DOMTree with the Virtual DOM
-        print(node, "vs.", element)
+    func reconcile(operatorNode: OperatorNode, parent: JSNode) {
+//        guard let page = operatorNode.page as? any Operator else {
+//            fatalError()
+//        }
         
-        if let node = node as? HTMLNode {
-            reconcile(htmlNode: node, element: element)
-            
-        } else if let node = node as? OperatorNode {
-            reconcile(operatorNode: node, element: element)
-            
-        } else {
-            if let first = node.children.first {
-                reconcile(node: first, element: element)
+        // TODO: check id here? managing routing?
+        let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
+        
+        //operator node counter, and jsnode/element counter
+        var (iNode, iElement) = (0, 0)
+//        let endIndex = min(newSize, oldSize)
+                
+        while iNode < newSize && iElement < oldSize {
+            let child = parent.children[iElement]
+            if child.nodeType == 1 {
+                print("REUSING OLD NODE THING")
+                reconcile(node: operatorNode.children[iNode], element: child)
+                iNode += 1
+                iElement += 1
+            } else {
+                print("NODE TYPE IS BAD")
+                iElement += 1
             }
+        }
+        
+//        for i in 0..<endIndex {
+//            let child = parent.children[i]
+//
+////            if operatorNode.children[iNode] is HTMLNode {
+////                iIndex += 1
+////            }
+//            reconcile(node: operatorNode.children[i], element: child)
+//
+//        }
+//        while iNode < operatorNode.children.count {
+//           let child = element.children[iElement]
+//           reconcile(node: operatorNode.children[iNode], element: child)
+//
+//           iNode += 1
+//        }
+
+        // if new and old dom same size , end
+        if iNode == newSize && iElement == oldSize {
+           return
+        }
+
+        // if js dom had more elements than new dom, delete
+        for i in (iElement..<oldSize).reversed() {
+            print("REMOVING EXTRA CHILD")
+            let child = parent.children[i]
+            if child.nodeType == 1 {
+                child.removeFromDOM()
+            }
+        }
+
+        // if js dom had less elements than new dom, build
+        for i in iNode..<newSize {
+            print("ADDING EXTRA CHILD \(i)")
+            appendChildren(pagenode: operatorNode.children[i], onto: parent)
+//            reconcile(node: , parent: parent)
         }
     }
     

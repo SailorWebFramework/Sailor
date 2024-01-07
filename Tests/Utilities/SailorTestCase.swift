@@ -15,6 +15,9 @@ protocol SailorTestCase: SailboatTestCase {
 
 extension SailorTestCase {
     
+    var testIterations: Int { fatalError() }
+
+    
     var sailorManager: SailorManager {
         SailorGlobal.shared as! SailorManager
     }
@@ -36,10 +39,15 @@ extension SailorTestCase {
     }
     
     internal func compare(htmlNode: HTMLNode, jsnode: JSNode) -> Bool {
-        guard let page = htmlNode.page as? any HTMLElement else { return false }
+        guard let page = htmlNode.page as? any HTMLElement else {
+            print("FAILED")
+            return false
+            
+        }
         
         // CHECK TAG
         if page.name.uppercased() != jsnode.tagName?.uppercased() {
+            print("FAILED")
             return false
         }
         
@@ -48,72 +56,110 @@ extension SailorTestCase {
         
         if case let .text(value) = htmlNode.content {
             if jsnode.content != value {
+                print("FAILED")
                 return false
             }
         } else {
             if jsnode.content == nil || jsnode.content == "" {
+                print("FAILED")
                 return false
             }
         }
                 
         // CHECK ATTRIBUTES
         if !htmlNode.attributes.eqauls(jsnode.attributes) {
+            print("FAILED")
             return false
         }
         
         // CHECK EVENTS
         if htmlNode.events.keys != htmlNode.events.keys {
-            print("DIED EVENTS")
+            print("FAILED")
             return false
         }
         
-        print("DIDNT DIED")
-
         return true
     }
     
     internal func verifyDOM() {
         let body = sailorManager.body!
-        let node = getJSChild(jsnode)
 
-        func traverse(pageNode: any PageNode, jsnode: JSNode, wasHTML: Bool) {
-            print("comparing \(pageNode) to \(jsnode), wasHTML? \(wasHTML)")
-            if let pageNode = pageNode as? HTMLNode {
-                
-                XCTAssertTrue(
-                    compare(htmlNode: pageNode, jsnode: jsnode),
-                    "HTML node \"\(pageNode)\" not equal to jsNode \"\(jsnode)\""
-                )
-                
-                if !pageNode.children.isEmpty {
-                    traverse(
-                        pageNode: pageNode.children.first!,
-                        jsnode: jsnode,
-                        wasHTML: true
-                    )
-                }
+        // TODO: THis test is broken asf
+        func compareHTML(pageNode: HTMLNode, jsnode: JSNode) {
+            print("comparingHTML: \(pageNode) , to: \(jsnode)")
 
-            } else if let pageNode = pageNode as? OperatorNode {
-                if wasHTML && jsnode.children.count != pageNode.children.count {
-                    XCTAssertTrue(false, "JSNode does not have same amount of children as it does in DOM")
-                }
-                
-                for i in 0..<jsnode.children.count {
-                    traverse(
-                        pageNode: pageNode.children[i],
-                        jsnode: jsnode.children[i],
-                        wasHTML: false
-                    )
-                }
-            } else {
+            XCTAssertTrue(
+                compare(htmlNode: pageNode, jsnode: jsnode),
+                "HTML node \"\(pageNode)\" not equal to jsNode \"\(jsnode)\""
+            )
+            
+            print("HTMLNODE", pageNode.children.isEmpty)
+
+            if !pageNode.children.isEmpty {
+                var stack: [JSNode]? = nil
                 traverse(
                     pageNode: pageNode.children.first!,
-                    jsnode: jsnode,
-                    wasHTML: false
+                    parent: jsnode,
+                    stack: &stack
                 )
             }
         }
+        // TODO: might be some issues if stack is too large ie too many jsnodes, but they are correct idk tho
+        func traverse(pageNode: any PageNode, parent: JSNode, stack: inout [JSNode]?) {
+            print("comparing: \(pageNode) , using parent: \(parent)")
+            print("stack: \(stack)")
+
+            if let pageNode = pageNode as? HTMLNode {
+                if let firstjs = parent.children.first {
+                    
+                    compareHTML(pageNode: pageNode, jsnode: firstjs)
+
+                } else {
+                    XCTAssertTrue(false, "HTML node has incorrect number of children")
+                }
+                
+            } else if let pageNode = pageNode as? OperatorNode {
+                
+                if stack == nil {
+                    stack = parent.children
+                }
+
+                for i in 0..<pageNode.children.count {
+                    if !(stack?.isEmpty ?? true) {
+                        if let childNode = pageNode.children[i] as? HTMLNode,
+                           let jschild = stack?.removeFirst()
+                        {
+                            compareHTML(
+                                pageNode: childNode,
+                                jsnode: jschild
+                            )
+                        } else {
+                            traverse(
+                                pageNode: pageNode.children[i],
+                                parent: parent,
+                                stack: &stack
+                            )
+                        }
+
+                    } else {
+                        // ERROR
+                        XCTAssertTrue(false, "node has less more pages then jsnodes, no \(pageNode.children[i])")
+                    }
+                }
+            } else {
+                if !pageNode.children.isEmpty {
+                    traverse(
+                        pageNode: pageNode.children.first!,
+                        parent: parent,
+                        stack: &stack
+                    )
+                } else {
+                    XCTAssertTrue(false, "Custom Page has no body")
+                }
+            }
+        }
         
-        traverse(pageNode: body, jsnode: node, wasHTML: false)
+        var stack: [JSNode]? = nil
+        traverse(pageNode: body, parent: jsnode, stack: &stack)
     }
 }
