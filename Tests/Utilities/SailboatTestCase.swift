@@ -10,6 +10,7 @@ import XCTest
 
 protocol SailboatTestCase {
     var sailboatManager: (any AppManager)! { get }
+    var testIterations: Int { get }
     
     func printBody()
 }
@@ -36,6 +37,18 @@ extension SailboatTestCase {
     
     internal func getBody(_ node: any PageNode) -> any PageNode {
         return node.children.first!
+    }
+    
+    internal func simulateTest(with page: any Page, foreach: (Int) -> Void) {
+        sailboatManager.build(page: page)
+        
+        for i in 0..<testIterations {
+            foreach(i)
+        }
+    }
+    
+    internal func testPage(page: any Page) {
+        testPage(page: page, node: sailboatManager.body!.children.first!)
     }
     
     internal func testPage(page: any Page, node: any PageNode) {

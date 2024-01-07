@@ -11,16 +11,22 @@ struct HomePage: Page {
         Div {
             if myNum % 2 == 0 {
                 Div("HELLO WORLD!")
+                Div("YO ITS MEEP!")
+                if myNum % 2 == 0 {
+                    Div("HELLO WORLD 2!")
+                    
+//                    Div {
+//                        Div("HELLO WORLD 3!")
+//
+//                    }
+
+                }
+
             } else {
                 Div("YO ITS ME!")
             }
             
-            if myNum % 2 == 0 {
-                Div("YO WORLD! \(mystring)")
-                    .onClick {
-                        mystring += "4"
-                    }
-            }
+            Div("BEEF 2.0!")
 
             Button("Press me: \(myNum)")
             .onClick {
