@@ -16,7 +16,6 @@ protocol SailorTestCase: SailboatTestCase {
 extension SailorTestCase {
     
     var testIterations: Int { 50 }
-
     
     var sailorManager: SailorManager {
         SailorGlobal.shared as! SailorManager
