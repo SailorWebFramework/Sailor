@@ -11,7 +11,7 @@ import XCTest
 // TODO: tests that test the build mechanics of Sailboat
 final class BasicBuildTests: XCTestCase {
     
-    var sailboatManager: (any AppManager)! {
+    var sailboatManager: (any TargetManager)! {
         SailboatGlobal.shared
     }
     

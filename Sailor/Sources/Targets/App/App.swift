@@ -7,7 +7,8 @@
 
 import Sailboat
 
-public protocol App {
+// TODO: This will be for other App targets down the road if this project evolves
+private protocol App {
     static func main()
     
     associatedtype AppBody: Page
@@ -17,9 +18,9 @@ public protocol App {
     
 }
 
-extension App {
-    public static func main() {
-        SailboatGlobal.initialize(DefaultManager())
-        SailboatGlobal.shared.build(page: Self().body)
-    }
-}
+//extension App {
+//    public static func main() {
+//        SailboatGlobal.initialize(DefaultManager())
+//        SailboatGlobal.shared.build(page: Self().body)
+//    }
+//}

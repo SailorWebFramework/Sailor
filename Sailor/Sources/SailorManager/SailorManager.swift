@@ -9,7 +9,7 @@ import Sailboat
 import JavaScriptKit
 
 internal typealias SailorGlobal = Sailboat.SailboatGlobal
-internal typealias AppManager = Sailboat.AppManager
+internal typealias TargetManager = Sailboat.TargetManager
 
 final class SailorManager: DefaultManager {
     

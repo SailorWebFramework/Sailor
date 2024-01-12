@@ -45,7 +45,7 @@ struct HomePage: Page {
                     Div("Second Lower!")
                 }
                 
-//                SubPage(mynum: $myNum)
+                SubPage(mynum: $myNum)
 
             } else {
                 Div("Goodbye World!")
