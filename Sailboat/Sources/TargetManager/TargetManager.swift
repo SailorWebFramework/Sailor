@@ -6,7 +6,7 @@
 //
 
 // TODO: maybe rename to TargetManager
-public protocol AppManager {
+public protocol TargetManager {
     
     /// global state accessable from any element must be unique type?
     //static var environment: StateNode = StateNode(value: Date().timeIntervalSince1970)

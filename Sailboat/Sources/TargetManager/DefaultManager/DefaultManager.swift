@@ -6,7 +6,7 @@
 //
 
 /// Manager used for testing, does not render to DOM
-open class DefaultManager: AppManager {
+open class DefaultManager: TargetManager {
     
     public var body: CustomNode? = nil
     public var head: CustomNode? = nil

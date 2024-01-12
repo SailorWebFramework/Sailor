@@ -9,7 +9,7 @@ import XCTest
 @testable import Sailboat
 
 protocol SailboatTestCase {
-    var sailboatManager: (any AppManager)! { get }
+    var sailboatManager: (any TargetManager)! { get }
     var testIterations: Int { get }
     
     func printBody()
@@ -18,7 +18,7 @@ protocol SailboatTestCase {
 extension SailboatTestCase {
     var testIterations: Int { 50 }
 
-    var sailboatManager: (any AppManager)! {
+    var sailboatManager: (any TargetManager)! {
         SailboatGlobal.shared
     }
     
