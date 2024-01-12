@@ -31,6 +31,10 @@ final class SailorManager: DefaultManager {
         print("UPDATING...")
         super.update()
         reconcile()
+        
+        body?.printNode()
+        documentNode.printNode()
+
     }
     
     // TODO: logic to reconcile the DOMTree with the Virtual DOM
@@ -38,10 +42,12 @@ final class SailorManager: DefaultManager {
         guard let body = self.body else { return }
         guard let firstChild = documentNode.children.first else { return }
         
-        print("RECONCILING...")
+        print("START RECONCILING...")
         reconcile(node: body, element: firstChild)
         
+        body.printNode()
         documentNode.printNode()
+        
     }
     
 }

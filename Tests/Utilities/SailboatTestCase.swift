@@ -16,7 +16,8 @@ protocol SailboatTestCase {
 }
 
 extension SailboatTestCase {
-    
+    var testIterations: Int { 50 }
+
     var sailboatManager: (any AppManager)! {
         SailboatGlobal.shared
     }

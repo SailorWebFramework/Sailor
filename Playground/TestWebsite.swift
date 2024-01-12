@@ -1,7 +1,7 @@
 import Sailor
 
 @main
-struct TestWebsite: App {    
+struct TestWebsite: Website {
     var body: some Page {
         HomePage()
     }

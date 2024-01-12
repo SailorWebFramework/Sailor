@@ -60,14 +60,14 @@ final public class HTMLNode: PageNode {
 
     }
     
+    /// update node shallowly ie: attributes, content, & events
     public func update(using page: any Page) {
-        // TODO: ?
         guard let page = page as? any HTMLElement else { return }
         
         self.attributes = page.attributes
         self.events = page.events
         self.content = page.content
-        
+                
         print("UPDATING Content to -> \(self.content)")
     }
     

@@ -5,7 +5,8 @@
 //  Created by Joshua Davis on 12/26/23.
 //
 
-// TODO: maybe put this into sailor not sailboat?
+import Sailboat
+
 public protocol App {
     static func main()
     
@@ -18,8 +19,7 @@ public protocol App {
 
 extension App {
     public static func main() {
-//        SailboatGlobal.shared = DefaultManager()
         SailboatGlobal.initialize(DefaultManager())
-        SailboatGlobal.shared.build(app: Self())
+        SailboatGlobal.shared.build(page: Self().body)
     }
 }
