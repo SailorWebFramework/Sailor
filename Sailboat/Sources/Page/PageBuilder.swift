@@ -9,12 +9,12 @@
 @resultBuilder
 public struct PageBuilder {
     public static func buildBlock(_ children: any Page...) -> any Operator {
-        //TODO: do I add this back?
-//        if children.count == 1,
-//           let list = children.first as? List
-//        {
-//            return list
-//        }
+        //TODO: do I need this?
+        if children.count == 1,
+           let list = children.first as? List
+        {
+            return list
+        }
 
         return List(children)
     }

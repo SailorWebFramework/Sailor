@@ -13,9 +13,9 @@ open class DefaultManager: AppManager {
 
     public init() { }
     
-    open func build(app: any App) {
-        build(page: app.body)
-    }
+//    open func build(app: any App) {
+//        build(page: app.body)
+//    }
     
     open func build(page: any Page) {
         self.body = CustomNode(page: page)

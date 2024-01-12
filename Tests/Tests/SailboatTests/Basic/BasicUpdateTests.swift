@@ -9,9 +9,7 @@ import XCTest
 @testable import Sailboat
 
 /// tests the overall updating structure of virtual sailboat upon state changes
-final class BasicUpdateTests: XCTestCase, SailboatTestCase  {
-    var testIterations: Int { 100 }
-    
+final class BasicUpdateTests: XCTestCase, SailboatTestCase  {    
     
     override func setUp() {
         SailboatGlobal.initialize(DefaultManager())

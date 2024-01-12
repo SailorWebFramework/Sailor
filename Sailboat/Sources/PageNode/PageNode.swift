@@ -57,7 +57,8 @@ extension PageNode {
     }
     
     internal func insert(_ node: any PageNode, at index: Int) {
-        self.children.insert(node, at: index)
+        self.children[index] = node
+//        self.children.insert(node, at: index)
         node.parent = self
         
     }

@@ -27,26 +27,22 @@ extension SailorManager {
         } else {
             if let first = node.children.first {
                 reconcile(node: first, element: element)
-
-//                reconcile(node: first, parent: element)
             }
         }
     }
     
-    func create(htmlNode: HTMLNode, parent: JSNode) {
-        print("CREATING NEW ELEMENT")
+    private func create(htmlNode: HTMLNode, parent: JSNode) {
+//        print("CREATING NEW ELEMENT")
         let newElement = JSNode(htmlNode)
         
         parent.addChild(newElement)
-
-        self.documentNode.printNode()
 
         if let first = htmlNode.children.first {
             reconcile(node: first, element: newElement)
         }
     }
     
-    func appendChildren(pagenode: any PageNode, onto parent: JSNode) {
+    private func appendChildren(pagenode: any PageNode, onto parent: JSNode) {
         if let htmlChild = pagenode as? HTMLNode {
             create(htmlNode: htmlChild, parent: parent)
             return
@@ -58,37 +54,39 @@ extension SailorManager {
     }
     
     func reconcile(htmlNode: HTMLNode, element: JSNode) {
-        guard let page = htmlNode.page as? any HTMLElement else { fatalError() }
+        guard let page = htmlNode.page as? any HTMLElement else { fatalError("page is not HTML Element") }
         guard let tagName = element.tagName else { fatalError("tagName doesn't exist") }
+        
         
         let newElement: JSNode
         
         // check tag if its the same
         if tagName.uppercased() == page.name.uppercased() {
+            print("RECONCILINGHTMLNODE EQ")
+
             // if the same modify attributes and events
             element.update(with: htmlNode)
             newElement = element
             
         } else {
+            print("RECONCILINGHTMLNODE REPL")
+
             // if different replace element
             newElement = JSNode(htmlNode)
             element.replace(with: newElement, using: htmlNode)
             
         }
         
-        self.documentNode.printNode()
-
         if let firstHTML = htmlNode.children.first {
+            print("RECONCILINGHTMLNODE HAS KID")
+
             reconcile(node: firstHTML, element: newElement)
         }
         
     }
     
     func reconcile(operatorNode: OperatorNode, parent: JSNode) {
-//        guard let page = operatorNode.page as? any Operator else {
-//            fatalError()
-//        }
-        
+
         // TODO: check id here? managing routing?
         let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
         
@@ -98,13 +96,12 @@ extension SailorManager {
                 
         while iNode < newSize && iElement < oldSize {
             let child = parent.children[iElement]
+            print("\(iNode) : \(iElement) -> \(child) ~ type: \(child.nodeType)")
             if child.nodeType == 1 {
-                print("REUSING OLD NODE THING")
                 reconcile(node: operatorNode.children[iNode], element: child)
                 iNode += 1
                 iElement += 1
             } else {
-                print("NODE TYPE IS BAD")
                 iElement += 1
             }
         }
@@ -123,8 +120,7 @@ extension SailorManager {
 //           reconcile(node: operatorNode.children[iNode], element: child)
 //
 //           iNode += 1
-//        }
-
+//       }
         // if new and old dom same size , end
         if iNode == newSize && iElement == oldSize {
            return
@@ -132,11 +128,14 @@ extension SailorManager {
 
         // if js dom had more elements than new dom, delete
         for i in (iElement..<oldSize).reversed() {
-            print("REMOVING EXTRA CHILD")
+//            print("REMOVING EXTRA CHILD")
             let child = parent.children[i]
-            if child.nodeType == 1 {
-                child.removeFromDOM()
-            }
+            
+            print("REMOVING EXTRA CHILD || -> \(child.nodeType) || \(child) ")
+
+//            if child.nodeType == 1 {
+            child.removeFromDOM()
+//            }
         }
 
         // if js dom had less elements than new dom, build
@@ -144,6 +143,10 @@ extension SailorManager {
             print("ADDING EXTRA CHILD \(i)")
             appendChildren(pagenode: operatorNode.children[i], onto: parent)
 //            reconcile(node: , parent: parent)
+        }
+        
+        if parent.children.isEmpty {
+            parent.isTextComponent = true
         }
     }
     

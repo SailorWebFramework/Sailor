@@ -10,7 +10,7 @@ import XCTest
 
 //#if !os(macOS)
 /// tests , requires wasm
-final class BasicUpdateRenderTests: XCTestCase, SailorTestCase {
+final class BasicWebBuildTests: XCTestCase, SailorTestCase {
 
     override func setUp() {
         super.setUp()
@@ -25,7 +25,7 @@ final class BasicUpdateRenderTests: XCTestCase, SailorTestCase {
     func testBasicStateRender() throws {
         print("SAILOR TEST")
         sailorManager.build(page: BasicStatefulPage0())
-
+        
         sailboatManager.body!.printNode()
         printBody()
 

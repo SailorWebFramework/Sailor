@@ -5,6 +5,7 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
+// TODO: maybe rename to TargetManager
 public protocol AppManager {
     
     /// global state accessable from any element must be unique type?
@@ -13,7 +14,7 @@ public protocol AppManager {
     var body: CustomNode? { get set }
     var head: CustomNode? { get set }
 
-    func build(app: any App)
+//    func build(app: any App)
     func build(page: any Page)
 
     func update()

@@ -19,7 +19,7 @@ final class JSNode: CustomStringConvertible {
     
     internal var element: JSObject
     
-//    internal var content
+//    internal var content: TagContent
     internal var events: [String: [JSClosure]] // Events
     internal var attributes: Attributes
     
@@ -32,6 +32,8 @@ final class JSNode: CustomStringConvertible {
         ))
         """
     }
+    
+    var isTextComponent: Bool
 
     var tagName: String? {
         element.tagName.string 
@@ -42,6 +44,10 @@ final class JSNode: CustomStringConvertible {
 //    }
     
     var content: String? {
+//        if case let .text(value) = content {
+//            return value
+//        }
+//        return nil
         self.element.textContent.string
     }
     
@@ -81,7 +87,6 @@ final class JSNode: CustomStringConvertible {
     
     // TODO: force unwrapping?
     convenience init(named name: String, events: Events, attributes: Attributes = [:], parent: JSNode? = nil) {
-
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")
         }
@@ -105,59 +110,94 @@ final class JSNode: CustomStringConvertible {
         self.parent = parent
         self.attributes = attributes
         self.children = []
+        self.isTextComponent = true
     }
     
     func replace(with jsnode: JSNode, using htmlNode: HTMLNode) {
         guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
             fatalError("js-node doesnt exist in parent")
         }
-        
+                
         jsnode.parent = self.parent
         self.parent?.children[index] = jsnode
 
         reset()
 
         if let parent = self.element.parentElement.object {
-            print("going to replace")
+            print("REPLACING \(jsnode) with \(htmlNode)")
             let oldReference = jsnode.element
             
             _ = parent.replaceChild!(oldReference, self.element)
             
             self.element = oldReference
             
+        } else {
+            print("SKIPPING REPL \(jsnode) with \(htmlNode)")
         }
         
         self.update(with: htmlNode)
         
     }
     
+    /// shallowly updates node, ie: TextContent, Attributes, & Events
     func update(with node: HTMLNode) {
 //        guard let page = node.page as? any HTMLElement else { return }
         
         print("updating to: \(node)")
         
         // remove old events and add new ones
-        self.removeEvents()
-        
-        for (name, event) in node.events {
-            self.addEvent(name: name, closure: event.getClosure())
-        }
         
         // update text
         switch node.content {
         case .text(let value):
+            // THIS IS MF UP
+            for child in self.children {
+                child.removeFromDOM()
+            }
+            
+            children = [] // TODO: should not need this
+            
+//            print("RECONCILINGHTMLNODE MAKING OLD TEXT \(content)")
+//
+//            print("RECONCILINGHTMLNODE MAKING CHILD TEXT \(value)")
+//
             self.editContent(text: value)
+            
         case .list(_):
-//            self.editContent(text: "") // TODO: check this, remove text, what if it was text now its not?
-            break
+            
+            // Get the length of the children collection
+            let length = Int(self.element.children.length.number ?? 0)
 
+//            print("LENGTH: \(length) \(content)")
+
+            if length == 0 {
+                self.editContent(text: "")
+            }
+//
+//            for index in 0..<length {
+//                let child = self.element.children.item(index)
+//
+//                // removes text nodes within the current DOM
+//                // For example, Node.ELEMENT_NODE (1), Node.TEXT_NODE (3), etc.
+//                if child.nodeType.number == 3 {
+//                    print("Removing...v")
+//
+//                    _ = child.remove()
+//                }
+//
+//                print("Child node at index \(index) has node type \(nodeType), \(child.outerHTML.string ?? "")")
+//            }
         }
         
-        removeAttributes()
+        self.removeEvents()
+
+        for (name, event) in node.events {
+            self.addEvent(name: name, closure: event.getClosure())
+        }
         
+
         for (name, value) in node.attributes {
             self.addAttribute(name: name, value: value)
-            
         }
 
     }
@@ -174,6 +214,19 @@ final class JSNode: CustomStringConvertible {
         _ = self.element.addEventListener?(name, closure)
         
     }
+    
+    // TODO: remove Event class and use this to convert func to JSClosure
+//    func addEvent(name: String, closure: (EventResult) -> Void) {
+//
+//        if var eventList = self.events[name] {
+//            eventList.append(closure)
+//        } else {
+//            self.events[name] = [closure]
+//        }
+//
+//        _ = self.element.addEventListener?(name, closure)
+//
+//    }
     
     func addAttribute(name: Attribute, value: any AttributeValue) {
         _ = self.element.setAttribute?(name.description, value.description)
@@ -212,15 +265,27 @@ final class JSNode: CustomStringConvertible {
         self.attributes = [:]
         removeEvents()
         self.editContent(text: "")
+        self.isTextComponent = true
 
     }
     
+    func remove(index: Int) {
+        self.children.remove(at: index)
+        
+        if self.children.isEmpty {
+            self.isTextComponent = true
+        }
+    }
     
     func addChild(_ child: JSNode) {
+        if self.isTextComponent {
+            reset()
+        }
+        
         // add child given we are parent
         child.parent = self
         self.children.append(child)
-        
+        self.isTextComponent = false
         child.addToDOM()
     }
     
@@ -243,7 +308,6 @@ final class JSNode: CustomStringConvertible {
         self.children = []
 
         _ = self.element.remove?()
-        
         
     }
     

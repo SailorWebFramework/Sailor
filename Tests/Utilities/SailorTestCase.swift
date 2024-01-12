@@ -15,7 +15,7 @@ protocol SailorTestCase: SailboatTestCase {
 
 extension SailorTestCase {
     
-    var testIterations: Int { fatalError() }
+    var testIterations: Int { 50 }
 
     
     var sailorManager: SailorManager {

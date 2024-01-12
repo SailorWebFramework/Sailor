@@ -7,7 +7,9 @@
 
 import Sailboat
 
-public typealias App = Sailboat.App
+
+public typealias Style = Sailboat.Style
+
 public typealias Page = Sailboat.Page
 public typealias State = Sailboat.State
 public typealias Binding = Sailboat.Binding
