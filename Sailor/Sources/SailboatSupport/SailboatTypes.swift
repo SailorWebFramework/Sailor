@@ -7,7 +7,6 @@
 
 import Sailboat
 
-
 public typealias Style = Sailboat.Style
 
 public typealias Page = Sailboat.Page

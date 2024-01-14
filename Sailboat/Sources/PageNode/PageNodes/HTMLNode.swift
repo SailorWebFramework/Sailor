@@ -63,7 +63,7 @@ final public class HTMLNode: PageNode {
         self.attributes = page.attributes
         self.events = page.events
         self.content = page.content
-                
+      
         print("UPDATING Content to -> \(self.content)")
     }
     
