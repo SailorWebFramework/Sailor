@@ -21,17 +21,26 @@ extension Input {
         self.attributes[.value] = input.get()
 //        }
         
-        self.events["input"] = Event(
-            name: "input",
-            action: { eventResult in
-                guard case let .string(value) = eventResult else {
-                    return
-                }
-                
-                input.set(value)
-
+//        self.events["input"] = Event(
+//            name: "input",
+//            action: { eventResult in
+//                guard case let .string(value) = eventResult else {
+//                    return
+//                }
+//
+//                input.set(value)
+//
+//            }
+//        )
+        
+        self.events["input"] = { eventResult in
+            guard case let .string(value) = eventResult else {
+                return
             }
-        )
+            
+            input.set(value)
+
+        }
 
     
     }

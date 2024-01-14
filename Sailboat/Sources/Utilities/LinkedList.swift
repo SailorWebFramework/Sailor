@@ -9,9 +9,6 @@ public class LinkedList<Value>: Sequence {
     
     private(set) var head: LinkedListNode<Value>? = nil
         
-    // TODO: tail?
-//    private(set) var tail: LinkedListNode<Value>? = nil
-    
     public init() { }
     
 //    public init(arrayLiteral elements: Value...) {
@@ -128,11 +125,11 @@ public class LinkedList<Value>: Sequence {
     
     // TODO: remove the states name here, lol why
     public func printList() {
-        var output = "States: "
+        var output = ""
         for state in self {
             output += "[\(state)],"
         }
-        output += ";; COUNT: \(count)"
+        output += "; SIZE: \(count)"
 
         Swift.print(output)
 
@@ -175,9 +172,9 @@ public class LinkedListNode<Value>: CustomStringConvertible {
 
     }
     
-    deinit {
-        print("FREEING NODE: [\(value)]")
-    }
+//    deinit {
+//        print("FREEING NODE: [\(value)]")
+//    }
     
     private init(value: Value, next: LinkedListNode?, prev: LinkedListNode?) {
         self.value = value

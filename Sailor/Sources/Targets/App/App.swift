@@ -7,7 +7,7 @@
 
 import Sailboat
 
-// TODO: This will be for other App targets down the road if this project evolves
+// TODO: REMOVE THIS? This will be for other App targets down the road if this project evolves
 private protocol App {
     static func main()
     

@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onScroll(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["scroll"] = Event(name: "scroll", action: { _ in
+        copy.events["scroll"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

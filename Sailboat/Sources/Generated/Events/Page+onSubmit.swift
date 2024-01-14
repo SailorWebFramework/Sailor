@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onSubmit(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["submit"] = Event(name: "submit", action: { _ in
+        copy.events["submit"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

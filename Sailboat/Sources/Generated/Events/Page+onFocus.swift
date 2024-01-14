@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onFocus(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["focus"] = Event(name: "focus", action: { _ in
+        copy.events["focus"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

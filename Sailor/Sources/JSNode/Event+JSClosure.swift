@@ -8,15 +8,15 @@
 import JavaScriptKit
 import Sailboat
 
-extension Event {
+extension EventResult {
     
     // TODO: return the values needed by which events as EventResults, nil if error?
-    func getResultValue(_ eventJSValue: JSValue) -> EventResult {
+    static func getResultValue(_ eventName: String, _ eventJSValue: JSValue) -> EventResult {
         
         //TODO: make event map
         
 //        print("GETTING RESULT VALUE", self.name, eventJSValue.target.value.string)
-        if self.name == "input",
+        if eventName == "input",
            let inputValue = eventJSValue.target.value.string {
             return EventResult.string(inputValue)
         }
@@ -24,7 +24,7 @@ extension Event {
         return EventResult.none
     }
     
-    func getClosure() -> JSClosure {
+    static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
 
             guard let firstEvent = event.first else {
@@ -33,9 +33,9 @@ extension Event {
                 return .undefined
             }
             
-            let resultValue = self.getResultValue(firstEvent)
+            let resultValue = self.getResultValue(eventName, firstEvent)
             
-            self.action(resultValue)
+            action(resultValue)
 
             return .undefined
         }

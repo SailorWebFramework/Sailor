@@ -20,9 +20,8 @@ public struct PageBuilder {
     }
     
     public static func buildOptional(_ component: (any Operator)?) -> any Operator {
-        // if the if is without an else place a dummy div for reconcelliation
-        guard let component = component else { return Conditional([Div()]) }
-    
+        guard let component = component else { return Conditional([]) } // or? Conditional([Div()])
+
         return checkCountWrapDivForConditional(component: component)
     }
     

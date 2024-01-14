@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onMouseOver(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["mouseover"] = Event(name: "mouseover", action: { _ in
+        copy.events["mouseover"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

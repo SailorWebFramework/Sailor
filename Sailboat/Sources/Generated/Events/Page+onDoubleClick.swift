@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onDoubleClick(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["doubleclick"] = Event(name: "doubleclick", action: { _ in
+        copy.events["doubleclick"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

@@ -5,14 +5,11 @@ extension HTMLElement {
     public func onChange(_ completion: @escaping (String) -> Void) -> Self {
         var copy = self
 
-        copy.events["change"] = Event(
-            name: "change", 
-            action: { eventResult in
-                if case let EventResult.string(value) = eventResult {
-                    completion(value)
-                }
+        copy.events["change"] = { eventResult in
+            if case let EventResult.string(value) = eventResult {
+                completion(value)
             }
-        )
+        }
 
         return copy
     }

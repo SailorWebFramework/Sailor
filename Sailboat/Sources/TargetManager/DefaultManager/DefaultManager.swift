@@ -13,10 +13,6 @@ open class DefaultManager: TargetManager {
 
     public init() { }
     
-//    open func build(app: any App) {
-//        build(page: app.body)
-//    }
-    
     open func build(page: any Page) {
         self.body = CustomNode(page: page)
         

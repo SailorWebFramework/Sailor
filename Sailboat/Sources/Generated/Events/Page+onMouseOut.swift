@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onMouseOut(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["mouseout"] = Event(name: "mouseout", action: { _ in
+        copy.events["mouseout"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }
