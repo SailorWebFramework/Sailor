@@ -10,8 +10,5 @@ public enum EventResult {
          float(Double),
          bool(Bool),
          int(Int),
-        // TODO: remove this, JSObject for old code to work
-//         object(JSObject),
          none
-    
 }

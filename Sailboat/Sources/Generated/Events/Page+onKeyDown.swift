@@ -5,14 +5,11 @@ extension HTMLElement {
     public func onKeyDown(_ completion: @escaping (String) -> Void) -> Self {
         var copy = self
 
-        copy.events["keydown"] = Event(
-            name: "keydown", 
-            action: { eventResult in
-                if case let EventResult.string(value) = eventResult {
-                    completion(value)
-                }
+        copy.events["keydown"] = { eventResult in
+            if case let EventResult.string(value) = eventResult {
+                completion(value)
             }
-        )
+        }
 
         return copy
     }

@@ -13,6 +13,8 @@ final public class HTMLNode: PageNode {
         
     public var page: any Page
     
+    
+    // TODO: change from enum to just makelist func but then make TextContent be a any HTMLNode or HTMLElement
     /// string content on HTML element
     public var content: TagContent
 
@@ -40,19 +42,13 @@ final public class HTMLNode: PageNode {
         
     }
     
+    
+    // TODO: remove this? in PageNode
     public func add() {
-//        guard let page = self.page as? any HTMLElement else { return }
-//
-//        build(events: page.events)
-//
-//        if case let .text(value) = page.content {
-//            build(textContent: value)
-//        }
-//
-//        build(attributes: page.attributes)
-
+        
     }
     
+    // TODO: remove this? in PageNode
     public func remove() {
         self.events = [:]
         self.content = .text("")
@@ -82,6 +78,21 @@ final public class HTMLNode: PageNode {
             self.events.keys == page.events.keys &&
             self.attributes == page.attributes
         )
+    }
+    
+    internal func compareAttributes(to page: any HTMLElement) -> Bool {
+        return self.attributes == page.attributes
+    }
+    
+    // TODO: get compare events working properly??
+    internal func compareEvents(to page: any HTMLElement) -> Bool {
+        return page.events.keys == (self.page as? any HTMLElement)?.events.keys
+    }
+    
+    internal func compareTextContent(to newText: String) -> Bool {
+        guard case let .text(curText) = self.content else { return false }
+
+        return newText == curText
     }
     
 }

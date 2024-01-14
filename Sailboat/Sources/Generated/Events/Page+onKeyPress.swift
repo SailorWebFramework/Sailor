@@ -5,14 +5,11 @@ extension HTMLElement {
     public func onKeyPress(_ completion: @escaping (String) -> Void) -> Self {
         var copy = self
 
-        copy.events["keypress"] = Event(
-            name: "keypress", 
-            action: { eventResult in
-                if case let EventResult.string(value) = eventResult {
-                    completion(value)
-                }
+        copy.events["keypress"] = { eventResult in
+            if case let EventResult.string(value) = eventResult {
+                completion(value)
             }
-        )
+        }
 
         return copy
     }

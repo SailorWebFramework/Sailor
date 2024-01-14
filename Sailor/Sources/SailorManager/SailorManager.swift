@@ -19,11 +19,21 @@ final class SailorManager: DefaultManager {
         documentNode.reset()
 
         documentNode.addChild(JSNode())
-        
+                
         super.build(page: page)
         reconcile()
         
         documentNode.children.first?.addToDOM()
+        
+        // TODO: addds global css file?
+//        // Create a new link element
+//        let link = JSNode.document.createElement("link").object!
+//        link.rel = "stylesheet"
+//        link.type = "text/css"
+//        link.href = "/Resources/Global.css"  // Replace with the correct path
+//
+//        // Append the link element to the head
+//        JSNode.head.appendChild!(link)
 
     }
     

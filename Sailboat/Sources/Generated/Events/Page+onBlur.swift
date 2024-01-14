@@ -5,9 +5,9 @@ extension HTMLElement {
     public func onBlur(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
-        copy.events["blur"] = Event(name: "blur", action: { _ in
+        copy.events["blur"] = { _ in
             completion()
-        })
+        }
 
         return copy
     }

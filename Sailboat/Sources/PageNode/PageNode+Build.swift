@@ -7,6 +7,7 @@
 
 
 extension PageNode {
+    // TODO: put this in DefaultManager
     public static func build(page: any Page, parent: (any PageNode)?) -> any PageNode {
         // if page is an Operator
         if let page = page as? any Operator {

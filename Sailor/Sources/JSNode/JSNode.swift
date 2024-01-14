@@ -100,7 +100,7 @@ final class JSNode: CustomStringConvertible {
     
         // TODO: in pageNode make events type [String: [JSClosure]]
         for (name, event) in events {
-            self.events[name] = [event.getClosure()]
+            self.events[name] = [EventResult.getClosure(name, action: event)]
         }
     }
     
@@ -156,11 +156,7 @@ final class JSNode: CustomStringConvertible {
             }
             
             children = [] // TODO: should not need this
-            
-//            print("RECONCILINGHTMLNODE MAKING OLD TEXT \(content)")
-//
-//            print("RECONCILINGHTMLNODE MAKING CHILD TEXT \(value)")
-//
+
             self.editContent(text: value)
             
         case .list(_):
@@ -168,33 +164,20 @@ final class JSNode: CustomStringConvertible {
             // Get the length of the children collection
             let length = Int(self.element.children.length.number ?? 0)
 
-//            print("LENGTH: \(length) \(content)")
-
             if length == 0 {
                 self.editContent(text: "")
             }
-//
-//            for index in 0..<length {
-//                let child = self.element.children.item(index)
-//
-//                // removes text nodes within the current DOM
-//                // For example, Node.ELEMENT_NODE (1), Node.TEXT_NODE (3), etc.
-//                if child.nodeType.number == 3 {
-//                    print("Removing...v")
-//
-//                    _ = child.remove()
-//                }
-//
-//                print("Child node at index \(index) has node type \(nodeType), \(child.outerHTML.string ?? "")")
-//            }
         }
+        
+        // TODO: diff events and attributes?
         
         self.removeEvents()
 
         for (name, event) in node.events {
-            self.addEvent(name: name, closure: event.getClosure())
+            self.addEvent(name: name, closure: EventResult.getClosure(name, action: event))
         }
         
+        self.removeAttributes()
 
         for (name, value) in node.attributes {
             self.addAttribute(name: name, value: value)

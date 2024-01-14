@@ -44,35 +44,20 @@ extension DefaultManager {
             // loop over children
             for i in 0..<endRange {
                 // TODO: reuse maybe if id's become similar
-                
-                // CHECK if the custom pages are the same type then reuse the old page
-//                if node.children[i].compareTag(to: page.children[i]) && node.children[i] is CustomNode {
-//                    update(node: node.children[i], with: node.children[i].page.body)
-//
-//                } else {
                     update(node: node.children[i], with: page.children[i])
-//                }
-                
             }
 
-            // TODO: dont think this is possible currently because size never changes with conditional
-            // TODO: When creating ol items with ids and resizable will need this and have it change
             // if old dom had more elements than new dom, delete
-//            if oldSize > newSize {
             for i in (endRange..<oldSize).reversed() {
                 node.children.remove(at: i)
             }
-//            }
 
             // if old dom had less elements than new dom, build
-//            if oldSize < newSize {
             for i in endRange..<newSize {
                 _ = CustomNode.build(page: page.children[i], parent: node)
             }
-//            }
 
         } else {
-            print("CUSTOM \(node.page)")
             // if is custom page uses current dom page not new one to maintain state
             update(node: node.children[0], with: node.page.body)
         }
