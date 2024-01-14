@@ -115,27 +115,27 @@ struct HomePage: Page {
         Div {
             Div("HELLO WORLD! \(myNum)")
 
-//            if myNum % 2 == 0 {
-//
-//
+            if myNum % 2 == 0 {
+
+
 //                Div("HELLO WORLD!")
-//
-//                if myNum % 2 == 0 {
-//                    Div("Second Lower!")
-//                }
-//
-//                SubPage(mynum: $myNum)
-//
-//            } else {
-//                Div("Goodbye World!")
-//
-//                if myNum % 3 == 0 {
-//                    Div("THird Lower!")
-//                        .style(
-//                            .backgroundColor(.rgb(200, 0, 0))
-//                        )
-//                }
-//            }
+
+                if myNum % 2 == 0 {
+                    Div("Second Lower!")
+                }
+
+                SubPage(mynum: $myNum)
+
+            } else {
+                Div("Goodbye World!")
+
+                if myNum % 3 == 0 {
+                    Div("THird Lower!")
+                        .style(
+                            .backgroundColor(.rgb(200, 0, 0))
+                        )
+                }
+            }
 //
             SubPage(mynum: $myNum)
 

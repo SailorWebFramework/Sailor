@@ -19,6 +19,15 @@ private protocol App {
 }
 
 //extension App {
+//    
+//    public static func main() {
+//        SailboatGlobal.initialize(SailorManager())
+//        SailboatGlobal.shared.build(app: Self())
+//    }
+//}
+
+
+//extension App {
 //    public static func main() {
 //        SailboatGlobal.initialize(DefaultManager())
 //        SailboatGlobal.shared.build(page: Self().body)
