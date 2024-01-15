@@ -120,24 +120,31 @@ struct HomePage: Page {
 
 //                Div("HELLO WORLD!")
 
-                if myNum % 2 == 0 {
-                    Div("Second Lower!")
-                }
+//                if myNum % 2 == 0 {
+//                    Div("Second Lower!")
+//
+//
+//                }
+                
+                Div("Second Lower!")
+                Div("Anothea Lower!")
+                Div("One Lower!")
 
-                SubPage(mynum: $myNum)
+
+//                SubPage(mynum: $myNum)
 
             } else {
                 Div("Goodbye World!")
 
-                if myNum % 3 == 0 {
-                    Div("THird Lower!")
-                        .style(
-                            .backgroundColor(.rgb(200, 0, 0))
-                        )
-                }
+//                if myNum % 3 == 0 {
+//                    Div("THird Lower!")
+//                        .style(
+//                            .backgroundColor(.rgb(200, 0, 0))
+//                        )
+//                }
             }
 //
-            SubPage(mynum: $myNum)
+//            SubPage(mynum: $myNum)
 
             Button("Press me: \(myNum)")
                 .style(
