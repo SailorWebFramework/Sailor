@@ -9,7 +9,8 @@
 @resultBuilder
 public struct PageBuilder {
     public static func buildBlock(_ children: any Page...) -> any Operator {
-        //TODO: do I need this?
+        //TODO: do I need this? maybe test and see if diff is easier
+        
         if children.count == 1,
            let list = children.first as? List
         {
@@ -34,10 +35,14 @@ public struct PageBuilder {
     }
     
     private static func checkCountWrapDivForConditional(component: any Operator) -> any Operator {
-        
-        if component.children.count == 1 {
+        if component.children.count == 1,
+           component.children.first is List
+        {
             return Conditional([component.children.first!])
         }
+        
+        // TODO: make this work without implicit Div, error in reconcile or JSNode
+//        return Conditional([ component ])
         
         return Conditional([Div { component }])
     }
