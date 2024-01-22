@@ -9,7 +9,8 @@ import Sailboat
 import JavaScriptKit
 
 final class JSNode: CustomStringConvertible {
-    
+    typealias JSAttributes = [String: String]
+
     public static let window = JSObject.global.window
     public static let document = JSObject.global.document
     public static let body: JSObject = document.body.object!
@@ -20,8 +21,8 @@ final class JSNode: CustomStringConvertible {
     internal var element: JSObject
     
 //    internal var content: TagContent
-    internal var events: [String: [JSClosure]] // Events
-    internal var attributes: Attributes
+    internal var events: [String: JSClosure] // Events
+    internal var attributes: JSAttributes
     
     internal weak var parent: JSNode?
 
@@ -57,8 +58,8 @@ final class JSNode: CustomStringConvertible {
         return Int(number ?? -1)
     }
     
-    convenience init() {
-        guard let divobject = Self.document.createElement("DIV").object else {
+    convenience init(root: Bool = false) {
+        guard let divobject = root ? JSNode.body : Self.document.createElement("DIV").object else {
             fatalError("DIV CREATED OBJECT FAILED")
         }
         self.init(
@@ -82,11 +83,13 @@ final class JSNode: CustomStringConvertible {
             attributes: node.attributes
         )
         
-        self.update(with: node)
+        
+        
+        self.updateShallow(with: node)
     }
     
     // TODO: force unwrapping?
-    convenience init(named name: String, events: Events, attributes: Attributes = [:], parent: JSNode? = nil) {
+    convenience init(named name: String, events: Events, attributes: JSAttributes = [:], parent: JSNode? = nil) {
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")
         }
@@ -100,11 +103,11 @@ final class JSNode: CustomStringConvertible {
     
         // TODO: in pageNode make events type [String: [JSClosure]]
         for (name, event) in events {
-            self.events[name] = [EventResult.getClosure(name, action: event)]
+            self.events[name] = EventResult.getClosure(name, action: event)
         }
     }
     
-    init(element: JSObject, parent: JSNode? = nil, events: [String : [JSClosure]] = [:], attributes: Attributes = [:]) {
+    private init(element: JSObject, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
         self.element = element
         self.events = events
         self.parent = parent
@@ -135,15 +138,43 @@ final class JSNode: CustomStringConvertible {
             print("SKIPPING REPL \(jsnode) with \(htmlNode)")
         }
         
-        self.update(with: htmlNode)
+        self.updateShallow(with: htmlNode)
         
     }
     
+    /// deeply creates and appends a child node tree
+    func appendChildNode(_ node: PageNode) {
+        if let htmlChild = node as? HTMLNode {
+            let newElement = JSNode(htmlChild)
+            
+            self.addChild(newElement)
+            
+            // html element creates a new JSNode so this is now the parent
+            for i in 0..<node.children.count {
+                newElement.appendChildNode(node.children[i])
+            }
+            
+            return
+        }
+        
+        // if it is not an HTML Element its uses this parent node
+        for i in 0..<node.children.count {
+            appendChildNode(node.children[i])
+        }
+    }
+    
     /// shallowly updates node, ie: TextContent, Attributes, & Events
-    func update(with node: HTMLNode) {
-//        guard let page = node.page as? any HTMLElement else { return }
+    func updateShallow(with node: HTMLNode) {
+        guard let page = node.page as? any HTMLElement else { fatalError() }
         
         print("updating to: \(node)")
+        
+        // if different replace element
+        if tagName?.uppercased() != page.name.uppercased() {
+            self.replace(with: JSNode(node), using: node)
+            return
+        }
+        
         
         // remove old events and add new ones
         
@@ -174,64 +205,44 @@ final class JSNode: CustomStringConvertible {
         self.removeEvents()
 
         for (name, event) in node.events {
-            self.addEvent(name: name, closure: EventResult.getClosure(name, action: event))
+            self.addEvent(name: name, closure: event)
         }
         
         self.removeAttributes()
 
-        for (name, value) in node.attributes {
-            self.addAttribute(name: name, value: value)
+        for (key, value) in node.attributes {
+            self.addAttribute(name: key, value: value)
         }
 
     }
     
     // TODO: make this (EventResult) -> Void
-    func addEvent(name: String, closure: JSClosure) {
-        
-        if var eventList = self.events[name] {
-            eventList.append(closure)
-        } else {
-            self.events[name] = [closure]
-        }
-
-        _ = self.element.addEventListener?(name, closure)
+    private func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
+        let jsClosure = EventResult.getClosure(name, action: closure)
+        self.events[name] = jsClosure
+        _ = self.element.addEventListener?(name, jsClosure)
         
     }
     
-    // TODO: remove Event class and use this to convert func to JSClosure
-//    func addEvent(name: String, closure: (EventResult) -> Void) {
-//
-//        if var eventList = self.events[name] {
-//            eventList.append(closure)
-//        } else {
-//            self.events[name] = [closure]
-//        }
-//
-//        _ = self.element.addEventListener?(name, closure)
-//
-//    }
-    
-    func addAttribute(name: Attribute, value: any AttributeValue) {
-        _ = self.element.setAttribute?(name.description, value.description)
-        self.attributes[name] = value.description
+    private func addAttribute(name: String, value: String) {
+        _ = self.element.setAttribute?(name, value)
+        self.attributes[name] = value
 
     }
     
-    func editContent(text: String) {
+    private func editContent(text: String) {
         self.element.textContent = JSValue.string(text)
     }
     
-    public func removeEvents() {
-        for (name, closures) in events {
-            for closure in closures {
-                _ = self.element.removeEventListener?(name, closure)
-            }
+    private func removeEvents() {
+        for (name, closure) in events {
+            _ = self.element.removeEventListener?(name, closure)
         }
         
         self.events = [:]
     }
     
-    public func removeAttributes() {
+    private func removeAttributes() {
         for (name, _) in attributes {
             _ = self.element.removeAttribute?(name.description)
         }
@@ -245,52 +256,57 @@ final class JSNode: CustomStringConvertible {
         }
         
         self.children = []
-        self.attributes = [:]
-        removeEvents()
+//        self.attributes = [:]
+        self.removeEvents()
+        self.removeAttributes()
+        
         self.editContent(text: "")
         self.isTextComponent = true
 
     }
     
-    func remove(index: Int) {
-        self.children.remove(at: index)
-        
-        if self.children.isEmpty {
-            self.isTextComponent = true
-        }
-    }
+//    func remove(index: Int) {
+//        self.children.remove(at: index)
+//
+//        if self.children.isEmpty {
+//            self.isTextComponent = true
+//        }
+//    }
     
     func addChild(_ child: JSNode) {
         if self.isTextComponent {
             reset()
         }
         
+        self.isTextComponent = false
+
         // add child given we are parent
         child.parent = self
-        self.children.append(child)
-        self.isTextComponent = false
-        child.addToDOM()
+        child.addToParent()
     }
     
-    func addToDOM() {
+    func addToParent() {
+        parent?.children.append(self)
         _ = parent?.element.appendChild?(self.element)
-
     }
     
     func addToDocument() {
         _ = Self.document.appendChild(self.element)
-
     }
     
     func removeFromDOM() {
         // remove from DOM
         
         self.parent?.children.removeAll(where: { $0 === self })
-        
+        self.parent?.isTextComponent = self.parent?.children.isEmpty ?? true
+
         removeEvents()
+//        removeAttributes()
         self.children = []
 
         _ = self.element.remove?()
+        
+        self.isTextComponent = true
         
     }
     

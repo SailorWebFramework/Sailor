@@ -100,6 +100,8 @@ struct SubPage: Page {
                     mynum += 1
                 }
             Div("MY WORD! \(num)")
+//                .src("hello")
+                .attribute(.height(100))
                 .onClick {
                     num += 1
                 }
@@ -113,44 +115,33 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-            Div("HELLO WORLD! \(myNum)")
-
-            if myNum % 2 == 0 {
-
-
-//                Div("HELLO WORLD!")
-
-//                if myNum % 2 == 0 {
-//                    Div("Second Lower!")
-//
-//
+//            Div("HELLO WORLD! \(myNum)")
+//                .style(
+//                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
+//                    .width(.cm(200))
+//                )
+            if myNum % 4 == 0 {
+//                Div {
+                    Div("Second Lower!")
+                    Div("Another Lower!")
 //                }
+
+//                Div("One Lower!")
                 
-                Div("Second Lower!")
-                Div("Anothea Lower!")
-                Div("One Lower!")
-
-
-//                SubPage(mynum: $myNum)
 
             } else {
-                Div("Goodbye World!")
+                Div("THIRD Lower!")
 
-//                if myNum % 3 == 0 {
-//                    Div("THird Lower!")
-//                        .style(
-//                            .backgroundColor(.rgb(200, 0, 0))
-//                        )
-//                }
-            }
-//
-//            SubPage(mynum: $myNum)
-
-            Button("Press me: \(myNum)")
                 .style(
-                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
-                    .width(.cm(200))
+                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
                 )
+            }
+            
+            Button("Press me: \(myNum)")
+//                .style(
+//                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
+//                    .width(.cm(200))
+//                )
                 .onClick {
                     myNum += 1
                 }
