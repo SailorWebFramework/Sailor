@@ -19,6 +19,7 @@ public class Environment<Value: Equatable> {
     }
 
     public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
+        fatalError("Not implemented yet")
         self.get = get
         self.set = set
     }

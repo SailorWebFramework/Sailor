@@ -13,18 +13,19 @@ internal typealias TargetManager = Sailboat.TargetManager
 
 final class SailorManager: DefaultManager {
     
-    internal let documentNode: JSNode = JSNode(element: JSNode.body)
+    internal let documentNode: JSNode = JSNode(root: true)
 
     override public func build(page: any Page) {
-        documentNode.reset()
+        debugMarker("START BUILD...")
 
+        documentNode.reset()
         documentNode.addChild(JSNode())
                 
         super.build(page: page)
         reconcile()
-        
-        documentNode.children.first?.addToDOM()
-        
+                
+        debugMarker("END BUILD...")
+
         // TODO: addds global css file?
 //        // Create a new link element
 //        let link = JSNode.document.createElement("link").object!
@@ -37,27 +38,34 @@ final class SailorManager: DefaultManager {
 
     }
     
-    override public func update() {
-        print("UPDATING...")
-        super.update()
-        reconcile()
-        
+    func debugMarker(_ name: String) {
+        print(name)
         body?.printNode()
         documentNode.printNode()
 
     }
     
+    override public func update() {
+        debugMarker("START UPDATING...")
+        
+        super.update()
+        reconcile()
+        
+        debugMarker("END UPDATING...")
+
+    }
+    
     // TODO: logic to reconcile the DOMTree with the Virtual DOM
     private func reconcile() {
+        debugMarker("START RECONCILE...")
+
         guard let body = self.body else { return }
         guard let firstChild = documentNode.children.first else { return }
         
-        print("START RECONCILING...")
         reconcile(node: body, element: firstChild)
         
-        body.printNode()
-        documentNode.printNode()
-        
+        debugMarker("END RECONCILE...")
+
     }
     
 }

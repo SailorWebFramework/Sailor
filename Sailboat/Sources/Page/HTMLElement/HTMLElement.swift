@@ -31,12 +31,14 @@ public enum TagContent: Equatable {
 //typealias Events = [String: (EventResult) -> Void]
 
 public protocol HTMLElement: Page {
+    
+//    associatedtype AttributeType: Attributable
 
     /// HTML tag name, all lowercased
     var name: String { get }
     
     /// attributes on HTML tag
-    var attributes: Attributes { get set }
+    var attributes: [String: String] { get set }
     
     /// event names and values attached to this HTMLElement
     var events: Events { get set }
@@ -45,12 +47,7 @@ public protocol HTMLElement: Page {
     var content: TagContent { get set }
 
     ///
-    func style(_ properties: Style.Property...) -> Self
-    
-    ///
-    func style(_ style: Style) -> Self
-
-    ///
-    func attribute(_ type: Attribute, value: some AttributeValue) -> Self
+//    func attribute(_ value: any Attributable) -> Self
     
 }
+
