@@ -137,7 +137,7 @@ struct HomePage: Page {
                 )
             }
             
-            Button("Press me: \(myNum)")
+            Button("Press this button: \(myNum)")
 //                .style(
 //                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
 //                    .width(.cm(200))

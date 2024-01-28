@@ -14,6 +14,9 @@ internal typealias TargetManager = Sailboat.TargetManager
 final class SailorManager: DefaultManager {
     
     internal let documentNode: JSNode = JSNode(root: true)
+    
+//    internal var buildStatesTempRef: PageNode? = nil
+    internal var reconcileIndexStack: [Int] = []
 
     override public func build(page: any Page) {
         debugMarker("START BUILD...")

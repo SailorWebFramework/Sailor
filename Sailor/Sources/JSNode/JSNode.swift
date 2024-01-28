@@ -171,6 +171,7 @@ final class JSNode: CustomStringConvertible {
         
         // if different replace element
         if tagName?.uppercased() != page.name.uppercased() {
+            print("UNEQUAL")
             self.replace(with: JSNode(node), using: node)
             return
         }
@@ -189,6 +190,7 @@ final class JSNode: CustomStringConvertible {
             children = [] // TODO: should not need this
 
             self.editContent(text: value)
+            print(self)
             
         case .list(_):
             
