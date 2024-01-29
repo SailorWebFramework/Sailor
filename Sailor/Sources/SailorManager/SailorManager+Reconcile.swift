@@ -12,7 +12,6 @@ extension SailorManager {
     
     /// current node being reconciled and currently built element
     internal func reconcile(node: any PageNode, element: JSNode) {
-        // TODO: logic to reconcile the DOMTree with the Virtual DOM
         print(node, "vs.", element)
         
         if let node = node as? HTMLNode {
@@ -29,39 +28,47 @@ extension SailorManager {
     }
     
     func reconcile(htmlNode: HTMLNode, element: JSNode) {
-
         // update the HTML element shallowly
         element.updateShallow(with: htmlNode)
         
         documentNode.printNode()
         print("children \(htmlNode.children.count)")
-
         
+        if !reconcileIndexStack.isEmpty {
+            reconcileIndexStack[reconcileIndexStack.count - 1] += 1
+        }
+
         // create a sub-stack
         reconcileIndexStack.append(0)
-
-        // loop over the children
-        for child in htmlNode.children {
-            reconcile(node: child, element: element)
+        
+        // get the
+        if let first = htmlNode.children.first as? OperatorNode {
+            guard htmlNode.children.count == 1 else {
+                fatalError("HTMLElement contains more than one child")
+            }
+            reconcile(operatorNode: first, parent: element)
         }
         
-        let value = reconcileIndexStack.popLast()
+        // pop from stack
+        guard let endIndex = reconcileIndexStack.popLast() else { return }
         
-        print("STACK @\(htmlNode): \(reconcileIndexStack)")
-        
-//        assert(
-//            (value!) == htmlNode.children.count,
-//            "HTMLNODE DIDNT ADD ENOUGH ELEMENTS, \((value!)):\(htmlNode.children.count)"
-//        )
+        // if HTML body had more elements than new dom remove the old
+        for i in (endIndex..<element.children.count).reversed() {
+            print("REMOVING \(i)")
+            let child = element.children[i]
+            child.removeFromDOM()
+        }
+
     }
 
-    // TODO: AMOUNT OF NODES IS NOT DETERMINISTIC AT COMPILE TIME ANYMORE
     // TODO: check id here? managing routing?
     // KEEP TRACK OF INDEX IN PARENT AS YOU RECONCILE
     func reconcile(operatorNode: OperatorNode, parent: JSNode) {
         let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
         let endIndex = min(newSize, oldSize)
         
+        print("CMP:", operatorNode, parent, "AT:", reconcileIndexStack.last, "OLDSIZE", oldSize, "NEWSIZE", newSize)
+
         // operator node counter, and jsnode/element counter
         var index: Int = 0
         var indexParent: Int { reconcileIndexStack.last! }
@@ -71,30 +78,32 @@ extension SailorManager {
             let child = parent.children[indexParent]
             let childPageNode = operatorNode.children[index]
             
-            reconcile(node: childPageNode, element: child)
-            
-            // add 1 to parent reconcile stack
-            reconcileIndexStack[reconcileIndexStack.count - 1] += 1
-            
+            if childPageNode is OperatorNode {
+                reconcile(node: childPageNode, element: parent)
+            } else {
+                reconcile(node: childPageNode, element: child)
+            }
+
             // add 1 to operator node counter
             index += 1
         }
-        
+                
         print("INDICES-> i:\(index) , pi: \(indexParent) -> old: \(oldSize)" )
-        
-        // if js dom had more elements than new dom,
-        // Removing extra children
-        for i in (indexParent..<oldSize).reversed() {
-            print("REMOVING \(i)")
-            let child = parent.children[i]
-            child.removeFromDOM()
-        }
 
         // if js dom had less elements than new dom, build,
         // Adding extra children
         for i in index..<newSize {
             print("BUILDING: \(operatorNode.children[i].description), TO: \(parent.description)")
-            parent.appendChildNode(operatorNode.children[i])
+//            parent.appendChildNode(operatorNode.children[i])
+            
+            if let operatorChild = operatorNode.children[i] as? HTMLNode {
+                let newElement = JSNode(operatorChild)
+                parent.addChild(newElement)
+                reconcile(htmlNode: operatorChild, element: newElement)
+            } else {
+                reconcile(node: operatorNode.children[i], element: parent)
+            }
+            
         }
     
         documentNode.printNode()
