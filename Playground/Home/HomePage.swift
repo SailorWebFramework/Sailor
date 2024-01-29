@@ -115,36 +115,33 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-//            Div("HELLO WORLD! \(myNum)")
-//                .style(
-//                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
-//                    .width(.cm(200))
-//                )
+            
             if myNum % 4 == 0 {
-//                Div {
+                Div {
                     Div("Second Lower!")
                     Div("Another Lower!")
-//                }
-
-//                Div("One Lower!")
-                
-
+                }
             } else {
                 Div("THIRD Lower!")
-
                 .style(
                     .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
                 )
             }
             
             Button("Press this button: \(myNum)")
-//                .style(
-//                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0)),
-//                    .width(.cm(200))
-//                )
                 .onClick {
                     myNum += 1
                 }
         }
     }
+    
 }
+
+//struct MyView: View {
+//
+//    var body: some Page {
+//        VStack {
+//            Text("")
+//        }
+//    }
+//}

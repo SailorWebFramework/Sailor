@@ -83,8 +83,6 @@ final class JSNode: CustomStringConvertible {
             attributes: node.attributes
         )
         
-        
-        
         self.updateShallow(with: node)
     }
     
@@ -116,10 +114,18 @@ final class JSNode: CustomStringConvertible {
         self.isTextComponent = true
     }
     
-    func replace(with jsnode: JSNode, using htmlNode: HTMLNode) {
+    func replace(with htmlNode: HTMLNode) {
         guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
             fatalError("js-node doesnt exist in parent")
         }
+        
+//        guard let name = (htmlNode.page as? HTMLElement).name else {
+//            fatalError("html-page is not html element")
+//        }
+        
+//        var jsnode = JSNode(named: name, events: [:])
+        
+        var jsnode = JSNode(htmlNode)
                 
         jsnode.parent = self.parent
         self.parent?.children[index] = jsnode
@@ -138,30 +144,56 @@ final class JSNode: CustomStringConvertible {
             print("SKIPPING REPL \(jsnode) with \(htmlNode)")
         }
         
-        self.updateShallow(with: htmlNode)
-        
+//        self.updateShallow(with: htmlNode)
     }
     
+//    func replace(with jsnode: JSNode, using htmlNode: HTMLNode) {
+//        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
+//            fatalError("js-node doesnt exist in parent")
+//        }
+//
+//        jsnode.parent = self.parent
+//        self.parent?.children[index] = jsnode
+//
+//        reset()
+//
+//        if let parent = self.element.parentElement.object {
+//            print("REPLACING \(jsnode) with \(htmlNode)")
+//            let oldReference = jsnode.element
+//
+//            _ = parent.replaceChild!(oldReference, self.element)
+//
+//            self.element = oldReference
+//
+//        } else {
+//            print("SKIPPING REPL \(jsnode) with \(htmlNode)")
+//        }
+//
+//        self.updateShallow(with: htmlNode)
+//
+//    }
+    
     /// deeply creates and appends a child node tree
-    func appendChildNode(_ node: PageNode) {
-        if let htmlChild = node as? HTMLNode {
-            let newElement = JSNode(htmlChild)
-            
-            self.addChild(newElement)
-            
-            // html element creates a new JSNode so this is now the parent
-            for i in 0..<node.children.count {
-                newElement.appendChildNode(node.children[i])
-            }
-            
-            return
-        }
-        
-        // if it is not an HTML Element its uses this parent node
-        for i in 0..<node.children.count {
-            appendChildNode(node.children[i])
-        }
-    }
+//    func appendChildNode(_ node: HTMLNode) {
+//        let newElement = JSNode(node)
+//        
+//        self.addChild(newElement)
+//        
+//        // html element creates a new JSNode so this is now the parent
+//        for i in 0..<node.children.count {
+//            newElement.deepAppendChild(node.children[i])
+//        }
+//    }
+//    private func deepAppendChild(_ node: PageNode) {
+//        if let node = node as? HTMLNode {
+//            appendChildNode(node)
+//        }
+//        
+//        // if it is not an HTML Element its uses this parent node
+//        for i in 0..<node.children.count {
+//            deepAppendChild(node.children[i])
+//        }
+//    }
     
     /// shallowly updates node, ie: TextContent, Attributes, & Events
     func updateShallow(with node: HTMLNode) {
@@ -172,7 +204,8 @@ final class JSNode: CustomStringConvertible {
         // if different replace element
         if tagName?.uppercased() != page.name.uppercased() {
             print("UNEQUAL")
-            self.replace(with: JSNode(node), using: node)
+//            self.replace(with: JSNode(node), using: node)
+            self.replace(with: node)
             return
         }
         
@@ -222,6 +255,7 @@ final class JSNode: CustomStringConvertible {
     private func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
         let jsClosure = EventResult.getClosure(name, action: closure)
         self.events[name] = jsClosure
+        
         _ = self.element.addEventListener?(name, jsClosure)
         
     }
