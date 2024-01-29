@@ -3,7 +3,6 @@
 A web frontend framework built in swift.
 
 ![Sailor Logo](https://i.ibb.co/tZ4vRD7/DALL-E-2023-12-19-04-26-35-Revise-the-first-logo-design-for-the-Sailor-frontend-web-framework-ensuri.png)
-hi?
 
 ## Getting Started
 
