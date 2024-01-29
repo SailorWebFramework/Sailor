@@ -112,6 +112,7 @@ struct SubPage: Page {
 //@StaticPage
 struct HomePage: Page {
     @State var myNum: Int = 0
+    @State var toggle: Bool = true
 
     var body: some Page {
         Div {
@@ -120,6 +121,15 @@ struct HomePage: Page {
                 Div {
                     Div("Second Lower!")
                     Div("Another Lower!")
+                    
+                    if toggle {
+                        Div("HEY IM HERE")
+                    }
+                    
+                    Button("Press ME: \(toggle)")
+                        .onClick {
+                            toggle.toggle()
+                        }
                 }
             } else {
                 Div("THIRD Lower!")
