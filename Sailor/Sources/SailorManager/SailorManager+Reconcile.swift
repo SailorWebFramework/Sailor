@@ -64,28 +64,27 @@ extension SailorManager {
     // TODO: check id here? managing routing?
     // KEEP TRACK OF INDEX IN PARENT AS YOU RECONCILE
     func reconcile(operatorNode: OperatorNode, parent: JSNode) {
-        let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
-//        let endIndex = min(newSize, oldSize)
-        
-        print("CMP:", operatorNode, parent, "AT:", reconcileIndexStack.last, "OLDSIZE", oldSize, "NEWSIZE", newSize)
-
         // operator node counter, and jsnode/element counter
         var index: Int = 0
         var indexParent: Int { reconcileIndexStack.last! }
-                 
+        
+        let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
+
+        
+        print("CMP:", operatorNode, parent, "AT:", reconcileIndexStack.last, "OLDSIZE", oldSize, "NEWSIZE", newSize)
+
         // TODO: CHECK IF ELEMENT HAS A TEXT OR ELEMENTS ie: nodetype 1, or 3
         while index < newSize && indexParent < oldSize {
             let child = parent.children[indexParent]
             let childPageNode = operatorNode.children[index]
             
             if childPageNode is OperatorNode {
-//                reconcile(operatorNode: OperatorNode, parent: JSNode)
                 reconcile(node: childPageNode, element: parent)
+//                reconcile(operatorNode: childPageNode, parent: parent)
             } else {
                 reconcile(node: childPageNode, element: child)
             }
 
-            // add 1 to operator node counter
             index += 1
         }
                 
@@ -95,12 +94,16 @@ extension SailorManager {
         // Adding extra children
         for i in index..<newSize {
             print("BUILDING: \(operatorNode.children[i].description), TO: \(parent.description)")
-//            parent.appendChildNode(operatorNode.children[i])
             
             if let operatorChild = operatorNode.children[i] as? HTMLNode {
                 let newElement = JSNode(operatorChild)
                 parent.addChild(newElement)
                 reconcile(htmlNode: operatorChild, element: newElement)
+            } else if operatorNode.children[i] is CustomNode {
+                // TODO: refactor to remove this shouldnt need to make a dummy node
+                let newElement = JSNode()
+                parent.addChild(newElement)
+                reconcile(node: operatorNode.children[i], element: newElement)
             } else {
                 reconcile(node: operatorNode.children[i], element: parent)
             }
