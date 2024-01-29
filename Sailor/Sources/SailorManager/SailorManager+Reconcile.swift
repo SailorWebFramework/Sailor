@@ -10,9 +10,6 @@ import Sailboat
 
 extension SailorManager {
     
-    // TODO: problem need parent thing and an element reconcile
-    // TODO: make helpers for JSKit stuff and manage all force casting errors
-    
     /// current node being reconciled and currently built element
     internal func reconcile(node: any PageNode, element: JSNode) {
         // TODO: logic to reconcile the DOMTree with the Virtual DOM
@@ -31,123 +28,77 @@ extension SailorManager {
         }
     }
     
-    private func create(htmlNode: HTMLNode, parent: JSNode) {
-//        print("CREATING NEW ELEMENT")
-        let newElement = JSNode(htmlNode)
-        
-        parent.addChild(newElement)
-
-        if let first = htmlNode.children.first {
-            reconcile(node: first, element: newElement)
-        }
-    }
-    
-    private func appendChildren(pagenode: any PageNode, onto parent: JSNode) {
-        if let htmlChild = pagenode as? HTMLNode {
-            create(htmlNode: htmlChild, parent: parent)
-            return
-        }
-        
-        for i in 0..<pagenode.children.count {
-            appendChildren(pagenode: pagenode.children[i], onto: parent)
-        }
-    }
-    
     func reconcile(htmlNode: HTMLNode, element: JSNode) {
-        guard let page = htmlNode.page as? any HTMLElement else { fatalError("page is not HTML Element") }
-        guard let tagName = element.tagName else { fatalError("tagName doesn't exist") }
-        
-        
-        let newElement: JSNode
-        
-        // check tag if its the same
-        if tagName.uppercased() == page.name.uppercased() {
-            print("RECONCILINGHTMLNODE EQ")
 
-            // if the same modify attributes and events
-            element.update(with: htmlNode)
-            newElement = element
-            
-        } else {
-            print("RECONCILINGHTMLNODE REPL")
+        // update the HTML element shallowly
+        element.updateShallow(with: htmlNode)
+        
+        documentNode.printNode()
+        print("children \(htmlNode.children.count)")
 
-            // if different replace element
-            newElement = JSNode(htmlNode)
-            element.replace(with: newElement, using: htmlNode)
-            
+        
+        // create a sub-stack
+        reconcileIndexStack.append(0)
+
+        // loop over the children
+        for child in htmlNode.children {
+            reconcile(node: child, element: element)
         }
         
-        if let firstHTML = htmlNode.children.first {
-            print("RECONCILINGHTMLNODE HAS KID")
-
-            reconcile(node: firstHTML, element: newElement)
-        }
+        let value = reconcileIndexStack.popLast()
         
+        print("STACK @\(htmlNode): \(reconcileIndexStack)")
+        
+//        assert(
+//            (value!) == htmlNode.children.count,
+//            "HTMLNODE DIDNT ADD ENOUGH ELEMENTS, \((value!)):\(htmlNode.children.count)"
+//        )
     }
-    
+
+    // TODO: AMOUNT OF NODES IS NOT DETERMINISTIC AT COMPILE TIME ANYMORE
+    // TODO: check id here? managing routing?
+    // KEEP TRACK OF INDEX IN PARENT AS YOU RECONCILE
     func reconcile(operatorNode: OperatorNode, parent: JSNode) {
-
-        // TODO: check id here? managing routing?
         let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
+        let endIndex = min(newSize, oldSize)
         
-        //operator node counter, and jsnode/element counter
-        var (iNode, iElement) = (0, 0)
-//        let endIndex = min(newSize, oldSize)
-                
-        while iNode < newSize && iElement < oldSize {
-            let child = parent.children[iElement]
-            print("\(iNode) : \(iElement) -> \(child) ~ type: \(child.nodeType)")
-            if child.nodeType == 1 {
-                reconcile(node: operatorNode.children[iNode], element: child)
-                iNode += 1
-                iElement += 1
-            } else {
-                iElement += 1
-            }
-        }
-        
-//        for i in 0..<endIndex {
-//            let child = parent.children[i]
-//
-////            if operatorNode.children[iNode] is HTMLNode {
-////                iIndex += 1
-////            }
-//            reconcile(node: operatorNode.children[i], element: child)
-//
-//        }
-//        while iNode < operatorNode.children.count {
-//           let child = element.children[iElement]
-//           reconcile(node: operatorNode.children[iNode], element: child)
-//
-//           iNode += 1
-//       }
-        // if new and old dom same size , end
-        if iNode == newSize && iElement == oldSize {
-           return
-        }
-
-        // if js dom had more elements than new dom, delete
-        for i in (iElement..<oldSize).reversed() {
-//            print("REMOVING EXTRA CHILD")
-            let child = parent.children[i]
+        // operator node counter, and jsnode/element counter
+        var index: Int = 0
+        var indexParent: Int { reconcileIndexStack.last! }
+                 
+        // TODO: CHECK IF ELEMENT HAS A TEXT OR ELEMENTS ie: nodetype 1, or 3
+        while index < endIndex && indexParent < endIndex {
+            let child = parent.children[indexParent]
+            let childPageNode = operatorNode.children[index]
             
-            print("REMOVING EXTRA CHILD || -> \(child.nodeType) || \(child) ")
-
-//            if child.nodeType == 1 {
-            child.removeFromDOM()
-//            }
-        }
-
-        // if js dom had less elements than new dom, build
-        for i in iNode..<newSize {
-            print("ADDING EXTRA CHILD \(i)")
-            appendChildren(pagenode: operatorNode.children[i], onto: parent)
-//            reconcile(node: , parent: parent)
+            reconcile(node: childPageNode, element: child)
+            
+            // add 1 to parent reconcile stack
+            reconcileIndexStack[reconcileIndexStack.count - 1] += 1
+            
+            // add 1 to operator node counter
+            index += 1
         }
         
-        if parent.children.isEmpty {
-            parent.isTextComponent = true
+        print("INDICES-> i:\(index) , pi: \(indexParent) -> old: \(oldSize)" )
+        
+        // if js dom had more elements than new dom,
+        // Removing extra children
+        for i in (indexParent..<oldSize).reversed() {
+            print("REMOVING \(i)")
+            let child = parent.children[i]
+            child.removeFromDOM()
         }
+
+        // if js dom had less elements than new dom, build,
+        // Adding extra children
+        for i in index..<newSize {
+            print("BUILDING: \(operatorNode.children[i].description), TO: \(parent.description)")
+            parent.appendChildNode(operatorNode.children[i])
+        }
+    
+        documentNode.printNode()
+
     }
     
 }

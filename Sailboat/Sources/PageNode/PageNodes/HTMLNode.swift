@@ -13,13 +13,14 @@ final public class HTMLNode: PageNode {
         
     public var page: any Page
     
-    
     // TODO: change from enum to just makelist func but then make TextContent be a any HTMLNode or HTMLElement
     /// string content on HTML element
     public var content: TagContent
 
+//    associatedtype AttributeType: Attributable
+
     /// HTML attributes attached to this node
-    public var attributes: Attributes
+    public var attributes: [String: String]
     
     /// event closure references for each rendered event
     public var events: Events
@@ -32,6 +33,7 @@ final public class HTMLNode: PageNode {
         page: any HTMLElement, 
         parent: (any PageNode)?
     ) {
+        
         self.content = page.content
         self.attributes = page.attributes
         self.events = page.events
@@ -71,18 +73,25 @@ final public class HTMLNode: PageNode {
         guard let page = page as? any HTMLElement else {
             return false
         }
+        
+        // TODO: CHECK ATTRIBUTES HERE?
+//        self.attributes == page.attributes
+
+//        for attribute in attributes {
+//            
+//        }
 
         return (
             compareTag(to: page) &&
             self.content == page.content &&
-            self.events.keys == page.events.keys &&
-            self.attributes == page.attributes
+            self.events.keys == page.events.keys
         )
     }
     
-    internal func compareAttributes(to page: any HTMLElement) -> Bool {
-        return self.attributes == page.attributes
-    }
+//    internal func compareAttributes(to page: any HTMLElement) -> Bool {
+//
+//        return self.attributes == page.attributes
+//    }
     
     // TODO: get compare events working properly??
     internal func compareEvents(to page: any HTMLElement) -> Bool {
