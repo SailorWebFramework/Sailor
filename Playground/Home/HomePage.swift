@@ -88,6 +88,15 @@ import Sailor
 //                    .backgroundColor(.rgb(200, 0, 200))
 //                )
 
+struct SubSubPage: Page {
+    
+    var body: some Page {
+        Div {
+            Div("Sub Sub")
+            Button("Here")
+        }
+    }
+}
 struct SubPage: Page {
     
     @Binding var mynum: Int
@@ -95,11 +104,11 @@ struct SubPage: Page {
         
     var body: some Page {
         Div {
-            Div("UPPER WORD! \(mynum)")
-                .onClick {
-                    mynum += 1
-                }
-            Div("MY WORD! \(num)")
+            Div("UPPER WORD! \(mynum) {")
+            if num % 2 == 0 {
+                SubSubPage()
+            }
+            Div("} MY WORD! \(num)")
 //                .src("hello")
                 .attribute(.height(100))
                 .onClick {
@@ -124,6 +133,7 @@ struct HomePage: Page {
                     
                     if toggle {
                         Div("HEY IM HERE")
+                        SubPage(mynum: $myNum)
                     }
                     
                     Button("Press ME: \(toggle)")
@@ -131,6 +141,9 @@ struct HomePage: Page {
                             toggle.toggle()
                         }
                 }
+            } else if myNum % 4 == 1 {
+                SubPage(mynum: $myNum)
+
             } else {
                 Div("THIRD Lower!")
                 .style(
