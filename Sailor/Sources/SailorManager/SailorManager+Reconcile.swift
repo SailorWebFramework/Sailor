@@ -65,7 +65,7 @@ extension SailorManager {
     // KEEP TRACK OF INDEX IN PARENT AS YOU RECONCILE
     func reconcile(operatorNode: OperatorNode, parent: JSNode) {
         let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
-        let endIndex = min(newSize, oldSize)
+//        let endIndex = min(newSize, oldSize)
         
         print("CMP:", operatorNode, parent, "AT:", reconcileIndexStack.last, "OLDSIZE", oldSize, "NEWSIZE", newSize)
 
@@ -74,11 +74,12 @@ extension SailorManager {
         var indexParent: Int { reconcileIndexStack.last! }
                  
         // TODO: CHECK IF ELEMENT HAS A TEXT OR ELEMENTS ie: nodetype 1, or 3
-        while index < endIndex && indexParent < endIndex {
+        while index < newSize && indexParent < oldSize {
             let child = parent.children[indexParent]
             let childPageNode = operatorNode.children[index]
             
             if childPageNode is OperatorNode {
+//                reconcile(operatorNode: OperatorNode, parent: JSNode)
                 reconcile(node: childPageNode, element: parent)
             } else {
                 reconcile(node: childPageNode, element: child)
@@ -88,7 +89,7 @@ extension SailorManager {
             index += 1
         }
                 
-        print("INDICES-> i:\(index) , pi: \(indexParent) -> old: \(oldSize)" )
+        print("INDICES-> i:\(index) , pi: \(indexParent) -> old: \(oldSize), new: \(newSize)" )
 
         // if js dom had less elements than new dom, build,
         // Adding extra children
