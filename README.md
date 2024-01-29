@@ -1,13 +1,13 @@
 # Sailor
+
 A web frontend framework built in swift.
 
-
 ![Sailor Logo](https://i.ibb.co/tZ4vRD7/DALL-E-2023-12-19-04-26-35-Revise-the-first-logo-design-for-the-Sailor-frontend-web-framework-ensuri.png)
+hi?
 
 ## Getting Started
 
 ... TODO, sorry this is empty right now, instructions on how to start making websites with Sailor coming soon 👀
-
 
 ## Usage
 
@@ -40,20 +40,18 @@ The above code is equivalent to the following...
 
 ```html
 <body>
-    <div>
-        <span>Hello World</span>
-        <span>Goodbye World</span>
-    </div>
+  <div>
+    <span>Hello World</span>
+    <span>Goodbye World</span>
+  </div>
 </body>
 ```
 
 Sailor utilizes a resultBuilder like swiftUI for the body of tags, or if the tag takes string content then that is passed into the initializer instead.
 
-
 ## Attributes (only small amount of attributes componenets supported right now)
 
 Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner. Attributes can only be applied to HTMLElements.
-
 
 ```swift
 struct Example3Page: Page {
@@ -68,9 +66,7 @@ struct Example3Page: Page {
 
 Attribute name is an Enum with all attributes. To add Custom attributes globally for custom components
 
-
 Because style attribute is so common it has its own function on all HTMLElements and can be added below, however can still be used in the .attribute(...) function.
-
 
 ```swift
 struct Example3Page: Page {
@@ -83,7 +79,6 @@ struct Example3Page: Page {
     }
 }
 ```
-
 
 Some components (like image) that expect tags to be utilized more readily have the attribute built into its initializer.
 
@@ -116,11 +111,10 @@ struct Example5Page: Page {
 }
 ```
 
-Second initializer of .style that includes named paramenters. 
-__pros__: more consise and readable, only allows for one of each kind of style tag to avoid overriding your own values.
+Second initializer of .style that includes named paramenters.
+**pros**: more consise and readable, only allows for one of each kind of style tag to avoid overriding your own values.
 
-
-__cons__: must be in a specific order when adding css parameters (this is why this might never be available).
+**cons**: must be in a specific order when adding css parameters (this is why this might never be available).
 
 ```swift
 struct Example5Page: Page {
@@ -137,25 +131,21 @@ struct Example5Page: Page {
 }
 ```
 
-
 These style are enums with associated values that take in certain units.
 
 ### Units
 
-__currently supported__
+**currently supported**
 **Dimention** -> used for any unit of length in styles
 **Color** -> used for any unit of color (rgb, hsl, ...)
 
-
 ## Events
 
-** Events will be created with state
-
+\*\* Events will be created with state
 
 will be meathod on a page
 
 ...onClick, onHover, ..., and so on
-
 
 ## Text (COMING SOON)
 
@@ -173,10 +163,10 @@ struct TextPage: Page {
 
     var body: some Page {
         Div {
-            
+
             // Josh is Bolded
             P{ "hello ";B("JOSH");" whats up?" }
-            
+
             P(seperator: " ") {
                 "hello"
                 I{B("JOSH")} // Bolded and Italic
@@ -188,7 +178,6 @@ struct TextPage: Page {
 }
 ```
 
-
 ## State (Mostly working, a bit buggy)
 
 Utilizes JavascriptKit and SwiftWASM to build and update the DOM on state changes.
@@ -197,9 +186,7 @@ Sailor currently uses a Virtual-DOM that is kept in memory in Swift that is chec
 
 Currently implementing ID property that allows DOM elements to smartly diff more accuratly with complex additions
 
-
 State variables are stored globally in App and function similarly to swiftUI.
-
 
 ```swift
 struct ExampleStatePage: Page {
@@ -222,7 +209,6 @@ struct ExampleStatePage: Page {
 }
 ```
 
-
 ```swift
 struct ExampleStatePage: Page {
     //passed in by parent component, maps to same global state
@@ -244,7 +230,6 @@ struct ExampleStatePage: Page {
 }
 ```
 
-
 ## Events
 
 Events are Sailor's version of event listners on DOM properties. for example "onClick", "onMouseOver", ...
@@ -261,7 +246,6 @@ These can be attached to any HTMLElement. The DOM only rerenders once the @State
     }
 ...
 ```
-
 
 ```swift
 struct ExampleStatePage: Page {
@@ -284,8 +268,6 @@ struct ExampleStatePage: Page {
 }
 ```
 
-
-
 ## Routing (Not Implementing)
 
 The idea is to use Swift attached Macros to add routes to Pages
@@ -299,7 +281,5 @@ The idea is to use Swift attached Macros to add routes to Pages
 - Create custom library built on the HTMLElements to be more similar to SwiftUI.
 
 - Use CSS Files to help with styling
-  
 - Create Build tool to easily run on IOS, Android with Ionic?
-  
 - (SUPER STRETCH) Somehow interact with swiftUI to build native iOS
