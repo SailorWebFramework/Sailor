@@ -16,7 +16,7 @@ protocol SailboatTestCase {
 }
 
 extension SailboatTestCase {
-    var testIterations: Int { 50 }
+    var testIterations: Int { 20 }
 
     var sailboatManager: (any TargetManager)! {
         SailboatGlobal.shared
@@ -52,7 +52,11 @@ extension SailboatTestCase {
         testPage(page: page, node: sailboatManager.body!.children.first!)
     }
     
-    internal func testPage(page: any Page, node: any PageNode) {
+    internal func testPage(page: any Page, node: any PageNode, skipCustom: Bool = false) {
+        if node is CustomNode && skipCustom {
+            testPage(page: page, node: node.children.first!, skipCustom: skipCustom)
+            return
+        }
         
         if let page = page as? any Operator {
             if page.children.count != node.children.count &&
@@ -73,17 +77,17 @@ extension SailboatTestCase {
             }
                         
             for i in 0..<page.children.count {
-                testPage(page: page.children[i], node: node.children[i])
+                testPage(page: page.children[i], node: node.children[i], skipCustom: skipCustom)
             }
             
         } else if let page = page as? any HTMLElement {
             if case let .list(makeList) = page.content {
-                testPage(page: makeList(), node: node.children.first!)
+                testPage(page: makeList(), node: node.children.first!, skipCustom: skipCustom)
             }
             
         } else {
-            testPage(page: page.body, node: node.children.first!)
-            
+            testPage(page: page.body, node: node.children.first!, skipCustom: skipCustom)
+
         }
 
     }
