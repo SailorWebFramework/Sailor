@@ -17,8 +17,8 @@ final class SailorManager: DefaultManager {
     
 //    internal var buildStatesTempRef: PageNode? = nil
     internal var reconcileIndexStack: [Int] = []
-
-    override public func build(page: any Page) {
+    
+    override public func build<GenericPage: Page>(page: GenericPage) {
         debugMarker("START BUILD...")
 
         documentNode.reset()

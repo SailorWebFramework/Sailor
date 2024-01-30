@@ -99,13 +99,16 @@ extension SailorManager {
                 let newElement = JSNode(operatorChild)
                 parent.addChild(newElement)
                 reconcile(htmlNode: operatorChild, element: newElement)
+                
             } else if operatorNode.children[i] is CustomNode {
                 // TODO: refactor to remove this shouldnt need to make a dummy node
                 let newElement = JSNode()
                 parent.addChild(newElement)
                 reconcile(node: operatorNode.children[i], element: newElement)
+                
             } else {
                 reconcile(node: operatorNode.children[i], element: parent)
+                
             }
             
         }
