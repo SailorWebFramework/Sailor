@@ -11,12 +11,12 @@ public protocol TargetManager {
     /// global state accessable from any element must be unique type?
     //static var environment: StateNode = StateNode(value: Date().timeIntervalSince1970)
     
-    var body: CustomNode? { get set }
-    var head: CustomNode? { get set }
+    var body: PageNode? { get set }
+    var head: PageNode? { get set }
 
 //    func build(app: any App)
-    func build(page: any Page)
-
+//    func build(page: any Page)
+    func build<GenericPage: Page>(page: GenericPage)
     func update()
 }
 
