@@ -4,7 +4,7 @@
 
 
 extension Unit {
-    public enum Direction: String, CSSValue, AttributeValue, Equatable {
+    public enum Direction: String, StyleValue {
         public var description: String {
             self.rawValue
         }

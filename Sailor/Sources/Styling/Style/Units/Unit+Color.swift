@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public enum Color: CSSValue, AttributeValue, Equatable {
+    public enum Color: StyleValue, Equatable {
         public var description: String {
             switch self {
             case .hex(let hexcode):

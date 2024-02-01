@@ -2,7 +2,6 @@
 import Sailboat
 
 extension HTMLElement {
-
     public func onBlur(_ completion: @escaping () -> Void) -> Self {
         var copy = self
 
@@ -12,5 +11,4 @@ extension HTMLElement {
 
         return copy
     }
-
 }

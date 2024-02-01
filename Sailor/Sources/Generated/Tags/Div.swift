@@ -9,9 +9,24 @@ import Sailboat
 
 /// The generic container for flow content. It has no effect on the content or layout until styled in some way using CSS (e.g., styling is directly applied to it, or some kind of layout model like flexbox is applied to its parent element).
 public struct Div: HTMLElement {
+    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
+        public let name: String
+        public let value: String
+        
+        public init(name: String, value: String) {
+            self.name = name
+            self.value = value
+        }
+        
+        public static func height(_ value: Int) -> Self {
+            .init(name: "height", value: value.description)
+        }
+
+    }
 
     public var name: String { "div" }
 
+    // TODO: consider putting outside into HTMLElement protocol
     public var body: some Page {
         InternalError.recursingInPageBody(name: "div")
         return self
@@ -19,14 +34,13 @@ public struct Div: HTMLElement {
     
     public var attributes: [String: String]
     public var events: Events
-
     public var content: TagContent
-
+    
     public init() {   
         self.init("")       
     }
 
-    public init(_ attributes: Attribute..., @PageBuilder content: @escaping () -> any Operator) {
+    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         
@@ -44,25 +58,6 @@ public struct Div: HTMLElement {
         self.events = [:]
     }
 
-
-
-//    public func attribute(_ value: Attribute) {
-//        for attribute in attributes {
-//            if attribute.description == value.description { return self }
-//            var copy = self
-//            copy.attributes[type] = value
-//            return copy
-//        }
-//
-//        return self
-//    }
-    
-    /*
-    public func attribute(_ type: Attribute, value: some AttributeValue) -> Self {
-        if self.attributes[type]?.description == value.description { return self }
-        var copy = self
-        copy.attributes[type] = value
-        return copy
-    }
-    */
 }
+
+

@@ -9,6 +9,15 @@ import Sailboat
 
 /// Div used to test internal Sailboat
 public struct TDiv: HTMLElement {
+    public struct ElementAttributeGroup: AttributeGroup {
+        public let name: String
+        public let value: String
+        
+        public init(name: String, value: String) {
+            self.name = name
+            self.value = value
+        }
+    }
     
     public var name: String { "div" }
     public var body: some Page {

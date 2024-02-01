@@ -7,7 +7,7 @@
 
 // AttributeValue
 extension Unit {
-    public enum Dimention: CSSValue, Equatable {
+    public enum Dimention: StyleValue, Equatable {
         public var description: String {
             switch(self) {
             case .px(let amt):
@@ -18,6 +18,7 @@ extension Unit {
                 return "\(amt)"
             case .cm(let amt):
                 return "\(amt)cm"
+            //TODO: add all cases automate?
             default:
                 return ""
             }
@@ -30,7 +31,7 @@ extension Unit {
              vmin(Double), vmax(Double),
              ch(Double), ex(Double),
              cm(Double), mm(Double), inch(Double), pt(Double), pc(Double),
-             float(Double), int(Int),
+             float(Double), int(Int), // percent%
              empty
         
     }

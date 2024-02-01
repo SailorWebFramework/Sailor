@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public enum Alignment: String, CSSValue, AttributeValue, Equatable {
+    public enum Alignment: String, StyleValue, Equatable {
         public var description: String {
             self.rawValue
         }

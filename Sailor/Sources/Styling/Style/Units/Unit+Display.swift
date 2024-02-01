@@ -1,6 +1,6 @@
 
 extension Unit {
-    public enum Display: String, CSSValue, AttributeValue, Equatable {
+    public enum Display: String, StyleValue, Equatable {
         public var description: String {
             self.rawValue
         }
@@ -26,7 +26,6 @@ extension Unit {
              tableColumn = "table-column",
              tableRow = "table-row",
              none
-
     }
     
 }
