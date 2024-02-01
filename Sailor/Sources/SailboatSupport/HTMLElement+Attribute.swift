@@ -7,7 +7,7 @@
 
 import Sailboat
 
-extension HTMLElement {
+extension HTMLElement where ElementAttributeGroup: GlobalAttributeGroup {
     
     //MARK- ATTRIBUTES
     public func style(_ properties: Style.Property...) -> Self {
@@ -18,12 +18,12 @@ extension HTMLElement {
         return attribute(.style(style))
     }
 
-    public func attribute(_ value: Attribute) -> Self {
-        if attributes[value.name] == value.value { return self }
-
-        var copy = self
-        copy.attributes[value.name] = value.value
-        return copy
-        
-    }
+//    public func attribute(_ value: Attribute) -> Self {
+//        if attributes[value.name] == value.value { return self }
+//
+//        var copy = self
+//        copy.attributes[value.name] = value.value
+//        return copy
+//        
+//    }
 }

@@ -5,12 +5,15 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-extension Int: CSSValue, AttributeValue { }
-
+// TODO: remove this?
+/// Unit associated with style properties
+public protocol StyleValue: Hashable {
+    var description: String { get }
+}
 
 public struct Style: AttributeValue {
     public static func == (lhs: Style, rhs: Style) -> Bool {
-        false
+        lhs.properties == rhs.properties
     }
     
     public static func none() -> Style { Style() }
@@ -29,7 +32,7 @@ public struct Style: AttributeValue {
     
     public var description: String {
         // TODO: make this more efficient temporarily sorting all the keys before to ensure same rendering
-        let keysSorted = self.properties.sorted()
+        let keysSorted = self.properties //.sorted()
         var output = ""
         for property in keysSorted {
             output += "\(property.name): \(property.value);"

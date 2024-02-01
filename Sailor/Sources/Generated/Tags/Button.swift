@@ -9,7 +9,16 @@ import Sailboat
 
 /// An interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology. Once activated, it performs an action, such as submitting a form or opening a dialog.
 public struct Button: HTMLElement {
-
+    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
+        public let name: String
+        public let value: String
+        
+        public init(name: String, value: String) {
+            self.name = name
+            self.value = value
+        }
+    }
+    
     public var name: String { "button" }
 
     public var body: some Page {

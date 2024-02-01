@@ -32,7 +32,7 @@ public enum TagContent: Equatable {
 
 public protocol HTMLElement: Page {
     
-//    associatedtype AttributeType: Attributable
+    associatedtype ElementAttributeGroup: AttributeGroup
 
     /// HTML tag name, all lowercased
     var name: String { get }
@@ -47,7 +47,17 @@ public protocol HTMLElement: Page {
     var content: TagContent { get set }
 
     ///
-//    func attribute(_ value: any Attributable) -> Self
-    
+    func attribute(_ value: ElementAttributeGroup) -> Self
+        
 }
 
+public extension HTMLElement {
+    func attribute(_ value: ElementAttributeGroup) -> Self {
+        if attributes[value.name] == value.value { return self }
+
+        var copy = self
+        copy.attributes[value.name] = value.value
+        return copy
+        
+    }
+}

@@ -23,6 +23,6 @@ extension Website {
     public static func main() {
         SailboatGlobal.initialize(SailorManager())
         SailboatGlobal.shared.build(page: Self().body)
-        
+        print("URL!", JSNode.window.location.object)
     }
 }
