@@ -12,7 +12,7 @@ internal typealias CustomNode = Sailboat.CustomNode
 internal typealias OperatorNode = Sailboat.OperatorNode
 internal typealias PageNode = Sailboat.PageNode
 
-internal typealias HTMLElement = Sailboat.HTMLElement
+internal typealias HTMLElement = Sailboat.Element
 public typealias Operator = Sailboat.Operator
 
 //internal typealias Attributes = Sailboat.Attributes

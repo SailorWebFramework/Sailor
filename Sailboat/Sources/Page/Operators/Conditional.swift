@@ -8,10 +8,7 @@
 public struct Conditional: Operator {
     // TODO: make this ID field unique?
     public var id: String = ""
-//    {
-//        fatalError("ID doesnt exist for Operator")
-//    }()
-    
+
     public var children: [any Page]
 
     public var body: some Page {

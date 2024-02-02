@@ -19,7 +19,7 @@ final class JSNodeTests: XCTestCase, SailorTestCase {
 
     override func tearDown() {
         sailorManager.documentNode.reset()
-        SailorGlobal.shared = nil
+        SailorGlobal.manager = nil
     }
 
     func testBasicStateRender() throws {

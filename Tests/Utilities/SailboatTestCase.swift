@@ -19,7 +19,7 @@ extension SailboatTestCase {
     var testIterations: Int { 20 }
 
     var sailboatManager: (any TargetManager)! {
-        SailboatGlobal.shared
+        SailboatGlobal.manager
     }
     
     internal func printBody() {
@@ -80,7 +80,7 @@ extension SailboatTestCase {
                 testPage(page: page.children[i], node: node.children[i], skipCustom: skipCustom)
             }
             
-        } else if let page = page as? any HTMLElement {
+        } else if let page = page as? any Element {
             if case let .list(makeList) = page.content {
                 testPage(page: makeList(), node: node.children.first!, skipCustom: skipCustom)
             }

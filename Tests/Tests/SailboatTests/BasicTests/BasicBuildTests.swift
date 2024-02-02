@@ -12,7 +12,7 @@ import XCTest
 final class BasicBuildTests: XCTestCase {
     
     var sailboatManager: (any TargetManager)! {
-        SailboatGlobal.shared
+        SailboatGlobal.manager
     }
     
     override func setUp() {
@@ -20,7 +20,7 @@ final class BasicBuildTests: XCTestCase {
     }
     
     override func tearDown() {
-        SailboatGlobal.shared = nil
+        SailboatGlobal.manager = nil
     }
     
     // TODO: add build tests

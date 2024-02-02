@@ -30,7 +30,7 @@ final public class HTMLNode: PageNode {
     }
     
     init(
-        page: any HTMLElement, 
+        page: any Element, 
         parent: (any PageNode)?
     ) {
         
@@ -60,7 +60,7 @@ final public class HTMLNode: PageNode {
     
     /// update node shallowly ie: attributes, content, & events
     public func update(using page: any Page) {
-        guard let page = page as? any HTMLElement else { return }
+        guard let page = page as? any Element else { return }
         
         self.attributes = page.attributes
         self.events = page.events
@@ -70,7 +70,7 @@ final public class HTMLNode: PageNode {
     }
     
     public func compare(to page: any Page) -> Bool {
-        guard let page = page as? any HTMLElement else {
+        guard let page = page as? any Element else {
             return false
         }
         
@@ -94,8 +94,8 @@ final public class HTMLNode: PageNode {
 //    }
     
     // TODO: get compare events working properly??
-    internal func compareEvents(to page: any HTMLElement) -> Bool {
-        return page.events.keys == (self.page as? any HTMLElement)?.events.keys
+    internal func compareEvents(to page: any Element) -> Bool {
+        return page.events.keys == (self.page as? any Element)?.events.keys
     }
     
     internal func compareTextContent(to newText: String) -> Bool {

@@ -8,7 +8,7 @@
 import Sailboat
 
 /// Div used to test internal Sailboat
-public struct TDiv: HTMLElement {
+public struct TDiv: Element {
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String
