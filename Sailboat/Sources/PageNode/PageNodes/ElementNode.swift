@@ -1,12 +1,12 @@
 //
-//  File.swift
+//  ElementNode.swift
 //  
 //
 //  Created by Joshua Davis on 12/22/23.
 //
 
 
-final public class HTMLNode: PageNode {
+final public class ElementNode: PageNode {
     public var children: [any PageNode]
     
     weak public var parent: (any PageNode)?
@@ -26,7 +26,7 @@ final public class HTMLNode: PageNode {
     public var events: Events
 
     public var description: String {
-        "HTMLNode(type: \(type(of:self.page)), attributes: \(self.attributes), content: \(self.content)), events: \(self.events.keys), children: \(self.children.count))"
+        "ElementNode(type: \(type(of:self.page)), attributes: \(self.attributes), content: \(self.content)), events: \(self.events.keys), children: \(self.children.count))"
     }
     
     init(
