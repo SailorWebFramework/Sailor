@@ -40,6 +40,8 @@ struct MainPageWebsite: Page {
                 Div {
                     Div("TODO: Explore page")
                 }
+                
+//                .attribute(.className("card", "tappable"))
             }
         }
     }

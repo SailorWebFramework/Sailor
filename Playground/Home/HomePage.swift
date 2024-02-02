@@ -21,9 +21,8 @@ struct SubPage: Page {
                 SubSubPage()
             }
             Div("} MY WORD! \(num)")
-//                .src("hello")
-                .attribute(.height(100))
-
+//                .title("hello")
+                .attribute(.title("hello"))
                 .onClick {
                     num += 1
                 }
@@ -59,9 +58,15 @@ struct HomePage: Page {
 
             } else {
                 Div("THIRD Lower!")
-                .style(
-                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
-                )
+                    .attribute(.className("hello"))
+                    .attribute(.data("text", "I am stored here"))
+                    .style(
+                        .backgroundColor(
+                            .rgb(Percent(20), Percent(20), Percent(20)),
+                            .rgb%(20, 20, 20)
+                        ),
+                        .width(.px(100))
+                    )
             }
             
             Button("Press this button: \(myNum)")

@@ -7,7 +7,7 @@
 
 import Sailboat
 
-/// The generic container for flow content. It has no effect on the content or layout until styled in some way using CSS (e.g., styling is directly applied to it, or some kind of layout model like flexbox is applied to its parent element).
+/// The div element has no special meaning at all. It represents its children. It can be used with the class, lang, and title attributes to mark up semantics common to a group of consecutive elements.
 public struct Div: HTMLElement {
     public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
         public let name: String
@@ -17,25 +17,21 @@ public struct Div: HTMLElement {
             self.name = name
             self.value = value
         }
-        
-        public static func height(_ value: Int) -> Self {
-            .init(name: "height", value: value.description)
-        }
 
     }
 
+    /// name of the html tag associated with this type
     public var name: String { "div" }
 
-    // TODO: consider putting outside into HTMLElement protocol
-    public var body: some Page {
-        InternalError.recursingInPageBody(name: "div")
-        return self
-    }
-    
+    /// attributes associated with this type
     public var attributes: [String: String]
+
+    /// events associated with this type
     public var events: Events
+
+    /// content that is contained by this html element
     public var content: TagContent
-    
+
     public init() {   
         self.init("")       
     }
@@ -59,5 +55,3 @@ public struct Div: HTMLElement {
     }
 
 }
-
-
