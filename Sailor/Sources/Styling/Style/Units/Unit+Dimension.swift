@@ -25,7 +25,7 @@ extension Unit {
         }
         
         case px(Double),
-             pct(Double),
+             percent(Double),
              em(Double), rem(Double),
              vw(Double), vh(Double),
              vmin(Double), vmax(Double),

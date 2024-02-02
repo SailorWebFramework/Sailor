@@ -7,7 +7,7 @@
 
 import Sailboat
 
-/// An interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology. Once activated, it performs an action, such as submitting a form or opening a dialog.
+/// The button element represents a clickable button.
 public struct Button: HTMLElement {
     public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
         public let name: String
@@ -17,27 +17,77 @@ public struct Button: HTMLElement {
             self.name = name
             self.value = value
         }
+
+        public static func autofocus(_ value: Bool) -> Self {
+            .init(name: "autofocus", value: value.description)
+        }
+
+        public static func disabled(_ value: Bool) -> Self {
+            .init(name: "disabled", value: value.description)
+        }
+
+        public static func form(_ value: String) -> Self {
+            .init(name: "form", value: value.description)
+        }
+
+        public static func formaction(_ value: String) -> Self {
+            .init(name: "formaction", value: value.description)
+        }
+
+        public static func formenctype(_ value: String) -> Self {
+            .init(name: "formenctype", value: value.description)
+        }
+
+        public static func formmethod(_ value: String) -> Self {
+            .init(name: "formmethod", value: value.description)
+        }
+
+        public static func formnovalidate(_ value: Bool) -> Self {
+            .init(name: "formnovalidate", value: value.description)
+        }
+
+        public static func formtarget(_ value: String) -> Self {
+            .init(name: "formtarget", value: value.description)
+        }
+
+        public static func name(_ value: String) -> Self {
+            .init(name: "name", value: value.description)
+        }
+
+        public static func type(_ value: String) -> Self {
+            .init(name: "type", value: value.description)
+        }
+
+        public static func value(_ value: String) -> Self {
+            .init(name: "value", value: value.description)
+        }
+
     }
-    
+
+    /// name of the html tag associated with this type
     public var name: String { "button" }
 
-    public var body: some Page {
-        InternalError.recursingInPageBody(name: "button")
-        return self
-    }
-    
+    /// attributes associated with this type
     public var attributes: [String: String]
+
+    /// events associated with this type
     public var events: Events
 
+    /// content that is contained by this html element
     public var content: TagContent
 
     public init() {   
         self.init("")       
     }
 
-    public init(@PageBuilder _ content: @escaping () -> any Operator) {
+    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
+        
+        for attribute in attributes {
+            self.attributes[attribute.name] = attribute.value
+        }
+        
         self.events = [:]
 
     }
@@ -47,6 +97,5 @@ public struct Button: HTMLElement {
         self.attributes = .init()
         self.events = [:]
     }
-
 
 }

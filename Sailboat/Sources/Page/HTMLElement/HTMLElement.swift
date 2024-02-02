@@ -52,6 +52,11 @@ public protocol HTMLElement: Page {
 }
 
 public extension HTMLElement {
+    public var body: some Page {
+        InternalError.recursingInPageBody(name: self.name)
+        return self
+    }
+    
     func attribute(_ value: ElementAttributeGroup) -> Self {
         if attributes[value.name] == value.value { return self }
 

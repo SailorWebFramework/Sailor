@@ -15,15 +15,7 @@ extension HTMLElement where ElementAttributeGroup: GlobalAttributeGroup {
     }
 
     public func style(_ style: Style) -> Self {
-        return attribute(.style(style))
+        return self.attribute(ElementAttributeGroup(name: "style", value: style.description))
     }
 
-//    public func attribute(_ value: Attribute) -> Self {
-//        if attributes[value.name] == value.value { return self }
-//
-//        var copy = self
-//        copy.attributes[value.name] = value.value
-//        return copy
-//        
-//    }
 }
