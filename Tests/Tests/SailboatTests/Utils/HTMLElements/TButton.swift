@@ -8,7 +8,7 @@
 import Sailboat
 
 /// Button used to test internal Sailboat
-public struct TButton: HTMLElement {
+public struct TButton: Element {
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String

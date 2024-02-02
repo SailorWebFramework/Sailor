@@ -62,9 +62,7 @@ struct HomePage: Page {
                     .attribute(.data("text", "I am stored here"))
                     .style(
                         .backgroundColor(
-                            .rgb(Percent(20), Percent(20), Percent(20)),
-                            .rgb%(20, 20, 20)
-                        ),
+                            .rgb(Percent(20), Percent(20), Percent(20))                        ),
                         .width(.px(100))
                     )
             }

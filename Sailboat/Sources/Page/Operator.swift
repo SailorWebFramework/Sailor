@@ -18,3 +18,9 @@ public protocol Operator: Page, Identifiable where ID == String {
 //    var route: String? { get set }
     
 }
+
+public extension Operator {
+    var description: String {
+        "Operator(type: \(type(of: self)), id: \(self.id), children: \(children.count)"
+    }
+}

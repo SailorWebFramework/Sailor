@@ -16,7 +16,7 @@ extension DefaultManager {
             return
         }
 
-        if let page = page as? any HTMLElement {
+        if let page = page as? any Element {
             // if page is html element
             
             node.update(using: page)

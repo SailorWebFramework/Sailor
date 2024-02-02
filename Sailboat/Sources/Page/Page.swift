@@ -13,3 +13,9 @@ public protocol Page: CustomStringConvertible {
     var body: Body { get }
 
 }
+
+public extension Page {
+    var description: String {
+        "Page(type: \(type(of: self)))"
+    }
+}

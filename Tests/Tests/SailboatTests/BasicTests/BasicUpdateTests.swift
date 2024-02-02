@@ -16,7 +16,7 @@ final class BasicUpdateTests: XCTestCase, SailboatTestCase  {
     }
     
     override func tearDown() {
-        SailboatGlobal.shared = nil
+        SailboatGlobal.manager = nil
     }
     
     func testTextUpdate() {

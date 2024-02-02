@@ -21,7 +21,7 @@ open class DefaultManager: TargetManager {
     public init() { }
     
     open func build<GenericPage: Page>(page: GenericPage) {
-        if page is any HTMLElement {
+        if page is any Element {
             self.body = CustomNode(page: HTMLPageWrapper(page: page))
 
         } else if page is any Operator {

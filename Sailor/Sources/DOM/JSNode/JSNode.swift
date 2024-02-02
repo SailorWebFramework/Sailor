@@ -119,7 +119,7 @@ final class JSNode: CustomStringConvertible {
             fatalError("js-node doesnt exist in parent")
         }
         
-//        guard let name = (htmlNode.page as? HTMLElement).name else {
+//        guard let name = (htmlNode.page as? Element).name else {
 //            fatalError("html-page is not html element")
 //        }
         

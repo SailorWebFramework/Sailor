@@ -18,7 +18,7 @@ extension SailorTestCase {
     var testIterations: Int { 20 }
     
     var sailorManager: SailorManager {
-        SailorGlobal.shared as! SailorManager
+        SailorGlobal.manager as! SailorManager
     }
     
     var jsnode: JSNode {

@@ -6,10 +6,9 @@
 //
 
 public final class SailboatGlobal {
-    // TODO: this isnt a singleton name it manager instead
-    public static var shared: (any TargetManager)! = nil
+    public static var manager: (any TargetManager)! = nil
     
     public static func initialize(_ sailboatManager: any TargetManager) {
-        shared = sailboatManager
+        manager = sailboatManager
     }
 }

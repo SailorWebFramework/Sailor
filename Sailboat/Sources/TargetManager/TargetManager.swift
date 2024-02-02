@@ -14,18 +14,6 @@ public protocol TargetManager {
     var body: PageNode? { get set }
     var head: PageNode? { get set }
 
-//    func build(app: any App)
-//    func build(page: any Page)
     func build<GenericPage: Page>(page: GenericPage)
     func update()
 }
-
-//extension GlobalDOMManager {
-//    
-//    /// updates the global state, override this to diff DOM
-//    public func update(state: StateNode, newValue: StateValue) {
-//        state.value = newValue
-//        
-//        update()
-//    }
-//}

@@ -7,7 +7,7 @@
 
 import Sailboat
 
-extension HTMLElement where ElementAttributeGroup: GlobalAttributeGroup {
+extension Element where ElementAttributeGroup: GlobalAttributeGroup {
     
     //MARK- ATTRIBUTES
     public func style(_ properties: Style.Property...) -> Self {

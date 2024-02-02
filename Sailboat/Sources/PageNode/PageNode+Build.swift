@@ -30,7 +30,7 @@ extension PageNode {
         }
         
         // if page is an HTMLElement
-        if let page = page as? any HTMLElement {
+        if let page = page as? any Element {
             
             // create new virtual dom node
             let domNode = HTMLNode(
