@@ -1,17 +1,9 @@
 //
-//  File.swift
+//  DefaultManager.swift
 //  
 //
 //  Created by Joshua Davis on 12/30/23.
 //
-
-private struct HTMLPageWrapper<T: Page>: Page {
-    var page: T
-
-    var body: some Page {
-        page
-    }
-}
 
 /// Manager used for testing, does not render to DOM
 open class DefaultManager: TargetManager {
@@ -19,6 +11,14 @@ open class DefaultManager: TargetManager {
     public var head: PageNode? = nil
 
     public init() { }
+    
+    private struct HTMLPageWrapper<T: Page>: Page {
+        var page: T
+
+        var body: some Page {
+            page
+        }
+    }
     
     open func build<GenericPage: Page>(page: GenericPage) {
         if page is any Element {
@@ -31,7 +31,7 @@ open class DefaultManager: TargetManager {
             self.body = CustomNode(page: page)
             
         }
-        _ = CustomNode.build(page: self.body!.page.body, parent: self.body!)
+        _ = Self.build(page: self.body!.page.body, parent: self.body!)
 
         self.body?.printNode()
 

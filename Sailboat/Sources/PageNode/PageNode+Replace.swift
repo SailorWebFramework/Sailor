@@ -17,7 +17,7 @@ extension PageNode {
             fatalError("cant find self in parent node")
         }
         
-        let newPageNode = Self.build(page: page, parent: nil)
+        let newPageNode = DefaultManager.build(page: page, parent: nil)
         
         parent.insert(newPageNode, at: index)
 

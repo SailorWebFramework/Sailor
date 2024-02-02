@@ -7,7 +7,7 @@
 
 import Sailboat
 
-internal typealias HTMLNode = Sailboat.HTMLNode
+internal typealias HTMLNode = Sailboat.ElementNode
 internal typealias CustomNode = Sailboat.CustomNode
 internal typealias OperatorNode = Sailboat.OperatorNode
 internal typealias PageNode = Sailboat.PageNode

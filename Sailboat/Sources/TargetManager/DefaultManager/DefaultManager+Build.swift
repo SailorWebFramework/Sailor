@@ -1,14 +1,13 @@
-////
-////  File.swift
-////  
-////
-////  Created by Joshua Davis on 12/26/23.
-////
+//
+//  DefaultManager+Build.swift
+//  
+//
+//  Created by Joshua Davis on 2/2/24.
+//
 
-
-extension PageNode {
-    // TODO: put this in DefaultManager
-    public static func build(page: any Page, parent: (any PageNode)?) -> any PageNode {
+internal extension DefaultManager {
+    
+    static func build(page: any Page, parent: (any PageNode)?) -> any PageNode {
         // if page is an Operator
         if let page = page as? any Operator {
 
@@ -33,7 +32,7 @@ extension PageNode {
         if let page = page as? any Element {
             
             // create new virtual dom node
-            let domNode = HTMLNode(
+            let domNode = ElementNode(
                 page: page,
                 parent: parent
             )

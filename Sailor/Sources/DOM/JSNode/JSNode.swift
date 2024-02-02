@@ -147,7 +147,7 @@ final class JSNode: CustomStringConvertible {
 //        self.updateShallow(with: htmlNode)
     }
     
-//    func replace(with jsnode: JSNode, using htmlNode: HTMLNode) {
+//    func replace(with jsnode: JSNode, using htmlNode: ElementNode) {
 //        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
 //            fatalError("js-node doesnt exist in parent")
 //        }
@@ -174,7 +174,7 @@ final class JSNode: CustomStringConvertible {
 //    }
     
     /// deeply creates and appends a child node tree
-//    func appendChildNode(_ node: HTMLNode) {
+//    func appendChildNode(_ node: ElementNode) {
 //        let newElement = JSNode(node)
 //        
 //        self.addChild(newElement)
@@ -185,7 +185,7 @@ final class JSNode: CustomStringConvertible {
 //        }
 //    }
 //    private func deepAppendChild(_ node: PageNode) {
-//        if let node = node as? HTMLNode {
+//        if let node = node as? ElementNode {
 //            appendChildNode(node)
 //        }
 //        

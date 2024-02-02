@@ -27,7 +27,7 @@ extension SailboatTestCase {
     }
     
     internal func simulateClick(_ node: any PageNode) {
-        if let node = node as? HTMLNode {
+        if let node = node as? ElementNode {
             node.events["click"]?(.none)
         }
     }

@@ -54,7 +54,7 @@ extension DefaultManager {
 
             // if old dom had less elements than new dom, build
             for i in endRange..<newSize {
-                _ = CustomNode.build(page: page.children[i], parent: node)
+                _ = Self.build(page: page.children[i], parent: node)
             }
 
         } else {
