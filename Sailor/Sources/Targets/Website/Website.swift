@@ -12,27 +12,21 @@ import Sailboat
 public protocol Website {
     static func main()
     var router : Router { get }
-    
+    var config: Config { get }
     // associatedtype AppBody: Page
     // var body: AppBody { get }
-    var config: Config { get }
+    
     
     init()
 }
 
 extension Website {
     public static func main() {
+        let url = JSNode.window.location.object!.href.string!
+        let cleaned = Self().router.cleanPath(path: url)
+        print("cleaned URL: ", cleaned)
+        let page = Self().config.getRoute(path: cleaned)
         SailboatGlobal.initialize(SailorManager())
-        SailboatGlobal.shared.build(page: Self().config.root)
-        print("HEEEEREREERER")
-        // print(JSNode.window.location.hash.object.string)
-    }
-    func handleRouteChange(route: String) {
-        // Update UI based on the route change
-        print("Route changed to: \(route)")
-    }
-
-    func goToSomePage() {
-        router.navigateTo(route: "/some-page")
+        SailboatGlobal.shared.build(page: page)
     }
 }
