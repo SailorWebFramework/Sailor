@@ -39,6 +39,8 @@ struct MainPageWebsite: Page {
             case .explore:
                 Div {
                     Div("TODO: Explore page")
+                }.onClick {
+                    env.navigateTo()
                 }
                 
 //                .attribute(.className("card", "tappable"))
