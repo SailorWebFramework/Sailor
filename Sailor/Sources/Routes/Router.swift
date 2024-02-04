@@ -1,13 +1,10 @@
 import JavaScriptKit
 
-protocol RouterDelegate: AnyObject {
-    func handleRouteChange(route: String)
-}
-
 public class Router {
-    weak var delegate: RouterDelegate?
+    var curr_route: String? = nil
 
     public init() {
+        self.curr_route = "/"
         setupRouteListener()
     }
 
@@ -17,13 +14,30 @@ public class Router {
                 fatalError("route not found")
             }
 
-            self.delegate?.handleRouteChange(route: route)
+            self.handleRouteChange(route: route)
             return .undefined
         })
     }
 
     func navigateTo(route: String) {
         JSObject.global.window.history.pushState(JSValue.string("yo"), JSValue.string("title"), route)
-        delegate?.handleRouteChange(route: route)
+        self.handleRouteChange(route: route)
+    }
+
+    func handleRouteChange(route: String) {
+        // Update UI based on the route change
+        print("Route changed to: \(route)")
+    }
+
+    public func cleanPath(path: String) -> String {
+        let tmp = path.split(separator: "/")
+        // print("tmp: \(tmp)")
+        // remove "http:" and "localhost:8080" from the path
+        let cleaned = tmp.dropFirst(2).joined(separator: "")
+        if cleaned == "" {
+            return "/"
+        }
+        return cleaned
+        //url.replacingOccurrences(of: "http://localhost:8080", with: "")
     }
 }

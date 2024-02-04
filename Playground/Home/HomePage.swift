@@ -1,6 +1,8 @@
 
 import Sailor
+import JavaScriptKit
 
+let window = JSObject.global.window
 
 // IDEAS
 //        @Route("\about")
@@ -143,7 +145,7 @@ struct HomePage: Page {
 //                    .width(.cm(200))
 //                )
                 .onClick {
-                    myNum += 1
+                    window.location.replace("http://localhost:8080/#about")
                 }
         }
     }
