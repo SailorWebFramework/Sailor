@@ -118,13 +118,7 @@ final class JSNode: CustomStringConvertible {
         guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
             fatalError("js-node doesnt exist in parent")
         }
-        
-//        guard let name = (htmlNode.page as? Element).name else {
-//            fatalError("html-page is not html element")
-//        }
-        
-//        var jsnode = JSNode(named: name, events: [:])
-        
+
         var jsnode = JSNode(htmlNode)
                 
         jsnode.parent = self.parent
@@ -146,8 +140,7 @@ final class JSNode: CustomStringConvertible {
         
 //        self.updateShallow(with: htmlNode)
     }
-    
-//    func replace(with jsnode: JSNode, using htmlNode: ElementNode) {
+
 //        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
 //            fatalError("js-node doesnt exist in parent")
 //        }
