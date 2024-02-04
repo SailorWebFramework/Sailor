@@ -1,4 +1,8 @@
 import Sailor
+import JavaScriptKit
+
+
+let window = JSObject.global.window
 
 struct SubSubPage: Page {
     
@@ -21,8 +25,8 @@ struct SubPage: Page {
                 SubSubPage()
             }
             Div("} MY WORD! \(num)")
-//                .title("hello")
-                .attribute(.title("hello"))
+//                .src("hello")
+//                .attribute(.height(100))
                 .onClick {
                     num += 1
                 }
@@ -30,7 +34,6 @@ struct SubPage: Page {
     }
 }
 
-//@StaticPage
 struct HomePage: Page {
     @State var myNum: Int = 0
     @State var toggle: Bool = true
@@ -58,29 +61,16 @@ struct HomePage: Page {
 
             } else {
                 Div("THIRD Lower!")
-                    .attribute(.className("hello"))
-                    .attribute(.data("text", "I am stored here"))
-                    .style(
-                        .backgroundColor(
-                            .rgb(Percent(20), Percent(20), Percent(20))                        ),
-                        .width(.px(100))
-                    )
+                .style(
+                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
+                )
             }
             
             Button("Press this button: \(myNum)")
                 .onClick {
-                    myNum += 1
+                    window.location.replace("http://localhost:8080/#about")
                 }
         }
     }
     
 }
-
-//struct MyView: View {
-//
-//    var body: some Page {
-//        VStack {
-//            Text("")
-//        }
-//    }
-//}

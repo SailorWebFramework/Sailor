@@ -5,6 +5,14 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
+private struct HTMLPageWrapper<T: Page>: Page {
+    var page: T
+
+    var body: some Page {
+        page
+    }
+}
+
 /// Manager used for testing, does not render to DOM
 open class DefaultManager: TargetManager {
     public var body: PageNode? = nil
