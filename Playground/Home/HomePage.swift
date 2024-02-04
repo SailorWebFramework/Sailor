@@ -1,4 +1,8 @@
 import Sailor
+import JavaScriptKit
+
+
+let window = JSObject.global.window
 
 struct SubSubPage: Page {
     
@@ -9,6 +13,7 @@ struct SubSubPage: Page {
         }
     }
 }
+
 struct SubPage: Page {
     
     @Binding var mynum: Int
@@ -30,7 +35,6 @@ struct SubPage: Page {
     }
 }
 
-//@StaticPage
 struct HomePage: Page {
     @State var myNum: Int = 0
     @State var toggle: Bool = true
@@ -65,18 +69,9 @@ struct HomePage: Page {
             
             Button("Press this button: \(myNum)")
                 .onClick {
-                    myNum += 1
+                    window.location.replace("http://localhost:8080/#about")
                 }
         }
     }
     
 }
-
-//struct MyView: View {
-//
-//    var body: some Page {
-//        VStack {
-//            Text("")
-//        }
-//    }
-//}
