@@ -21,6 +21,7 @@ public protocol Website {
 }
 
 extension Website {
+    
     public static func main() {
         let url = JSNode.window.location.object!.href.string!
         let cleaned = Self().router.cleanPath(path: url)
