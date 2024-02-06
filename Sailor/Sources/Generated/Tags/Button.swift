@@ -8,7 +8,7 @@
 import Sailboat
 
 /// The button element represents a clickable button.
-public struct Button: HTMLElement {
+public struct Button: Element {
     public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
         public let name: String
         public let value: String
@@ -18,47 +18,58 @@ public struct Button: HTMLElement {
             self.value = value
         }
 
-        public static func autofocus(_ value: Bool) -> Self {
+        ///Specifies that the button should automatically get focus when the page loads.
+        static func autofocus(_ value: Bool) -> Self {
             .init(name: "autofocus", value: value.description)
         }
 
-        public static func disabled(_ value: Bool) -> Self {
+        ///Specifies that the button should be disabled.
+        static func disabled(_ value: Bool) -> Self {
             .init(name: "disabled", value: value.description)
         }
 
-        public static func form(_ value: String) -> Self {
+        ///Specifies one or more forms the button belongs to.
+        static func form(_ value: String) -> Self {
             .init(name: "form", value: value.description)
         }
 
-        public static func formaction(_ value: String) -> Self {
+        ///Specifies the URL of the file that will process the input control when the form is submitted.
+        static func formaction(_ value: String) -> Self {
             .init(name: "formaction", value: value.description)
         }
 
-        public static func formenctype(_ value: String) -> Self {
+        ///Specifies how the form data should be encoded when submitting it to the server.
+        static func formenctype(_ value: Unit.FormEncType) -> Self {
             .init(name: "formenctype", value: value.description)
         }
 
-        public static func formmethod(_ value: String) -> Self {
+        ///Specifies the HTTP method to use when sending form data.
+        static func formmethod(_ value: Unit.FormMethod) -> Self {
             .init(name: "formmethod", value: value.description)
         }
 
-        public static func formnovalidate(_ value: Bool) -> Self {
+        ///Specifies that the form-data should not be validated on submission.
+        static func formnovalidate(_ value: Bool) -> Self {
             .init(name: "formnovalidate", value: value.description)
         }
 
-        public static func formtarget(_ value: String) -> Self {
+        ///Specifies where to display the response after submitting the form.
+        static func formtarget(_ value: Unit.Target) -> Self {
             .init(name: "formtarget", value: value.description)
         }
 
-        public static func name(_ value: String) -> Self {
+        ///Specifies the name of the button.
+        static func name(_ value: String) -> Self {
             .init(name: "name", value: value.description)
         }
 
-        public static func type(_ value: String) -> Self {
+        ///Specifies the type of button.
+        static func type(_ value: Unit.ButtonType) -> Self {
             .init(name: "type", value: value.description)
         }
 
-        public static func value(_ value: String) -> Self {
+        ///Specifies the initial value of the button.
+        static func value(_ value: String) -> Self {
             .init(name: "value", value: value.description)
         }
 
@@ -96,6 +107,65 @@ public struct Button: HTMLElement {
         self.content = .text(text)
         self.attributes = .init()
         self.events = [:]
+    }
+
+}
+
+// MARK: - Attributes
+public extension Button {
+    ///Specifies that the button should automatically get focus when the page loads.
+    func autofocus(_ value: Bool) -> Self {
+        attribute(ElementAttributeGroup(name: "autofocus", value: value.description))
+    }
+
+    ///Specifies that the button should be disabled.
+    func disabled(_ value: Bool) -> Self {
+        attribute(ElementAttributeGroup(name: "disabled", value: value.description))
+    }
+
+    ///Specifies one or more forms the button belongs to.
+    func form(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "form", value: value.description))
+    }
+
+    ///Specifies the URL of the file that will process the input control when the form is submitted.
+    func formaction(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "formaction", value: value.description))
+    }
+
+    ///Specifies how the form data should be encoded when submitting it to the server.
+    func formenctype(_ value: Unit.FormEncType) -> Self {
+        attribute(ElementAttributeGroup(name: "formenctype", value: value.description))
+    }
+
+    ///Specifies the HTTP method to use when sending form data.
+    func formmethod(_ value: Unit.FormMethod) -> Self {
+        attribute(ElementAttributeGroup(name: "formmethod", value: value.description))
+    }
+
+    ///Specifies that the form-data should not be validated on submission.
+    func formnovalidate(_ value: Bool) -> Self {
+        attribute(ElementAttributeGroup(name: "formnovalidate", value: value.description))
+    }
+
+    ///Specifies where to display the response after submitting the form.
+    func formtarget(_ value: Unit.Target) -> Self {
+        attribute(ElementAttributeGroup(name: "formtarget", value: value.description))
+    }
+
+    ///Specifies the name of the button.
+    func name(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "name", value: value.description))
+    }
+
+    ///Specifies the type of button.
+    func type(_ value: Unit.ButtonType) -> Self {
+        attribute(ElementAttributeGroup(name: "type", value: value.description))
+    }
+
+    ///Specifies the initial value of the button.
+    func value(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "value", value: value.description))
     }
 
 }

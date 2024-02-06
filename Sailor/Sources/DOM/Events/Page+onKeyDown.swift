@@ -7,6 +7,7 @@ extension Element {
         var copy = self
 
         copy.events["keydown"] = { eventResult in
+            eventResult
             if case let EventResult.string(value) = eventResult {
                 completion(value)
             }

@@ -6,9 +6,9 @@ struct TestWebsite: Website {
     var config: Config{
         Config(
             routes: [
-                Route("/") { HomePage() },
-                Route("404") { NotFoundPage() },
-                Route("#about") { AboutPage() }
+                Route("/") { MainPageWebsite() },
+                Route("404") { MainPageWebsite() },
+                Route("#about") { MainPageWebsite() }
             ],
             metadata: [
                 "title": "Test Website",
