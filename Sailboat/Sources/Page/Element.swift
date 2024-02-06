@@ -35,6 +35,10 @@ public extension Element {
         InternalError.recursingInPageBody(name: self.name)
         return self
     }
+
+}
+// TODO: make this internal? / remove?
+public extension Element {
     
     func attribute(_ value: ElementAttributeGroup) -> Self {
         if attributes[value.name] == value.value { return self }
