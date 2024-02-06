@@ -72,26 +72,30 @@ public struct A: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public init() {   
-        self.init("")       
+    public init(_ text: String) {
+        self.content = .text(text)
+        self.attributes = .init()
+        self.events = .init()
     }
 
     public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
-        
+        self.events = .init()
+
         for attribute in attributes {
             self.attributes[attribute.name] = attribute.value
         }
-        
-        self.events = [:]
 
     }
-    
-    public init(_ text: String) {
-        self.content = .text(text)
+
+    public init(href: String) {
+        self.content = .text("")
         self.attributes = .init()
-        self.events = [:]
+        self.events = .init()
+
+        self.attributes["href"] = href
+        
     }
 
 }

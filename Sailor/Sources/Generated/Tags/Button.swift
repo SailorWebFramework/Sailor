@@ -88,25 +88,26 @@ public struct Button: Element {
     public var content: TagContent
 
     public init() {   
-        self.init("")       
+        self.content = .text("")
+        self.attributes = .init()
+        self.events = .init()
+    }
+
+    public init(_ text: String) {
+        self.content = .text(text)
+        self.attributes = .init()
+        self.events = .init()
     }
 
     public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
-        
+        self.events = .init()
+
         for attribute in attributes {
             self.attributes[attribute.name] = attribute.value
         }
-        
-        self.events = [:]
 
-    }
-    
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = [:]
     }
 
 }

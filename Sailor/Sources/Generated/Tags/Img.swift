@@ -87,26 +87,14 @@ public struct Img: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public init() {   
-        self.init("")       
-    }
-
-    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
-        self.content = .list(content)
+    public init(src: String, alt: String) {
+        self.content = .text("")
         self.attributes = .init()
-        
-        for attribute in attributes {
-            self.attributes[attribute.name] = attribute.value
-        }
-        
-        self.events = [:]
+        self.events = .init()
 
-    }
-    
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = [:]
+        self.attributes["src"] = src
+        self.attributes["alt"] = alt
+        
     }
 
 }

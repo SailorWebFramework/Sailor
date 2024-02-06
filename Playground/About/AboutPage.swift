@@ -2,23 +2,28 @@ import Sailor
 
 struct AboutPage: Page {
     @State var myNum: Int = 0
+    
+    let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+    
     var body: some Page {
         Div {
+            H1("This is my title")
             Div("This is the about page")
             
             Div(
-                .className("hello"),
-                .title("main-container"),
-                .data("test", "i am on the page"),
-                .id("UNIQUE123")
+//                .className("hello"),
+//                .title("main-container"),
+//                .data("test", "i am on the page"),
+//                .id("UNIQUE123")
             ) {
-//                A(.href("https://www.google.com"){"Press me!"}
-//                <a href="https://www.google.com">Press me!</a>
-//                A("hyperlink").href("https://www.google.com")
-                A("hyperlink")
-                    .href("https://www.google.com")
-//                    .attribute()
-//                    .attribute(.href("https://www.google.com"))
+                A("hyperlink").href("https://www.google.com")
+                
+//                Ol {
+//                    Div("hello")
+//                    Div("ots")
+//                    Div("me")
+//                }
+                Img(src: source, alt: source)
 
             }
             .style(
