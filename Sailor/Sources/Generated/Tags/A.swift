@@ -8,7 +8,7 @@
 import Sailboat
 
 /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
-public struct A: HTMLElement {
+public struct A: Element {
     public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
         public let name: String
         public let value: String
@@ -17,36 +17,44 @@ public struct A: HTMLElement {
             self.name = name
             self.value = value
         }
-        
-        public static func href(_ value: String) -> Self {
+
+        ///The URL of the link.
+        static func href(_ value: String) -> Self {
             .init(name: "href", value: value.description)
         }
 
-        public static func download(_ value: String) -> Self {
+        ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
+        static func download(_ value: String) -> Self {
             .init(name: "download", value: value.description)
         }
 
-        public static func hreflang(_ value: String) -> Self {
+        ///Specifies the language of the linked document.
+        static func hreflang(_ value: Unit.Language) -> Self {
             .init(name: "hreflang", value: value.description)
         }
 
-        public static func media(_ value: String) -> Self {
+        ///Specifies what media/device the linked document is optimized for.
+        static func media(_ value: String) -> Self {
             .init(name: "media", value: value.description)
         }
 
-        public static func ping(_ value: String...) -> Self {
+        ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
+        static func ping(_ value: String...) -> Self {
             .init(name: "ping", value: value.map{ $0.description }.joined(separator: " "))
         }
 
-        public static func referrerpolicy(_ value: String) -> Self {
+        ///Specifies which referrer information to send when fetching the linked resource.
+        static func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
             .init(name: "referrerpolicy", value: value.description)
         }
 
-        public static func rel(_ value: String) -> Self {
+        ///Specifies the relationship between the current document and the linked document.
+        static func rel(_ value: String) -> Self {
             .init(name: "rel", value: value.description)
         }
 
-        public static func target(_ value: String) -> Self {
+        ///Specifies where to open the linked document.
+        static func target(_ value: Unit.Target) -> Self {
             .init(name: "target", value: value.description)
         }
 
@@ -85,9 +93,49 @@ public struct A: HTMLElement {
         self.attributes = .init()
         self.events = [:]
     }
-    
-    public func href(_ value: String) -> Self {
-        return attribute(.href(value))
+
+}
+
+// MARK: - Attributes
+public extension A {
+    ///The URL of the link.
+    func href(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "href", value: value.description))
+    }
+
+    ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
+    func download(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "download", value: value.description))
+    }
+
+    ///Specifies the language of the linked document.
+    func hreflang(_ value: Unit.Language) -> Self {
+        attribute(ElementAttributeGroup(name: "hreflang", value: value.description))
+    }
+
+    ///Specifies what media/device the linked document is optimized for.
+    func media(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "media", value: value.description))
+    }
+
+    ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
+    func ping(_ value: String...) -> Self {
+        attribute(ElementAttributeGroup(name: "ping", value: value.description))
+    }
+
+    ///Specifies which referrer information to send when fetching the linked resource.
+    func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
+        attribute(ElementAttributeGroup(name: "referrerpolicy", value: value.description))
+    }
+
+    ///Specifies the relationship between the current document and the linked document.
+    func rel(_ value: String) -> Self {
+        attribute(ElementAttributeGroup(name: "rel", value: value.description))
+    }
+
+    ///Specifies where to open the linked document.
+    func target(_ value: Unit.Target) -> Self {
+        attribute(ElementAttributeGroup(name: "target", value: value.description))
     }
 
 }

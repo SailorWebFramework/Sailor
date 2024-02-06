@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  EventResult+JSClosure.swift
 //  
 //
 //  Created by Joshua Davis on 12/17/23.
@@ -15,7 +15,7 @@ extension EventResult {
 
             guard let firstEvent = event.first else {
                 // TODO error better
-                print("EVENT UPDATE FAILED")
+                fatalError("EVENT UPDATE FAILED")
                 return .undefined
             }
             

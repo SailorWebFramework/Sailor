@@ -8,10 +8,10 @@
 extension Style {
     public enum Property: Hashable {
         case accentColor(Unit.Color),
-             backgroundColor(Unit.Color),
-             display(Unit.Display),
-             width(Unit.Dimention),
-             height(Unit.Dimention)
+             backgroundColor(Unit.Color)
+//             display(Unit.Display),
+//             width(Unit.Dimention),
+//             height(Unit.Dimention)
         
         public func hash(into hasher: inout Hasher) {
             hasher.combine(description)
@@ -27,12 +27,12 @@ extension Style {
                 return "accent-color"
             case .backgroundColor(_):
                 return "background-color"
-            case .display(_):
-                return "display"
-            case .width(_):
-                return "width"
-            case .height(_):
-                return "height"
+//            case .display(_):
+//                return "display"
+//            case .width(_):
+//                return "width"
+//            case .height(_):
+//                return "height"
             }
         }
             
@@ -42,12 +42,12 @@ extension Style {
                 return color.description
             case .backgroundColor(let color):
                 return color.description
-            case .display(let display):
-                return display.description
-            case .width(let dimention):
-                return dimention.description
-            case .height(let dimention):
-                return dimention.description
+//            case .display(let display):
+//                return display.description
+//            case .width(let dimention):
+//                return dimention.description
+//            case .height(let dimention):
+//                return dimention.description
             }
         }
     }
