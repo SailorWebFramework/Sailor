@@ -103,57 +103,57 @@ public struct Img: Element {
 public extension Img {
     ///The alternative text for the image.
     func alt(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "alt", value: value.description))
+        attribute(.init(name: "alt", value: value.description))
     }
 
     ///How the element handles cross-origin requests.
     func crossorigin(_ value: Unit.CrossOrigin) -> Self {
-        attribute(ElementAttributeGroup(name: "crossorigin", value: value.description))
+        attribute(.init(name: "crossorigin", value: value.description))
     }
 
     ///The intrinsic height of the image in pixels.
     func height(_ value: Int) -> Self {
-        attribute(ElementAttributeGroup(name: "height", value: value.description))
+        attribute(.init(name: "height", value: value.description))
     }
 
     ///Indicates that the image is part of a server-side image map.
     func ismap(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "ismap", value: value.description))
+        attribute(.init(name: "ismap", value: value.description))
     }
 
     ///Indicates how the browser should load the image.
     func loading(_ value: Unit.Loading) -> Self {
-        attribute(ElementAttributeGroup(name: "loading", value: value.description))
+        attribute(.init(name: "loading", value: value.description))
     }
 
     ///Specifies which referrer information to send when fetching the image.
     func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-        attribute(ElementAttributeGroup(name: "referrerpolicy", value: value.description))
+        attribute(.init(name: "referrerpolicy", value: value.description))
     }
 
     ///The sizes attribute gives the sizes of the icons for visual media.
     func sizes(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "sizes", value: value.description))
+        attribute(.init(name: "sizes", value: value.description))
     }
 
     ///The URL of the image.
     func src(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "src", value: value.description))
+        attribute(.init(name: "src", value: value.description))
     }
 
     ///A list of one or more strings separated by commas indicating a set of possible images to use for the source.
     func srcset(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "srcset", value: value.description))
+        attribute(.init(name: "srcset", value: value.description))
     }
 
     ///The URL of the image map to use.
     func usemap(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "usemap", value: value.description))
+        attribute(.init(name: "usemap", value: value.description))
     }
 
     ///The intrinsic width of the image in pixels.
     func width(_ value: Int) -> Self {
-        attribute(ElementAttributeGroup(name: "width", value: value.description))
+        attribute(.init(name: "width", value: value.description))
     }
 
 }
