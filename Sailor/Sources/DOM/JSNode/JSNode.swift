@@ -34,7 +34,7 @@ final class JSNode: CustomStringConvertible {
         """
     }
     
-    var isTextComponent: Bool
+//    var isTextComponent: Bool
 
     var tagName: String? {
         element.tagName.string 
@@ -111,7 +111,7 @@ final class JSNode: CustomStringConvertible {
         self.parent = parent
         self.attributes = attributes
         self.children = []
-        self.isTextComponent = true
+//        self.isTextComponent = true
     }
     
     func replace(with htmlNode: HTMLNode) {
@@ -138,56 +138,8 @@ final class JSNode: CustomStringConvertible {
             print("SKIPPING REPL \(jsnode) with \(htmlNode)")
         }
         
-//        self.updateShallow(with: htmlNode)
     }
 
-//        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
-//            fatalError("js-node doesnt exist in parent")
-//        }
-//
-//        jsnode.parent = self.parent
-//        self.parent?.children[index] = jsnode
-//
-//        reset()
-//
-//        if let parent = self.element.parentElement.object {
-//            print("REPLACING \(jsnode) with \(htmlNode)")
-//            let oldReference = jsnode.element
-//
-//            _ = parent.replaceChild!(oldReference, self.element)
-//
-//            self.element = oldReference
-//
-//        } else {
-//            print("SKIPPING REPL \(jsnode) with \(htmlNode)")
-//        }
-//
-//        self.updateShallow(with: htmlNode)
-//
-//    }
-    
-    /// deeply creates and appends a child node tree
-//    func appendChildNode(_ node: ElementNode) {
-//        let newElement = JSNode(node)
-//        
-//        self.addChild(newElement)
-//        
-//        // html element creates a new JSNode so this is now the parent
-//        for i in 0..<node.children.count {
-//            newElement.deepAppendChild(node.children[i])
-//        }
-//    }
-//    private func deepAppendChild(_ node: PageNode) {
-//        if let node = node as? ElementNode {
-//            appendChildNode(node)
-//        }
-//        
-//        // if it is not an HTML Element its uses this parent node
-//        for i in 0..<node.children.count {
-//            deepAppendChild(node.children[i])
-//        }
-//    }
-    
     /// shallowly updates node, ie: TextContent, Attributes, & Events
     func updateShallow(with node: HTMLNode) {
         guard let page = node.page as? any HTMLElement else { fatalError() }
@@ -197,7 +149,6 @@ final class JSNode: CustomStringConvertible {
         // if different replace element
         if tagName?.uppercased() != page.name.uppercased() {
             print("UNEQUAL")
-//            self.replace(with: JSNode(node), using: node)
             self.replace(with: node)
             return
         }
@@ -290,7 +241,7 @@ final class JSNode: CustomStringConvertible {
         self.removeAttributes()
         
         self.editContent(text: "")
-        self.isTextComponent = true
+//        self.isTextComponent = true
 
     }
     
@@ -303,11 +254,11 @@ final class JSNode: CustomStringConvertible {
 //    }
     
     func addChild(_ child: JSNode) {
-        if self.isTextComponent {
-            reset()
-        }
+//        if self.isTextComponent {
+//            reset()
+//        }
         
-        self.isTextComponent = false
+//        self.isTextComponent = false
 
         // add child given we are parent
         child.parent = self
@@ -327,7 +278,7 @@ final class JSNode: CustomStringConvertible {
         // remove from DOM
         
         self.parent?.children.removeAll(where: { $0 === self })
-        self.parent?.isTextComponent = self.parent?.children.isEmpty ?? true
+//        self.parent?.isTextComponent = self.parent?.children.isEmpty ?? true
 
         removeEvents()
 //        removeAttributes()
@@ -335,7 +286,7 @@ final class JSNode: CustomStringConvertible {
 
         _ = self.element.remove?()
         
-        self.isTextComponent = true
+//        self.isTextComponent = true
         
     }
     

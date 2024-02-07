@@ -89,8 +89,17 @@ public struct A: Element {
 
     }
 
-    public init(href: String) {
-        self.content = .text("")
+//    public init(href: String) {
+//        self.content = .text("")
+//        self.attributes = .init()
+//        self.events = .init()
+//
+//        self.attributes["href"] = href
+//
+//    }
+
+    public init(href: String, @PageBuilder content: @escaping () -> any Operator) {
+        self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
 
@@ -104,42 +113,42 @@ public struct A: Element {
 public extension A {
     ///The URL of the link.
     func href(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "href", value: value.description))
+        attribute(.init(name: "href", value: value.description))
     }
 
     ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
     func download(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "download", value: value.description))
+        attribute(.init(name: "download", value: value.description))
     }
 
     ///Specifies the language of the linked document.
     func hreflang(_ value: Unit.Language) -> Self {
-        attribute(ElementAttributeGroup(name: "hreflang", value: value.description))
+        attribute(.init(name: "hreflang", value: value.description))
     }
 
     ///Specifies what media/device the linked document is optimized for.
     func media(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "media", value: value.description))
+        attribute(.init(name: "media", value: value.description))
     }
 
     ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
     func ping(_ value: String...) -> Self {
-        attribute(ElementAttributeGroup(name: "ping", value: value.description))
+        attribute(.init(name: "ping", value: value.description))
     }
 
     ///Specifies which referrer information to send when fetching the linked resource.
     func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-        attribute(ElementAttributeGroup(name: "referrerpolicy", value: value.description))
+        attribute(.init(name: "referrerpolicy", value: value.description))
     }
 
     ///Specifies the relationship between the current document and the linked document.
     func rel(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "rel", value: value.description))
+        attribute(.init(name: "rel", value: value.description))
     }
 
     ///Specifies where to open the linked document.
     func target(_ value: Unit.Target) -> Self {
-        attribute(ElementAttributeGroup(name: "target", value: value.description))
+        attribute(.init(name: "target", value: value.description))
     }
 
 }

@@ -116,57 +116,57 @@ public struct Button: Element {
 public extension Button {
     ///Specifies that the button should automatically get focus when the page loads.
     func autofocus(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "autofocus", value: value.description))
+        attribute(.init(name: "autofocus", value: value.description))
     }
 
     ///Specifies that the button should be disabled.
     func disabled(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "disabled", value: value.description))
+        attribute(.init(name: "disabled", value: value.description))
     }
 
     ///Specifies one or more forms the button belongs to.
     func form(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "form", value: value.description))
+        attribute(.init(name: "form", value: value.description))
     }
 
     ///Specifies the URL of the file that will process the input control when the form is submitted.
     func formaction(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "formaction", value: value.description))
+        attribute(.init(name: "formaction", value: value.description))
     }
 
     ///Specifies how the form data should be encoded when submitting it to the server.
     func formenctype(_ value: Unit.FormEncType) -> Self {
-        attribute(ElementAttributeGroup(name: "formenctype", value: value.description))
+        attribute(.init(name: "formenctype", value: value.description))
     }
 
     ///Specifies the HTTP method to use when sending form data.
     func formmethod(_ value: Unit.FormMethod) -> Self {
-        attribute(ElementAttributeGroup(name: "formmethod", value: value.description))
+        attribute(.init(name: "formmethod", value: value.description))
     }
 
     ///Specifies that the form-data should not be validated on submission.
     func formnovalidate(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "formnovalidate", value: value.description))
+        attribute(.init(name: "formnovalidate", value: value.description))
     }
 
     ///Specifies where to display the response after submitting the form.
     func formtarget(_ value: Unit.Target) -> Self {
-        attribute(ElementAttributeGroup(name: "formtarget", value: value.description))
+        attribute(.init(name: "formtarget", value: value.description))
     }
 
     ///Specifies the name of the button.
     func name(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "name", value: value.description))
+        attribute(.init(name: "name", value: value.description))
     }
 
     ///Specifies the type of button.
     func type(_ value: Unit.ButtonType) -> Self {
-        attribute(ElementAttributeGroup(name: "type", value: value.description))
+        attribute(.init(name: "type", value: value.description))
     }
 
     ///Specifies the initial value of the button.
     func value(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "value", value: value.description))
+        attribute(.init(name: "value", value: value.description))
     }
 
 }
