@@ -89,21 +89,21 @@ public struct A: Element {
 
     }
 
-//    public init(href: String) {
-//        self.content = .text("")
-//        self.attributes = .init()
-//        self.events = .init()
-//
-//        self.attributes["href"] = href
-//
-//    }
+    public init(href: String) {
+        self.content = .text("")
+        self.attributes = .init()
+        self.events = .init()
+
+        self.attributes["href"] = href.description
+        
+    }
 
     public init(href: String, @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
 
-        self.attributes["href"] = href
+        self.attributes["href"] = href.description
         
     }
 
