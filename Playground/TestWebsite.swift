@@ -6,9 +6,9 @@ struct TestWebsite: Website {
     var config: Config{
         Config(
             routes: [
-                Route("/") { MainPageWebsite() },
+                Route("/") { MainPageWebsite(location: .home) },
                 Route("404") { MainPageWebsite() },
-                Route("#about") { MainPageWebsite() }
+                Route("about") { AboutPage() }
             ],
             metadata: [
                 "title": "Test Website",
@@ -20,26 +20,18 @@ struct TestWebsite: Website {
     @State var location: Location = .home
 
     var body: some Page {
-        Div {
-            NavBar(location: $location)
-            
-            switch location {
-            case .home:
-                HomePage()
-            case .about:
-                AboutPage()
-            case .explore:
-                Div {
-                    Div("TODO: Explore page")
-                }
-            }
-        }
+        Div("")
+//        Div {
+//            NavBar(location: .constant(.about))
+//            routes
+//            Footer()
+//        }
     }
     var router = Router()
 
-    // var body: some Page {
-    //     HomePage()
-    // }
+//     var body: some Page {
+//         HomePage()
+//     }
 }
 
 struct MainPageWebsite: Page {
@@ -62,7 +54,6 @@ struct MainPageWebsite: Page {
         }
     }
 }
-
 
 enum Location {
     case home, about, explore
