@@ -110,11 +110,6 @@ public extension Element {
         attribute(ElementAttributeGroup(name: "accesskey", value: value.description))
     }
 
-    ///One or more class names defined as a class style.
-    func className(_ value: String...) -> Self {
-        attribute(ElementAttributeGroup(name: "class", value: value.description))
-    }
-
     ///Specifies wheather or not this element is editable or not.
     func contenteditable(_ value: Bool) -> Self {
         attribute(ElementAttributeGroup(name: "contenteditable", value: value.description))

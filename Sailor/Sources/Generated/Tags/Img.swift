@@ -92,8 +92,8 @@ public struct Img: Element {
         self.attributes = .init()
         self.events = .init()
 
-        self.attributes["src"] = src
-        self.attributes["alt"] = alt
+        self.attributes["src"] = src.description
+        self.attributes["alt"] = alt.description
         
     }
 

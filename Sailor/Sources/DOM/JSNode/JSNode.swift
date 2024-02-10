@@ -253,6 +253,8 @@ final class JSNode: CustomStringConvertible {
 //        }
 //    }
     
+    // TODO: may need to remove text content if the component was a TextComponent
+    // ie. self.editContent(text: "")
     func addChild(_ child: JSNode) {
 //        if self.isTextComponent {
 //            reset()

@@ -1,6 +1,5 @@
 import Sailor 
 struct NotFoundPage: Page {
-   
 
    var body: some Page {
        Div {
@@ -10,7 +9,7 @@ struct NotFoundPage: Page {
                .onClick {
                     window.location.replace("http://localhost:8080/")
                }
-    }
-}
+       }
+   }
 }
 

@@ -22,7 +22,7 @@ public protocol Element: Page {
     var content: TagContent { get set }
 
     /// add attribute to this Element
-    func attribute(_ value: ElementAttributeGroup) -> Self
+//    func attribute(_ value: ElementAttributeGroup) -> Self
         
 }
 
@@ -40,11 +40,18 @@ public extension Element {
 // TODO: make this internal? / remove?
 public extension Element {
     
-    func attribute(_ value: ElementAttributeGroup) -> Self {
+    func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
         if attributes[value.name] == value.value { return self }
 
         var copy = self
-        copy.attributes[value.name] = value.value
+        
+        // TODO: this logic is gross
+        if override || copy.attributes[value.name] == nil {
+            copy.attributes[value.name] = value.value
+        } else {
+            copy.attributes[value.name]! += value.value
+        }
+        
         return copy
         
     }
