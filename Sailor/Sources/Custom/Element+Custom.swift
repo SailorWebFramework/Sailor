@@ -12,5 +12,7 @@ public extension Element {
     func classes(_ values: String...) -> Self {
         attribute(.init(name: "class", value: values.joined(separator: " ") + " "), override: false)
     }
+    
+    // TODO: more custom methods?
+    // ...
 }
-
