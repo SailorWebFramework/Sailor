@@ -39,16 +39,16 @@ struct SubPage1: Page {
                 .classes("my-class")
             
             Img(src: source, alt: source)
+//                .style()
 //                .wind( .mx_0, .p_10, .m_0 )
                 .wind(.mx0, .p10, .m0)
             
-            
-            
-//                .wind(
-//                    .sm(.mx0, .p10, .m0),
-//                    .md(.p10, .m0),
-//                    .lg(.p10, .m0)
-//                )
+                .wind(
+                    .mx0, .p10, .m0,
+                    .sm(.mx0, .p10, .m0),
+                    .md(.p10, .m0),
+                    .lg(.p10, .m0)
+                )
 
             Button("this is a button")
                 .onClick {
