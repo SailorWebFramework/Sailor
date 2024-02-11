@@ -4,7 +4,6 @@ import JavaScriptKit
 
 let window = JSObject.global.window
 
-
 struct HomePage: Page {
     @State var myNum: Int = 0
     @State var toggle: Bool = true
@@ -19,6 +18,9 @@ struct HomePage: Page {
                     
                     if toggle {
                         Div("HEY IM HERE")
+                            .wind(
+                                .p10
+                            )
                     }
                     
                     Button("Press ME: \(toggle)")
@@ -28,9 +30,9 @@ struct HomePage: Page {
                 }
             } else {
                 Div("THIRD Lower!")
-                .style(
-                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
-                )
+//                .style(
+//                    .backgroundColor(myNum % 4 == 0 ? .rgb(0, 0, 200) : .rgb(0, 200, 0))
+//                )
             }
             
             Button("Press this button: \(myNum)")

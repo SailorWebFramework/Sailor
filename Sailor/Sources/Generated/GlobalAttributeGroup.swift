@@ -17,11 +17,6 @@ public extension GlobalAttributeGroup {
         .init(name: "accesskey", value: value.description)
     }
 
-    ///One or more class names defined as a class style.
-    static func className(_ value: String...) -> Self {
-        .init(name: "class", value: value.map{ $0.description }.joined(separator: " "))
-    }
-
     ///Specifies wheather or not this element is editable or not.
     static func contenteditable(_ value: Bool) -> Self {
         .init(name: "contenteditable", value: value ? "true" : "false")
@@ -80,11 +75,6 @@ public extension GlobalAttributeGroup {
     ///Defines whether the element should have spell checking enabled or not.
     static func spellcheck(_ value: Bool) -> Self {
         .init(name: "spellcheck", value: value.description)
-    }
-
-    ///Defines the style of the element.
-    static func style(_ value: Style.Property...) -> Self {
-        .init(name: "style", value: Style(value).description)
     }
 
     ///Defines the tab order of the element.
@@ -168,11 +158,6 @@ public extension Element {
     ///Defines whether the element should have spell checking enabled or not.
     func spellcheck(_ value: Bool) -> Self {
         attribute(ElementAttributeGroup(name: "spellcheck", value: value.description))
-    }
-
-    ///Defines the style of the element.
-    func style(_ value: Style.Property...) -> Self {
-        attribute(ElementAttributeGroup(name: "style", value: value.description))
     }
 
     ///Defines the tab order of the element.

@@ -35,11 +35,8 @@ public extension Element {
 public enum TailwindClass: CustomStringConvertible {
     /// .m-0 { margin: 0; }
     case m0
-
-    /**
-     * mx hello
-     * 
-     */
+    
+    ///
     case mx0
     /// .p-10 { padding: 2.5rem; }
     case p10
