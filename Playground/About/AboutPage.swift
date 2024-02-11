@@ -44,10 +44,10 @@ struct SubPage1: Page {
                 .wind(.mx0, .p10, .m0)
             
                 .wind(
-                    .mx0, .p10, .m0,
-                    .sm(.mx0, .p10, .m0),
-                    .md(.p10, .m0),
-                    .lg(.p10, .m0)
+                    .mx0, .p10, .m0
+//                    .sm(.mx0, .p10, .m0),
+//                    .md(.p10, .m0),
+//                    .lg(.p10, .m0)
                 )
 
             Button("this is a button")
