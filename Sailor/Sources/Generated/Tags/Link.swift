@@ -72,10 +72,14 @@ public struct Link: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public init() {   
+    public init(rel: String, href: String) {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+
+        self.attributes["rel"] = rel.description
+        self.attributes["href"] = href.description
+        
     }
 
 }
