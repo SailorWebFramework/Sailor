@@ -14,6 +14,12 @@ extension SailorManager {
     internal func reconcile(node: any PageNode, element: JSNode) {
         print(node, "vs.", element)
         
+        // WAIT NO 
+        // TODO: something like this
+        if node.page is Route {
+            // select the one routes that need to render
+        }
+        
         if let node = node as? HTMLNode {
             reconcile(htmlNode: node, element: element)
 
