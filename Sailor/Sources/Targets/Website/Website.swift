@@ -13,8 +13,8 @@ public protocol Website {
     static func main()
     var router : Router { get }
     var config: Config { get }
-    // associatedtype AppBody: Page
-    // var body: AppBody { get }
+     associatedtype AppBody: Page
+     var body: AppBody { get }
     
     
     init()
@@ -23,11 +23,13 @@ public protocol Website {
 extension Website {
     
     public static func main() {
+        let website = Self()
         let url = JSNode.window.location.object!.href.string!
-        let cleaned = Self().router.cleanPath(path: url)
+        let cleaned = Router.cleanPath(path: url)
         print("cleaned URL: ", cleaned)
-        let page = Self().config.getRoute(path: cleaned)
+//        let page = website.config.getRoute(path: cleaned)
+        
         SailboatGlobal.initialize(SailorManager())
-        SailboatGlobal.manager.build(page: page)
+        SailboatGlobal.manager.build(page: website.body)
     }
 }

@@ -37,7 +37,13 @@ let package = Package(
             dependencies: [
                 "Sailor"
             ],
-            path: "Playground"
+            path: "Playground",
+            resources: [
+                //⛵Sailor Generated Resources (DONT REMOVE THIS COMMENT)
+                .process("Resources/"),
+                .process("Resources/Assests/")
+                //⛵End (DONT REMOVE THIS COMMENT)
+            ]
         ),
         .testTarget(
             name: "Tests",
