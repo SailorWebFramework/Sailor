@@ -2,10 +2,12 @@ public struct Config {
     var routes: [Route]
     var metadata: [String: String]
     var root : any Page {
-        routes.first(where : { $0.path == "/" })!.page
+        Div("Config todo: no root specified")
+//        routes.first(where : { $0.path == "/" })!.page
     }
     var notFound : any Page {
-        routes.first(where : { $0.path == "404" })!.page
+        Div("Config todo: no root specified")
+//        routes.first(where : { $0.path == "404" })!.page
     }
 
     public init(routes: [Route], metadata: [String: String]) {
@@ -32,10 +34,10 @@ public struct Config {
         self.metadata = metadata
     }
 
-    public func getRoute(path: String) -> (any Page) {
-        return routes.first(where: { $0.path == path })?.page ?? notFound
-        // return routes.first(where: { $0.path == path })
-    }
+//    public func getRoute(path: String) -> (any Page) {
+//        return routes.first(where: { $0.path == path })?.page ?? notFound
+//        // return routes.first(where: { $0.path == path })
+//    }
 
     // public func getRoute(path: String) -> Route? {
     //     guard let routes = self.routes else {
