@@ -3,107 +3,48 @@ import JavaScriptKit
 
 @main
 struct TestWebsite: Website {
-    var config: Config{
-        Config(
-            routes: [
-                Route("/") { MainPageWebsite(location: .home) },
-                Route("404") { MainPageWebsite() },
-                Route("about") { AboutPage() }
-            ],
-            metadata: [
-                "title": "Test Website",
-                "description": "This is a test website"
-            ]
-        )
-    }
     
-    @State var location: Location = .home
-    
-//    enum Routes: String {
-//        case home
-//        case item(query: String)
-//    }
-
-    var body: some Page {
-        Div {
-            Route("about") {
-                Div("about time XD")
-            }
-            
-            Route("/") {
-                Div("in the root")
-            }
-            
-            Div("HI ITS ME")
-//            MainPageWebsite(location: .home)
-        }
-//        Router {
-//
-////            switch route {
-////            case .home:
-////                HomePage()
-////            case .item(let query):
-////                ItemPage(query: query)
-////            default:
-////                Page404()
-////            }
-//
-//            Route(.home) {
-//
-//            }
-//
-//            Route(.home) {
-//
-//            }
-//
-//            Route("/about") {
-//
-//            }
-//        }
-//        {
-//            HeaderPage()
-//            Router() {
-//                Route("/") {
-//                    HomePage()
-//                }
-//            }
-//            Router() {
-//                Route("/") {
-//                    HomePage()
-//                }
-//            }
-//        }
-//        Div {
-//            NavBar(location: .constant(.about))
-//            routes
-//            Footer()
-//        }
+    //TODO: make environment stuff here replace Config
+    //TODO: make routing through environment
+    var env: Environment {
+        
+        Environment()
+//        Environment(
+//            vars: loadDotEnv(),
+//            modules: [
+//                Tailwind.Module()
+//            ],
+//            metadata: [
+//                "title": "Test Website",
+//                "description": "This is a test website"
+//            ]
+//        )
+////        .vars(loadDotEnv())
+//        .link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
+        
     }
-    var router = Router()
 
-//     var body: some Page {
-//         HomePage()
-//     }
-}
-
-struct MainPageWebsite: Page {
     @State var location: Location = .home
 
     var body: some Page {
         Div {
             NavBar(location: $location)
-            
-            switch location {
-            case .home:
-                HomePage()
-            case .about:
-                AboutPage()
-            case .explore:
-                Div {
-                    Div("TODO: Explore page")
+            Router {
+                // TODO: make routes take in enum values
+                Route("about") {
+                    Div("about time XD")
+                }
+                
+                Route("explore") {
+                    Div("dora explorer we go")
+                }
+                
+                Route("/") {
+                    Div("in the root")
                 }
             }
         }
+
     }
 }
 
@@ -112,40 +53,33 @@ enum Location {
 }
 
 struct NavBar: Page {
+    //TODO: this v
+//    @Environment(\.nav) var nav: Environment
     @Binding var location: Location
     var body: some Page {
         Div {
             Button("About")
                 .onClick {
                     location = .about
+                    //TODO: make routing through environment
+                    // ie: nav.navigate(.about)
+                    window.location.replace("http://localhost:8080/about")
+
                 }
             Button("Home")
                 .onClick {
                     location = .home
+                    // ie: nav.navigate()
+                    window.location.replace("http://localhost:8080/")
+
                 }
             Button("Exlore")
                 .onClick {
                     location = .explore
+                    // ie: nav.navigate(.explore)
+                    window.location.replace("http://localhost:8080/explore")
+
                 }
         }
     }
 }
-//
-//struct TestWebsite: Website {
-//    var routes: Routes {
-//        Route("home") { HomePage() }
-//        
-//        Route("about") { AboutPage() }
-//        
-//        Route("404") { NotFoundPage() }
-//    }
-//    
-//}
-//
-//
-//Routes {
-//    "home": HomePage()
-//    "about": AboutPage()
-//    "404": NotFoundPage()
-//}
-
