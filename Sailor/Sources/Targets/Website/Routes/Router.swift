@@ -1,11 +1,23 @@
 import JavaScriptKit
+import Sailboat
 
-public class Router {
-    var curr_route: String? = nil
+public struct Router: Operator {
+    public var children: [any Page]
     
-    public init() {
-        self.curr_route = "/"
-        setupRouteListener()
+    public var id: String
+        
+//    var curr_route: String? = nil
+    
+    public var body: some Page {
+        fatalError("router doesnt have body")
+        return self
+    }
+    
+    public init(@RouteBuilder _ routes: @escaping () -> any Operator) {
+//        self.curr_route = "/"
+        self.children = routes().children
+        self.id = ""
+        Self.setupRouteListener()
     }
     
     static var url: String {
@@ -19,7 +31,7 @@ public class Router {
         return cleanPath(path: url) == path
     }
 
-    private func setupRouteListener() {
+    private static func setupRouteListener() {
         JSObject.global.addEventListener!("popstate", JSClosure { _ in
             guard let route = JSObject.global.location.hash.string else {
                 fatalError("route not found")
@@ -30,12 +42,12 @@ public class Router {
         })
     }
 
-    func navigateTo(route: String) {
+    static func navigateTo(route: String) {
         JSObject.global.window.history.pushState(JSValue.string("yo"), JSValue.string("title"), route)
         self.handleRouteChange(route: route)
     }
 
-    func handleRouteChange(route: String) {
+    static func handleRouteChange(route: String) {
         // Update UI based on the route change
         print("Route changed to: \(route)")
     }
