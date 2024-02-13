@@ -11,11 +11,13 @@ import Sailboat
 // TODO: Later maybe create App if SwiftUI-like Syntax is ever adopted for cross-platform / native apps
 public protocol Website {
     static func main()
-    var router : Router { get }
-    var config: Config { get }
-     associatedtype AppBody: Page
-     var body: AppBody { get }
+//    var router : Router { get }
+//    var config: Config { get }
     
+    var env: Environment { get }
+    
+    associatedtype AppBody: Page
+    var body: AppBody { get }
     
     init()
 }
