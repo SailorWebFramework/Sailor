@@ -8,23 +8,9 @@
 import Sailboat
 
 @resultBuilder
-public struct RouteBuilder {
-    public static func buildBlock(_ children: Route...) -> any Operator {
+public struct RouteBuilder<MyRoutes: Routes> {
+    public static func buildBlock(_ children: Route<MyRoutes>...) -> any Operator {
         return List(children)
     }
-    
-//    public static func buildOptional(_ component: (Route?) -> any Operator {
-//        guard let component = component else { return Conditional([]) } // or? Conditional([Div()])
-//
-//        return Conditional(component.children)
-//    }
-//
-//    public static func buildEither(first component: any Operator) -> any Operator {
-//        return Conditional(component.children)
-//    }
-//
-//    public static func buildEither(second component: any Operator) -> any Operator {
-//        return Conditional(component.children)
-//    }
     
 }

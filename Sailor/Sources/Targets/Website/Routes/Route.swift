@@ -11,7 +11,7 @@
 
 import Sailboat
 
-public struct Route: Operator {
+public struct Route<MyRoute: Routes>: Operator {
     public var children: [any Page]
     
     public var id: String
@@ -25,16 +25,18 @@ public struct Route: Operator {
     
     let path: String
 
-    public init(_ path: String, @PageBuilder _ builder: @escaping () -> any Operator) {
+    public init(_ path: MyRoute, @PageBuilder _ builder: @escaping () -> any Operator) {
         self.id = ""
-        self.path = path
+        self.path = path.description
         
-        if Router.parseAndVerify(path: path) {
+        // TODO: move from Router into another global thing or here and make it take in <MyRoute>
+        if RouterUtils.parseAndVerify(path: path.description) {
             self.children = builder().children
         } else {
             self.children = []
         }
     }
+    
 
 }
 

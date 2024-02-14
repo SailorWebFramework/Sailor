@@ -6,9 +6,13 @@
 //
 
 public final class SailboatGlobal {
+    //TODO: a little gross force unwrapping
     public static var manager: (any TargetManager)! = nil
-    
-    public static func initialize(_ sailboatManager: any TargetManager) {
-        manager = sailboatManager
+        
+    public static func initialize(
+        _ sailboatManager: any TargetManager
+    ) {
+        Self.manager = sailboatManager
     }
+
 }

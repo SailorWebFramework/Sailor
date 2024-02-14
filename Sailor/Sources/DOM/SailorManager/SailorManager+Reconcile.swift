@@ -16,9 +16,9 @@ extension SailorManager {
         
         // WAIT NO 
         // TODO: something like this
-        if node.page is Route {
+//        if node.page is Route {
             // select the one routes that need to render
-        }
+//        }
         
         if let node = node as? HTMLNode {
             reconcile(htmlNode: node, element: element)

@@ -10,14 +10,14 @@ import XCTest
 
 
 protocol SailorTestCase: SailboatTestCase {
-    var sailorManager: SailorManager { get }
+    var sailorManager: SailorManager<NoRoutes> { get }
 }
 
 extension SailorTestCase {
     
     var testIterations: Int { 20 }
     
-    var sailorManager: SailorManager {
+    var sailorManager: SailorManager<NoRoutes> {
         SailorGlobal.manager as! SailorManager
     }
     
