@@ -2,9 +2,9 @@
 import PackageDescription
 let package = Package(
     name: "Sailor",
-    platforms: [
-        .macOS(.v10_15)
-    ],
+//    platforms: [
+//        .macOS(.v10_15)
+//    ],
     products: [
         .library(
             name: "Sailor",
@@ -16,7 +16,7 @@ let package = Package(
 
     ],
     dependencies: [
-        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.15.0") // 0.18.0
+        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0") // 0.15.0
     ],
     targets: [
         .target(
@@ -40,8 +40,8 @@ let package = Package(
             path: "Playground",
             resources: [
                 //⛵Sailor Generated Resources (DONT REMOVE THIS COMMENT)
-                .process("Resources/"),
-                .process("Resources/Assests/")
+//                .process("Resources/"),
+//                .process("Resources/Assests/")
                 //⛵End (DONT REMOVE THIS COMMENT)
             ]
         ),

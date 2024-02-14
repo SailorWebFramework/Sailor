@@ -58,7 +58,6 @@ struct NavBar: Page {
             Button("Exlore")
                 .onClick {
                     navigation.go(to: .explore)
-
                 }
         }
     }
