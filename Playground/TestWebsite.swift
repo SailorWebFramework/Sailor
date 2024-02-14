@@ -3,81 +3,61 @@ import JavaScriptKit
 
 @main
 struct TestWebsite: Website {
-    
-    //TODO: make environment stuff here replace Config
-    //TODO: make routing through environment
-    var env: Environment {
-        
-        Environment()
-//        Environment(
-//            vars: loadDotEnv(),
-//            modules: [
-//                Tailwind.Module()
-//            ],
-//            metadata: [
-//                "title": "Test Website",
-//                "description": "This is a test website"
-//            ]
-//        )
-////        .vars(loadDotEnv())
-//        .link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
-        
-    }
-
-    @State var location: Location = .home
-
+    typealias WebRoutes = MyRoutes
+  
     var body: some Page {
         Div {
-            NavBar(location: $location)
+            NavBar()
             Router {
-                // TODO: make routes take in enum values
-                Route("about") {
-                    Div("about time XD")
+                Route<MyRoutes>(.about) {
+                    AboutPage()
                 }
                 
-                Route("explore") {
-                    Div("dora explorer we go")
+                Route<MyRoutes>(.explore) {
+                    Div("explore we go")
                 }
                 
-                Route("/") {
-                    Div("in the root")
+                Route<MyRoutes>(.home) {
+                    HomePage()
                 }
             }
         }
-
     }
 }
 
-enum Location {
+enum MyRoutes: Routes {
+    static var getRoot: Self { .home }
+    
     case home, about, explore
+    
+    var description: String {
+        switch self {
+        case .home:
+            return "/"
+        case .about:
+            return "about"
+        case .explore:
+            return "explore"
+        }
+    }
 }
 
 struct NavBar: Page {
-    //TODO: this v
-//    @Environment(\.nav) var nav: Environment
-    @Binding var location: Location
+    @Environment(\.navigation) var navigation: Navigation<MyRoutes>
+    
     var body: some Page {
         Div {
             Button("About")
                 .onClick {
-                    location = .about
-                    //TODO: make routing through environment
-                    // ie: nav.navigate(.about)
-                    window.location.replace("http://localhost:8080/about")
-
+                    navigation.go(to: .about)
                 }
             Button("Home")
                 .onClick {
-                    location = .home
-                    // ie: nav.navigate()
-                    window.location.replace("http://localhost:8080/")
-
+                    navigation.go(to: .home)
                 }
             Button("Exlore")
                 .onClick {
-                    location = .explore
-                    // ie: nav.navigate(.explore)
-                    window.location.replace("http://localhost:8080/explore")
+                    navigation.go(to: .explore)
 
                 }
         }

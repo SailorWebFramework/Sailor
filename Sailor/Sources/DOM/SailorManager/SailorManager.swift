@@ -11,12 +11,33 @@ import JavaScriptKit
 internal typealias SailorGlobal = Sailboat.SailboatGlobal
 internal typealias TargetManager = Sailboat.TargetManager
 
-final class SailorManager: DefaultManager {
+//extension SailorGlobal {
+//    var sailorManager: SailorManager {
+//        Self.manager as! SailorManager
+//    }
+//}
+
+//extension SailorGlobal {
+//    var sailorEnvironment: SailorEnvironment<MyRoutes> {
+//        self.environment as! SailorEnvironment<MyRoutes>
+//    }
+//
+//    var sailorManager: SailorManager<MyRoutes> {
+//
+//    }
+//}
+
+final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     internal let documentNode: JSNode = JSNode(root: true)
     
 //    internal var buildStatesTempRef: PageNode? = nil
     internal var reconcileIndexStack: [Int] = []
+    
+    override init() {
+        super.init()
+        self.environment = SailorEnvironment<WebRoutes>()
+    }
     
     override public func build<GenericPage: Page>(page: GenericPage) {
         debugMarker("START BUILD...")
