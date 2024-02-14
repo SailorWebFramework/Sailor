@@ -17,7 +17,9 @@ private struct HTMLPageWrapper<T: Page>: Page {
 open class DefaultManager: TargetManager {
     public var body: PageNode? = nil
     public var head: PageNode? = nil
-
+    
+    public var environment: (any SomeEnvironment)? = nil
+    
     public init() { }
     
     private struct HTMLPageWrapper<T: Page>: Page {

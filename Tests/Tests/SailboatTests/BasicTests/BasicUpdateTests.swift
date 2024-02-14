@@ -12,7 +12,8 @@ import XCTest
 final class BasicUpdateTests: XCTestCase, SailboatTestCase  {    
     
     override func setUp() {
-        SailboatGlobal.initialize(DefaultManager())
+        // TODO:
+//        SailboatGlobal.initialize(DefaultManager())
     }
     
     override func tearDown() {

@@ -5,14 +5,16 @@ import JavaScriptKit
 let window = JSObject.global.window
 
 struct HomePage: Page {
-    @State var myNum: Int = 0
+//    @Environment(\.navigation) var navigation: Navigation<MyRoutes>
+//    @Environment(Int.max) var max: Int
+//    @Environment(\.)
+    @State(wrappedValue: 10) var myNum: Int
+    
+//    @Environment()
+
+//    @State var myNum: Int = 0
     @State var toggle: Bool = true
     
-//    override func env(_ environment: Environment) -> Environment {
-//        environment
-//            .title("THis is my title")
-//            .link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
-//    }
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 
     var body: some Page {
@@ -24,12 +26,20 @@ struct HomePage: Page {
 
                 .wind(
                     .m0, .w64, .h64, .m0, .shadowLg,
-                    .animateSpin,
-                    .sm(.p10, .bgBlue50),
-                    .lg(.p20, .bgRed100)
+                    .animatePulse
+//                    .sm(.p10, .bgBlue50),
+//                    .lg(.p20, .bgRed100)
                 )
             
+            Div("my num is \(myNum)")
+                .onClick {
+                    myNum += 1
+                }
+            
             Img(src: source, alt: "icon picture")
+                .onClick {
+//                    navigator.navigate(to: .about)
+                }
 
 //                .wind(
 //                    .m0

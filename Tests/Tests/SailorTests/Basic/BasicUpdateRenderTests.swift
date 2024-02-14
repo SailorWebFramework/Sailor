@@ -14,7 +14,7 @@ final class BasicUpdateRenderTests: XCTestCase, SailorTestCase {
 
     override func setUp() {
         super.setUp()
-        SailorGlobal.initialize(SailorManager())
+//        SailorGlobal.initialize(SailorManager(), EnvironmentObject())
     }
 
     override func tearDown() {
