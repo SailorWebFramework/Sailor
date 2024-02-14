@@ -1,7 +1,7 @@
 import JavaScriptKit
 import Sailboat
 
-public struct Router: Operator {
+public struct Router<MyRoutes: Routes>: Operator {
     public var children: [any Page]
     
     public var id: String
@@ -13,7 +13,7 @@ public struct Router: Operator {
         return self
     }
     
-    public init(@RouteBuilder _ routes: @escaping () -> any Operator) {
+    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> any Operator) {
 //        self.curr_route = "/"
         self.children = routes().children
         self.id = ""
@@ -24,13 +24,6 @@ public struct Router: Operator {
         JSNode.window.location.object!.href.string!
     }
     
-    public static func parseAndVerify(path: String) -> Bool {
-//        if path == "/" {
-//            return cleanPath(path: url)
-//        }
-        return cleanPath(path: url) == path
-    }
-
     private static func setupRouteListener() {
         JSObject.global.addEventListener!("popstate", JSClosure { _ in
             guard let route = JSObject.global.location.hash.string else {
@@ -52,27 +45,4 @@ public struct Router: Operator {
         print("Route changed to: \(route)")
     }
     
-//    public static func cleanPath(path: String) -> String {
-//        let tmp = path.split(separator: "/")
-//        // print("tmp: \(tmp)")
-//        // remove "http:" and "localhost:8080" from the path
-//        let cleaned = tmp.dropFirst(2).joined(separator: "")
-//        if cleaned == "" {
-//            return "/"
-//        }
-//        return cleaned
-//        //url.replacingOccurrences(of: "http://localhost:8080", with: "")
-//    }
-
-    public static func cleanPath(path: String) -> String {
-        let tmp = path.split(separator: "/")
-        // print("tmp: \(tmp)")
-        // remove "http:" and "localhost:8080" from the path
-        let cleaned = tmp.dropFirst(2).joined(separator: "")
-        if cleaned == "" {
-            return "/"
-        }
-        return cleaned
-        //url.replacingOccurrences(of: "http://localhost:8080", with: "")
-    }
 }

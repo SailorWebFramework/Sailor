@@ -11,11 +11,8 @@ import Sailboat
 // TODO: Later maybe create App if SwiftUI-like Syntax is ever adopted for cross-platform / native apps
 public protocol Website {
     static func main()
-//    var router : Router { get }
-//    var config: Config { get }
     
-    var env: Environment { get }
-    
+    associatedtype WebRoutes: Routes
     associatedtype AppBody: Page
     var body: AppBody { get }
     
@@ -27,11 +24,11 @@ extension Website {
     public static func main() {
         let website = Self()
         let url = JSNode.window.location.object!.href.string!
-        let cleaned = Router.cleanPath(path: url)
+        let cleaned = RouterUtils.cleanPath(path: url)
         print("cleaned URL: ", cleaned)
 //        let page = website.config.getRoute(path: cleaned)
         
-        SailboatGlobal.initialize(SailorManager())
+        SailboatGlobal.initialize(SailorManager<WebRoutes>())
         SailboatGlobal.manager.build(page: website.body)
     }
 }

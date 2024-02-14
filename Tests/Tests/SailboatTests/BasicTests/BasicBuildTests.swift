@@ -16,7 +16,8 @@ final class BasicBuildTests: XCTestCase {
     }
     
     override func setUp() {
-        SailboatGlobal.initialize(DefaultManager())
+        // TODO:
+//        SailboatGlobal.initialize(DefaultManager())
     }
     
     override func tearDown() {

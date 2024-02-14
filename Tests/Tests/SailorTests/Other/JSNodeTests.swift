@@ -14,7 +14,8 @@ final class JSNodeTests: XCTestCase, SailorTestCase {
 
     override func setUp() {
         super.setUp()
-        SailorGlobal.initialize(SailorManager())
+        // TODO: do this
+//        SailorGlobal.initialize(SailorManager())
     }
 
     override func tearDown() {
