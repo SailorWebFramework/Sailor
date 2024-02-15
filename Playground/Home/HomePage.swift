@@ -5,7 +5,9 @@ import JavaScriptKit
 let window = JSObject.global.window
 
 struct HomePage: Page {
-//    @Environment(\.navigation) var navigation: Navigation<MyRoutes>
+//    @Environment(\.navigation) var navigation: Navigation<AppRoutes>
+//    @Environment<AppRoutes>(\.) var url: String
+
 //    @Environment(Int.max) var max: Int
 //    @Environment(\.)
     @State(wrappedValue: 10) var myNum: Int

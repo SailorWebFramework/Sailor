@@ -6,7 +6,7 @@
 //
 
 
-internal enum RouterUtils {
+internal enum RouterUtils<MyRoutes: Routes> {
     
     public static var url: String {
         JSNode.window.location.object!.href.string!
@@ -17,6 +17,10 @@ internal enum RouterUtils {
 //            return cleanPath(path: url)
 //        }
         return Self.cleanPath(path: url) == path
+    }
+    
+    public static func currentRoute() -> MyRoutes {
+        return MyRoutes.fromString(Self.cleanPath(path: url))
     }
 
     public static func cleanPath(path: String) -> String {

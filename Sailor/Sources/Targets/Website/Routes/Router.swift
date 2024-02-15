@@ -13,36 +13,55 @@ public struct Router<MyRoutes: Routes>: Operator {
         return self
     }
     
-    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> any Operator) {
+    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> [Route<MyRoutes>]) {
 //        self.curr_route = "/"
-        self.children = routes().children
+        
+        self.children = []//routes.children
         self.id = ""
-        Self.setupRouteListener()
-    }
-    
-    static var url: String {
-        JSNode.window.location.object!.href.string!
-    }
-    
-    private static func setupRouteListener() {
-        JSObject.global.addEventListener!("popstate", JSClosure { _ in
-            guard let route = JSObject.global.location.hash.string else {
-                fatalError("route not found")
+        
+        // default to not found route if none of the routes trigger
+        var notFoundRoute: Route<MyRoutes>? = nil
+        
+        let routes = routes()
+        for route in routes {
+            if route.isActive {
+                self.children.append(route)
             }
-
-            self.handleRouteChange(route: route)
-            return .undefined
-        })
+            
+            if route.route == .NotFound {
+                notFoundRoute = route
+            }
+        }
+        
+        if let notFoundRoute = notFoundRoute, self.children.isEmpty {
+            self.children.append(notFoundRoute)
+        }
+//        Self.setupRouteListener()
     }
-
-    static func navigateTo(route: String) {
-        JSObject.global.window.history.pushState(JSValue.string("yo"), JSValue.string("title"), route)
-        self.handleRouteChange(route: route)
-    }
-
-    static func handleRouteChange(route: String) {
-        // Update UI based on the route change
-        print("Route changed to: \(route)")
-    }
+//    
+//    static var url: String {
+//        JSNode.window.location.object!.href.string!
+//    }
+//    
+//    private static func setupRouteListener() {
+//        JSObject.global.addEventListener!("popstate", JSClosure { _ in
+//            guard let route = JSObject.global.location.hash.string else {
+//                fatalError("route not found")
+//            }
+//
+//            self.handleRouteChange(route: route)
+//            return .undefined
+//        })
+//    }
+//
+////    static func navigateTo(route: String) {
+////        JSObject.global.window.history.pushState(JSValue.string("yo"), JSValue.string("title"), route)
+////        self.handleRouteChange(route: route)
+////    }
+//
+//    static func handleRouteChange(route: String) {
+//        // Update UI based on the route change
+//        print("Route changed to: \(route)")
+//    }
     
 }

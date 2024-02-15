@@ -16,6 +16,10 @@ public struct Route<MyRoute: Routes>: Operator {
     
     public var id: String
     
+    public var isActive: Bool {
+        !children.isEmpty
+    }
+    
     public var body: some Page {
         // TODO: new error
         fatalError("route")
@@ -23,14 +27,14 @@ public struct Route<MyRoute: Routes>: Operator {
         return self
     }
     
-    let path: String
+    let route: MyRoute
 
-    public init(_ path: MyRoute, @PageBuilder _ builder: @escaping () -> any Operator) {
+    public init(_ route: MyRoute, @PageBuilder _ builder: @escaping () -> any Operator) {
         self.id = ""
-        self.path = path.description
+        self.route = route
         
         // TODO: move from Router into another global thing or here and make it take in <MyRoute>
-        if RouterUtils.parseAndVerify(path: path.description) {
+        if route == RouterUtils<MyRoute>.currentRoute() {
             self.children = builder().children
         } else {
             self.children = []

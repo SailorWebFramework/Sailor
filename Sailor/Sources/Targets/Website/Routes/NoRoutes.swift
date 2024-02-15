@@ -8,16 +8,16 @@
 
 import Sailboat
 
-enum NoRoutes: Routes {
-    static var getRoot: Self { .root }
-
-    case root
+public enum NoRoutes: Routes {
+    public static var Root: Self { .root }
+    public static var NotFound: Self { .notFound }
     
-    public var description: String {
-        switch self {
-        case .root:
-            return "/"
-        }
-    }
+    public static var bindings: BidirectionalDictionary<NoRoutes, String> = [
+        .root: "/",
+        .notFound: "404"
+    
+    ]
+
+    case root, notFound
     
 }

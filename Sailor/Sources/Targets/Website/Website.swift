@@ -24,7 +24,7 @@ extension Website {
     public static func main() {
         let website = Self()
         let url = JSNode.window.location.object!.href.string!
-        let cleaned = RouterUtils.cleanPath(path: url)
+        let cleaned = RouterUtils<WebRoutes>.cleanPath(path: url)
         print("cleaned URL: ", cleaned)
 //        let page = website.config.getRoute(path: cleaned)
         
