@@ -3,62 +3,70 @@ import JavaScriptKit
 
 @main
 struct TestWebsite: Website {
-    typealias WebRoutes = MyRoutes
+    typealias WebRoutes = AppRoutes
   
     var body: some Page {
         Div {
             NavBar()
             Router {
-                Route<MyRoutes>(.about) {
+                Route<AppRoutes>(.NotFound) {
+                    NotFoundPage()
+                }
+                
+                Route<AppRoutes>(.Root) {
+                    HomePage()
+                }
+                
+                Route<AppRoutes>(.about) {
                     AboutPage()
                 }
                 
-                Route<MyRoutes>(.explore) {
+                Route<AppRoutes>(.explore) {
                     Div("explore we go")
-                }
-                
-                Route<MyRoutes>(.home) {
-                    HomePage()
                 }
             }
         }
     }
 }
 
-enum MyRoutes: Routes {
-    static var getRoot: Self { .home }
+enum AppRoutes: Routes {
+    static var Root: Self { .home }
+    static var NotFound: Self { .notFound }
     
-    case home, about, explore
+    static var bindings: BidirectionalDictionary<Self, String> = [
+        .home: "/",
+        .about: "about",
+        .explore: "explore",
+        .notFound: "404"
+    ]
     
-    var description: String {
-        switch self {
-        case .home:
-            return "/"
-        case .about:
-            return "about"
-        case .explore:
-            return "explore"
-        }
-    }
+    case home, about, explore, notFound
+    
 }
 
 struct NavBar: Page {
-    @Environment(\.navigation) var navigation: Navigation<MyRoutes>
-    
+    // TODO: fix the weird generics expected by the environment variables
+//    @Navigator(\.navigation) var navigation: Navigation<AppRoutes>
+    @Environment(\.navigation) var navigation: Navigation<AppRoutes>
+    @Environment<AppRoutes, String>(\.url) var url
+
     var body: some Page {
         Div {
-            Button("About")
-                .onClick {
-                    navigation.go(to: .about)
-                }
-            Button("Home")
-                .onClick {
-                    navigation.go(to: .home)
-                }
-            Button("Exlore")
-                .onClick {
-                    navigation.go(to: .explore)
-                }
+            Div("URL: \(url)")
+            Div {
+                Button("About")
+                    .onClick {
+                        navigation.go(to: .about)
+                    }
+                Button("Home")
+                    .onClick {
+                        navigation.go(to: .home)
+                    }
+                Button("Exlore")
+                    .onClick {
+                        navigation.go(to: .explore)
+                    }
+            }
         }
     }
 }
