@@ -2,9 +2,9 @@
 import PackageDescription
 let package = Package(
     name: "Sailor",
-//    platforms: [
-//        .macOS(.v10_15)
-//    ],
+    platforms: [
+        .macOS(.v10_15)
+    ],
     products: [
         .library(
             name: "Sailor",
@@ -39,6 +39,7 @@ let package = Package(
             ],
             path: "Playground",
             resources: [
+                //🧭Compass Generated Resources?
                 //⛵Sailor Generated Resources (DONT REMOVE THIS COMMENT)
 //                .process("Resources/"),
 //                .process("Resources/Assests/")

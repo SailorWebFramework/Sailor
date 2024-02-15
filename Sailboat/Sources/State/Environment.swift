@@ -7,10 +7,30 @@
 
 // TODO: dictionary use thing so   @Environment(\.myCustomSetting) var mySetting works?
 // TODO: somehow pass it down
-public protocol Routes: CustomStringConvertible {
-    static var getRoot: Self { get }
+public protocol Routes: CustomStringConvertible, Equatable, Hashable {
+//    static var getRoot: Self { get }
+    var description: String  { get }
+
+    // TODO: consider changing to v
+    static var Root: Self { get }
+    static var NotFound: Self { get }
+    
+    static var bindings: BidirectionalDictionary<Self, String> { get }
+        
+    static func fromString(_ str: String) -> Self
     
 }
+
+public extension Routes {
+    var description: String {
+        Self.bindings[key: self] ?? Self.bindings[key: Self.NotFound] ?? ""
+    }
+    
+    static func fromString(_ str: String) -> Self {
+        bindings[value: str] ?? .NotFound
+    }
+}
+
 
 public final class Navigation<MyRoutes: Routes> {
     public var route: MyRoutes
@@ -38,28 +58,13 @@ public protocol SomeEnvironment {
 @propertyWrapper
 public class Environment<MyEnvironment: SomeEnvironment, Value> {
     
-    var get: Value {
-        // TODO: check this is force casting
-        guard let keyPath = self.keyPath else { fatalError("todo: allow for env when no keypath given") }
-        
-        return (SailboatGlobal.manager.environment as! MyEnvironment)[keyPath: keyPath]
-    }
-    
-    let set: (Value) -> Void = { newValue in
+    var keyPath: KeyPath<MyEnvironment, Value>
 
-    }
-    
-    var keyPath: KeyPath<MyEnvironment, Value>?
-
+    // TODO: check this is force casting
     public var wrappedValue: Value {
-        get { get }
-        set { set(newValue) }
+        return (SailboatGlobal.manager.environment as! MyEnvironment)[keyPath: self.keyPath]
     }
-    
-//    public init() {
-//        self.keyPath = nil
-//    }
-    
+
     public init(_ keyPath: KeyPath<MyEnvironment, Value>) {
         self.keyPath = keyPath
     }
