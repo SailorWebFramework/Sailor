@@ -8,17 +8,28 @@
 import Sailboat
 import JavaScriptKit
 
-public struct SailorEnvironment<MyRoutes: Routes>: SomeEnvironment {
+// TODO: rename to WebEnvironment
+public final class WebEnvironment<MyRoutes: Routes>: SomeEnvironment {
+    public var data: [String: String] = [:]
+    public var stack: [[WebData]] = []
+    
+    // TODO: make it so if you are in the same context add can be called twice
+    public func add(_ data: WebData...) {
+        stack.append(data)
+    }
+    
+    public func favicon(_ path: String) {
+        data["favicon"] = path
+    }
+    
+    public func pop() {
+        _ = stack.popLast()
+    }
+    
     public var navigation: Sailboat.Navigation<MyRoutes>
+    
     public var url: String {
         JSNode.window.location.object!.href.string!
-    }
-    private static func buildRoute(_ route: MyRoutes) -> String {
-        if route.description == "/" {
-            return "/"
-        }
-
-        return "/\(route.description)"
     }
     
     public init() {
@@ -42,4 +53,15 @@ public struct SailorEnvironment<MyRoutes: Routes>: SomeEnvironment {
             }
         )
     }
+    
+    //TODO: EDIT THIS
+    private static func buildRoute(_ route: MyRoutes) -> String {
+        
+        if route.description == "/" {
+            return "/"
+        }
+
+        return "/\(route.description)"
+    }
+    
 }

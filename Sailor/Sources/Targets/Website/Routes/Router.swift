@@ -13,31 +13,55 @@ public struct Router<MyRoutes: Routes>: Operator {
         return self
     }
     
-    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> [Route<MyRoutes>]) {
+    // TODO: make this init work correctly
+    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> [Route<MyRoutes>], notFound: @escaping () -> any Page) {
 //        self.curr_route = "/"
         
         self.children = []//routes.children
         self.id = ""
-        
-        // default to not found route if none of the routes trigger
-        var notFoundRoute: Route<MyRoutes>? = nil
         
         let routes = routes()
         for route in routes {
             if route.isActive {
                 self.children.append(route)
             }
-            
-            if route.route == .NotFound {
-                notFoundRoute = route
-            }
         }
         
-        if let notFoundRoute = notFoundRoute, self.children.isEmpty {
-            self.children.append(notFoundRoute)
+        if self.children.isEmpty {
+            self.children.append(Route<MyRoutes>(.NotFound) { notFound() })
         }
 //        Self.setupRouteListener()
     }
+    
+//    public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> [Route<MyRoutes>]) {
+////        self.curr_route = "/"
+//        
+//        self.children = []//routes.children
+//        self.id = ""
+//        
+//        // default to not found route if none of the routes trigger
+//        var notFoundRoute: Route<MyRoutes>? = nil
+//        
+//        let routes = routes()
+//        for route in routes {
+//            if route.isActive {
+//                self.children.append(route)
+//            }
+//            
+//            if route.route == .NotFound {
+//                notFoundRoute = route
+//            }
+//        }
+//        
+//        if let notFoundRoute = notFoundRoute, self.children.isEmpty {
+//            self.children.append(notFoundRoute)
+//        }
+////        Self.setupRouteListener()
+//    }
+    
+    
+    
+    
 //    
 //    static var url: String {
 //        JSNode.window.location.object!.href.string!
