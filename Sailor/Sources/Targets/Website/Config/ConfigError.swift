@@ -1,5 +1,5 @@
-enum ConfigError: Error {
-    case noRootPath
-    case duplicatePaths
-    case no404Path
-}
+//enum ConfigError: Error {
+//    case noRootPath
+//    case duplicatePaths
+//    case no404Path
+//}

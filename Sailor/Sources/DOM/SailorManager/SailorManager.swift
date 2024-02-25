@@ -18,8 +18,8 @@ internal typealias TargetManager = Sailboat.TargetManager
 //}
 
 //extension SailorGlobal {
-//    var sailorEnvironment: SailorEnvironment<MyRoutes> {
-//        self.environment as! SailorEnvironment<MyRoutes>
+//    var sailorEnvironment: WebEnvironment<MyRoutes> {
+//        self.environment as! WebEnvironment<MyRoutes>
 //    }
 //
 //    var sailorManager: SailorManager<MyRoutes> {
@@ -36,7 +36,8 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     override init() {
         super.init()
-        self.environment = SailorEnvironment<WebRoutes>()
+        self.environment = WebEnvironment<WebRoutes>()
+        
     }
     
     override public func build<GenericPage: Page>(page: GenericPage) {

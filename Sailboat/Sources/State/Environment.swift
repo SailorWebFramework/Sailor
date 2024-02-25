@@ -56,17 +56,25 @@ public protocol SomeEnvironment {
 }
 
 @propertyWrapper
-public class Environment<MyEnvironment: SomeEnvironment, Value> {
+public class Environment<TargetEnvironment: SomeEnvironment, Value> {
     
-    var keyPath: KeyPath<MyEnvironment, Value>
+    var keyPath: KeyPath<TargetEnvironment, Value>?
 
     // TODO: check this is force casting
     public var wrappedValue: Value {
-        return (SailboatGlobal.manager.environment as! MyEnvironment)[keyPath: self.keyPath]
+        let env = (SailboatGlobal.manager.environment as? TargetEnvironment)
+        if let keyPath = self.keyPath {
+            return env![keyPath: keyPath]
+        }
+        return env as! Value
     }
 
-    public init(_ keyPath: KeyPath<MyEnvironment, Value>) {
+    public init(_ keyPath: KeyPath<TargetEnvironment, Value>) {
         self.keyPath = keyPath
+    }
+    
+    public init() {
+        keyPath = nil
     }
     
 }

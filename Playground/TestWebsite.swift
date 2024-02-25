@@ -1,54 +1,61 @@
 import Sailor
-import JavaScriptKit
 
 @main
 struct TestWebsite: Website {
+    // TODO: make it so i need environment not typealias?
     typealias WebRoutes = AppRoutes
+    
+    @Environment var environment: WebEnvironment<AppRoutes>
+    
+    init() {
+        // TODO: things that are global added/modify like this
+        environment.favicon("resources/favicon.ico")
+//        environment.title("My Test App")
+        
+        // TODO: somehow push and pop environment on with things that are pushed
+//        environment.add(
+//            .link("resources/Global.css"),
+//            .title("My Test App")//,
+////            .favicon("resources/favicon.ico")
+//        )
+    }
+    
+// TODO: do this under the hood
+//    deinit {
+//        environment.pop()
+//    }
   
     var body: some Page {
         Div {
             NavBar()
+            
+            Div("ROUTE: \(environment.navigation.route.description)")
+            
             Router {
-                Route<AppRoutes>(.NotFound) {
-                    NotFoundPage()
-                }
-                
-                Route<AppRoutes>(.Root) {
+                Route(.Root) {
                     HomePage()
                 }
-                
-                Route<AppRoutes>(.about) {
+
+                Route(.about) {
                     AboutPage()
                 }
-                
-                Route<AppRoutes>(.explore) {
+
+                Route(.explore) {
                     Div("explore we go")
+                    Img(src: "", alt: "")
                 }
+            } notFound: {
+                NotFoundPage()
             }
         }
     }
 }
 
-enum AppRoutes: Routes {
-    static var Root: Self { .home }
-    static var NotFound: Self { .notFound }
-    
-    static var bindings: BidirectionalDictionary<Self, String> = [
-        .home: "/",
-        .about: "about",
-        .explore: "explore",
-        .notFound: "404"
-    ]
-    
-    case home, about, explore, notFound
-    
-}
-
 struct NavBar: Page {
     // TODO: fix the weird generics expected by the environment variables
 //    @Navigator(\.navigation) var navigation: Navigation<AppRoutes>
-    @Environment(\.navigation) var navigation: Navigation<AppRoutes>
-    @Environment<AppRoutes, String>(\.url) var url
+    @Environment(\.navigation) var navigation: Navigation
+    @Environment(\.url) var url
 
     var body: some Page {
         Div {
