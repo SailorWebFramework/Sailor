@@ -8,6 +8,18 @@
 import Sailboat
 import JavaScriptKit
 
+
+//extension HTMLElement: CustomStringConvertible {
+//    var description: String {
+//        var output = ""
+//        for (key, value) in node.attributes {
+//            output +=
+//            self.addAttribute(name: key, value: value)
+//        }
+//        return output
+//    }
+//}
+
 final class JSNode: CustomStringConvertible {
     typealias JSAttributes = [String: String]
 
@@ -114,28 +126,27 @@ final class JSNode: CustomStringConvertible {
 //        self.isTextComponent = true
     }
     
-    func replace(with htmlNode: HTMLNode) {
+    private func replaceTag(with htmlNode: HTMLNode) {
         guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
             fatalError("js-node doesnt exist in parent")
         }
-
-        var jsnode = JSNode(htmlNode)
-                
-        jsnode.parent = self.parent
-        self.parent?.children[index] = jsnode
+        
+        guard let pageName = (htmlNode.page as? any HTMLElement)?.name else { return }
+        
+        print("I AM REPLACING")
 
         reset()
 
-        if let parent = self.element.parentElement.object {
-            print("REPLACING \(jsnode) with \(htmlNode)")
-            let oldReference = jsnode.element
+        if tagName?.uppercased() != pageName.uppercased(),
+           let parent = self.element.parentElement.object {
+            let newTag = Self.document.createElement(pageName.uppercased()).object
             
-            _ = parent.replaceChild!(oldReference, self.element)
-            
-            self.element = oldReference
-            
-        } else {
-            print("SKIPPING REPL \(jsnode) with \(htmlNode)")
+            _ = parent.replaceChild!(newTag, self.element)
+            // TODO: THIS IS FORCE IS IT OK
+            self.element = newTag!
+        }
+        else {
+            print("SKIPPING REplace, same tag")
         }
         
     }
@@ -145,14 +156,13 @@ final class JSNode: CustomStringConvertible {
         guard let page = node.page as? any HTMLElement else { fatalError() }
         
         print("updating to: \(node)")
-        
+        print("old content \(self.content)")
+        print(tagName?.uppercased(), page.name.uppercased())
+
         // if different replace element
         if tagName?.uppercased() != page.name.uppercased() {
-            print("UNEQUAL")
-            self.replace(with: node)
-            return
+            self.replaceTag(with: node)
         }
-        
         
         // remove old events and add new ones
         
@@ -165,7 +175,7 @@ final class JSNode: CustomStringConvertible {
             }
             
             children = [] // TODO: should not need this
-
+            
             self.editContent(text: value)
             print(self)
             
@@ -177,9 +187,11 @@ final class JSNode: CustomStringConvertible {
             if length == 0 {
                 self.editContent(text: "")
             }
+        
         }
         
         // TODO: diff events and attributes?
+        // make sure order is the same for attributes
         
         self.removeEvents()
 
@@ -187,12 +199,14 @@ final class JSNode: CustomStringConvertible {
             self.addEvent(name: name, closure: event)
         }
         
-        self.removeAttributes()
-
-        for (key, value) in node.attributes {
-            self.addAttribute(name: key, value: value)
+        if node.attributes != self.attributes {
+            self.removeAttributes()
+            
+            for (key, value) in node.attributes {
+                self.addAttribute(name: key, value: value)
+            }
         }
-
+        
     }
     
     // TODO: make this (EventResult) -> Void
@@ -269,7 +283,9 @@ final class JSNode: CustomStringConvertible {
     
     func addToParent() {
         parent?.children.append(self)
-        _ = parent?.element.appendChild?(self.element)
+//        _ = parent?.element.appendChild?(self.element)
+        print("adding to parent??", parent?.element.appendChild?(self.element))
+
     }
     
     func addToDocument() {

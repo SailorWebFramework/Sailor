@@ -6,6 +6,7 @@
 //
 
 import Sailboat
+import JavaScriptKit
 
 public typealias Page = Sailboat.Page
 public typealias State = Sailboat.State
@@ -18,3 +19,8 @@ public typealias Routes = Sailboat.Routes
 public typealias Navigation<MyRoutes: Routes> = Sailboat.Navigation<MyRoutes>
 
 public typealias BidirectionalDictionary = Sailboat.BidirectionalDictionary
+
+
+// JavascriptKit Passthrough
+
+public func alert(_ text: String) { JSObject.global.alert.function?(text) }
