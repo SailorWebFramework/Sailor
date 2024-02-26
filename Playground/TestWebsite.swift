@@ -42,6 +42,9 @@ struct TestWebsite: Website {
 
                 Route(.explore) {
                     Div("explore we go")
+                        .onClick {
+                            alert("hello im alert")
+                        }
                     Img(src: "", alt: "")
                 }
             } notFound: {
