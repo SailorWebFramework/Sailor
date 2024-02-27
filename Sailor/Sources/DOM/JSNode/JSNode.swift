@@ -99,7 +99,7 @@ final class JSNode: CustomStringConvertible {
     }
     
     // TODO: force unwrapping?
-    convenience init(named name: String, events: Events, attributes: JSAttributes = [:], parent: JSNode? = nil) {
+    convenience init(named name: String, events: [String: (EventResult) -> Void], attributes: JSAttributes = [:], parent: JSNode? = nil) {
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")
         }

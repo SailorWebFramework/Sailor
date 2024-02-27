@@ -5,6 +5,22 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
+
+public protocol Renderable {
+    func render()
+    
+    func remove()
+    
+    func replace(with renderable: any Renderable)
+    
+    func update(attributes: [String: String])
+    
+    func addAttribute(name: String, value: String)
+
+    func addEvent(name: String, value: (EventResult) -> Void)
+
+}
+
 public protocol Element: Page {
     
     associatedtype ElementAttributeGroup: AttributeGroup
@@ -16,13 +32,13 @@ public protocol Element: Page {
     var attributes: [String: String] { get set }
     
     /// event names and values attached to this HTMLElement
-    var events: Events { get set }
+    var events: [String: (EventResult) -> Void] { get set }
     
     /// content within HTML tags
     var content: TagContent { get set }
     
-    /// add attribute to this Element
-//    func attribute(_ value: ElementAttributeGroup) -> Self
+    /// used to render this element
+    var renderer: any Renderable { get set }
         
 }
 

@@ -8,14 +8,39 @@
 import Sailboat
 import JavaScriptKit
 
-// TODO: rename to WebEnvironment
+public final class WebElementEnvironment {
+    
+    public var items: [WebData] = []
+
+    public struct WebData {
+        var page: any Element
+        var element: JSObject
+        
+        init(page: any Element) {
+            self.page = page
+            self.element = JSNode.document.createElement(self.page.name).object!
+        }
+    }
+    
+    func add(_ data: WebData) {
+        
+//        items.append(data)
+        
+//        JSNode.head.appendChild!(element)
+        
+//        JSObject.global.head
+        
+    }
+    
+}
+
 public final class WebEnvironment<MyRoutes: Routes>: SomeEnvironment {
     public var data: [String: String] = [:]
-    public var stack: [[WebData]] = []
+    public var stack: [WebElementEnvironment] = []
     
     // TODO: make it so if you are in the same context add can be called twice
-    public func add(_ data: WebData...) {
-        stack.append(data)
+    public func add(_ data: WebElementEnvironment.WebData...) {
+//        stack.append(data)
     }
     
     public func favicon(_ path: String) {

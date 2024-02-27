@@ -6,7 +6,7 @@
 //
 
 // TODO: remove this alias its confusing
-public typealias Events = [String: (EventResult) -> Void]
+//public typealias Events = [String: (EventResult) -> Void]
 
 public enum EventResult {
     case string(String),

@@ -12,11 +12,12 @@ public protocol Page: CustomStringConvertible {
     
     /// body of the page element, resultBuilder can contain HTMLElements and custom Page elements
     var body: Body { get }
-
+    
 }
 
 public extension Page {
     var description: String {
         "Page(type: \(type(of: self)))"
     }
+        
 }

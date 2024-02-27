@@ -47,7 +47,7 @@ public struct Meta: Element {
     public var attributes: [String: String]
 
     /// events associated with this type
-    public var events: Events
+    public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
     public var content: TagContent
