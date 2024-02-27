@@ -26,7 +26,7 @@ public struct TButton: Element {
     }
     
     public var attributes: [String: String]
-    public var events: Events
+    public var events: [String: (EventResult) -> Void]
     public var content: TagContent
 
     public init() {
