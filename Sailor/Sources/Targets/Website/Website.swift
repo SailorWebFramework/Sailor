@@ -9,12 +9,13 @@ import Sailboat
 
 // TODO: remove App and only use Website for web apps to avoid SwiftUI collisions
 // TODO: Later maybe create App if SwiftUI-like Syntax is ever adopted for cross-platform / native apps
-public protocol Website {
+public protocol Website: Page {
     static func main()
     
     associatedtype WebRoutes: Routes
     associatedtype AppBody: Page
     var body: AppBody { get }
+    
     
     init()
 }

@@ -23,7 +23,7 @@ final public class ElementNode: PageNode {
     public var attributes: [String: String]
     
     /// event closure references for each rendered event
-    public var events: Events
+    public var events: [String: (EventResult) -> Void]
 
     public var description: String {
         "ElementNode(type: \(type(of:self.page)), attributes: \(self.attributes), content: \(self.content)), events: \(self.events.keys), children: \(self.children.count))"

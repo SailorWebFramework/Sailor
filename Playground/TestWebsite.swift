@@ -9,7 +9,14 @@ struct TestWebsite: Website {
     
     init() {
         // TODO: things that are global added/modify like this
-        environment.favicon("resources/favicon.ico")
+//        environment.favicon("resources/favicon.ico")
+        
+//        environment.head {
+//            Link(rel: "stylesheet", href: "resources/global.css")
+//                .id("23456tghj")
+//        }
+//        
+        
 //        environment.title("My Test App")
         
         // TODO: somehow push and pop environment on with things that are pushed
@@ -20,9 +27,9 @@ struct TestWebsite: Website {
 //        )
     }
     
-// TODO: do this under the hood
-//    deinit {
-//        environment.pop()
+//    var head: some Page {
+//        Link(rel: "stylesheet", href: "resources/global.css")
+//            .id("23456tghj")
 //    }
   
     var body: some Page {
