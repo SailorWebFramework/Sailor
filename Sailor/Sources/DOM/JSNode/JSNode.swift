@@ -127,26 +127,25 @@ final class JSNode: CustomStringConvertible {
     }
     
     private func replaceTag(with htmlNode: HTMLNode) {
-        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
-            fatalError("js-node doesnt exist in parent")
+//        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
+//            fatalError("js-node doesnt exist in parent")
+//        }
+        
+        guard let pageName = (htmlNode.page as? any HTMLElement)?.name else {
+            fatalError("page not an Element")
+//            return
         }
         
-        guard let pageName = (htmlNode.page as? any HTMLElement)?.name else { return }
-        
-        print("I AM REPLACING")
-
         reset()
-
+        
         if tagName?.uppercased() != pageName.uppercased(),
            let parent = self.element.parentElement.object {
+            
             let newTag = Self.document.createElement(pageName.uppercased()).object
             
             _ = parent.replaceChild!(newTag, self.element)
             // TODO: THIS IS FORCE IS IT OK
             self.element = newTag!
-        }
-        else {
-            print("SKIPPING REplace, same tag")
         }
         
     }
@@ -154,10 +153,6 @@ final class JSNode: CustomStringConvertible {
     /// shallowly updates node, ie: TextContent, Attributes, & Events
     func updateShallow(with node: HTMLNode) {
         guard let page = node.page as? any HTMLElement else { fatalError() }
-        
-        print("updating to: \(node)")
-        print("old content \(self.content)")
-        print(tagName?.uppercased(), page.name.uppercased())
 
         // if different replace element
         if tagName?.uppercased() != page.name.uppercased() {
@@ -177,7 +172,6 @@ final class JSNode: CustomStringConvertible {
             children = [] // TODO: should not need this
             
             self.editContent(text: value)
-            print(self)
             
         case .list(_):
             
@@ -283,8 +277,7 @@ final class JSNode: CustomStringConvertible {
     
     func addToParent() {
         parent?.children.append(self)
-//        _ = parent?.element.appendChild?(self.element)
-        print("adding to parent??", parent?.element.appendChild?(self.element))
+        _ = parent?.element.appendChild?(self.element)
 
     }
     
