@@ -27,7 +27,16 @@ internal enum RouterUtils<MyRoutes: Routes> {
         let tmp = path.split(separator: "/")
         // print("tmp: \(tmp)")
         // remove "http:" and "localhost:8080" from the path
-        let cleaned = tmp.dropFirst(2).joined(separator: "")
+        var cleaned = tmp.dropFirst(2).joined(separator: "")
+        
+        if cleaned.first == "#" {
+            cleaned = ""
+        } else if let beforeHashes = cleaned.split(separator: "#").first {
+            cleaned = String(beforeHashes)
+        }
+        
+        print("CLEANED: \(cleaned)")
+
         if cleaned == "" {
             return "/"
         }

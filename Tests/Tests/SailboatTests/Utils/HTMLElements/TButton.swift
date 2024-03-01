@@ -7,8 +7,51 @@
 
 import Sailboat
 
+// TODO: do this
+class TestRenderable: Renderable {
+    func render() {
+        
+    }
+    
+    func remove() {
+        
+    }
+    
+    func replace(with renderable: Sailboat.Renderable) {
+        
+    }
+    
+    func update(attributes: [String : String]) {
+        
+    }
+    
+    func addAttribute(name: String, value: String) {
+        
+    }
+    
+    func addEvent(name: String, value: (Sailboat.EventResult) -> Void) {
+        
+    }
+    
+    func onAppear() {
+        
+    }
+    
+    func onDisappear() {
+        
+    }
+    
+    func onUpdate() {
+        
+    }
+    
+    
+}
+
 /// Button used to test internal Sailboat
 public struct TButton: Element {
+    public var renderer: any Renderable = TestRenderable()
+    
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String

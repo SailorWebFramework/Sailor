@@ -9,6 +9,8 @@ import Sailboat
 
 /// Div used to test internal Sailboat
 public struct TDiv: Element {
+    public var renderer: any Renderable = TestRenderable()
+    
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String

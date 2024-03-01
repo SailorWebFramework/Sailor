@@ -8,6 +8,13 @@
 import Sailboat
 
 final class JSNodeRenderer: Renderable {
+    
+    var jsNode: JSNode?
+    
+    public init() {
+        jsNode = nil
+    }
+    
     func render() {
         
     }

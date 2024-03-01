@@ -197,6 +197,9 @@ public struct Input: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
+    public var renderer: any Renderable = JSNodeRenderer()
+
+
     public init(type: Unit.InputType, _ value: Binding<String>) {
         self.content = .text("")
         self.attributes = .init()
