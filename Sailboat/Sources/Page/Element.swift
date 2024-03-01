@@ -18,6 +18,12 @@ public protocol Renderable {
     func addAttribute(name: String, value: String)
 
     func addEvent(name: String, value: (EventResult) -> Void)
+    
+    func onAppear()
+    
+    func onDisappear()
+    
+    func onUpdate()
 
 }
 

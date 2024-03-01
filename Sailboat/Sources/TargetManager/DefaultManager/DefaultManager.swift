@@ -47,7 +47,7 @@ open class DefaultManager: TargetManager {
 
     public init() { }
     
-    private struct HTMLPageWrapper<T: Page>: Page {
+    private struct BasePageWrapper<T: Page>: Page {
         var page: T
 
         var body: some Page {
@@ -56,20 +56,23 @@ open class DefaultManager: TargetManager {
     }
     
     open func build<GenericPage: Page>(page: GenericPage) {
-        if page is any Element {
-            self.body = CustomNode(page: HTMLPageWrapper(page: page))
+//        if page is any Element {
+//            self.body = CustomNode(page: PageWrapper(page: page))
+//
+//        } else if page is any Operator {
+////            fatalError("root page must not be an operator")
+//            self.body = CustomNode(page: PageWrapper(page: page))
+//
+//        } else {
+//            self.body = CustomNode(page: page)
+//
+//        }
+//        _ = Self.build(page: self.body!.page.body, parent: self.body!)
 
-        } else if page is any Operator {
-            fatalError("root page must not be an operator")
-            
-        } else {
-            self.body = CustomNode(page: page)
-            
-        }
-        _ = Self.build(page: self.body!.page.body, parent: self.body!)
+//        self.body = CustomNode(page: BasePageWrapper(page: page))
+//        self.body = CustomNode(page: page)
 
-        self.body?.printNode()
-
+        self.body = Self.build(page: page, parent: nil)
     }
     
     open func update() {
@@ -77,7 +80,7 @@ open class DefaultManager: TargetManager {
         
         update(node: body, with: body.page)
         
-        self.body?.printNode()
+//        self.body?.printNode()
     }
     
 }

@@ -10,6 +10,11 @@ struct AboutPage: Page {
         Div {
             Div(myString)
             SubPage1(myString: $myString)
+            Button("click me")
+                .onClick {
+                    myNum += 1
+                }
+            H3("num: \(myNum)")
         }
     }
 }
@@ -22,7 +27,7 @@ struct SubPage1: Page {
     
     var body: some Page {
         Div {
-            
+            A("CLICK").href("#Hello")
             H1("This is a \(myString)")
             H2("subtitle")
             
@@ -36,6 +41,7 @@ struct SubPage1: Page {
 //            }
             
             Input($myString)
+                .id("Hello")
             
 //            Img(src: source, alt: source)
 //                .classes("my-class")

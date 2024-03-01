@@ -72,6 +72,9 @@ public struct Link: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
+    public var renderer: any Renderable = JSNodeRenderer()
+
+
     public init(rel: String, href: String) {
         self.content = .text("")
         self.attributes = .init()

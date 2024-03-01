@@ -24,9 +24,9 @@ public extension Element {
     func wind(_ values: TailwindClass...) -> Self {
         var output = ""
         for value in values {
-            print("doing description")
+//            print("doing description")
             output += value.description + " "
-            print("fin description")
+//            print("fin description")
         }
         return attribute(ElementAttributeGroup(name: "class", value: output), override: false)
     }

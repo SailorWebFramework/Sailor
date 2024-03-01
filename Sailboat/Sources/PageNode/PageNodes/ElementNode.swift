@@ -29,7 +29,7 @@ final public class ElementNode: PageNode {
         "ElementNode(type: \(type(of:self.page)), attributes: \(self.attributes), content: \(self.content)), events: \(self.events.keys), children: \(self.children.count))"
     }
     
-    init(
+    public init(
         page: any Element, 
         parent: (any PageNode)?
     ) {
@@ -66,7 +66,6 @@ final public class ElementNode: PageNode {
         self.events = page.events
         self.content = page.content
       
-        print("UPDATING Content to -> \(self.content)")
     }
     
     public func compare(to page: any Page) -> Bool {

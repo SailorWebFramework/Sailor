@@ -12,7 +12,7 @@ extension SailorManager {
     
     /// current node being reconciled and currently built element
     internal func reconcile(node: any PageNode, element: JSNode) {
-        print(node, "vs.", element)
+//        print(node.description, "vs.", element.description)
         
         if let node = node as? HTMLNode {
             reconcile(htmlNode: node, element: element)
@@ -31,13 +31,12 @@ extension SailorManager {
         // update the HTML element shallowly
         element.updateShallow(with: htmlNode)
         
-        documentNode.printNode()
-        print("children \(htmlNode.children.count)")
+//        documentNode.printNode()
         
         if !reconcileIndexStack.isEmpty {
             reconcileIndexStack[reconcileIndexStack.count - 1] += 1
         }
-
+        
         // create a sub-stack
         reconcileIndexStack.append(0)
         
@@ -51,10 +50,12 @@ extension SailorManager {
         
         // pop from stack
         guard let endIndex = reconcileIndexStack.popLast() else { return }
+        print(endIndex, "vs.", element.children.count)
+        
+        htmlNode.printNode()
         
         // if HTML body had more elements than new dom remove the old
         for i in (endIndex..<element.children.count).reversed() {
-            print("REMOVING \(i)")
             let child = element.children[i]
             child.removeFromDOM()
         }
@@ -69,10 +70,7 @@ extension SailorManager {
         var indexParent: Int { reconcileIndexStack.last! }
         
         let (newSize, oldSize) = (operatorNode.children.count, Int(parent.children.count))
-
         
-        print("CMP:", operatorNode, parent, "AT:", reconcileIndexStack.last, "OLDSIZE", oldSize, "NEWSIZE", newSize)
-
         // TODO: CHECK IF ELEMENT HAS A TEXT OR ELEMENTS ie: nodetype 1, or 3
         while index < newSize && indexParent < oldSize {
             let child = parent.children[indexParent]
@@ -87,45 +85,38 @@ extension SailorManager {
 
             index += 1
             
-            print("INDEX: \(index)")
         }
                 
-        print("INDICES-> i:\(index) , pi: \(indexParent) -> old: \(oldSize), new: \(newSize)" )
-
         // if js dom had less elements than new dom, build,
         // Adding extra children
         for i in index..<newSize {
-            print("BUILDING: \(operatorNode.children[i].description), TO: \(parent.description)")
-            
+            // TODO: Test this
+//            reconcile(node: operatorNode.children[i], parent: parent)
+
             if let operatorChild = operatorNode.children[i] as? HTMLNode {
 //                let newElement = JSNode(operatorChild)
                 let newElement = JSNode()
-
                 parent.addChild(newElement)
-                
-                
-                print("adding TOPARENT", parent)
-                parent.printNode()
-                
-                documentNode.printNode()
-
                 reconcile(htmlNode: operatorChild, element: newElement)
-                
+//                parent.addChild(newElement)
+
+
             } else if operatorNode.children[i] is CustomNode {
                 // TODO: refactor to remove this shouldnt need to make a dummy node
                 let newElement = JSNode()
                 parent.addChild(newElement)
                 reconcile(node: operatorNode.children[i], element: newElement)
-                
+//                parent.addChild(newElement)
+
             } else {
+//                let newElement = JSNode()
+//                parent.addChild(newElement)
                 reconcile(node: operatorNode.children[i], element: parent)
-                
+
             }
             
         }
     
-        documentNode.printNode()
-
     }
     
 }

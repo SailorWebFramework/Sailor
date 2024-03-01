@@ -72,6 +72,9 @@ public struct Form: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
+    public var renderer: any Renderable = JSNodeRenderer()
+
+
     public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()

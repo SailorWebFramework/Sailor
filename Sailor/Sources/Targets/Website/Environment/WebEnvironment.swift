@@ -22,6 +22,10 @@ public final class WebElementEnvironment {
         }
     }
     
+    func head(@PageBuilder _ builder: @escaping () -> any Page) {
+        
+    }
+    
     func add(_ data: WebData) {
         
 //        items.append(data)

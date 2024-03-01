@@ -7,38 +7,17 @@ struct TestWebsite: Website {
     
     @Environment var environment: WebEnvironment<AppRoutes>
     
-    init() {
-        // TODO: things that are global added/modify like this
-//        environment.favicon("resources/favicon.ico")
-        
-//        environment.head {
-//            Link(rel: "stylesheet", href: "resources/global.css")
-//                .id("23456tghj")
-//        }
-//        
-        
-//        environment.title("My Test App")
-        
-        // TODO: somehow push and pop environment on with things that are pushed
-//        environment.add(
-//            .link("resources/Global.css"),
-//            .title("My Test App")//,
-////            .favicon("resources/favicon.ico")
-//        )
-    }
-    
-//    var head: some Page {
-//        Link(rel: "stylesheet", href: "resources/global.css")
-//            .id("23456tghj")
-//    }
-  
+    @State var myname: String = "josh"
+      
     var body: some Page {
         Div {
+            
             NavBar()
             
-            Div("ROUTE: \(environment.navigation.route.description)")
+            Div("\(environment.url.description)")
             
             Router {
+                
                 Route(.Root) {
                     HomePage()
                 }
@@ -48,16 +27,34 @@ struct TestWebsite: Website {
                 }
 
                 Route(.explore) {
-                    Div("explore we go")
-                        .onClick {
-                            alert("hello im alert")
-                        }
-                    Img(src: "", alt: "")
+                    Div("explore we go?")
                 }
+                
             } notFound: {
                 NotFoundPage()
             }
+            
         }
+        
+        // TODO: I think this is the settled approach?
+//        .head {
+//            Title("This is a title")
+//            // Make custom properties for FavIcon and LinkCSS
+//            FavIcon("resources/icon.ico")
+//            LinkCSS("sheet1.css")
+//            Link(rel: "stylesheet", href: "sheet3.css")
+//        }
+        
+        
+//        .onAppear {
+//            environment.title("This Is My Website")
+//            environment.favicon("resources/icon.ico")
+//            environment.add {
+//                Link(rel: "stylesheet", href: "sheet1.css")
+//                Link(rel: "stylesheet", href: "sheet2.css")
+//                Link(rel: "stylesheet", href: "sheet3.css")
+//            }
+//        }
     }
 }
 

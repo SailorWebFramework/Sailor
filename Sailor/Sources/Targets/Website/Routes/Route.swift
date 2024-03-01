@@ -33,8 +33,9 @@ public struct Route<MyRoute: Routes>: Operator {
         self.id = ""
         self.route = route
         
-        // TODO: move from Router into another global thing or here and make it take in <MyRoute>
+        // TODO: move to @Environment
         if route == RouterUtils<MyRoute>.currentRoute() {
+            print("ROUTE IS \(route), \(RouterUtils<MyRoute>.currentRoute())")
             self.children = builder().children
         } else {
             self.children = []

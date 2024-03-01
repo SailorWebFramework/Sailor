@@ -32,6 +32,9 @@ public struct B: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
+    public var renderer: any Renderable = JSNodeRenderer()
+
+
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()

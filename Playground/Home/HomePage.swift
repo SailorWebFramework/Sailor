@@ -21,7 +21,11 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
+            
             Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
+            
+            A("hello its").href("#MyImage")
+                
             Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
 //                .classes("m-0 sm:w-64 sm:h-64 m-0 shadow-lg rounded-lg")
 //                .classes("w-12 h-12 lg:w-32 lg:h-32")
@@ -33,6 +37,14 @@ struct HomePage: Page {
 //                    .lg(.p20, .bgRed100)
                 )
             
+            
+            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+
             Div("my num is \(myNum)")
                 .onClick {
                     myNum += 1
@@ -42,6 +54,7 @@ struct HomePage: Page {
                 .onClick {
 //                    navigator.navigate(to: .about)
                 }
+                .id("MyImage")
 
 //                .wind(
 //                    .m0

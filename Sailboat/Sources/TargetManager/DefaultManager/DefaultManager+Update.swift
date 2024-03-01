@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DefaultManager+Update.swift
 //  
 //
 //  Created by Joshua Davis on 12/30/23.
@@ -8,7 +8,7 @@
 extension DefaultManager {
     
     internal func update(node: any PageNode, with page: any Page) {
-        print(node, "vs.", page)
+        print(node, "mvs.", page)
         
         // compare and replace tag if its not the same
         if !node.compareTag(to: page) {
@@ -18,7 +18,6 @@ extension DefaultManager {
 
         if let page = page as? any Element {
             // if page is html element
-            
             node.update(using: page)
 
             switch page.content {
@@ -26,10 +25,10 @@ extension DefaultManager {
                 node.children = []
             case .list(let makeList):
                 let operatorNode = makeList()
-
+                print("generating \(operatorNode)")
                 // loop over children on current node
                 if let first = node.children.first {
-                    update(node: node.children.first!, with: operatorNode)
+                    update(node: first, with: operatorNode)
                 } else {
                     node.replace(using: page)
                 }
@@ -44,7 +43,7 @@ extension DefaultManager {
             // loop over children
             for i in 0..<endRange {
                 // TODO: reuse maybe if id's become similar
-                    update(node: node.children[i], with: page.children[i])
+                update(node: node.children[i], with: page.children[i])
             }
 
             // if old dom had more elements than new dom, delete
