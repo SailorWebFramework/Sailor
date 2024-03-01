@@ -16,3 +16,6 @@ internal typealias HTMLElement = Sailboat.Element
 public typealias Operator = Sailboat.Operator
 
 //internal typealias Attributes = Sailboat.Attributes
+
+internal typealias SailorGlobal = Sailboat.SailboatGlobal
+internal typealias TargetManager = Sailboat.TargetManager

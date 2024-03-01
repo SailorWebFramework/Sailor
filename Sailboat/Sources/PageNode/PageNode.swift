@@ -38,7 +38,7 @@ extension PageNode {
         return type(of: self.page) == type(of: page)
     }
 
-    internal func append(_ node: any PageNode) {
+    public func append(_ node: any PageNode) {
         self.children.append(node)
         node.parent = self
 
