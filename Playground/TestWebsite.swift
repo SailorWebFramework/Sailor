@@ -7,7 +7,7 @@ struct TestWebsite: Website {
     
     @Environment var environment: WebEnvironment<AppRoutes>
     
-    @State var myname: String = "josh"
+//    @State var myname: String = "josh"
       
     var body: some Page {
         Div {
@@ -61,6 +61,8 @@ struct TestWebsite: Website {
 struct NavBar: Page {
     // TODO: fix the weird generics expected by the environment variables
 //    @Navigator(\.navigation) var navigation: Navigation<AppRoutes>
+    
+//    @State var hello: Int = 0
     @Environment(\.navigation) var navigation: Navigation
     @Environment(\.url) var url
 

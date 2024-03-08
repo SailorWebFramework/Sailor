@@ -50,9 +50,9 @@ extension SailorManager {
         
         // pop from stack
         guard let endIndex = reconcileIndexStack.popLast() else { return }
-        print(endIndex, "vs.", element.children.count)
+//        print(endIndex, "vs.", element.children.count)
         
-        htmlNode.printNode()
+//        htmlNode.printNode()
         
         // if HTML body had more elements than new dom remove the old
         for i in (endIndex..<element.children.count).reversed() {

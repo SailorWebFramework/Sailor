@@ -7,9 +7,40 @@
 
 extension DefaultManager {
     
-    internal func update(node: any PageNode, with page: any Page) {
-        print(node, "mvs.", page)
+    
+    // TODO: maybe expand some to elements for example an Input($value) doesnt need a rerender for whole node
+    // TODO: also Element with String Text("hello {} its {}.x", emma, josh)
+    // TODO: ^ this uneccisary can count state refs in init of
+    
+    /// new update function, updates a customNode until it reaches another custom node
+    internal func updateShallow(node: CustomNode) {
+//        fatalError("do this update shallow")
         
+        func updateHelper(innerNode: any PageNode, page: any Page) {
+            
+            
+            if !(innerNode is CustomNode) {
+                
+                // if tag is different replace everything in body?
+                if !node.compareTag(to: page) {
+                    node.replace(using: page)
+                    return
+                }
+                
+                for child in innerNode.children {
+//                    updateHelper(innerNode: child, page: page)
+                }
+            }
+            
+        }
+        
+        // TODO: Force cast? Custom Node must have exactly one child
+        updateHelper(innerNode: node.children.first!, page: node.page.body)
+        
+    }
+    
+    /// old update function
+    internal func update(node: any PageNode, with page: any Page) {
         // compare and replace tag if its not the same
         if !node.compareTag(to: page) {
             node.replace(using: page)
@@ -25,7 +56,7 @@ extension DefaultManager {
                 node.children = []
             case .list(let makeList):
                 let operatorNode = makeList()
-                print("generating \(operatorNode)")
+
                 // loop over children on current node
                 if let first = node.children.first {
                     update(node: first, with: operatorNode)
@@ -53,7 +84,7 @@ extension DefaultManager {
 
             // if old dom had less elements than new dom, build
             for i in endRange..<newSize {
-                _ = Self.build(page: page.children[i], parent: node)
+                _ = build(page: page.children[i], parent: node)
             }
 
         } else {

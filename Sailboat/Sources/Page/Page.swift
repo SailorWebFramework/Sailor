@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Page.swift
 //  
 //
 //  Created by Joshua Davis on 12/16/23.
@@ -12,10 +12,11 @@ public protocol Page: CustomStringConvertible {
     
     /// body of the page element, resultBuilder can contain HTMLElements and custom Page elements
     var body: PageBody { get }
-    
+        
 }
 
 public extension Page {
+
     var description: String {
         "Page(type: \(type(of: self)))"
     }

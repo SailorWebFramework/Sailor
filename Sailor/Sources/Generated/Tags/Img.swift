@@ -5,75 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The img element represents an image.
 public struct Img: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-        ///The alternative text for the image.
-        static func alt(_ value: String) -> Self {
-            .init(name: "alt", value: value.description)
-        }
-
-        ///How the element handles cross-origin requests.
-        static func crossorigin(_ value: Unit.CrossOrigin) -> Self {
-            .init(name: "crossorigin", value: value.description)
-        }
-
-        ///The intrinsic height of the image in pixels.
-        static func height(_ value: Int) -> Self {
-            .init(name: "height", value: value.description)
-        }
-
-        ///Indicates that the image is part of a server-side image map.
-        static func ismap(_ value: Bool) -> Self {
-            .init(name: "ismap", value: value.description)
-        }
-
-        ///Indicates how the browser should load the image.
-        static func loading(_ value: Unit.Loading) -> Self {
-            .init(name: "loading", value: value.description)
-        }
-
-        ///Specifies which referrer information to send when fetching the image.
-        static func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-            .init(name: "referrerpolicy", value: value.description)
-        }
-
-        ///The sizes attribute gives the sizes of the icons for visual media.
-        static func sizes(_ value: String) -> Self {
-            .init(name: "sizes", value: value.description)
-        }
-
-        ///The URL of the image.
-        static func src(_ value: String) -> Self {
-            .init(name: "src", value: value.description)
-        }
-
-        ///A list of one or more strings separated by commas indicating a set of possible images to use for the source.
-        static func srcset(_ value: String) -> Self {
-            .init(name: "srcset", value: value.description)
-        }
-
-        ///The URL of the image map to use.
-        static func usemap(_ value: String) -> Self {
-            .init(name: "usemap", value: value.description)
-        }
-
-        ///The intrinsic width of the image in pixels.
-        static func width(_ value: Int) -> Self {
-            .init(name: "width", value: value.description)
-        }
-
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "img" }
@@ -87,19 +25,24 @@ public struct Img: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "img")
 
 
     public init(src: String, alt: String) {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
 
         self.attributes["src"] = src.description
         self.attributes["alt"] = alt.description
         
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

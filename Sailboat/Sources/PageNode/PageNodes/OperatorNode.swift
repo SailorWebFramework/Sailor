@@ -5,7 +5,11 @@
 //  Created by Joshua Davis on 12/22/23.
 //
 
+import Foundation
+
 final public class OperatorNode: PageNode {
+
+    public var id: UUID = UUID()
 
     public var children: [any PageNode]
     
@@ -13,7 +17,7 @@ final public class OperatorNode: PageNode {
         
     public var page: any Page
     
-    public var id: String?
+//    public var id: String?
     
     public var description: String {
         "OperatorNode(type: \(type(of:self.page)), id: \(self.id), children: \(self.children.count))"

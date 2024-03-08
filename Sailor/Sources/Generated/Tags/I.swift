@@ -5,20 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.
 public struct I: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "i" }
@@ -32,15 +25,20 @@ public struct I: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "i")
 
 
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

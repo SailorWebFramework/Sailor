@@ -5,36 +5,49 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
+import Foundation
 
 public protocol Renderable {
-    func render()
-    
+//    associatedtype Node
+
+    func addToParent(_ parentNode: any Renderable)
+
+    func addChild(_ childNode: any Renderable)
+
     func remove()
     
     func replace(with renderable: any Renderable)
     
-    func update(attributes: [String: String])
-    
     func addAttribute(name: String, value: String)
 
-    func addEvent(name: String, value: (EventResult) -> Void)
+    func addEvent(name: String, closure: @escaping (EventResult) -> Void)
     
-    func onAppear()
+//    func update(attributes: [String: String])
     
-    func onDisappear()
+//    func render()
     
-    func onUpdate()
+//    func onAppear()
+//
+//    func onDisappear()
+//
+//    func onUpdate()
 
 }
 
-public protocol Element: Page {
+public typealias ElementID = String
+
+public protocol Element: Page, Identifiable {
     
-    associatedtype ElementAttributeGroup: AttributeGroup
+//    associatedtype ElementAttributeGroup: AttributeGroup
+    associatedtype Renderer: Renderable
 
     /// HTML tag name, all lowercased
     var name: String { get }
     
-    /// attributes on HTML tag
+    ///
+    var id: ElementID { get set }
+    
+    /// attributes on tag
     var attributes: [String: String] { get set }
     
     /// event names and values attached to this HTMLElement
@@ -44,7 +57,7 @@ public protocol Element: Page {
     var content: TagContent { get set }
     
     /// used to render this element
-    var renderer: any Renderable { get set }
+    var renderer: Renderer { get set }
         
 }
 
@@ -59,8 +72,31 @@ public extension Element {
     }
 
 }
+
+public struct ElementAttributeGroup: AttributeGroup {
+
+    
+    public var name: String
+    public var value: String
+    public var override: Bool
+    
+    public init(name: String, value: String) {
+        self.name = name
+        self.value = value
+        self.override = true
+    }
+    public init(name: String, value: String, override: Bool) {
+        self.name = name
+        self.value = value
+        self.override = override
+    }
+}
+
 // TODO: make this internal? / remove?
 public extension Element {
+    
+    // todo: doesnt work keeps regenerating
+//    static var elementID: UUID { UUID() }
     
     func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
         if attributes[value.name] == value.value { return self }

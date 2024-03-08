@@ -4,8 +4,11 @@
 //
 //  Created by Joshua Davis on 12/22/23.
 //
+import Foundation
 
 final public class CustomNode: PageNode {
+    
+    public var id: UUID = UUID()
     
     public var children: [any PageNode]
     

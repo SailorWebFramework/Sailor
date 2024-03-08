@@ -5,60 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The form element represents a document section that contains interactive controls to submit information to a web server.
 public struct Form: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-        ///Specifies the character encodings that are to be used for the form submission.
-        static func acceptCharset(_ value: String) -> Self {
-            .init(name: "acceptCharset", value: value.description)
-        }
-
-        ///Specifies the URL of the file that will process the input control when the form is submitted.
-        static func action(_ value: String) -> Self {
-            .init(name: "action", value: value.description)
-        }
-
-        ///Specifies whether the form should have autocomplete enabled.
-        static func autocomplete(_ value: Unit.Toggle) -> Self {
-            .init(name: "autocomplete", value: value.description)
-        }
-
-        ///Specifies how the form data should be encoded when submitting it to the server.
-        static func enctype(_ value: Unit.FormEncType) -> Self {
-            .init(name: "enctype", value: value.description)
-        }
-
-        ///Specifies the HTTP method to use when sending form data.
-        static func method(_ value: Unit.FormMethod) -> Self {
-            .init(name: "method", value: value.description)
-        }
-
-        ///Specifies the name of the form.
-        static func name(_ value: String) -> Self {
-            .init(name: "name", value: value.description)
-        }
-
-        ///Specifies that the form-data should not be validated on submission.
-        static func novalidate(_ value: Bool) -> Self {
-            .init(name: "novalidate", value: value.description)
-        }
-
-        ///Specifies where to display the response after submitting the form.
-        static func target(_ value: Unit.Target) -> Self {
-            .init(name: "target", value: value.description)
-        }
-
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "form" }
@@ -72,20 +25,21 @@ public struct Form: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "form")
 
 
-    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-
-        for attribute in attributes {
-            self.attributes[attribute.name] = attribute.value
-        }
+        dumpDependencies()
 
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

@@ -5,20 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The div element has no special meaning at all. It represents its children. It can be used with the class, lang, and title attributes to mark up semantics common to a group of consecutive elements.
 public struct Div: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "div" }
@@ -32,23 +25,20 @@ public struct Div: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
-
+    public var renderer: some Renderable = JSNode(named: "div")
 
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
     }
 
-    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-
-        for attribute in attributes {
-            self.attributes[attribute.name] = attribute.value
-        }
+        dumpDependencies()
 
     }
 
@@ -56,8 +46,13 @@ public struct Div: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

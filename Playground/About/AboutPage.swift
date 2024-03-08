@@ -1,9 +1,10 @@
 import Sailor
-import JavaScriptKit
 
 struct AboutPage: Page {
     @State var myNum: Int = 0
     @State var myString: String = ""
+    @State var url: String = ""
+
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
     
     var body: some Page {
@@ -15,6 +16,23 @@ struct AboutPage: Page {
                     myNum += 1
                 }
             H3("num: \(myNum)")
+//
+            
+//            Div{ myString }
+//            SubPage1(myString: $myString)
+//            Button{"click me"}
+//                .onClick {
+//                    myNum += 1
+//                }
+//            H3{"num: \(myNum)"}
+            
+            
+//            A(href: "www.mysite.com")
+            
+//                .href{"www.google.com"}
+//                .alt{"this is a link"}
+            
+            
         }
     }
 }
@@ -36,33 +54,9 @@ struct SubPage1: Page {
                     myString = "mine bruh"
                 }
 
-//            if myNum % 2 == 0 {
-//                Div("This number is \(myNum)")
-//            }
-            
             Input($myString)
                 .id("Hello")
-            
-//            Img(src: source, alt: source)
-//                .classes("my-class")
-//
-//            Img(src: source, alt: source)
-            
-            
-//            Div("WHO AM I")
-//                .wind(
-//                    .p10, .m0, .w64, .h64,
-//                    .hover(.bgBlack)
-////                    .sm(.mx0, .p10, .m0),
-////                    .md(.p10, .m0),
-////                    .lg(.p10, .m0)
-//                )
-//
-//            Button("this is a button")
-//                .onClick {
-//                    print("I was clicked")
-//                    myNum += 1
-//                }
+     
         }
     }
 }
