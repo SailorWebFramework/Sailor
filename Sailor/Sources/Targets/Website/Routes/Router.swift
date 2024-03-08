@@ -28,6 +28,7 @@ public struct Router<MyRoutes: Routes>: Operator {
         }
         
         if self.children.isEmpty {
+            //TODO: TACO
             self.children.append(Route<MyRoutes>(.NotFound) { notFound() })
         }
 //        Self.setupRouteListener()

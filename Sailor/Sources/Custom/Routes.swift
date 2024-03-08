@@ -45,6 +45,6 @@ public final class Navigation<MyRoutes: Routes> {
     public func go(to route: MyRoutes) {
         self.route = route
         assignRoute(route)
-        SailboatGlobal.manager.update()
+        SailorGlobal.manager.update()
     }
 }

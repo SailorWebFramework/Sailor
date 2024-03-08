@@ -25,10 +25,5 @@ public struct List: Operator {
         self.children = children
 
     }
-    
-    public init(@PageBuilder _ builder: @escaping () -> any Operator) {
-        self.children = builder().children
-
-    }
 
 }

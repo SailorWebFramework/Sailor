@@ -5,11 +5,15 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-public typealias StateValue = any Equatable
-public typealias StateNode = LinkedListNode<StateValue>
+import Foundation
+
+public typealias StateID = String
 
 @propertyWrapper
-public class State<Value: Equatable> {
+public class State<Value: Equatable>: Identifiable, Stateful {
+    
+    public let id: StateID = UUID().uuidString
+    
     private var value: Value
 
     public var wrappedValue: Value {
@@ -24,16 +28,21 @@ public class State<Value: Equatable> {
     public var projectedValue: Binding<Value> {
         Binding(
             get: { self.getValue() },
-            set: { self.setValue($0) }
+            set: { self.setValue($0) },
+            id: id
         )
     }
     
     public init(wrappedValue: Value) {
         self.value = wrappedValue
+        
     }
     
     private func getValue() -> Value {
-        self.value
+        print("DUMPING \(self)")
+        SailboatGlobal.manager.dumpDependency(state: self)
+
+        return self.value
     }
     
     private func setValue(_ value: Value) {
@@ -43,11 +52,7 @@ public class State<Value: Equatable> {
         
         self.value = value
         
-        SailboatGlobal.manager.update()
-
-        // TODO: Maybe batch updates eventually
-//        SailboatGlobal.shared.update(state: self.node, newValue: value)
-
+//        SailboatGlobal.manager.eventAdd(state: self)
     }
 
 }

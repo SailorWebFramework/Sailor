@@ -5,11 +5,14 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// Div used to test internal Sailboat
 public struct TDiv: Element {
-    public var renderer: any Renderable = TestRenderable()
+    public var id: Sailboat.ElementID = UUID().uuidString
+
+    public var renderer: some Renderable = TestRenderable()
     
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String

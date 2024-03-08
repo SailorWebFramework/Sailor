@@ -5,40 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
 public struct Meta: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-        ///Declares the document's character encoding.
-        static func charset(_ value: String) -> Self {
-            .init(name: "charset", value: value.description)
-        }
-
-        ///The value of the element.
-        static func content(_ value: String) -> Self {
-            .init(name: "content", value: value.description)
-        }
-
-        ///Indicates that the content is a pragma directive.
-        static func httpEquiv(_ value: String) -> Self {
-            .init(name: "httpEquiv", value: value.description)
-        }
-
-        ///The name of the metadata.
-        static func name(_ value: String) -> Self {
-            .init(name: "name", value: value.description)
-        }
-
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "meta" }
@@ -52,15 +25,20 @@ public struct Meta: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "meta")
 
 
     public init() {   
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes
