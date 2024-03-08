@@ -17,7 +17,7 @@ extension PageNode {
             fatalError("cant find self in parent node")
         }
         
-        let newPageNode = DefaultManager.build(page: page, parent: nil)
+        let newPageNode = SailboatGlobal.manager.build(page: page, parent: nil)
         
         parent.insert(newPageNode, at: index)
 

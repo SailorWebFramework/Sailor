@@ -8,19 +8,22 @@
 import Sailboat
 import JavaScriptKit
 
-
-//extension HTMLElement: CustomStringConvertible {
-//    var description: String {
-//        var output = ""
-//        for (key, value) in node.attributes {
-//            output +=
-//            self.addAttribute(name: key, value: value)
-//        }
-//        return output
-//    }
-//}
-
-final class JSNode: CustomStringConvertible {
+final class JSNode: CustomStringConvertible, Renderable {
+    func addToParent(_ parentNode: any Renderable) {
+        var parentNode = parentNode as! JSNode
+        
+        parentNode.children.append(self)
+        _ = parentNode.element.appendChild?(self.element)
+    }
+        
+    func remove() {
+        self.removeFromDOM()
+    }
+    
+    func replace(with renderable: any Renderable) {
+        fatalError("not implemented replace yet")
+    }
+    
     typealias JSAttributes = [String: String]
 
     public static let window = JSObject.global.window
@@ -99,7 +102,7 @@ final class JSNode: CustomStringConvertible {
     }
     
     // TODO: force unwrapping?
-    convenience init(named name: String, events: [String: (EventResult) -> Void], attributes: JSAttributes = [:], parent: JSNode? = nil) {
+    convenience init(named name: String, events: [String: (EventResult) -> Void] = [:], attributes: JSAttributes = [:], parent: JSNode? = nil) {
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")
         }
@@ -204,7 +207,7 @@ final class JSNode: CustomStringConvertible {
     }
     
     // TODO: make this (EventResult) -> Void
-    private func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
+    public func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
         let jsClosure = EventResult.getClosure(name, action: closure)
         self.events[name] = jsClosure
         
@@ -212,7 +215,7 @@ final class JSNode: CustomStringConvertible {
         
     }
     
-    private func addAttribute(name: String, value: String) {
+    public func addAttribute(name: String, value: String) {
         _ = self.element.setAttribute?(name, value)
         self.attributes[name] = value
 
@@ -263,7 +266,9 @@ final class JSNode: CustomStringConvertible {
     
     // TODO: may need to remove text content if the component was a TextComponent
     // ie. self.editContent(text: "")
-    func addChild(_ child: JSNode) {
+    func addChild(_ child: any Renderable) {
+        var child = child as! JSNode
+
 //        if self.isTextComponent {
 //            reset()
 //        }
@@ -273,6 +278,7 @@ final class JSNode: CustomStringConvertible {
         // add child given we are parent
         child.parent = self
         child.addToParent()
+        
     }
     
     func addToParent() {

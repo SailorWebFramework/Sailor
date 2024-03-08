@@ -7,7 +7,9 @@ extension Element {
         var copy = self
 
         copy.events["click"] = { _ in
+            SailorGlobal.manager.startEvent()
             completion()
+            SailorGlobal.manager.endEvent()
         }
 
         return copy

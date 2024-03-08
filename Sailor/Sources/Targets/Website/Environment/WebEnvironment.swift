@@ -55,7 +55,7 @@ public final class WebEnvironment<MyRoutes: Routes>: SomeEnvironment {
         _ = stack.popLast()
     }
     
-    public var navigation: Sailboat.Navigation<MyRoutes>
+    public var navigation: Navigation<MyRoutes>
     
     public var url: String {
         JSNode.window.location.object!.href.string!

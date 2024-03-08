@@ -5,60 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
 public struct A: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-        ///The URL of the link.
-        static func href(_ value: String) -> Self {
-            .init(name: "href", value: value.description)
-        }
-
-        ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
-        static func download(_ value: String) -> Self {
-            .init(name: "download", value: value.description)
-        }
-
-        ///Specifies the language of the linked document.
-        static func hreflang(_ value: Unit.Language) -> Self {
-            .init(name: "hreflang", value: value.description)
-        }
-
-        ///Specifies what media/device the linked document is optimized for.
-        static func media(_ value: String) -> Self {
-            .init(name: "media", value: value.description)
-        }
-
-        ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
-        static func ping(_ value: String...) -> Self {
-            .init(name: "ping", value: value.map{ $0.description }.joined(separator: " "))
-        }
-
-        ///Specifies which referrer information to send when fetching the linked resource.
-        static func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-            .init(name: "referrerpolicy", value: value.description)
-        }
-
-        ///Specifies the relationship between the current document and the linked document.
-        static func rel(_ value: String) -> Self {
-            .init(name: "rel", value: value.description)
-        }
-
-        ///Specifies where to open the linked document.
-        static func target(_ value: Unit.Target) -> Self {
-            .init(name: "target", value: value.description)
-        }
-
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "a" }
@@ -72,23 +25,21 @@ public struct A: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "a")
 
 
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
     }
 
-    public init(_ attributes: ElementAttributeGroup..., @PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-
-        for attribute in attributes {
-            self.attributes[attribute.name] = attribute.value
-        }
+        dumpDependencies()
 
     }
 
@@ -96,6 +47,7 @@ public struct A: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
 
         self.attributes["href"] = href.description
         
@@ -105,11 +57,17 @@ public struct A: Element {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-
+        
         self.attributes["href"] = href.description
+
+        dumpDependencies()
         
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

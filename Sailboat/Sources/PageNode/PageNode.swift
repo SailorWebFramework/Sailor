@@ -5,7 +5,7 @@
 //  Created by Joshua Davis on 12/22/23.
 //
 
-public protocol PageNode: AnyObject, CustomStringConvertible {
+public protocol PageNode: AnyObject, CustomStringConvertible, Identifiable {
     
     //TODO: make linked list? LinkedList<PageNode>
     ///
@@ -26,6 +26,9 @@ public protocol PageNode: AnyObject, CustomStringConvertible {
     
     /// update this specific nodes elements and update dom
     func update(using page: any Page)
+    
+    ///
+//    func build(page: any Page, parent: (any PageNode)?)
     
     ///
     func compare(to page: any Page) -> Bool
@@ -50,4 +53,12 @@ extension PageNode {
         node.parent = self
         
     }
+    
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(self.id)
+//    }
+//
+//    public static func == (lhs: Self, rhs: Self) -> Bool {
+//        lhs.hashValue == rhs.hashValue
+//    }
 }
