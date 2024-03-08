@@ -5,60 +5,13 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// The link element allows authors to link their document to other resources.
 public struct Link: Element {
-    public struct ElementAttributeGroup: AttributeGroup, GlobalAttributeGroup {
-        public let name: String
-        public let value: String
-        
-        public init(name: String, value: String) {
-            self.name = name
-            self.value = value
-        }
 
-        ///The URL of the link.
-        static func href(_ value: String) -> Self {
-            .init(name: "href", value: value.description)
-        }
-
-        ///How the element handles cross-origin requests.
-        static func crossorigin(_ value: Unit.CrossOrigin) -> Self {
-            .init(name: "crossorigin", value: value.description)
-        }
-
-        ///Specifies the language of the linked document.
-        static func hreflang(_ value: Unit.Language) -> Self {
-            .init(name: "hreflang", value: value.description)
-        }
-
-        ///Specifies what media/device the linked document is optimized for.
-        static func media(_ value: String) -> Self {
-            .init(name: "media", value: value.description)
-        }
-
-        ///Specifies which referrer information to send when fetching the linked resource.
-        static func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-            .init(name: "referrerpolicy", value: value.description)
-        }
-
-        ///Specifies the relationship between the current document and the linked document.
-        static func rel(_ value: String) -> Self {
-            .init(name: "rel", value: value.description)
-        }
-
-        ///The sizes attribute gives the sizes of the icons for visual media.
-        static func sizes(_ value: String) -> Self {
-            .init(name: "sizes", value: value.description)
-        }
-
-        ///Specifies the media type of the linked document.
-        static func type(_ value: String) -> Self {
-            .init(name: "type", value: value.description)
-        }
-
-    }
+    public var id: ElementID = UUID().uuidString
 
     /// name of the html tag associated with this type
     public var name: String { "link" }
@@ -72,19 +25,24 @@ public struct Link: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: any Renderable = JSNodeRenderer()
+    public var renderer: some Renderable = JSNode(named: "link")
 
 
     public init(rel: String, href: String) {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
+        dumpDependencies()
 
         self.attributes["rel"] = rel.description
         self.attributes["href"] = href.description
         
     }
 
+
+    internal func dumpDependencies() {
+        SailorGlobal.manager.dumpTo(element: self, toBody: false)
+    }
 }
 
 // MARK: - Attributes

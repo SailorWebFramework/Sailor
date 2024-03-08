@@ -5,10 +5,19 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 // TODO: do this
 class TestRenderable: Renderable {
+    func addToParent(_ parentNode: Sailboat.Renderable) {
+        
+    }
+    
+    func addChild(_ childNode: Sailboat.Renderable) {
+        
+    }
+    
     func render() {
         
     }
@@ -29,7 +38,7 @@ class TestRenderable: Renderable {
         
     }
     
-    func addEvent(name: String, value: (Sailboat.EventResult) -> Void) {
+    func addEvent(name: String, closure value: (Sailboat.EventResult) -> Void) {
         
     }
     
@@ -50,7 +59,9 @@ class TestRenderable: Renderable {
 
 /// Button used to test internal Sailboat
 public struct TButton: Element {
-    public var renderer: any Renderable = TestRenderable()
+    public var id: Sailboat.ElementID = UUID().uuidString
+    
+    public var renderer: some Renderable = TestRenderable()
     
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String

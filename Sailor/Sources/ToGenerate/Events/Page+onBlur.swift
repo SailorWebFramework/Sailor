@@ -4,9 +4,11 @@ import Sailboat
 extension Element {
     public func onBlur(_ completion: @escaping () -> Void) -> Self {
         var copy = self
-
+        
         copy.events["blur"] = { _ in
+            SailorGlobal.manager.startEvent()
             completion()
+            SailorGlobal.manager.endEvent()
         }
 
         return copy

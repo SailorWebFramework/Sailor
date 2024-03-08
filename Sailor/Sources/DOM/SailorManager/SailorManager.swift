@@ -16,6 +16,7 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     internal var reconcileIndexStack: [Int] = []
     
+
     override init() {
         super.init()
         self.environment = WebEnvironment<WebRoutes>()
@@ -30,14 +31,12 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     }
     
     override public func build<GenericPage: Page>(page: GenericPage) {
-        documentNode.reset()
- 
         super.build(page: page)
         
         // If the user didnt specify a body add this element in implicitly
         if !(page is Body) {
-            let bodyElement = ElementNode(page: Body { List { page } }, parent: nil)
-            let operatorElement = OperatorNode(page: List { page }, parent: nil)
+            let bodyElement = ElementNode(page: Body { List ([page]) }, parent: nil)
+            let operatorElement = OperatorNode(page: List([page]), parent: nil)
             
             operatorElement.append(self.body!)
             bodyElement.append(operatorElement)
@@ -45,7 +44,10 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
             self.body = bodyElement
         }
         
+        documentNode.reset()
         reconcile()
+        
+        self.body?.printNode()
         
 //        debugMarker("Built:")
     }
