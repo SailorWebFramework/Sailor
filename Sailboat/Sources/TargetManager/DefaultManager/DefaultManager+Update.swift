@@ -13,31 +13,31 @@ extension DefaultManager {
     // TODO: ^ this uneccisary can count state refs in init of
     
     /// new update function, updates a customNode until it reaches another custom node
-    internal func updateShallow(node: CustomNode) {
-//        fatalError("do this update shallow")
-        
-        func updateHelper(innerNode: any PageNode, page: any Page) {
-            
-            
-            if !(innerNode is CustomNode) {
-                
-                // if tag is different replace everything in body?
-                if !node.compareTag(to: page) {
-                    node.replace(using: page)
-                    return
-                }
-                
-                for child in innerNode.children {
-//                    updateHelper(innerNode: child, page: page)
-                }
-            }
-            
-        }
-        
-        // TODO: Force cast? Custom Node must have exactly one child
-        updateHelper(innerNode: node.children.first!, page: node.page.body)
-        
-    }
+//    internal func updateShallow(node: CustomNode) {
+////        fatalError("do this update shallow")
+//
+//        func updateHelper(innerNode: any PageNode, page: any Page) {
+//
+//
+//            if !(innerNode is CustomNode) {
+//
+//                // if tag is different replace everything in body?
+//                if !node.compareTag(to: page) {
+//                    node.replace(using: page)
+//                    return
+//                }
+//
+//                for child in innerNode.children {
+////                    updateHelper(innerNode: child, page: page)
+//                }
+//            }
+//
+//        }
+//
+//        // TODO: Force cast? Custom Node must have exactly one child
+//        updateHelper(innerNode: node.children.first!, page: node.page.body)
+//
+//    }
     
     /// old update function
     internal func update(node: any PageNode, with page: any Page) {

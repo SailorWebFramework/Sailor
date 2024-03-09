@@ -18,7 +18,7 @@ class TestRenderable: Renderable {
         
     }
     
-    func render() {
+    func render(page: any Element) {
         
     }
     
@@ -34,7 +34,7 @@ class TestRenderable: Renderable {
         
     }
     
-    func addAttribute(name: String, value: String) {
+    func updateAttribute(name: String, value: String) {
         
     }
     
@@ -54,6 +54,9 @@ class TestRenderable: Renderable {
         
     }
     
+    func debugPrint() {
+        
+    }
     
 }
 
