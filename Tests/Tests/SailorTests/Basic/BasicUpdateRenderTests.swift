@@ -18,8 +18,8 @@ final class BasicUpdateRenderTests: XCTestCase, SailorTestCase {
     }
 
     override func tearDown() {
-        sailorManager.documentNode.reset()
-        SailorGlobal.manager = nil
+//        sailorManager.documentNode.reset()
+        SailboatGlobal.manager = nil
     }
 
     func testBasicStateRender() throws {

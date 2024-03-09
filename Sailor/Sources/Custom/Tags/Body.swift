@@ -34,7 +34,8 @@ public struct Body: Element {
     /// content that is contained by this html element
     public var content: TagContent
 
-    public var renderer: some Renderable = JSNode(root: true)
+    // TODO: make this SailboatGlobal.documentNode ??
+    public var renderer: some Renderable = JSNode()
 
     public init(_ text: String) {
         self.content = .text(text)

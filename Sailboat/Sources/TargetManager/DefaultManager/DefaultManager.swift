@@ -12,7 +12,6 @@ public struct ManagedEvent {
     public var states: [StateID] = []
 }
 
-
 public struct ManagedPage {
     public var currentElement: (ElementNode)? = nil
     public var parentElement: (ElementNode)? = nil
@@ -26,7 +25,7 @@ open class DefaultManager: TargetManager {
     public var environment: (any SomeEnvironment)? = nil
     
     // TODO: state objects here, or inside of environment
-//    public var objects: [String: String] = [:]
+    public var objects: [StateID: any Equatable] = [:]
     
     public var managedPage: ManagedPage = .init()
     
@@ -119,46 +118,6 @@ open class DefaultManager: TargetManager {
             print(elements)
         }
 
-                
-    }
-    
-    internal func dumpToCurrentPage() {
-//        guard let currentPage = self.managedPage.currentPage else { return }
-//        let states = dump()
-//
-//        for state in states {
-//            stateToPagesMap[state, default: (customs: [], elements: [])].customs.append(currentPage)
-//        }
-//
-//        print("REGISTERED \(currentPage)")
-//        print("STATES \(states)")
-//
-//        print(stateToPagesMap)
-                
-    }
-    
-    public func registerPageNode(_ pageNode: CustomNode) {
-        
-//        let states = dump()
-//
-//        for state in states {
-//            stateToPagesMap[state, default: (customs: [], elements: [])].customs.append(pageNode)
-//        }
-//
-
-//        let pageMirror = Mirror(reflecting: pageNode.page)
-//
-//        pageMirror.children.forEach { item in
-//
-//            if let statefulItem = item.value as? Stateful {
-//                stateToPagesMap[statefulItem.id, default: []].append(pageNode)
-//                print("item:", item)
-//            }
-//
-//        }
-//
-//        print("STATES MAP NOW \(stateToPagesMap)")
-//
     }
     
     public func startEvent() {
@@ -170,7 +129,7 @@ open class DefaultManager: TargetManager {
     }
     
     // TODO: rename to like 
-    public func dumpDependency<StateValue : Equatable>(state: State<StateValue>) {
+    public func dumpDependency(state: any Stateful) {
         stateCallbackHistory.append(state.id)
 
     }

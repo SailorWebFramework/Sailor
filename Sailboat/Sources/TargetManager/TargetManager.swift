@@ -7,10 +7,11 @@
 
 public protocol TargetManager {
 
-    var environment: (any SomeEnvironment)? { get set }
     var body: (any PageNode)? { get set }
-    
+    var environment: (any SomeEnvironment)? { get set }
+
     var elements: [ElementID: ElementNode] { get set }
+    var objects: [StateID: any Equatable] { get set }
 
     var managedEvent: ManagedEvent { get set }
     var managedPage: ManagedPage { get set }
@@ -28,18 +29,17 @@ public protocol TargetManager {
     
     func update()
     
-    func registerPageNode(_ pageNode: CustomNode)
+//    func registerPageNode(_ pageNode: CustomNode)
     
     func startEvent()
     func eventAdd<StateValue: Equatable>(state: State<StateValue>)
     func endEvent()
 
-    
     func dumpTo(element: any Element, toBody: Bool)
     func dumpTo(element: any Element)
 
     func dump() -> [StateID]
-    func dumpDependency<StateValue: Equatable>(state: State<StateValue>)
+    func dumpDependency(state: any Stateful)
     
 
     

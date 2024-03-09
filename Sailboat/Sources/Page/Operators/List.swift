@@ -13,7 +13,7 @@ public struct List: Operator {
     public var children: [any Page]
 
     public var body: some Page {
-        InternalError.recursingInPageBody(name: "container")
+        InternalError.recursingInPageBody(name: "list")
         return self
     }
     

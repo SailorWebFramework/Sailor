@@ -6,14 +6,7 @@
 //
 
 
-public protocol EnvironmentStore {
-    
-}
-
-public protocol SomeEnvironment {
-//    associatedtype EnvRoutes: Routes
-//    var navigation: Navigation<EnvRoutes> { get set }
-}
+public protocol SomeEnvironment { }
 
 @propertyWrapper
 public class Environment<TargetEnvironment: SomeEnvironment, Value> {
