@@ -32,28 +32,21 @@ public struct Button: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
     public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
-
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

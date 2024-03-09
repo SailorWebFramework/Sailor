@@ -10,7 +10,7 @@ import JavaScriptKit
 
 final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
-    internal let documentNode: JSNode = JSNode(root: true)
+    internal let documentNode: JSNode = JSNode()
     
 //    internal var buildStatesTempRef: PageNode? = nil
     
@@ -31,21 +31,29 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     }
     
     override public func build<GenericPage: Page>(page: GenericPage) {
-        super.build(page: page)
         
-        // If the user didnt specify a body add this element in implicitly
-        if !(page is Body) {
-            let bodyElement = ElementNode(page: Body { List ([page]) }, parent: nil)
-            let operatorElement = OperatorNode(page: List([page]), parent: nil)
-            
-            operatorElement.append(self.body!)
-            bodyElement.append(operatorElement)
-
-            self.body = bodyElement
+//        // If the user didnt specify a body add this element in implicitly
+//        if !(page is Body) {
+//            let bodyElement = ElementNode(page: Body { List ([page]) }, parent: nil)
+//            let operatorElement = OperatorNode(page: List([page]), parent: nil)
+//
+//            operatorElement.append(self.body!)
+//            bodyElement.append(operatorElement)
+//
+//            self.body = bodyElement
+//        }
+//
+        
+        // TODO: auto add body if not defined?
+        if page is Body {
+            super.build(page: page)
+        } else {
+            super.build(page: Body { page })
         }
+
         
-        documentNode.reset()
-        reconcile()
+//        documentNode.reset()
+//        reconcile()
         
         self.body?.printNode()
         
@@ -54,7 +62,7 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     override public func update() {
         super.update()
-        reconcile()
+//        reconcile()
 //        debugMarker("updated:")
 
     }
@@ -64,7 +72,7 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
         guard let body = self.body else { return }
 //        guard let firstChild = documentNode.children.first else { return }
         
-        reconcile(node: body, element: documentNode)
+//        reconcile(node: body, element: documentNode)
         
 //        reconcile(node: body, element: firstChild)
     }

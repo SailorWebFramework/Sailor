@@ -1,34 +1,34 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Joshua Davis on 1/3/24.
 //
 
 import XCTest
 @testable import Sailor
-
+import Sailboat
 
 protocol SailorTestCase: SailboatTestCase {
     var sailorManager: SailorManager<NoRoutes> { get }
 }
 
 extension SailorTestCase {
-    
+
     var testIterations: Int { 20 }
-    
+
     var sailorManager: SailorManager<NoRoutes> {
-        SailorGlobal.manager as! SailorManager
+        SailboatGlobal.manager as! SailorManager
     }
-    
+
     var jsnode: JSNode {
         sailorManager.documentNode
     }
-    
+
     internal func printBody() {
         sailorManager.documentNode.printNode()
     }
-    
+
     func getJSChild(_ node: JSNode, at index: Int = 0) -> JSNode {
         if index < node.children.count {
             return node.children[index]
@@ -36,23 +36,23 @@ extension SailorTestCase {
         XCTAssertTrue(false, "JSNode does not have child at index \(index)")
         fatalError()
     }
-    
-    internal func compare(htmlNode: HTMLNode, jsnode: JSNode) -> Bool {
-        guard let page = htmlNode.page as? any HTMLElement else {
+
+    internal func compare(htmlNode: ElementNode, jsnode: JSNode) -> Bool {
+        guard let page = htmlNode.page as? any Element else {
             print("FAILED")
             return false
-            
+
         }
-        
+
         // CHECK TAG
         if page.name.uppercased() != jsnode.tagName?.uppercased() {
             print("FAILED")
             return false
         }
-        
+
         // CHECK Content
-        
-        
+
+
         if case let .text(value) = htmlNode.content {
             if jsnode.content != value {
                 print("FAILED")
@@ -64,7 +64,7 @@ extension SailorTestCase {
                 return false
             }
         }
-        
+
         // TODO: check attributes in SailorTestCase
 //        for (key, value) in htmlNode.attributes {
 //            if let curValue = jsnode.attributes[key] { return false }
@@ -72,7 +72,7 @@ extension SailorTestCase {
 //                return false
 //            }
 //        }
-        
+
         // CHECK ATTRIBUTES
 //        if !htmlNode.attributes == jsnode.attributes {
 //            print("FAILED")
@@ -84,22 +84,22 @@ extension SailorTestCase {
             print("FAILED")
             return false
         }
-        
+
         return true
     }
-    
+
     internal func verifyDOM() {
         let body = sailorManager.body!
 
         // TODO: THis test is broken asf
-        func compareHTML(pageNode: HTMLNode, jsnode: JSNode) {
+        func compareHTML(pageNode: ElementNode, jsnode: JSNode) {
             print("comparingHTML: \(pageNode) , to: \(jsnode)")
 
             XCTAssertTrue(
                 compare(htmlNode: pageNode, jsnode: jsnode),
                 "HTML node \"\(pageNode)\" not equal to jsNode \"\(jsnode)\""
             )
-            
+
             print("HTMLNODE", pageNode.children.isEmpty)
 
             if !pageNode.children.isEmpty {
@@ -116,24 +116,24 @@ extension SailorTestCase {
             print("comparing: \(pageNode) , using parent: \(parent)")
             print("stack: \(stack)")
 
-            if let pageNode = pageNode as? HTMLNode {
+            if let pageNode = pageNode as? ElementNode {
                 if let firstjs = parent.children.first {
-                    
+
                     compareHTML(pageNode: pageNode, jsnode: firstjs)
 
                 } else {
                     XCTAssertTrue(false, "HTML node has incorrect number of children")
                 }
-                
+
             } else if let pageNode = pageNode as? OperatorNode {
-                
+
                 if stack == nil {
                     stack = parent.children
                 }
 
                 for i in 0..<pageNode.children.count {
                     if !(stack?.isEmpty ?? true) {
-                        if let childNode = pageNode.children[i] as? HTMLNode,
+                        if let childNode = pageNode.children[i] as? ElementNode,
                            let jschild = stack?.removeFirst()
                         {
                             compareHTML(
@@ -165,7 +165,7 @@ extension SailorTestCase {
                 }
             }
         }
-        
+
         var stack: [JSNode]? = nil
         traverse(pageNode: body, parent: jsnode, stack: &stack)
     }

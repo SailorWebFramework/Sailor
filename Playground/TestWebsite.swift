@@ -10,7 +10,7 @@ struct TestWebsite: Website {
 //    @State var myname: String = "josh"
       
     var body: some Page {
-        Div {
+        Body {
             
             NavBar()
             
@@ -20,6 +20,9 @@ struct TestWebsite: Website {
                 
                 Route(.Root) {
                     HomePage()
+                        .onAppear {
+                            print("HI IM HERE")
+                        }
                 }
 
                 Route(.about) {
@@ -45,16 +48,7 @@ struct TestWebsite: Website {
 //            Link(rel: "stylesheet", href: "sheet3.css")
 //        }
         
-        
-//        .onAppear {
-//            environment.title("This Is My Website")
-//            environment.favicon("resources/icon.ico")
-//            environment.add {
-//                Link(rel: "stylesheet", href: "sheet1.css")
-//                Link(rel: "stylesheet", href: "sheet2.css")
-//                Link(rel: "stylesheet", href: "sheet3.css")
-//            }
-//        }
+
     }
 }
 
