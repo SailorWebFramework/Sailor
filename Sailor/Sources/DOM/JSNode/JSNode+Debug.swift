@@ -1,12 +1,21 @@
 //
-//  File.swift
+//  JSNode+Debug.swift
 //  
 //
 //  Created by Joshua Davis on 12/26/23.
 //
 
 
-extension JSNode {
+extension JSNode: CustomStringConvertible {
+    
+    var description: String {
+        """
+        JSNode(type: \(tagName ?? ""), events: \(events.count), attributes: \(attributes), \(
+                        children.count > 0 ? "children: \(children.count)" : "content: \"\(content ?? "")\""
+        ))
+        """
+    }
+    
     public func printNode() {
         Swift.print(self.stackString(tabs: 4))
     }

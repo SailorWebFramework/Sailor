@@ -6,9 +6,9 @@ extension Element {
         var copy = self
         
         copy.events["blur"] = { _ in
-            SailorGlobal.manager.startEvent()
+            SailboatGlobal.manager.startEvent()
             completion()
-            SailorGlobal.manager.endEvent()
+            SailboatGlobal.manager.endEvent()
         }
 
         return copy

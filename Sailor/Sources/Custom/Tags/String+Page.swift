@@ -24,10 +24,17 @@ class StringRenderer: Renderable {
     
     public func replace(with renderable: Sailboat.Renderable) { }
     
-    public func addAttribute(name: String, value: String) { }
+    public func updateAttribute(name: String, value: String) { }
     
     public func addEvent(name: String, closure: @escaping (Sailboat.EventResult) -> Void) { }
     
+    public func debugPrint() {
+        
+    }
+    
+    public func render(page: any Element) {
+        
+    }
 }
 
 // TODO: get string to work properly
@@ -65,7 +72,7 @@ extension String: Element {
     
     public var renderer: some Renderable {
         get {
-            JSNode()
+            JSNode(named: "div")
         }
         set(newValue) { }
         

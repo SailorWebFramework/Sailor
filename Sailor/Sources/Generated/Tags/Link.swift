@@ -32,7 +32,6 @@ public struct Link: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
 
         self.attributes["rel"] = rel.description
         self.attributes["href"] = href.description
@@ -40,9 +39,6 @@ public struct Link: Element {
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

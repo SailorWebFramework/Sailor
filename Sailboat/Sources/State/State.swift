@@ -9,6 +9,10 @@ import Foundation
 
 public typealias StateID = String
 
+public protocol Stateful {
+    var id: StateID { get }
+}
+
 @propertyWrapper
 public class State<Value: Equatable>: Identifiable, Stateful {
     
@@ -39,9 +43,7 @@ public class State<Value: Equatable>: Identifiable, Stateful {
     }
     
     private func getValue() -> Value {
-        print("DUMPING \(self)")
         SailboatGlobal.manager.dumpDependency(state: self)
-
         return self.value
     }
     
@@ -51,8 +53,6 @@ public class State<Value: Equatable>: Identifiable, Stateful {
         }
         
         self.value = value
-        
-//        SailboatGlobal.manager.eventAdd(state: self)
     }
 
 }

@@ -11,7 +11,7 @@ import JavaScriptKit
 public typealias Page = Sailboat.Page
 public typealias State = Sailboat.State
 public typealias Binding = Sailboat.Binding
-//public typealias PageBuilder = Sailboat.PageBuilder
+public typealias EnvironmentObject = Sailboat.EnvironmentObject
 
 //public typealias Navigator<EnvRoutes: Routes, EnvValue> = Sailboat.Environment<WebEnvironment<EnvRoutes>, EnvValue>
 //public typealias Environment<Value> = Sailboat.Environment<WebEnvironment<NoRoutes>, Value>

@@ -32,13 +32,9 @@ public struct H2: Element {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

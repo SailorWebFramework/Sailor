@@ -32,14 +32,9 @@ public struct Nav: Element {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
-
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

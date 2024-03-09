@@ -1,8 +1,4 @@
 import Sailor
-//import JavaScriptKit
-
-
-//let window = JSObject.global.window
 
 struct HomePage: Page {
 //    @Environment(\.navigation) var navigation: Navigation<AppRoutes>
@@ -14,8 +10,7 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
-            
+//            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
             
             if myNum == 10 {
                 A("hello its").href("#MyImage")
@@ -24,9 +19,7 @@ struct HomePage: Page {
             if toggle {
                 H2("subtitle")
                 
-                Div {
-                    "my text is this"
-                }
+                Div("more text!")
                 
 //                A (href: "www.google.com", alt: "this is a photo") {
 //                    "my text"
@@ -36,7 +29,7 @@ struct HomePage: Page {
             }
             
             
-//            Div {
+//            Dizv {
 ////                Div { "hello \(name)" }
 //                
 //                A(href: "www.google.com", alt: "this is alt text") {
@@ -64,7 +57,7 @@ struct HomePage: Page {
                             
 //            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
             Button("HELLO \(myNum)")
-                .autofocus(true)
+//                .autofocus(true)
                 .name("button-name")
                 .classes("customclass", "customclass2")
                 .onClick {
@@ -76,50 +69,37 @@ struct HomePage: Page {
                     toggle.toggle()
                 }
             
-                        
 //                .classes("m-0 sm:w-64 sm:h-64 m-0 shadow-lg rounded-lg")
 //                .classes("w-12 h-12 lg:w-32 lg:h-32")
-
-//                .wind(
-//                    .m0, .w64, .h64, .m0, .shadowLg,
-//                    .animatePulse
-////                    .sm(.p10, .bgBlue50),
-////                    .lg(.p20, .bgRed100)
-//                )
             
-            
-//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
-//
-//            Div("my num is \(myNum)")
-//                .onClick {
-//                    myNum += 1
-//                }
-//
-//            Img(src: source, alt: "icon picture")
-//                .onClick {
-////                    navigator.navigate(to: .about)
-//                }
-//                .id("MyImage")
+            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
 
+            Div("my num is \(myNum)")
+                .onClick {
+                    myNum += 1
+                }
+
+            Img(src: source, alt: "icon picture")
+                .onClick {
+//                    navigator.navigate(to: .about)
+                }
+                .id("MyImage")
 //                .wind(
 //                    .m0
 //                )
         }
+        .onAppear {
+            print("I APPEARED")
+        }
 //        .head {
 //            Link(rel: "stylesheet", href: "www.stylesheet.com/mystylesheet.css")
-//            
+//
 //        }
 //        .wind(
 //            .m0, .p10
 //        )
 //
 //        .classes("p-10")
-//        .environment {
-//            $0
-//            .title("THis is my title")
-//            .link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
-//
-//        }
     }
     
 }

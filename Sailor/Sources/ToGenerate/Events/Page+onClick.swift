@@ -2,17 +2,14 @@
 import Sailboat
 
 extension Element {
-
+    // TODO: make all events like this
     public func onClick(_ completion: @escaping () -> Void) -> Self {
-        var copy = self
-
-        copy.events["click"] = { _ in
-            SailorGlobal.manager.startEvent()
+        withEvent(name: "click") { _ in
+            // TODO: problem is when we chain clicks together doesnt work
+            SailboatGlobal.manager.startEvent()
             completion()
-            SailorGlobal.manager.endEvent()
+            SailboatGlobal.manager.endEvent()
         }
-
-        return copy
     }
 
 }

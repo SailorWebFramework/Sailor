@@ -7,33 +7,6 @@
 
 import Foundation
 
-public protocol Renderable {
-//    associatedtype Node
-
-    func addToParent(_ parentNode: any Renderable)
-
-    func addChild(_ childNode: any Renderable)
-
-    func remove()
-    
-    func replace(with renderable: any Renderable)
-    
-    func addAttribute(name: String, value: String)
-
-    func addEvent(name: String, closure: @escaping (EventResult) -> Void)
-    
-//    func update(attributes: [String: String])
-    
-//    func render()
-    
-//    func onAppear()
-//
-//    func onDisappear()
-//
-//    func onUpdate()
-
-}
-
 public typealias ElementID = String
 
 public protocol Element: Page, Identifiable {
@@ -44,7 +17,7 @@ public protocol Element: Page, Identifiable {
     /// HTML tag name, all lowercased
     var name: String { get }
     
-    ///
+    /// Unique Element ID used to diff items
     var id: ElementID { get set }
     
     /// attributes on tag
@@ -75,7 +48,6 @@ public extension Element {
 
 public struct ElementAttributeGroup: AttributeGroup {
 
-    
     public var name: String
     public var value: String
     public var override: Bool
@@ -112,5 +84,21 @@ public extension Element {
         
         return copy
         
+    }
+    
+    func withEvent(name: String, _ closure: @escaping (EventResult) -> Void) -> Self {
+        var copy = self
+        
+        if let oldEvent = copy.events[name] {
+            copy.events[name] = { value in
+                oldEvent(value)
+                closure(value)
+            }
+        } else {
+            copy.events[name] = closure
+        }
+
+        
+        return copy
     }
 }

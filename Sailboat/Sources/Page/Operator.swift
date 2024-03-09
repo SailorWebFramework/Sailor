@@ -5,12 +5,13 @@
 //  Created by Joshua Davis on 12/22/23.
 //
 
-// TODO: consider renaming
 /// Operators are along the page tree and DOMNode Structure but are Hidden (not rendered) used to assist in rendering
 public protocol Operator: Page, Identifiable where ID == String {
     
     // children could be an enum with one page or a list of children
     var children: [any Page] { get set }
+    
+    // todo: remove?
     var id: ID { get set }
     
     // TODO:

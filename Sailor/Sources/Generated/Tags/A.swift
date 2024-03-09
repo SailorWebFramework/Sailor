@@ -32,22 +32,18 @@ public struct A: Element {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
     public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
-
     }
 
     public init(href: String) {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
 
         self.attributes["href"] = href.description
         
@@ -59,15 +55,10 @@ public struct A: Element {
         self.events = .init()
         
         self.attributes["href"] = href.description
-
-        dumpDependencies()
         
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

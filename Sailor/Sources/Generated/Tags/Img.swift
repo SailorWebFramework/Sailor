@@ -32,7 +32,6 @@ public struct Img: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
 
         self.attributes["src"] = src.description
         self.attributes["alt"] = alt.description
@@ -40,9 +39,6 @@ public struct Img: Element {
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

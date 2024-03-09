@@ -32,7 +32,6 @@ public struct Input: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
 
         self.attributes["type"] = type.description
         self.attributes["value"] = value.wrappedValue.description
@@ -47,7 +46,6 @@ public struct Input: Element {
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
 
         self.attributes["value"] = value.wrappedValue.description
         self.events["input"] = { eventResult in
@@ -58,9 +56,6 @@ public struct Input: Element {
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes

@@ -27,32 +27,26 @@ public struct Div: Element {
 
     public var renderer: some Renderable = JSNode(named: "div")
 
+
     public init(_ text: String) {
         self.content = .text(text)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
     public init(@PageBuilder content: @escaping () -> any Operator) {
         self.content = .list(content)
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
-
     }
 
     public init() {   
         self.content = .text("")
         self.attributes = .init()
         self.events = .init()
-        dumpDependencies()
     }
 
 
-    internal func dumpDependencies() {
-        SailorGlobal.manager.dumpTo(element: self, toBody: false)
-    }
 }
 
 // MARK: - Attributes
