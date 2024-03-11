@@ -8,8 +8,8 @@
 import Foundation
 
 public struct ManagedEvent {
-    fileprivate var semaphore: Int = 0
-    fileprivate var states: [StateID] = []
+    public var semaphore: Int = 0
+    public var states: [StateID] = []
 }
 
 public struct ManagedPage {
@@ -36,27 +36,31 @@ open class DefaultManager: TargetManager {
     public var elements: [ElementID: any Element] = [:]
     
     /// map of states to the pages they include
-    public var stateToPagesMap: [StateID: (body: [ElementID], local: [ElementID])] = [:]
+    public var stateToPagesMap: [StateID: [ElementID]] = [:]
     
     public init() { }
     
-    private struct BasePageWrapper<T: Page>: Page {
-        var page: T
-
-        var body: some Page {
-            page
-        }
-    }
-    
+//    private struct BasePageWrapper<T: Page>: Page {
+//        var page: T
+//
+//        var body: some Page {
+//            page
+//        }
+//    }
+//    
     open func build<GenericPage: Page>(page: GenericPage) {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
         
 //        self.body = self.build(page: page, parent: nil)
-        self.build(page: page)
+        managedEvent.semaphore += 1
+        
+        print("Start Build: \(managedEvent.semaphore)")
+        self.initialBuild(page: page)
+        
+        managedEvent.semaphore -= 1
 
     }
-    
     
     // TODO: func update(states: [UUID])
     open func update() {
@@ -68,23 +72,37 @@ open class DefaultManager: TargetManager {
         print(elements)
 
         for stateID in managedEvent.states {
-            if let (bodyUpdates, localUpdates) = stateToPagesMap[stateID] {
+            if let elementIDs = stateToPagesMap[stateID] {
                 
                 // body updates need a rerender of the body of the element
-                for elementID in bodyUpdates {
+                for elementID in elementIDs {
                     if let element = elements[elementID] {
-                        element.renderer.render(page: element)
+                        managedEvent.semaphore += 1
+
+                        print("STARTING UPDATE OF \(element)")
+
+//                        element.renderer.remove()
+//                        element.renderer.render(page: element)
+
+                        print("REMOVED SUCESSFULLY")
                         
-//                        element.renderer.build(page: element)
-//                        element.renderer.
-                    }
-                }
-                
-                // TODO: this doesnt work because not lazy loaded content or attributes
-                // local updates are text, attributes, and events?
-                for elementID in localUpdates {
-                    if let element = elements[elementID] {
-                        element.renderer.render(page: element)
+                        // builds the shallow content body and adds its state to the watchers
+                        if let content = element.content?() {
+                            print("ADDING TO GLOBAL")
+                            
+//                            SailboatGlobal.manager.dumpTo(element: element)
+                            
+                            print("ATTEMPTING TO BUILD BODY")
+                            // TODO: remove the old states in the states map and append these dumped
+                            
+                            
+//                            element.renderer.build(page: content, parent: element)
+                        }
+                        
+                        print("NO CONTENT")
+                        
+                        managedEvent.semaphore -= 1
+
                     }
                 }
             }
@@ -92,20 +110,13 @@ open class DefaultManager: TargetManager {
     }
     
     public func dumpTo(element: any Element) {
-        dumpTo(element: element, toBody: true)
-    }
-    
-    public func dumpTo(element: any Element, toBody: Bool) {
         let states = dump()
         
+        
+        print(stateToPagesMap)
+        
         for state in states {
-            if toBody {
-                stateToPagesMap[state, default: (body: [ElementID](), local: [ElementID]())].body.append(element.id)
-            } else {
-                stateToPagesMap[state, default: (body: [ElementID](), local: [ElementID]())].local.append(element.id)
-            }
-            
-//            self.elements[element.id] = element
+            stateToPagesMap[state, default: []].append(element.id)
         }
         
         // todo: ?
@@ -147,6 +158,7 @@ open class DefaultManager: TargetManager {
 
         if managedEvent.semaphore == 0 {
             update()
+//            print("I WOULD UPDATE BUT NO")
         }
     }
     
