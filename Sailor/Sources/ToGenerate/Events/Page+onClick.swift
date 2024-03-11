@@ -5,10 +5,7 @@ extension Element {
     // TODO: make all events like this
     public func onClick(_ completion: @escaping () -> Void) -> Self {
         withEvent(name: "click") { _ in
-            // TODO: problem is when we chain clicks together doesnt work
-            SailboatGlobal.manager.startEvent()
             completion()
-            SailboatGlobal.manager.endEvent()
         }
     }
 
