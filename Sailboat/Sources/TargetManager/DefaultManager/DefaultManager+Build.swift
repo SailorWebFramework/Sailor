@@ -7,24 +7,23 @@
 
 public extension DefaultManager {
     
-    
-    func build(page: any Page) {
+    internal func initialBuild(page: any Page) {
         if let page = page as? any Operator {
 
             // add children
             for child in page.children {
-                build(page: child)
+                initialBuild(page: child)
             }
 
             return
         }
         
         if let page = page as? any Element {
-            page.renderer.build(page: page)
+            page.renderer.build(page: page, parent: nil)
             return
         }
 
-        build(page: page.body)
+        initialBuild(page: page.body)
 
     }
     

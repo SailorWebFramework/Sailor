@@ -8,8 +8,6 @@
 public struct List: Operator {
     
     // TODO: make this ID field unique?
-    public var id: String = ""
-
     public var children: [any Page]
 
     public var body: some Page {
