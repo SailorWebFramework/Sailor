@@ -11,7 +11,7 @@ struct TestWebsite: Website {
         Body {
 //            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
 
-            NavBar()
+//            NavBar()
             
             Div{"\(environment.url.description)"}
             
@@ -19,15 +19,9 @@ struct TestWebsite: Website {
                 
                 Route(.defaultRoute) {
                     HomePage()
-                        .onAppear {
-//                            navigation.go(to: .home)
-                            
-                            print("HI IM HERE")
-                        }
                 }
 
                 Route(.about) {
-//                    AboutPage()
                     Div{"about we go?"}
 
                 }

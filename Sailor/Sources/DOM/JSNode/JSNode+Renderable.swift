@@ -18,6 +18,10 @@ extension JSNode: Renderable {
 
         // on appear called once the JSNode becomes renderable
         self.sailorEvents.onAppear(.none)
+        
+        // launch tasks on the background thread on render
+        // TODO: make task launch asyncronously
+        self.sailorEvents.task(.none)
     }
     
     // TODO: may need to remove text content if the component was a TextComponent
@@ -32,33 +36,11 @@ extension JSNode: Renderable {
     }
     
     public func render(page: any Element) {
-        // TODO: could probably shorten this logic
-//        switch page.content {
-//        case .text(let value):
-//            // THIS IS MF UP
-//            for child in self.children {
-//                child.removeFromDOM()
-//            }
-//            
-//            children = [] // TODO: should not need this
-//            
-//            self.editContent(text: value)
-//            
-//        case .list(_):
-//            break
-////            // Get the length of the children collection
-////            let length = Int(self.element.children.length.number ?? 0)
-////
-////            if length == 0 {
-////                self.editContent(text: "")
-////            }
-//        
-//        }
         
         // TODO: diff events and attributes?
         // make sure order is the same for attributes
 
-//        self.removeEvents()
+        self.removeEvents()
         
         if self.events.isEmpty && self.sailorEvents.isEmpty {
             for (name, event) in page.events {
@@ -77,15 +59,20 @@ extension JSNode: Renderable {
 
         // on update called once the JSNode elements update
         self.sailorEvents.onUpdate(.none)
-        
-        // launch tasks on the background thread on render
-        // TODO: make task launch asyncronously
-        self.sailorEvents.task(.none)
     }
     
     public func remove() {
-//        _ = self.element.remove?()
-        self.removeFromDOM()
+
+        self.parent?.children.removeAll(where: { $0 === self })
+
+        removeEvents()
+        removeAttributes()
+        
+        self.children = []
+
+        _ = self.element.remove?()
+
+        self.element.innerHTML = ""
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)

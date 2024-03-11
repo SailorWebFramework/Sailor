@@ -33,14 +33,13 @@ public protocol Renderable {
 }
 
 extension Renderable {
-    func build(page: any Page) {
-        
+    func build(page: any Page, parent: (any Element)?) {
         // if page is an Operator
         if let page = page as? any Operator {
             
             // add children
             for child in page.children {
-                build(page: child)
+                build(page: child, parent: parent)
             }
             
             return
@@ -48,11 +47,6 @@ extension Renderable {
         
         // if page is an HTMLElement
         if let page = page as? any Element {
-            
-            // add parent to the stack and change to us as new parent
-            let myParent = SailboatGlobal.manager.managedPage.parentElement
-            
-            SailboatGlobal.manager.managedPage.parentElement = page
             
             // run the page builder closure to create an operator node
             if let listpage = page.content {
@@ -65,26 +59,22 @@ extension Renderable {
                     SailboatGlobal.manager.elements[page.id] = page
                 }
                 
-                SailboatGlobal.manager.dumpTo(element: page, toBody: true)
+                SailboatGlobal.manager.dumpTo(element: page)
                 
-                build(page: operatorPage)
+                build(page: operatorPage, parent: page)
             }
-
-            // restore parent
-            SailboatGlobal.manager.managedPage.parentElement = myParent
             
             // render current page to parent
-            if let managedParentElement = SailboatGlobal.manager.managedPage.parentElement {
-                page.renderer.render(page: page)
-                page.renderer.addToParent(managedParentElement.renderer)
-                
+            page.renderer.render(page: page)
+            
+            if let parent = parent {
+                page.renderer.addToParent(parent.renderer)
             }
 
             return
 
         }
         
-        build(page: page.body)
-        
+        build(page: page.body, parent: parent)
     }
 }
