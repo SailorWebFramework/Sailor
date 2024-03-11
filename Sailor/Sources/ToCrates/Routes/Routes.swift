@@ -12,8 +12,7 @@ public protocol Routes: CustomStringConvertible, Equatable, Hashable {
     var description: String  { get }
 
     // TODO: consider changing to v
-    static var Root: Self { get }
-    static var NotFound: Self { get }
+    static var defaultRoute: Self { get }
     
     static var bindings: BidirectionalDictionary<Self, String> { get }
         
@@ -23,11 +22,11 @@ public protocol Routes: CustomStringConvertible, Equatable, Hashable {
 
 public extension Routes {
     var description: String {
-        Self.bindings[key: self] ?? Self.bindings[key: Self.NotFound] ?? ""
+        Self.bindings[key: self] ?? Self.bindings[key: Self.defaultRoute] ?? ""
     }
     
     static func fromString(_ str: String) -> Self {
-        bindings[value: str] ?? .NotFound
+        bindings[value: str] ?? .defaultRoute
     }
 }
 

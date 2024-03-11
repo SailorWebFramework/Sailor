@@ -7,30 +7,33 @@ struct TestWebsite: Website {
     
     @Environment var environment: WebEnvironment<AppRoutes>
     
-//    @State var myname: String = "josh"
-      
     var body: some Page {
         Body {
-            
+//            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
+
             NavBar()
             
-            Div("\(environment.url.description)")
+            Div{"\(environment.url.description)"}
             
             Router {
                 
-                Route(.Root) {
+                Route(.defaultRoute) {
                     HomePage()
                         .onAppear {
+//                            navigation.go(to: .home)
+                            
                             print("HI IM HERE")
                         }
                 }
 
                 Route(.about) {
-                    AboutPage()
+//                    AboutPage()
+                    Div{"about we go?"}
+
                 }
 
                 Route(.explore) {
-                    Div("explore we go?")
+                    Div{"explore we go?"}
                 }
                 
             } notFound: {
@@ -41,6 +44,7 @@ struct TestWebsite: Website {
         
         // TODO: I think this is the settled approach?
 //        .head {
+//
 //            Title("This is a title")
 //            // Make custom properties for FavIcon and LinkCSS
 //            FavIcon("resources/icon.ico")
@@ -62,17 +66,17 @@ struct NavBar: Page {
 
     var body: some Page {
         Div {
-            Div("URL: \(url)")
+            Div{"URL: \(url)"}
             Div {
-                Button("About")
+                Button{"About"}
                     .onClick {
                         navigation.go(to: .about)
                     }
-                Button("Home")
+                Button{"Home"}
                     .onClick {
                         navigation.go(to: .home)
                     }
-                Button("Exlore")
+                Button{"Exlore"}
                     .onClick {
                         navigation.go(to: .explore)
                     }

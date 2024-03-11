@@ -15,8 +15,6 @@ public struct Router<MyRoutes: Routes>: Operator {
     
     // TODO: make this init work correctly
     public init(@RouteBuilder<MyRoutes> _ routes: @escaping () -> [Route<MyRoutes>], notFound: @escaping () -> any Page) {
-//        self.curr_route = "/"
-        
         self.children = []//routes.children
         self.id = ""
         
@@ -28,10 +26,10 @@ public struct Router<MyRoutes: Routes>: Operator {
         }
         
         if self.children.isEmpty {
-            //TODO: TACO
-            self.children.append(Route<MyRoutes>(.NotFound) { notFound() })
+            // TODO: would be nice to have a Route Operator for consistency
+//            self.children.append(Route<MyRoutes>(.NotFound) { notFound() })
+            self.children.append(notFound())
         }
-//        Self.setupRouteListener()
     }
     
     

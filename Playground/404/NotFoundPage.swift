@@ -5,9 +5,9 @@ struct NotFoundPage: Page {
 
     var body: some Page {
         Div {
-            Div("404")
-            Div("Page not found")
-            Button("Go to home")
+            Div{"404"}
+            Div{"Page not found"}
+            Button{"Go to home"}
                 .onClick {
                     navigation.go(to: .home)
                 }

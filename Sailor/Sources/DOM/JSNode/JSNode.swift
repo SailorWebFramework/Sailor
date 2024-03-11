@@ -12,6 +12,8 @@ final class JSNode {
 
     internal var element: JSObject
     internal var children: [JSNode]
+    
+    internal var elementID: ElementID
 
     internal var events: [String: JSClosure] // Events
     internal var sailorEvents: SailorEvents = .init()
@@ -20,34 +22,42 @@ final class JSNode {
     
     internal weak var parent: JSNode?
 
-    convenience init() {
+    convenience init(elementID: ElementID) {
         self.init(
-            element: JSNode.body
+            element: JSNode.body,
+            elementID: elementID
         )
     }
-    convenience init(named name: String) {
+    convenience init(named name: String, elementID: ElementID) {
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")
         }
         
         self.init(
             element: pageElement,
+            elementID: elementID, 
             parent: nil,
             events: [:],
             attributes: [:]
         )
     }
     
-    private init(element: JSObject, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
+    private init(element: JSObject, elementID: ElementID, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
         self.element = element
         self.events = events
         self.parent = parent
         self.attributes = attributes
         self.children = []
+        self.elementID = elementID
 //        self.isTextComponent = true
     }
 
-    internal func editContent(text: String) {
+    internal func editContent(text: String, append: Bool = false) {
+        if append {
+            self.element.textContent = JSValue.string((self.element.textContent.string ?? "") + text)
+            return
+        }
+        
         self.element.textContent = JSValue.string(text)
     }
     

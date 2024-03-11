@@ -10,11 +10,11 @@ import Sailboat
 
 /// The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.
 public struct I: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "i" }
+    public static var name: String { "i" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,15 +23,21 @@ public struct I: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "i")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = .init()
+    public init(text: @escaping () -> any Operator) {
+        self.init(bodyValue: text)
     }
 
 

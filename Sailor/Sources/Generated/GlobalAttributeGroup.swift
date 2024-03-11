@@ -8,91 +8,91 @@
 import Sailboat
 
 ///Group of all global attributes, which are attributes that can be used with any HTML element.
-//public protocol GlobalAttributeGroup: AttributeGroup { }
+public protocol GlobalAttributeGroup: AttributeGroup { }
 
-//public extension GlobalAttributeGroup {
-//
-//    ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
-//    static func accesskey(_ value: Character) -> Self {
-//        .init(name: "accesskey", value: value.description)
-//    }
-//
-//    ///Specifies wheather or not this element is editable or not.
-//    static func contenteditable(_ value: Bool) -> Self {
-//        .init(name: "contenteditable", value: value ? "true" : "false")
-//    }
-//
-//    ///Stores custom data to the webiste to this element (name, value).
-//    static func data(_ name: String, _ value: String) -> Self {
-//        .init(name: "data-\(name)", value: value.description)
-//    }
-//
-//    ///Defines text direction of the content.
-//    static func dir(_ value: Unit.Direction) -> Self {
-//        .init(name: "dir", value: value.description)
-//    }
-//
-//    ///Defines whether this element is draggable, often used for drag and drop operations.
-//    static func draggable(_ value: Unit.AutoBool) -> Self {
-//        .init(name: "draggable", value: value.description)
-//    }
-//
-//    ///Allows the appearence of the enter key to be different on mobile.
-//    static func enterkeyhint(_ value: Unit.EnterKeyHint) -> Self {
-//        .init(name: "enterkeyhint", value: value.description)
-//    }
-//
-//    ///Defines whether this element is hidden or not.
-//    static func hidden(_ value: Bool) -> Self {
-//        .init(name: "hidden", value: value.description)
-//    }
-//
-//    ///Defines a unique identifier for the element.
-//    static func id(_ value: String) -> Self {
-//        .init(name: "id", value: value.description)
-//    }
-//
-//    ///Disables element and all inner elements.
-//    static func inert(_ value: Bool) -> Self {
-//        .init(name: "inert", value: value.description)
-//    }
-//
-//    ///Defines the input mode for the element when the keyboard is active.
-//    static func inputmode(_ value: Unit.InputMode) -> Self {
-//        .init(name: "inputmode", value: value.description)
-//    }
-//
-//    ///Defines the language of the content.
-//    static func lang(_ value: Unit.Language) -> Self {
-//        .init(name: "lang", value: value.description)
-//    }
-//
-//    ///Defines a popover element, it will be placed on top of the content. This element is invisible until it is called by another element witha popovertarget attribute.
-//    static func popover(_ value: Bool) -> Self {
-//        .init(name: "popover", value: value.description)
-//    }
-//
-//    ///Defines whether the element should have spell checking enabled or not.
-//    static func spellcheck(_ value: Bool) -> Self {
-//        .init(name: "spellcheck", value: value.description)
-//    }
-//
-//    ///Defines the tab order of the element.
-//    static func tabindex(_ value: Int) -> Self {
-//        .init(name: "tabindex", value: value.description)
-//    }
-//
-//    ///Defines the title of the element, typically shown as a tooltip hint.
-//    static func title(_ value: String) -> Self {
-//        .init(name: "title", value: value.description)
-//    }
-//
-//    ///Defines whether the content should be translated or not.
-//    static func translate(_ value: Unit.Question) -> Self {
-//        .init(name: "translate", value: value.description)
-//    }
-//
-//}
+public extension GlobalAttributeGroup {
+    
+    ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
+    static func accesskey(_ value: Character) -> Self {
+        .init(name: "accesskey", value: value.description)
+    }
+
+    ///Specifies wheather or not this element is editable or not.
+    static func contenteditable(_ value: Bool) -> Self {
+        .init(name: "contenteditable", value: value ? "true" : "false")
+    }
+
+    ///Stores custom data to the webiste to this element (name, value).
+    static func data(_ name: String, _ value: String) -> Self {
+        .init(name: "data-\(name)", value: value.description)
+    }
+
+    ///Defines text direction of the content.
+    static func dir(_ value: Unit.Direction) -> Self {
+        .init(name: "dir", value: value.description)
+    }
+
+    ///Defines whether this element is draggable, often used for drag and drop operations.
+    static func draggable(_ value: Unit.AutoBool) -> Self {
+        .init(name: "draggable", value: value.description)
+    }
+
+    ///Allows the appearence of the enter key to be different on mobile.
+    static func enterkeyhint(_ value: Unit.EnterKeyHint) -> Self {
+        .init(name: "enterkeyhint", value: value.description)
+    }
+
+    ///Defines whether this element is hidden or not.
+    static func hidden(_ value: Bool) -> Self {
+        .init(name: "hidden", value: value.description)
+    }
+
+    ///Defines a unique identifier for the element.
+    static func id(_ value: String) -> Self {
+        .init(name: "id", value: value.description)
+    }
+
+    ///Disables element and all inner elements.
+    static func inert(_ value: Bool) -> Self {
+        .init(name: "inert", value: value.description)
+    }
+
+    ///Defines the input mode for the element when the keyboard is active.
+    static func inputmode(_ value: Unit.InputMode) -> Self {
+        .init(name: "inputmode", value: value.description)
+    }
+
+    ///Defines the language of the content.
+    static func lang(_ value: Unit.Language) -> Self {
+        .init(name: "lang", value: value.description)
+    }
+
+    ///Defines a popover element, it will be placed on top of the content. This element is invisible until it is called by another element witha popovertarget attribute.
+    static func popover(_ value: Bool) -> Self {
+        .init(name: "popover", value: value.description)
+    }
+
+    ///Defines whether the element should have spell checking enabled or not.
+    static func spellcheck(_ value: Bool) -> Self {
+        .init(name: "spellcheck", value: value.description)
+    }
+
+    ///Defines the tab order of the element.
+    static func tabindex(_ value: Int) -> Self {
+        .init(name: "tabindex", value: value.description)
+    }
+
+    ///Defines the title of the element, typically shown as a tooltip hint.
+    static func title(_ value: String) -> Self {
+        .init(name: "title", value: value.description)
+    }
+
+    ///Defines whether the content should be translated or not.
+    static func translate(_ value: Unit.Question) -> Self {
+        .init(name: "translate", value: value.description)
+    }
+
+}
 
 public extension Element {
     ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
