@@ -10,11 +10,11 @@ import Sailboat
 
 /// The button element represents a clickable button.
 public struct Button: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "button" }
+    public static var name: String { "button" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,27 +23,26 @@ public struct Button: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "button")
+    public var renderer: any Renderable
 
-
-    public init() {   
-        self.content = .text("")
-        self.attributes = .init()
-        self.events = .init()
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
     }
 
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = .init()
+    public init() {  
+        self.init(bodyValue: nil)
     }
+
 
     public init(@PageBuilder content: @escaping () -> any Operator) {
-        self.content = .list(content)
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: content)
     }
 
 

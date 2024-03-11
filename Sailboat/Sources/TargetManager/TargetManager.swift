@@ -7,11 +7,13 @@
 
 public protocol TargetManager {
 
-    var body: (any PageNode)? { get set }
+//    var body: (any PageNode)? { get set }
     var environment: (any SomeEnvironment)? { get set }
 
-    var elements: [ElementID: ElementNode] { get set }
-    var objects: [StateID: any Equatable] { get set }
+    var elements: [ElementID: any Element] { get set }
+
+//    var elements: [ElementID: ElementNode] { get set }
+    var objects: [StateID: ObservableObject] { get set }
 
     var managedEvent: ManagedEvent { get set }
     var managedPage: ManagedPage { get set }
@@ -25,7 +27,7 @@ public protocol TargetManager {
 
     func build<GenericPage: Page>(page: GenericPage)
     
-    func build(page: any Page, parent: (any PageNode)?) -> any PageNode 
+//    func build(page: any Page, parent: (any PageNode)?) -> any PageNode 
     
     func update()
     

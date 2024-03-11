@@ -9,12 +9,10 @@ import Foundation
 
 
 @propertyWrapper
-public class EnvironmentObject<Value: Equatable>: Stateful {
+public class EnvironmentObject<Value: ObservableObject>: Stateful {
     
     public let id: StateID = UUID().uuidString
     
-//    private var value: Value
-
     public var wrappedValue: Value {
         return getValue()
     }
@@ -27,7 +25,7 @@ public class EnvironmentObject<Value: Equatable>: Stateful {
         )
     }
     
-    internal var getID: String { String(describing: type(of: self)) }
+    internal var getID: String { String(describing: Value.self) }
     
     public init() { }
     

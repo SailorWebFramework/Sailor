@@ -9,8 +9,7 @@
 import Sailboat
 
 public enum NoRoutes: Routes {
-    public static var Root: Self { .root }
-    public static var NotFound: Self { .notFound }
+    public static var defaultRoute: Self { .root }
     
     public static var bindings: BidirectionalDictionary<NoRoutes, String> = [
         .root: "/",

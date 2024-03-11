@@ -1,9 +1,9 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.9
 import PackageDescription
 let package = Package(
     name: "Sailor",
     platforms: [
-        .macOS(.v10_15)
+        .macOS(.v13)
     ],
     products: [
         .library(
@@ -16,7 +16,9 @@ let package = Package(
 
     ],
     dependencies: [
-        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0") // 0.15.0
+        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"), // 0.15.0
+        .package(url:"https://github.com/swiftwasm/carton", from: "1.0.1") // 0.15.0
+
     ],
     targets: [
         .target(
@@ -39,11 +41,12 @@ let package = Package(
             ],
             path: "Playground",
             resources: [
-                //🧭Compass Generated Resources?
-                //⛵Sailor Generated Resources (DONT REMOVE THIS COMMENT)
-//                .process("Resources/"),
+                //🧭Compass Generated Resources (DONT REMOVE THIS COMMENT)
+                .process("Resources/hello.css"),
+                .process("Resources/Assets/favicon.ico")
+
 //                .process("Resources/Assests/")
-                //⛵End (DONT REMOVE THIS COMMENT)
+                //🧭End (DONT REMOVE THIS COMMENT)
             ]
         ),
         .testTarget(

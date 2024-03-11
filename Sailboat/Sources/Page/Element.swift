@@ -12,10 +12,10 @@ public typealias ElementID = String
 public protocol Element: Page, Identifiable {
     
 //    associatedtype ElementAttributeGroup: AttributeGroup
-    associatedtype Renderer: Renderable
+//    associatedtype Renderer: Renderable
 
     /// HTML tag name, all lowercased
-    var name: String { get }
+//    var name: String { get }
     
     /// Unique Element ID used to diff items
     var id: ElementID { get set }
@@ -27,10 +27,10 @@ public protocol Element: Page, Identifiable {
     var events: [String: (EventResult) -> Void] { get set }
     
     /// content within HTML tags
-    var content: TagContent { get set }
+    var content: (() -> any Operator)? { get set }
     
     /// used to render this element
-    var renderer: Renderer { get set }
+    var renderer: any Renderable { get set }
         
 }
 
@@ -40,7 +40,7 @@ public extension Element {
     }
     
     var body: some Page {
-        InternalError.recursingInPageBody(name: self.name)
+        InternalError.recursingInPageBody(name: String(describing: type(of: self)))
         return self
     }
 

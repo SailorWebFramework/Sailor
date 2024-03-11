@@ -10,34 +10,43 @@ import Sailboat
 typealias SailorEvents = [String: (EventResult) -> Void]
 
 public extension SailorEvents {
+    
+    /// onAppear function with other initialization items
     var onAppear: (EventResult) -> Void {
-        self["_appear"] ?? { _ in }
+        dispatchBatchedEvent("_appear") { eventResult in
+            makeEnvironmentObject(eventResult)
+        }
     }
     
+    /// onAppear function with other initialization items
     var onDisappear: (EventResult) -> Void {
-        self["_disappear"] ?? { _ in }
+        dispatchBatchedEvent("_disappear") { eventResult in
+            killEnvironmentObject(eventResult)
+        }
     }
     
     var onUpdate: (EventResult) -> Void {
-        self["_update"] ?? { _ in }
+        dispatchBatchedEvent("_update")
     }
     
     var task: (EventResult) -> Void {
         self["_task"] ?? { _ in }
     }
+    
+    var makeEnvironmentObject: (EventResult) -> Void {
+        dispatchBatchedEvent("_makeEnvironmentObject")
+    }
+    
+    var killEnvironmentObject: (EventResult) -> Void {
+        dispatchBatchedEvent("_killEnvironmentObject")
+    }
+    
+    private func dispatchBatchedEvent(_ name: String, completion: ((EventResult) -> Void)? = nil) -> (EventResult) -> Void {
+        { eventResult in
+            SailboatGlobal.manager.startEvent()
+            self[name]?(eventResult)
+            completion?(eventResult)
+            SailboatGlobal.manager.endEvent()
+        }
+    }
 }
-
-//
-//struct SailorEvents {
-//    var onAppear: () -> Void
-//    var onDisappear: () -> Void
-//    var onUpdate: () -> Void
-//
-//    static let names = Set(["_appear", "_disappear", "_update"])
-//
-//    init() {
-//        self.onAppear = {}
-//        self.onDisappear = {}
-//        self.onUpdate = {}
-//    }
-//}

@@ -10,27 +10,37 @@ import Sailboat
 // TODO: this whole file make strings work as renderable elements
 
 class StringRenderer: Renderable {
-    public func addToParent(_ parentNode: Sailboat.Renderable) {
-        
+    var value: String
+    
+    init(_ value: String) {
+        self.value = value
+    }
+    
+    public func addToParent(_ parentNode: any Renderable) {
+        guard let parentNode = parentNode as? JSNode else {
+            print("PARENT ISNT A JSNODE")
+            return
+        }
+        print("editing parent text to \(self.value)")
+
+        parentNode.editContent(text: self.value, append: true)
     }
     
     public func addChild(_ childNode: Sailboat.Renderable) {
-        
+        childNode.addToParent(self)
     }
     
     public func remove() {
         
     }
     
-    public func replace(with renderable: Sailboat.Renderable) { }
+    public func replace(with renderable: any Renderable) { }
     
     public func updateAttribute(name: String, value: String) { }
     
     public func addEvent(name: String, closure: @escaping (Sailboat.EventResult) -> Void) { }
     
-    public func debugPrint() {
-        
-    }
+    public func debugPrint() { }
     
     public func render(page: any Element) {
         
@@ -41,7 +51,7 @@ class StringRenderer: Renderable {
 extension String: Element {
 //    public typealias Renderer = StringRenderer
     
-    public var name: String { "str" }
+    public var name: String { "STRING" }
     
     public var attributes: [String : String] {
         get { [:] }
@@ -53,16 +63,16 @@ extension String: Element {
         set(newValue) { }
     }
     
-    public var content: Sailboat.TagContent {
+    public var content: (() -> any Operator)? {
         get {
-            TagContent.text(self)
+            nil
         }
         set(newValue) { }
     }
     
     public var id: ElementID {
         get {
-            "STRING"
+            self.name
         }
         set(newValue) { }
 
@@ -70,14 +80,14 @@ extension String: Element {
     
     public var body: some Page { self }
     
-    public var renderer: some Renderable {
+    public var renderer: any Renderable {
         get {
-            JSNode(named: "div")
+            // TODO: make a custom renderer for string
+            StringRenderer(self)
         }
         set(newValue) { }
         
     }
-    
     
 }
 

@@ -10,11 +10,11 @@ import Sailboat
 
 /// The title element represents the document's title or name. Authors should use titles that identify their documents even when they are used out of context, for example in a user's history or bookmarks, or in search results.
 public struct Title: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "title" }
+    public static var name: String { "title" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,15 +23,21 @@ public struct Title: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "title")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = .init()
+    public init(text: @escaping () -> any Operator) {
+        self.init(bodyValue: text)
     }
 
 

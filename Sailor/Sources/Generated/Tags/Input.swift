@@ -10,11 +10,11 @@ import Sailboat
 
 /// The input element represents a typed data field, usually with a form control to allow the user to edit the data.
 public struct Input: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "input" }
+    public static var name: String { "input" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,15 +23,21 @@ public struct Input: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "input")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
     public init(type: Unit.InputType, _ value: Binding<String>) {
-        self.content = .text("")
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: nil)
 
         self.attributes["type"] = type.description
         self.attributes["value"] = value.wrappedValue.description
@@ -39,20 +45,16 @@ public struct Input: Element {
             guard case let .string(bindedValue) = eventResult else { return }
             value.set(bindedValue)
         }
-        
     }
 
     public init(_ value: Binding<String>) {
-        self.content = .text("")
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: nil)
 
         self.attributes["value"] = value.wrappedValue.description
         self.events["input"] = { eventResult in
             guard case let .string(bindedValue) = eventResult else { return }
             value.set(bindedValue)
         }
-        
     }
 
 

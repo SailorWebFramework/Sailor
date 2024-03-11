@@ -10,11 +10,11 @@ import Sailboat
 
 /// The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.
 public struct B: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "b" }
+    public static var name: String { "b" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,15 +23,21 @@ public struct B: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "b")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = .init()
+    public init(text: @escaping () -> any Operator) {
+        self.init(bodyValue: text)
     }
 
 

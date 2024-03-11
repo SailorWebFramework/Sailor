@@ -10,11 +10,11 @@ import Sailboat
 
 /// The img element represents an image.
 public struct Img: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "img" }
+    public static var name: String { "img" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,19 +23,24 @@ public struct Img: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "img")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
     public init(src: String, alt: String) {
-        self.content = .text("")
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: nil)
 
         self.attributes["src"] = src.description
         self.attributes["alt"] = alt.description
-        
     }
 
 

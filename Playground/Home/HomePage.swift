@@ -1,25 +1,34 @@
 import Sailor
 
 struct HomePage: Page {
-//    @Environment(\.navigation) var navigation: Navigation<AppRoutes>
 
     @State var myNum: Int = 10
     @State var toggle: Bool = true
+    
+    @State var num2: Int = 0
     
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 
     var body: some Page {
         Div {
-//            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
+//            Link(rel: "stylesheet", href: "Sailor_Playground.resources/hello.css")
             
+//            SubPageInner()
+            
+            Div {
+                "hello this is a test"
+                "did it combine?"
+
+            }
+                        
             if myNum == 10 {
-                A("hello its").href("#MyImage")
+                A { "hello its" }
+                    .href("#MyImage")
             }
             
             if toggle {
-                H2("subtitle")
-                
-                Div("more text!")
+                H2 { "subtitle" }
+                Div { "more text!" }
                 
 //                A (href: "www.google.com", alt: "this is a photo") {
 //                    "my text"
@@ -38,6 +47,36 @@ struct HomePage: Page {
 //                
 //            }
             
+         
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+            Button{"HELLO \(num2)"}
+                .onClick {
+                    num2 += 1
+                    print("UP THE THING")
+                }
+            
+            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+
+        }
+        .onAppear {
+            print("I APPEARED")
+        }
+    }
+}
+
+
+//struct SubPageInner: Page {
+//    @State var myValue: Int = 0
+//    var body: some Page {
+//        Div("Hello \(myValue)")
+//            .onClick {
+//                myValue += 1
+//            }
+//    }
+//}
+
+
+// idea with macros?
 //            #div {
 //                // with parens
 //                #h1("hello \(name)")
@@ -54,52 +93,4 @@ struct HomePage: Page {
 //                        mynum += 1
 //                    }
 //            }
-                            
-//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
-            Button("HELLO \(myNum)")
-//                .autofocus(true)
-                .name("button-name")
-                .classes("customclass", "customclass2")
-                .onClick {
-                    myNum += 1
-                }
-            
-            Button("GOODBYE")
-                .onClick {
-                    toggle.toggle()
-                }
-            
-//                .classes("m-0 sm:w-64 sm:h-64 m-0 shadow-lg rounded-lg")
-//                .classes("w-12 h-12 lg:w-32 lg:h-32")
-            
-            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
-
-            Div("my num is \(myNum)")
-                .onClick {
-                    myNum += 1
-                }
-
-            Img(src: source, alt: "icon picture")
-                .onClick {
-//                    navigator.navigate(to: .about)
-                }
-                .id("MyImage")
-//                .wind(
-//                    .m0
-//                )
-        }
-        .onAppear {
-            print("I APPEARED")
-        }
-//        .head {
-//            Link(rel: "stylesheet", href: "www.stylesheet.com/mystylesheet.css")
-//
-//        }
-//        .wind(
-//            .m0, .p10
-//        )
-//
-//        .classes("p-10")
-    }
-    
-}
+                   

@@ -33,32 +33,33 @@ extension JSNode: Renderable {
     
     public func render(page: any Element) {
         // TODO: could probably shorten this logic
-        switch page.content {
-        case .text(let value):
-            // THIS IS MF UP
-            for child in self.children {
-                child.removeFromDOM()
-            }
-            
-            children = [] // TODO: should not need this
-            
-            self.editContent(text: value)
-            
-        case .list(_):
-            
-            // Get the length of the children collection
-            let length = Int(self.element.children.length.number ?? 0)
-
-            if length == 0 {
-                self.editContent(text: "")
-            }
-        
-        }
+//        switch page.content {
+//        case .text(let value):
+//            // THIS IS MF UP
+//            for child in self.children {
+//                child.removeFromDOM()
+//            }
+//            
+//            children = [] // TODO: should not need this
+//            
+//            self.editContent(text: value)
+//            
+//        case .list(_):
+//            break
+////            // Get the length of the children collection
+////            let length = Int(self.element.children.length.number ?? 0)
+////
+////            if length == 0 {
+////                self.editContent(text: "")
+////            }
+//        
+//        }
         
         // TODO: diff events and attributes?
         // make sure order is the same for attributes
 
 //        self.removeEvents()
+        
         if self.events.isEmpty && self.sailorEvents.isEmpty {
             for (name, event) in page.events {
                 self.addEvent(name: name, closure: event)

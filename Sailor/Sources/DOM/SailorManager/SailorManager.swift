@@ -10,7 +10,7 @@ import JavaScriptKit
 
 final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
-    internal let documentNode: JSNode = JSNode()
+//    internal let documentNode: JSNode = JSNode(elementID: <#ElementID#>)
     
 //    internal var buildStatesTempRef: PageNode? = nil
     
@@ -25,8 +25,8 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     private func debugMarker(_ name: String) {
         print(name)
-        body?.printNode()
-        documentNode.printNode()
+//        body?.printNode()
+//        documentNode.printNode()
 
     }
     
@@ -55,7 +55,7 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
 //        documentNode.reset()
 //        reconcile()
         
-        self.body?.printNode()
+//        self.body?.printNode()
         
 //        debugMarker("Built:")
     }
@@ -69,7 +69,7 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     // TODO: logic to reconcile the DOMTree with the Virtual DOM
     private func reconcile() {
-        guard let body = self.body else { return }
+//        guard let body = self.body else { return }
 //        guard let firstChild = documentNode.children.first else { return }
         
 //        reconcile(node: body, element: documentNode)

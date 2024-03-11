@@ -21,8 +21,12 @@ extension EventResult {
             
             let resultValue = Self.getResultValue(eventName, firstEvent)
             
+            SailboatGlobal.manager.startEvent()
+            
             action(resultValue)
 
+            SailboatGlobal.manager.endEvent()
+            
             return .undefined
         }
     }
