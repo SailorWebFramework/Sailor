@@ -92,19 +92,11 @@ final class JSNode {
     }
  
     
-    func removeFromDOM() {
-        // remove from DOM
-        
-        self.parent?.children.removeAll(where: { $0 === self })
-//        self.parent?.isTextComponent = self.parent?.children.isEmpty ?? true
-
-//        removeEvents()
-//        removeAttributes()
-        self.children = []
-
-        _ = self.element.remove?()
-
-    }
+//    func removeFromDOM() {
+//        // remove from DOM
+//        
+//
+//    }
     
 }
 

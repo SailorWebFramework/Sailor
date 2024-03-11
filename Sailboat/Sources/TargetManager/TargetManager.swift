@@ -37,7 +37,6 @@ public protocol TargetManager {
     func eventAdd<StateValue: Equatable>(state: State<StateValue>)
     func endEvent()
 
-    func dumpTo(element: any Element, toBody: Bool)
     func dumpTo(element: any Element)
 
     func dump() -> [StateID]

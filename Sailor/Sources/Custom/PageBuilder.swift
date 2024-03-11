@@ -17,35 +17,6 @@ public struct PageBuilder {
     public static func buildBlock(_ components: any Page...) -> any Operator  {
         return List(components)
     }
-        
-//    public static func buildPartialBlock(first: any Page) -> any Operator {
-//        print("FIRST")
-//        catchDependencies()
-//        return List([first])
-//    }
-//
-//    public static func buildPartialBlock(accumulated: any Operator, next: any Page) -> any Operator {
-//        print("NEXT")
-//        catchDependencies()
-//
-//        var copy = accumulated
-//        copy.children.append(next)
-//
-//        return copy
-//    }
-//
-//
-//    public static func buildFinalResult(_ component: any Operator) -> any Operator {
-//        print("DONE")
-//        catchDependencies()
-//
-//        return component
-//    }
-    
-    // Todo , do this?
-//    static func buildExpression(_ expression: String) -> any Page {
-//        return TextString(expression)
-//    }
     
     public static func buildOptional(_ component: (any Operator)?) -> any Operator {
         // this should be the dependencies of the conditional

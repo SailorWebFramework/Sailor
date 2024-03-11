@@ -32,18 +32,6 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
     
     override public func build<GenericPage: Page>(page: GenericPage) {
         
-//        // If the user didnt specify a body add this element in implicitly
-//        if !(page is Body) {
-//            let bodyElement = ElementNode(page: Body { List ([page]) }, parent: nil)
-//            let operatorElement = OperatorNode(page: List([page]), parent: nil)
-//
-//            operatorElement.append(self.body!)
-//            bodyElement.append(operatorElement)
-//
-//            self.body = bodyElement
-//        }
-//
-        
         // TODO: auto add body if not defined?
         if page is Body {
             super.build(page: page)
@@ -51,13 +39,6 @@ final class SailorManager<WebRoutes: Routes>: DefaultManager {
             super.build(page: Body { page })
         }
 
-        
-//        documentNode.reset()
-//        reconcile()
-        
-//        self.body?.printNode()
-        
-//        debugMarker("Built:")
     }
     
     override public func update() {

@@ -2,65 +2,43 @@ import Sailor
 
 struct HomePage: Page {
 
-    @State var myNum: Int = 10
+//    @State var myNum: Int = 10
     @State var toggle: Bool = true
-    
-    @State var num2: Int = 0
+//    
+//    @State var num2: Int = 0
     
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 
     var body: some Page {
         Div {
-//            Link(rel: "stylesheet", href: "Sailor_Playground.resources/hello.css")
-            
-//            SubPageInner()
-            
-            Div {
-                "hello this is a test"
-                "did it combine?"
-
-            }
-                        
-            if myNum == 10 {
-                A { "hello its" }
-                    .href("#MyImage")
-            }
-            
-            if toggle {
-                H2 { "subtitle" }
-                Div { "more text!" }
-                
-//                A (href: "www.google.com", alt: "this is a photo") {
-//                    "my text"
-////                    H1("My title")
-//
-//                }
-            }
-            
-            
-//            Dizv {
-////                Div { "hello \(name)" }
-//                
-//                A(href: "www.google.com", alt: "this is alt text") {
-//                    "press my link \(name)"
-//                }
-//                
+//            Div {
+//                "hello this is a test"
+//                "did it combine?"
 //            }
+                        
+//            if myNum == 10 {
+//                A { "hello its" }
+//                    .href("#MyImage")
+//            }
+//            
+//            if toggle {
+//                H2 { "subtitle" }
+//                Div { "more text!" }
+//            }
+            Div {"HELLO \(toggle)"}
             
-         
-//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
-            Button{"HELLO \(num2)"}
+            Button{"btn"}
                 .onClick {
-                    num2 += 1
-                    print("UP THE THING")
+                    toggle.toggle()
+                    print("TOGGLE THE THING")
                 }
             
-            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
+//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
 
         }
-        .onAppear {
-            print("I APPEARED")
-        }
+//        .onAppear {
+//            print("I APPEARED")
+//        }
     }
 }
 
