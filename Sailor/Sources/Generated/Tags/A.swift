@@ -10,11 +10,11 @@ import Sailboat
 
 /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
 public struct A: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "a" }
+    public static var name: String { "a" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,39 +23,34 @@ public struct A: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "a")
+    public var renderer: any Renderable
 
-
-    public init(_ text: String) {
-        self.content = .text(text)
-        self.attributes = .init()
-        self.events = .init()
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
     }
 
+
     public init(@PageBuilder content: @escaping () -> any Operator) {
-        self.content = .list(content)
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: content)
     }
 
     public init(href: String) {
-        self.content = .text("")
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: nil)
 
         self.attributes["href"] = href.description
-        
     }
 
     public init(href: String, @PageBuilder content: @escaping () -> any Operator) {
-        self.content = .list(content)
-        self.attributes = .init()
-        self.events = .init()
-        
+        self.init(bodyValue: content)
+
         self.attributes["href"] = href.description
-        
     }
 
 

@@ -10,11 +10,11 @@ import Sailboat
 
 /// The ol element represents an ordered list of items, typically rendered as a numbered list.
 public struct Ol: Element {
-
-    public var id: ElementID = UUID().uuidString
-
     /// name of the html tag associated with this type
-    public var name: String { "ol" }
+    public static var name: String { "ol" }
+
+    /// unique identifier for this html element
+    public var id: ElementID
 
     /// attributes associated with this type
     public var attributes: [String: String]
@@ -23,15 +23,21 @@ public struct Ol: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: TagContent
+    public var content: (() -> any Operator)?
 
-    public var renderer: some Renderable = JSNode(named: "ol")
+    public var renderer: any Renderable
 
+    private init(bodyValue: (() -> any Operator)?) {
+        let id = UUID().uuidString
+        self.id = id
+        self.attributes = [:]
+        self.events = [:]
+        self.content = bodyValue
+        self.renderer = JSNode(named: Self.name, elementID: id)
+    }
 
     public init(@PageBuilder content: @escaping () -> any Operator) {
-        self.content = .list(content)
-        self.attributes = .init()
-        self.events = .init()
+        self.init(bodyValue: content)
     }
 
 
