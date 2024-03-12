@@ -43,9 +43,6 @@ final class JSNode {
     }
     
     private init(element: JSObject, elementID: ElementID, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
-        print("INITIALIZING A JSNODE")
-        print("THIS IS THE ID \(elementID)")
-
         self.element = element
         self.events = events
 //        self.parent = parent
