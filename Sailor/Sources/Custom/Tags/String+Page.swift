@@ -34,6 +34,8 @@ struct StringRenderer: Renderable {
     
     public func remove() { }
     
+    public func clear() { }
+    
     public func replace(with renderable: any Element) { }
     
     public func updateAttribute(name: String, value: String) { }
