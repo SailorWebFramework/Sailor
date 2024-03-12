@@ -11,12 +11,6 @@ public typealias ElementID = String
 
 public protocol Element: Page, Identifiable {
     
-//    associatedtype ElementAttributeGroup: AttributeGroup
-//    associatedtype Renderer: Renderable
-
-    /// HTML tag name, all lowercased
-//    var name: String { get }
-    
     /// Unique Element ID used to diff items
     var id: ElementID { get set }
     
@@ -67,9 +61,6 @@ public struct ElementAttributeGroup: AttributeGroup {
 // TODO: make this internal? / remove?
 public extension Element {
     
-    // todo: doesnt work keeps regenerating
-//    static var elementID: UUID { UUID() }
-    
     func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
         if attributes[value.name] == value.value { return self }
 
@@ -97,7 +88,6 @@ public extension Element {
         } else {
             copy.events[name] = closure
         }
-
         
         return copy
     }
