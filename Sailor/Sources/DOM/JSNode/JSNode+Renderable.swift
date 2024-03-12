@@ -7,14 +7,12 @@
 
 import Sailboat
 import JavaScriptKit
-import Foundation
 
 extension JSNode: Renderable {
     
     public func addToParent(_ parent: any Element) {
         let parentNode = parent.renderer as! JSNode
         
-//        parentNode.children.append(self)
         _ = parentNode.element.appendChild?(self.element)
 
         // on appear called once the JSNode becomes renderable
@@ -35,29 +33,20 @@ extension JSNode: Renderable {
     }
 
     public func render() {
-
-        print("HELLLOOO")
-
         guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
-            print("page is none")
             return
         }
         
-//        print("page isnt none \(page)")
-
-        
-        // TODO: diff events and attributes?
-        // make sure order is the same for attributes
-
-        self.removeEvents()
-        
+        // TODO: Think events should never have to be readded?
+        //self.removeEvents()
         if self.events.isEmpty && self.sailorEvents.isEmpty {
             for (name, event) in page.events {
-//                print("\(name), \(event)")
                 self.addEvent(name: name, closure: event)
             }
         }
 
+        // TODO: diff events and attributes?
+        // make sure order is the same for attributes
         if page.attributes != self.attributes {
             self.removeAttributes()
 
@@ -65,7 +54,6 @@ extension JSNode: Renderable {
                 self.updateAttribute(name: key, value: value)
             }
         }
-        
 
         // on update called once the JSNode elements update
         self.sailorEvents.onUpdate(.none)
@@ -73,13 +61,6 @@ extension JSNode: Renderable {
     
     public func remove() {
 
-//        self.parent?.children.removeAll(where: { $0 === self })
-
-//        removeEvents()
-//        removeAttributes()
-        
-//        self.children = []
-        
         _ = self.element.remove?()
 
         self.clear()
@@ -101,6 +82,14 @@ extension JSNode: Renderable {
         }
 
         self.sailorEvents.onDisappear(.none)
+        
+        // TODO: do this for the parent renderer
+        // on appear called once the JSNode becomes renderable
+//        parentRenderer.sailorEvents.onAppear(.none)
+        
+        // launch tasks on the background thread on render
+        // TODO: make task launch asyncronously
+//        parentRenderer.sailorEvents.task(.none)
 
     }
     

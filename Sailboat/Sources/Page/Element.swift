@@ -20,6 +20,7 @@ public protocol Element: Page, Identifiable {
     /// event names and values attached to this HTMLElement
     var events: [String: (EventResult) -> Void] { get set }
     
+    // TODO: dubug why (() -> any Operator)? doesnt work
     /// content within HTML tags
     var content: () -> any Operator { get set }
     

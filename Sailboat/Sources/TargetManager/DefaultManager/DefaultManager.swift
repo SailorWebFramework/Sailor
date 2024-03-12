@@ -9,7 +9,7 @@ import Foundation
 
 public final class ManagedEvent {
     public var semaphore: Int = 0
-    public var states: [StateID] = []
+    public var states: Set<StateID> = []
 }
 
 public final class ManagedPages {
@@ -23,7 +23,7 @@ public final class ManagedPages {
     public var elementStateMap: [ElementID: Set<StateID>] = [:]
 
     /// the current callback history of changed state values, use dump to clear the history
-    public var stateHistory: [StateID] = []
+    public var stateHistory: Set<StateID> = []
     
 }
 
@@ -85,13 +85,8 @@ open class DefaultManager {
                         
                         // builds the shallow content body and adds its state to the watchers
                         let content = element.content()
-                        print("ADDING TO GLOBAL")
                         
                         SailboatGlobal.manager.dumpTo(element: element)
-                        
-                        print("ATTEMPTING TO BUILD BODY FOR \(element)")
-                        
-                        print("BODY \(content)")
 
                         // TODO: remove the old states in the states map and append these dumped
                         element.renderer.build(page: content, parent: element)
@@ -107,7 +102,7 @@ open class DefaultManager {
     public func dumpTo(element: any Element) {
         let states = dump()
         
-        print(managedPages.stateElementMap)
+//        print(managedPages.stateElementMap)
         
         for state in states {
             managedPages.stateElementMap[state, default: []].insert(element.id)
@@ -117,10 +112,10 @@ open class DefaultManager {
     
     // TODO: rename to like
     public func dumpDependency(state: any Stateful) {
-        managedPages.stateHistory.append(state.id)
+        managedPages.stateHistory.insert(state.id)
     }
     
-    public func dump() -> [StateID] {
+    public func dump() -> Set<StateID> {
         let copy = managedPages.stateHistory
         managedPages.stateHistory.removeAll()
         return copy
@@ -128,17 +123,17 @@ open class DefaultManager {
     
     public func startEvent() {
         managedEvent.semaphore += 1
-        print("semaphore up \(managedEvent.semaphore)")
+//        print("semaphore up \(managedEvent.semaphore)")
 
     }
     
     public func eventAdd<StateValue: Equatable>(state: State<StateValue>) {
-        managedEvent.states.append(state.id)
+        managedEvent.states.insert(state.id)
     }
     
     public func endEvent() {
         managedEvent.semaphore -= 1
-        print("semaphore down \(managedEvent.semaphore)")
+//        print("semaphore down \(managedEvent.semaphore)")
 
         if managedEvent.semaphore == 0 {
             update()

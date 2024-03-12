@@ -14,17 +14,12 @@ struct StringRenderer: Renderable {
     
     init(_ value: String) {
         self.value = value
-        print("RENDERING String?")
-
     }
     
     public func addToParent(_ parent: any Element) {
         guard let parentNode = parent.renderer as? JSNode else {
-            print("PARENT ISNT A JSNODE")
             return
         }
-        print("editing parent text to \(self.value)")
-
         parentNode.editContent(text: self.value, append: true)
     }
     
