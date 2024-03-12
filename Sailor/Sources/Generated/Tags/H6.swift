@@ -23,7 +23,7 @@ public struct H6: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: (() -> any Operator)?
+    public var content: () -> any Operator
 
     public var renderer: any Renderable
 
@@ -32,7 +32,7 @@ public struct H6: Element {
         self.id = id
         self.attributes = [:]
         self.events = [:]
-        self.content = bodyValue
+        self.content = bodyValue ?? { List([]) }
         self.renderer = JSNode(named: Self.name, elementID: id)
         //SailboatGlobal.manager.managedPages.elements[id] = self
     }

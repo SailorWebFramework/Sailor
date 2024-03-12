@@ -9,7 +9,7 @@ import Sailboat
 
 // TODO: this whole file make strings work as renderable elements
 
-class StringRenderer: Renderable {
+struct StringRenderer: Renderable {
     var value: String
     
     init(_ value: String) {
@@ -63,8 +63,8 @@ extension String: Element {
         set(newValue) { }
     }
     
-    public var content: (() -> any Operator)? {
-        get { nil }
+    public var content: () -> any Operator {
+        get { { List([]) } }
         set(newValue) { }
     }
     
