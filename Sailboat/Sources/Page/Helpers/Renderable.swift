@@ -15,6 +15,8 @@ public protocol Renderable {
 
     func remove()
     
+    func clear()
+    
     func replace(with renderable: any Element)
     
     func render()

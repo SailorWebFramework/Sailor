@@ -24,6 +24,15 @@ extension JSNode: Renderable {
         // TODO: make task launch asyncronously
         self.sailorEvents.task(.none)
     }
+    
+    public func clear() {
+        removeEvents()
+        removeAttributes()
+        
+        // TODO: this probably overrides some non-string elements...
+        self.element.innerHTML = ""
+
+    }
 
     public func render() {
 
@@ -43,9 +52,8 @@ extension JSNode: Renderable {
         self.removeEvents()
         
         if self.events.isEmpty && self.sailorEvents.isEmpty {
-                
             for (name, event) in page.events {
-                print("\(name), \(event)")
+//                print("\(name), \(event)")
                 self.addEvent(name: name, closure: event)
             }
         }
@@ -67,14 +75,15 @@ extension JSNode: Renderable {
 
 //        self.parent?.children.removeAll(where: { $0 === self })
 
-        removeEvents()
-        removeAttributes()
+//        removeEvents()
+//        removeAttributes()
         
 //        self.children = []
-
+        
         _ = self.element.remove?()
 
-//        self.element.innerHTML = ""
+        self.clear()
+
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)

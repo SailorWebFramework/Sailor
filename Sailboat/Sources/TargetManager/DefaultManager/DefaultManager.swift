@@ -17,10 +17,10 @@ public final class ManagedPages {
     public var elements: [ElementID: any Element] = [:]
     
     /// map of states to the pages they include
-    public var stateElementMap: [StateID: [ElementID]] = [:]
+    public var stateElementMap: [StateID: Set<ElementID>] = [:]
     
     ///
-    public var elementStateMap: [ElementID: [StateID]] = [:]
+    public var elementStateMap: [ElementID: Set<StateID>] = [:]
 
     /// the current callback history of changed state values, use dump to clear the history
     public var stateHistory: [StateID] = []
@@ -75,22 +75,27 @@ open class DefaultManager {
                     if let element = managedPages.elements[elementID] {
                         
                         managedEvent.semaphore += 1
-
-                        element.renderer.remove()
+                        
+                        // clear the body (and attributes of this element)
+                        element.renderer.clear()
+                        
+                        //TODO: DIFF attributes and events dont completely override
+                        // re-render attributes + events
                         element.renderer.render()
-//                                                
-//                        // builds the shallow content body and adds its state to the watchers
+                        
+                        // builds the shallow content body and adds its state to the watchers
                         let content = element.content()
-//                        if let content = element.content?() {
                         print("ADDING TO GLOBAL")
                         
                         SailboatGlobal.manager.dumpTo(element: element)
                         
-                        print("ATTEMPTING TO BUILD BODY")
-                        // TODO: remove the old states in the states map and append these dumped
+                        print("ATTEMPTING TO BUILD BODY FOR \(element)")
                         
+                        print("BODY \(content)")
+
+                        // TODO: remove the old states in the states map and append these dumped
                         element.renderer.build(page: content, parent: element)
-//                        }
+                        
                         managedEvent.semaphore -= 1
 
                     }
@@ -105,7 +110,7 @@ open class DefaultManager {
         print(managedPages.stateElementMap)
         
         for state in states {
-            managedPages.stateElementMap[state, default: []].append(element.id)
+            managedPages.stateElementMap[state, default: []].insert(element.id)
         }
 
     }
