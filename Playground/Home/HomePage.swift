@@ -25,9 +25,13 @@ struct HomePage: Page {
 //                H2 { "subtitle" }
 //                Div { "more text!" }
 //            }
-            Div {"HELLO \(toggle)"}
+//            P {
+//                "HELLO \(toggle)"
+////                B{ "bolded text" }
+////                "hello"
+//            }
             
-            Button{"btn"}
+            Button{"btn \(toggle)"}
                 .onClick {
                     toggle.toggle()
                     print("TOGGLE THE THING")
