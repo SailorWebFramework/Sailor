@@ -21,7 +21,7 @@ public protocol Element: Page, Identifiable {
     var events: [String: (EventResult) -> Void] { get set }
     
     /// content within HTML tags
-    var content: (() -> any Operator)? { get set }
+    var content: () -> any Operator { get set }
     
     /// used to render this element
     var renderer: any Renderable { get set }
