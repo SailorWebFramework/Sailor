@@ -34,6 +34,7 @@ public struct Div: Element {
         self.events = [:]
         self.content = bodyValue
         self.renderer = JSNode(named: Self.name, elementID: id)
+        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
 

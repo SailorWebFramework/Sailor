@@ -12,12 +12,6 @@ public protocol Operator: Page {
     var children: [any Page] { get set }
     
 }
-    
-    // TODO:
-//    var staticMember: Bool { get set }
-//    var route: String? { get set }
-    
-//}
 
 public extension Operator {
     var description: String {
