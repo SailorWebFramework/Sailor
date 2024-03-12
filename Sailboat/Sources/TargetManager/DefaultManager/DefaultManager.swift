@@ -80,16 +80,17 @@ open class DefaultManager {
                         element.renderer.render()
 //                                                
 //                        // builds the shallow content body and adds its state to the watchers
-                        if let content = element.content?() {
-                            print("ADDING TO GLOBAL")
-                            
-                            SailboatGlobal.manager.dumpTo(element: element)
-                            
-                            print("ATTEMPTING TO BUILD BODY")
-                            // TODO: remove the old states in the states map and append these dumped
-                            
-                            element.renderer.build(page: content, parent: element)
-                        }
+                        let content = element.content()
+//                        if let content = element.content?() {
+                        print("ADDING TO GLOBAL")
+                        
+                        SailboatGlobal.manager.dumpTo(element: element)
+                        
+                        print("ATTEMPTING TO BUILD BODY")
+                        // TODO: remove the old states in the states map and append these dumped
+                        
+                        element.renderer.build(page: content, parent: element)
+//                        }
                         managedEvent.semaphore -= 1
 
                     }

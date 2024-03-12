@@ -24,7 +24,7 @@ public struct Body: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: (() -> any Operator)?
+    public var content: () -> any Operator
 
     public var renderer: any Renderable
 
@@ -33,7 +33,7 @@ public struct Body: Element {
         self.id = id
         self.attributes = [:]
         self.events = [:]
-        self.content = bodyValue
+        self.content = bodyValue ?? { List([]) }
         // special renderer for body
         self.renderer = JSNode(elementID: id)
 //        SailboatGlobal.manager.managedPages.elements[id] = self

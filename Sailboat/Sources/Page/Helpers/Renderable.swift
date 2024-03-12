@@ -41,9 +41,12 @@ extension Renderable {
         if let page = page as? any Element {
             
             // run the page builder closure to create an operator node
-            if let listpage = page.content {
-                let operatorPage = listpage()
-                
+//            if let listpage = page.content {
+//                let operatorPage = listpage()
+            let operatorPage = page.content()
+
+            if !operatorPage.children.isEmpty {
+            
                 //only save pages with associated state,
                 //TODO: also remove them when they go out of scope
 //                if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
@@ -52,8 +55,9 @@ extension Renderable {
                 SailboatGlobal.manager.dumpTo(element: page)
                 
                 build(page: operatorPage, parent: page)
+//            }
             }
-            
+
             print("PAGE:\(page)")
 
             print("PRINT A RENDER")
