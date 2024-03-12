@@ -37,6 +37,10 @@ struct HomePage: Page {
                     print("TOGGLE THE THING")
                 }
             
+            
+            Div{"title \(!toggle)"}
+
+            
 //            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
 
         }
