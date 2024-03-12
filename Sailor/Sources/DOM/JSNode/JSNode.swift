@@ -5,13 +5,13 @@
 //  Created by Joshua Davis on 1/1/24.
 //
 
-import Sailboat
 import JavaScriptKit
+import Sailboat
 
 final class JSNode {
 
     internal var element: JSObject
-    internal var children: [JSNode]
+//    internal var children: [JSNode]
     
     internal var elementID: ElementID
 
@@ -20,7 +20,7 @@ final class JSNode {
     
     internal var attributes: JSAttributes
     
-    internal weak var parent: JSNode?
+//    internal weak var parent: JSNode?
 
     convenience init(elementID: ElementID) {
         self.init(
@@ -43,18 +43,21 @@ final class JSNode {
     }
     
     private init(element: JSObject, elementID: ElementID, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
+        print("INITIALIZING A JSNODE")
+        print("THIS IS THE ID \(elementID)")
+
         self.element = element
         self.events = events
-        self.parent = parent
+//        self.parent = parent
         self.attributes = attributes
-        self.children = []
+//        self.children = []
         self.elementID = elementID
 //        self.isTextComponent = true
     }
 
     internal func editContent(text: String, append: Bool = false) {
         if append {
-            self.element.textContent = JSValue.string((self.element.textContent.string ?? "") + text)
+            self.element.innerHTML = JSValue.string((self.element.textContent.string ?? "") + text)
             return
         }
         
@@ -62,6 +65,7 @@ final class JSNode {
     }
     
     internal func removeAttributes() {
+        
         for (name, _) in attributes {
             _ = self.element.removeAttribute?(name.description)
         }

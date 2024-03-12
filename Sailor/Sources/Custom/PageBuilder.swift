@@ -19,8 +19,6 @@ public struct PageBuilder {
     }
     
     public static func buildOptional(_ component: (any Operator)?) -> any Operator {
-        // this should be the dependencies of the conditional
-        
         guard let component = component else { return Conditional([]) } // or? Conditional([Div()])
 
         return Conditional(component.children)

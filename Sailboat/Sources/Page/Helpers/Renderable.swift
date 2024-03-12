@@ -9,25 +9,17 @@ import Foundation
 
 public protocol Renderable {
 
-    func addToParent(_ parentNode: any Renderable)
+    func addToParent(_ parentNode: any Element)
 
-    func addChild(_ childNode: any Renderable)
+//    func addChild(_ childNode: any Element)
 
     func remove()
     
-    func replace(with renderable: any Renderable)
+    func replace(with renderable: any Element)
     
-    func render(page: any Element)
+    func render()
     
     func updateAttribute(name: String, value: String)
-    
-//    func build(page: any Page)
-    
-    // TODO: reRenderBody ?
-    
-    // TODO: renderText
-    
-//    func addEvent(name: String, closure: @escaping (EventResult) -> Void)
     
     func debugPrint()
 }
@@ -54,21 +46,24 @@ extension Renderable {
                 
                 //only save pages with associated state,
                 //TODO: also remove them when they go out of scope
-                //TODO: consider putting this on onAppear and onDisappear
-                if !SailboatGlobal.manager.stateCallbackHistory.isEmpty {
-                    SailboatGlobal.manager.elements[page.id] = page
-                }
+//                if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
+                SailboatGlobal.manager.managedPages.elements[page.id] = page
                 
                 SailboatGlobal.manager.dumpTo(element: page)
                 
                 build(page: operatorPage, parent: page)
             }
             
+            print("PAGE:\(page)")
+
+            print("PRINT A RENDER")
             // render current page to parent
-            page.renderer.render(page: page)
+            page.renderer.render()
             
+            print("WE RENDERRR")
+
             if let parent = parent {
-                page.renderer.addToParent(parent.renderer)
+                page.renderer.addToParent(parent)
             }
 
             return

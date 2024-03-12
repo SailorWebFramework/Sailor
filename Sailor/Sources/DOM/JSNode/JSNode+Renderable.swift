@@ -7,13 +7,14 @@
 
 import Sailboat
 import JavaScriptKit
+import Foundation
 
 extension JSNode: Renderable {
     
-    public func addToParent(_ parentNode: any Renderable) {
-        let parentNode = parentNode as! JSNode
+    public func addToParent(_ parent: any Element) {
+        let parentNode = parent.renderer as! JSNode
         
-        parentNode.children.append(self)
+//        parentNode.children.append(self)
         _ = parentNode.element.appendChild?(self.element)
 
         // on appear called once the JSNode becomes renderable
@@ -23,19 +24,18 @@ extension JSNode: Renderable {
         // TODO: make task launch asyncronously
         self.sailorEvents.task(.none)
     }
-    
-    // TODO: may need to remove text content if the component was a TextComponent
-    // ie. self.editContent(text: "")
-    public func addChild(_ child: any Renderable) {
-        let child = child as! JSNode
 
-        // add child given we are parent
-        child.parent = self
-        child.addToParent(self)
+    public func render() {
+
+        print("HELLLOOO")
+
+        guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
+            print("page is none")
+            return
+        }
         
-    }
-    
-    public func render(page: any Element) {
+//        print("page isnt none \(page)")
+
         
         // TODO: diff events and attributes?
         // make sure order is the same for attributes
@@ -43,7 +43,9 @@ extension JSNode: Renderable {
         self.removeEvents()
         
         if self.events.isEmpty && self.sailorEvents.isEmpty {
+                
             for (name, event) in page.events {
+                print("\(name), \(event)")
                 self.addEvent(name: name, closure: event)
             }
         }
@@ -63,23 +65,27 @@ extension JSNode: Renderable {
     
     public func remove() {
 
-        self.parent?.children.removeAll(where: { $0 === self })
+//        self.parent?.children.removeAll(where: { $0 === self })
 
         removeEvents()
         removeAttributes()
         
-        self.children = []
+//        self.children = []
 
         _ = self.element.remove?()
 
-        self.element.innerHTML = ""
+//        self.element.innerHTML = ""
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)
+        
+        // TODO: should this be before onDisappear?
+        SailboatGlobal.manager.managedPages.elements[self.elementID] = nil
+
     }
     
-    public func replace(with renderable: any Renderable) {
-        let jsnode = renderable as! JSNode
+    public func replace(with element: any Element) {
+        let jsnode = element.renderer as! JSNode
 
         if let parent = self.element.parentElement.object {
             _ = parent.replaceChild!(jsnode.element, self.element)

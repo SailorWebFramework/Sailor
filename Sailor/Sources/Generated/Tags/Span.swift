@@ -34,10 +34,11 @@ public struct Span: Element {
         self.events = [:]
         self.content = bodyValue
         self.renderer = JSNode(named: Self.name, elementID: id)
+        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
-    public init(text: @escaping () -> any Operator) {
-        self.init(bodyValue: text)
+    public init(@PageBuilder content: @escaping () -> any Operator) {
+        self.init(bodyValue: content)
     }
 
 

@@ -7,52 +7,48 @@
 
 import Foundation
 
-public struct ManagedEvent {
+public final class ManagedEvent {
     public var semaphore: Int = 0
     public var states: [StateID] = []
 }
 
-public struct ManagedPage {
-    public var currentElement: (any Element)? = nil
-    public var parentElement: (any Element)? = nil
-    public var currentPage: (any Page)? = nil
+public final class ManagedPages {
+    ///
+    public var elements: [ElementID: any Element] = [:]
+    
+    /// map of states to the pages they include
+    public var stateElementMap: [StateID: [ElementID]] = [:]
+    
+    ///
+    public var elementStateMap: [ElementID: [StateID]] = [:]
+
+    /// the current callback history of changed state values, use dump to clear the history
+    public var stateHistory: [StateID] = []
+    
 }
 
+// TODO: Rename to target manager and remove the old target manager??
 /// Manager used for testing, does not render to DOM
-open class DefaultManager: TargetManager {
+open class DefaultManager {
 
-//    public var body: (any PageNode)? = nil
+    ///
     public var environment: (any SomeEnvironment)? = nil
     
     // TODO: state objects here, or inside of environment
     public var objects: [StateID: ObservableObject] = [:]
     
-    public var managedPage: ManagedPage = .init()
-    
+    ///
     public var managedEvent: ManagedEvent = .init()
-    
-    public var stateCallbackHistory: [StateID] = []
-    
-    public var elements: [ElementID: any Element] = [:]
-    
-    /// map of states to the pages they include
-    public var stateToPagesMap: [StateID: [ElementID]] = [:]
-    
+
+    ///
+    public var managedPages: ManagedPages = .init()
+
     public init() { }
-    
-//    private struct BasePageWrapper<T: Page>: Page {
-//        var page: T
-//
-//        var body: some Page {
-//            page
-//        }
-//    }
-//    
+      
     open func build<GenericPage: Page>(page: GenericPage) {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
-        
-//        self.body = self.build(page: page, parent: nil)
+
         managedEvent.semaphore += 1
         
         print("Start Build: \(managedEvent.semaphore)")
@@ -67,40 +63,33 @@ open class DefaultManager: TargetManager {
         
         print("updating view...")
         
-        print(managedEvent.states)
-        print(stateToPagesMap)
-        print(elements)
+//        print(managedEvent.states)
+//        print(stateToPagesMap)
+//        print(elements)
 
         for stateID in managedEvent.states {
-            if let elementIDs = stateToPagesMap[stateID] {
+            if let elementIDs = managedPages.stateElementMap[stateID] {
                 
                 // body updates need a rerender of the body of the element
                 for elementID in elementIDs {
-                    if let element = elements[elementID] {
+                    if let element = managedPages.elements[elementID] {
+                        
                         managedEvent.semaphore += 1
 
-                        print("STARTING UPDATE OF \(element)")
-
-//                        element.renderer.remove()
-//                        element.renderer.render(page: element)
-
-                        print("REMOVED SUCESSFULLY")
-                        
-                        // builds the shallow content body and adds its state to the watchers
+                        element.renderer.remove()
+                        element.renderer.render()
+//                                                
+//                        // builds the shallow content body and adds its state to the watchers
                         if let content = element.content?() {
                             print("ADDING TO GLOBAL")
                             
-//                            SailboatGlobal.manager.dumpTo(element: element)
+                            SailboatGlobal.manager.dumpTo(element: element)
                             
                             print("ATTEMPTING TO BUILD BODY")
                             // TODO: remove the old states in the states map and append these dumped
                             
-                            
-//                            element.renderer.build(page: content, parent: element)
+                            element.renderer.build(page: content, parent: element)
                         }
-                        
-                        print("NO CONTENT")
-                        
                         managedEvent.semaphore -= 1
 
                     }
@@ -112,33 +101,22 @@ open class DefaultManager: TargetManager {
     public func dumpTo(element: any Element) {
         let states = dump()
         
-        
-        print(stateToPagesMap)
+        print(managedPages.stateElementMap)
         
         for state in states {
-            stateToPagesMap[state, default: []].append(element.id)
-        }
-        
-        // todo: ?
-//        self.elements[element.id] =
-        
-        if !states.isEmpty {
-            print("REGISTERED \(element)")
-            print(stateToPagesMap)
-            print(elements)
+            managedPages.stateElementMap[state, default: []].append(element.id)
         }
 
     }
     
     // TODO: rename to like
     public func dumpDependency(state: any Stateful) {
-        stateCallbackHistory.append(state.id)
-
+        managedPages.stateHistory.append(state.id)
     }
     
     public func dump() -> [StateID] {
-        let copy = stateCallbackHistory
-        stateCallbackHistory.removeAll()
+        let copy = managedPages.stateHistory
+        managedPages.stateHistory.removeAll()
         return copy
     }
     
@@ -158,8 +136,12 @@ open class DefaultManager: TargetManager {
 
         if managedEvent.semaphore == 0 {
             update()
-//            print("I WOULD UPDATE BUT NO")
         }
+    }
+    
+    
+    public func getElement(_ elementID: ElementID) -> (any Element)? {
+        self.managedPages.elements[elementID]
     }
     
 }
