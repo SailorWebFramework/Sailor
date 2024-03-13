@@ -16,14 +16,19 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-//            Div {
-//                "hello this is a test"
-//                "did it combine?"
-//            }
+            Div {
+                "hello this is a test"
+                " did it combine?"
+            }
                         
             if myNum == 10 {
                 A { "hello its" }
                     .href("#MyImage")
+                    .onClick {
+                        var value = prompt("IS THIS REAL")
+                        
+                        myString = value
+                    }
             }
             
 //
@@ -53,6 +58,7 @@ struct HomePage: Page {
 
             
             H3{"you typed: \(myString)"}
+                .id("MyImage")
 
             
 //            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")

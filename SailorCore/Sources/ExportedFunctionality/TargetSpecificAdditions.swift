@@ -6,14 +6,16 @@
 //
 
 import Sailboat
+import SailorShared
 
 #if os(WASI)
 import SailorWeb
 
-public typealias Environment<EnvValue> = Sailboat.Environment<WebEnvironment, EnvValue>
+public typealias Env = SailorWeb.WebEnvironment
 
 #else
-//
+public typealias Env = EmptyEnvironment
+
 #endif
 
 extension Page {

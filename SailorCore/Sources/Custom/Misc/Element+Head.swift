@@ -8,8 +8,8 @@
 import Sailboat
 
 
-extension Element {
-    func head() -> Self {
+public extension Element {
+    func head(@PageBuilder _ builder: @escaping () -> any Operator) -> Self {
 //        SailorGlobal.manager.head
         return self
     }
