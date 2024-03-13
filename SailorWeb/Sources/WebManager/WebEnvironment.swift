@@ -6,14 +6,11 @@
 //
 
 import Sailboat
+import SailorShared
 import JavaScriptKit
 
+public final class WebEnvironment: SailorEnvironment {
 
-public final class WebEnvironment: SomeEnvironment {
-    public var data: [String: String] = [:]
-
-//    public var navigation: Navigation
-    
     public var url: String {
         JSNode.window.location.object!.href.string!
     }

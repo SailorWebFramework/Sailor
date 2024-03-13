@@ -4,29 +4,24 @@ import Sailor
 @main
 #endif
 struct TestWebsite: Website {
-    // TODO: make it so i need environment not typealias?
-//    typealias WebRoutes = AppRoutes
-    
-//    @Environment var environment: WebEnvironment<AppRoutes>
+    @Environment var environment: Env
     
     var body: some Page {
         Body {
-            H1 { "Website Title" }
+            H1 { "Website URL: \(environment.url)" }
                 .onClick {
                     alert("ouch!")
                 }
             HomePage()
         }
-        
-        // TODO: I think this is the settled approach?
-//        .head {
-//
-//            Title("This is a title")
-//            // Make custom properties for FavIcon and LinkCSS
+        .head {
+            Title { "This is a title" }
+            Link(rel: "stylesheet", href: "sheet3.css")
+
+            // Make custom properties for FavIcon and LinkCSS
 //            FavIcon("resources/icon.ico")
 //            LinkCSS("sheet1.css")
-//            Link(rel: "stylesheet", href: "sheet3.css")
-//        }
+        }
 
     }
 }
