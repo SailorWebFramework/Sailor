@@ -3,7 +3,7 @@ import Sailor
 @main
 struct TestWebsite: Website {
     // TODO: make it so i need environment not typealias?
-    typealias WebRoutes = AppRoutes
+//    typealias WebRoutes = AppRoutes
     
 //    @Environment var environment: WebEnvironment<AppRoutes>
     
