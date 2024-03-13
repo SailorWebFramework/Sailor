@@ -1,6 +1,8 @@
 import Sailor
 
+#if os(WASI)
 @main
+#endif
 struct TestWebsite: Website {
     // TODO: make it so i need environment not typealias?
 //    typealias WebRoutes = AppRoutes
@@ -9,7 +11,10 @@ struct TestWebsite: Website {
     
     var body: some Page {
         Body {
-            H1 {"Website Title"}
+            H1 { "Website Title" }
+                .onClick {
+                    alert("ouch!")
+                }
             HomePage()
         }
         
