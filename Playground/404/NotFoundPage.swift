@@ -5,7 +5,7 @@ struct NotFoundPage: Page {
 
     var body: some Page {
         Div {
-            Div{"404"}
+            Div{ "404" }
             Div{"Page not found"}
             Button{"Go to home"}
 //                .onClick {
