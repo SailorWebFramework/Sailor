@@ -6,9 +6,9 @@
 //
 
 import JavaScriptKit
+//import Sailboat
 
 // JavascriptKit Passthrough
-// TODO: maybe scope these in Page
 
 public func alert(_ text: String) { JSObject.global.alert.function?(text) }
 
