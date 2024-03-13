@@ -58,42 +58,41 @@ open class DefaultManager {
 
     }
     
-    // TODO: func update(states: [UUID])
     open func update() {
         
         print("updating view...")
         
-//        print(managedEvent.states)
-//        print(stateToPagesMap)
-//        print(elements)
-
         for stateID in managedEvent.states {
-            if let elementIDs = managedPages.stateElementMap[stateID] {
+            guard let elementIDs = managedPages.stateElementMap[stateID] else { continue }
                 
-                // body updates need a rerender of the body of the element
-                for elementID in elementIDs {
-                    if let element = managedPages.elements[elementID] {
-                        
-                        managedEvent.semaphore += 1
-                        
-                        // clear the body (and attributes of this element)
-                        element.renderer.clear()
-                        
-                        //TODO: DIFF attributes and events dont completely override
-                        // re-render attributes + events
-                        element.renderer.render()
-                        
-                        // builds the shallow content body and adds its state to the watchers
-                        let content = element.content()
-                        
-                        SailboatGlobal.manager.dumpTo(element: element)
+            // body updates need a rerender of the body of the element
+            for elementID in elementIDs {
+                if let element = managedPages.elements[elementID] {
+                    
+                    managedEvent.semaphore += 1
+                    
+                    // TODO: remove clear once diff is implemented
+                    // clear the body (and attributes of this element)
+                    element.renderer.clear()
+                    
+                    // re-render attributes + events
+                    element.renderer.render()
+                    
+                    // builds the shallow content body and adds its state to the watchers
+                    let content = element.content()
+                    
+                    // TODO:
+                    // remove previous states dumped because it short circuits so theres no need to test it
+                    // if a || b || c
+                    // if a evaluates to true right now, i dont need to check b or c until a changes
+                    SailboatGlobal.manager.dumpTo(element: element)
+                    
+                    //TODO: remove this and do a shallow diff
+//                        element.renderer.reconcile(operator: content, to children: managedPages.children[elementID])
+                    element.renderer.build(page: content, parent: element)
+                    
+                    managedEvent.semaphore -= 1
 
-                        // TODO: remove the old states in the states map and append these dumped
-                        element.renderer.build(page: content, parent: element)
-                        
-                        managedEvent.semaphore -= 1
-
-                    }
                 }
             }
         }

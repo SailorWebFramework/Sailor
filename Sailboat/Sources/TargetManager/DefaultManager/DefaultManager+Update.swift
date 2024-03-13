@@ -5,7 +5,7 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
-extension DefaultManager {
+//extension DefaultManager {
     
     
     // TODO: maybe expand some to elements for example an Input($value) doesnt need a rerender for whole node
@@ -92,4 +92,4 @@ extension DefaultManager {
 //            update(node: node.children[0], with: node.page.body)
 //        }
 //    }
-}
+//}
