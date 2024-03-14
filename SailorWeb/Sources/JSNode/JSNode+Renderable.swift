@@ -47,6 +47,7 @@ extension JSNode: Renderable {
     
     public func reconcile(with newContent: any Operator) {
         guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
+            print("BRO WHAT")
             return
         }
         
@@ -54,13 +55,15 @@ extension JSNode: Renderable {
             fatalError("reconciling two different node types")
         }
         
-        
+        // TODO: theoretically this should always be true so remove the else?
         if oldContent.hash == newContent.hash {
+            print("hash is the same")
             reconcileBody(oldList: oldContent, newList: newContent)
             
         } else {
-            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
+            print("hash is different rebuilding")
 
+            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
             // TODO: also need to clear the children elements array in manager
             self.clearBody()
             self.build(page: newContent, parent: myElement)
@@ -87,14 +90,24 @@ extension JSNode: Renderable {
                let newOp = newList.children[i] as? any Operator {
                 
                 if oldOp.hash == newOp.hash {
+                    print("_hash is the same")
+
                     reconcileBody(oldList: oldOp, newList: newOp, aboveElement: last)
                 } else {
                     // rebuild
                     
                     print("SHOULD BE REMOVING INNER LIST")
+                    print("_hash is different rebuilding")
+
 //                    oldList.replace(with: newList)
 //                    removeUnder()
 //                    self.build(page: newOp, under: last)
+                    // TODO: update the children array to the new child operator
+
+                    // TODO: remove this replace with above
+                    let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]!
+                    self.clearBody()
+                    self.build(page: myElement.content(), parent: myElement)
                 }
             }
         }
