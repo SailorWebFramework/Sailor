@@ -38,7 +38,7 @@ public struct Body: Element {
         self.id = id
         self.attributes = [:]
         self.events = [:]
-        self.content = bodyValue ?? { List([]) }
+        self.content = bodyValue ?? { List() }
         // special renderer for body
         #if os(WASI)
         self.renderer = JSNode(elementID: id)

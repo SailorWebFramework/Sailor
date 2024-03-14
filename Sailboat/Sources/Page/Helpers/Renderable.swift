@@ -9,24 +9,45 @@ import Foundation
 
 public protocol Renderable {
 
-    func addToParent(_ parentNode: any Element)
-
-//    func addChild(_ childNode: any Element)
-
+    /// add this element to the parent element
+    func addToParent(_ parent: any Element)
+    
+    /// add this element below another element
+    func addBelow(_ node: any Element)
+    
+    /// remove this element permenately
     func remove()
     
-    func clear()
+    /// remove all attributes
+    func clearAttributes()
     
+    /// remove all events
+    func clearEvents()
+
+    /// remove the children elements from being rendered
+    func clearBody()
+    
+    /// diff and reconcile and rebuild the body of the current element
+    func reconcile(with operator: any Operator)
+    
+    /// diff and replace attributes
+//    func diffAttribuets()
+    
+    // TODO: maybe rename to shallow render?
+    /// replace this node with another element
     func replace(with renderable: any Element)
     
+    /// shallow render of an element
     func render()
     
+    /// update the specified attribute
     func updateAttribute(name: String, value: String)
     
-    func debugPrint()
 }
 
-extension Renderable {
+public extension Renderable {
+    
+    /// build a page to this renderer and add it to parent
     func build(page: any Page, parent: (any Element)?) {
         // if page is an Operator
         if let page = page as? any Operator {

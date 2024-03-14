@@ -23,15 +23,84 @@ extension JSNode: Renderable {
         self.sailorEvents.task(.none)
     }
     
-    public func clear() {
-        removeAttributes()
-        removeEvents()
+    public func addBelow(_ node: any Element) {
+        let aboveNode = node.renderer as! JSNode
+        let parentNode = aboveNode.element.parentNode
+            
+        parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
 
+    }
+    
+    public func clearBody() {
         // TODO: this probably overrides some non-string elements...
         self.element.innerHTML = ""
 
     }
+    
+    public func clearAttributes() {
+        removeAttributes()
+    }
+    
+    public func clearEvents() {
+        removeEvents()
+    }
+    
+    public func reconcile(with newContent: any Operator) {
+        guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
+            return
+        }
+        
+        guard type(of: newContent) == type(of: oldContent) else {
+            fatalError("reconciling two different node types")
+        }
+        
+        
+        if oldContent.hash == newContent.hash {
+            reconcileBody(oldList: oldContent, newList: newContent)
+            
+        } else {
+            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
 
+            // TODO: also need to clear the children elements array in manager
+            self.clearBody()
+            self.build(page: newContent, parent: myElement)
+        }
+
+    }
+    
+    private func reconcileBody(oldList: any Operator, newList: any Operator, aboveElement: (any Element)? = nil) {
+        guard oldList.children.count == newList.children.count else {
+            fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
+        }
+
+        let elementCount = oldList.children.count
+        
+        var last: (any Element)? = aboveElement
+        
+        for i in 0..<elementCount {
+            
+            if let oldElement = oldList.children[i] as? any Element {
+                last = oldElement
+            }
+            
+            if let oldOp = oldList.children[i] as? any Operator,
+               let newOp = newList.children[i] as? any Operator {
+                
+                if oldOp.hash == newOp.hash {
+                    reconcileBody(oldList: oldOp, newList: newOp, aboveElement: last)
+                } else {
+                    // rebuild
+                    
+                    print("SHOULD BE REMOVING INNER LIST")
+//                    oldList.replace(with: newList)
+//                    removeUnder()
+//                    self.build(page: newOp, under: last)
+                }
+            }
+        }
+        
+    }
+    
     public func render() {
         guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
             return
@@ -63,7 +132,9 @@ extension JSNode: Renderable {
 
         _ = self.element.remove?()
 
-        self.clear()
+        self.clearEvents()
+        self.clearAttributes()
+        self.clearBody()
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)

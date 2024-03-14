@@ -39,7 +39,7 @@ public struct Input: Element {
         self.id = id
         self.attributes = [:]
         self.events = [:]
-        self.content = bodyValue ?? { List([]) }
+        self.content = bodyValue ?? { List() }
         #if os(WASI)
         self.renderer = JSNode(named: Self.name, elementID: id)
         #else
@@ -48,14 +48,12 @@ public struct Input: Element {
 
         //SailboatGlobal.manager.managedPages.elements[id] = self
     }
-    
-    // TODO: get inital value to work, and remember to yoink off the history
 
     public init(type: Unit.InputType, _ value: Binding<String>) {
         self.init(bodyValue: nil)
 
         self.attributes["type"] = type.description
-//        self.attributes["value"] = value.wrappedValue.description
+        self.attributes["value"] = value.wrappedValue.description
         self.events["input"] = { eventResult in
             guard case let .string(bindedValue) = eventResult else { return }
             value.set(bindedValue)
@@ -65,7 +63,7 @@ public struct Input: Element {
     public init(_ value: Binding<String>) {
         self.init(bodyValue: nil)
 
-//        self.attributes["value"] = value.wrappedValue.description
+        self.attributes["value"] = value.wrappedValue.description
         self.events["input"] = { eventResult in
             guard case let .string(bindedValue) = eventResult else { return }
             value.set(bindedValue)

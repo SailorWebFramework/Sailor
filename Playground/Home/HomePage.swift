@@ -2,15 +2,10 @@ import Sailor
 
 struct HomePage: Page {
 
-    @State var myNum: Int = 10
+    @State var myNum: Int = 11
     @State var myString: String = ""
 
     @State var toggle: Bool = true
-    
-//    @Navigation var navigation: Navigation<MyRoutes>
-
-//
-//    @State var num2: Int = 0
     
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 
@@ -30,43 +25,45 @@ struct HomePage: Page {
                         myString = value
                     }
             }
+            else if myNum == 7 {
+               H2{"my number: \(myNum)"}
+
+            }
+            else if myNum == 8 {
+               H2{"my number: \(myNum)"}
+
+            }
+            else if myNum == 9 {
+                H2{"my number: \(myNum)"}
+
+            } 
             
+//            else {
+//                H3{"brooo: \(myNum)"}
 //
-//            if toggle {
-//                H2 { "subtitle" }
-//                Div { "more text!" }
 //            }
-//            P {
-//                "HELLO \(toggle)"
-////                B{ "bolded text" }
-////                "hello"
-//            }
-            
-            Input($myString)
-            Button{"btn \(toggle)"}
-                .onClick {
-                    toggle.toggle()
-                    myNum += 1
-                    print("TOGGLE THE THING")
-                }
-            
-            
-            Div{"title \(!toggle)"}
-
-            
-            H2{"my number: \(myNum)"}
-
-            
-            H3{"you typed: \(myString)"}
-                .id("MyImage")
+//            Input($myString)
+//            Button{"btn \(toggle)"}
+//                .onClick {
+//                    toggle.toggle()
+//                    myNum += 1
+//                    print("TOGGLE THE THING")
+//                }
+//            
+//            
+//            Div{"title \(!toggle)"}
+//
+//            
+//            H2{"my number: \(myNum)"}
+//
+//            
+//            H3{"you typed: \(myString)"}
+//                .id("MyImage")
 
             
 //            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
 
         }
-//        .onAppear {
-//            print("I APPEARED")
-//        }
     }
 }
 

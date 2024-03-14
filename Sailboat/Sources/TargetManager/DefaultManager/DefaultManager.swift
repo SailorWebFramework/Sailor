@@ -8,39 +8,44 @@
 import Foundation
 
 public final class ManagedEvent {
+    ///
     public var semaphore: Int = 0
+    ///
     public var states: Set<StateID> = []
+    
 }
 
 public final class ManagedPages {
     ///
     public var elements: [ElementID: any Element] = [:]
     
+    ///
+    public var children: [ElementID: any Operator] = [:]
+    
     /// map of states to the pages they include
     public var stateElementMap: [StateID: Set<ElementID>] = [:]
     
     ///
-    public var elementStateMap: [ElementID: Set<StateID>] = [:]
+//    public var elementStateMap: [ElementID: Set<StateID>] = [:]
 
     /// the current callback history of changed state values, use dump to clear the history
     public var stateHistory: Set<StateID> = []
-    
 }
 
 // TODO: Rename to target manager and remove the old target manager??
 /// Manager used for testing, does not render to DOM
 open class DefaultManager {
 
-    ///
+    /// the global environment stored here
     public var environment: (any SomeEnvironment)? = nil
     
     // TODO: state objects here, or inside of environment
     public var objects: [StateID: ObservableObject] = [:]
     
-    ///
+    /// magages global data on a ran event
     public var managedEvent: ManagedEvent = .init()
 
-    ///
+    /// the stored pages in memory rendered currently
     public var managedPages: ManagedPages = .init()
 
     public init() { }
@@ -49,6 +54,7 @@ open class DefaultManager {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
 
+        // TODO: do i need this sema up and down?
         managedEvent.semaphore += 1
         
         print("Start Build: \(managedEvent.semaphore)")
@@ -69,17 +75,11 @@ open class DefaultManager {
             for elementID in elementIDs {
                 if let element = managedPages.elements[elementID] {
                     
+                    // TODO: make helper function, managedEvent.semaUp() and down
                     managedEvent.semaphore += 1
-                    
-                    // TODO: remove clear once diff is implemented
-                    // clear the body (and attributes of this element)
-                    element.renderer.clear()
-                    
-                    // re-render attributes + events
-                    element.renderer.render()
-                    
+
                     // builds the shallow content body and adds its state to the watchers
-                    let content = element.content()
+                    let content: any Operator = element.content()
                     
                     // TODO:
                     // remove previous states dumped because it short circuits so theres no need to test it
@@ -89,7 +89,13 @@ open class DefaultManager {
                     
                     //TODO: remove this and do a shallow diff
 //                        element.renderer.reconcile(operator: content, to children: managedPages.children[elementID])
-                    element.renderer.build(page: content, parent: element)
+//                    element.renderer.build(page: content, parent: element)
+                    
+                    // update attributes shallowly
+                    element.renderer.render()
+                    
+                    //
+                    element.renderer.reconcile(with: content)
                     
                     managedEvent.semaphore -= 1
 
@@ -100,9 +106,7 @@ open class DefaultManager {
     
     public func dumpTo(element: any Element) {
         let states = dump()
-        
-//        print(managedPages.stateElementMap)
-        
+                
         for state in states {
             managedPages.stateElementMap[state, default: []].insert(element.id)
         }
@@ -122,8 +126,6 @@ open class DefaultManager {
     
     public func startEvent() {
         managedEvent.semaphore += 1
-//        print("semaphore up \(managedEvent.semaphore)")
-
     }
     
     public func eventAdd<StateValue: Equatable>(state: State<StateValue>) {
@@ -132,7 +134,6 @@ open class DefaultManager {
     
     public func endEvent() {
         managedEvent.semaphore -= 1
-//        print("semaphore down \(managedEvent.semaphore)")
 
         if managedEvent.semaphore == 0 {
             update()
