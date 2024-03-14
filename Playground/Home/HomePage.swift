@@ -15,7 +15,20 @@ struct HomePage: Page {
                 "hello this is a test"
                 " did it combine?"
             }
-                        
+            
+            Input($myString)
+            
+            if myString == "hell" {
+                H2{"HOMIE STOP CURSING"}
+
+            } else if  myString == "hello" {
+                H4{"JKJK"}
+
+            } else {
+                H3{"Empty"}
+
+            }
+            
             if myNum == 10 {
                 A { "hello its" }
                     .href("#MyImage")
