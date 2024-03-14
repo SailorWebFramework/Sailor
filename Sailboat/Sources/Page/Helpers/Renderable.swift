@@ -69,7 +69,10 @@ public extension Renderable {
             //TODO: also remove them when they go out of scope, also only save pages with state?
 //          if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
             SailboatGlobal.manager.managedPages.elements[page.id] = page
+            SailboatGlobal.manager.managedPages.children[page.id] = operatorPage
+
             SailboatGlobal.manager.dumpTo(element: page)
+            
             build(page: operatorPage, parent: page)
 
             // render current page to parent

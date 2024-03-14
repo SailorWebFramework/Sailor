@@ -2,7 +2,7 @@ import Sailor
 
 struct HomePage: Page {
 
-    @State var myNum: Int = 11
+    @State var myNum: Int = 6
     @State var myString: String = ""
 
     @State var toggle: Bool = true
@@ -36,8 +36,12 @@ struct HomePage: Page {
             else if myNum == 9 {
                 H2{"my number: \(myNum)"}
 
-            } 
+            }
             
+            Button { "press me" }
+                .onClick {
+                    myNum += 1
+                }
 //            else {
 //                H3{"brooo: \(myNum)"}
 //
