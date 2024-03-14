@@ -8,23 +8,24 @@ struct TestWebsite: Website {
     
     var body: some Page {
         Body {
-            H1 { "Website URL: \(environment.url)" }
-                .onClick {
-                    alert("ouch!")
-                }
+            H1 { environment.url }
+//                .onClick {
+//                    alert("ouch!")
+//                }
             HomePage()
         }
-        .head {
-            Title { "This is a title" }
-            Link(rel: "stylesheet", href: "sheet3.css")
-
-            // Make custom properties for FavIcon and LinkCSS
-//            FavIcon("resources/icon.ico")
-//            LinkCSS("sheet1.css")
-        }
-
+//        .head {
+//            Title { "This is a title" }
+//            Link(rel: "stylesheet", href: "sheet3.css")
+//            Link(rel: "icon", href: "favicon.ico")
+//        }
     }
 }
+
+// TODO: vvvv
+// Make custom properties for FavIcon and LinkCSS
+//            FavIcon("resources/icon.ico")
+//            LinkCSS("sheet1.css")
 
 //struct NavBar: Page {
 //    // TODO: fix the weird generics expected by the environment variables

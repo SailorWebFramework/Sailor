@@ -37,7 +37,7 @@ extension String: Element {
     }
     
     public var content: () -> any Operator {
-        get { { List([]) } }
+        get { { List() } }
         set(newValue) { }
     }
     
