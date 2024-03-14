@@ -10,26 +10,38 @@ import Sailboat
 @resultBuilder
 public struct PageBuilder {
     
-    public static func buildArray(_ components: [any Page]) -> any Operator {
-        return List(components)
-    }
+    // TODO: should this allowed , should it be stateful?
 
-    public static func buildBlock(_ components: any Page...) -> any Operator  {
-        return List(components)
-    }
+//    public static func buildArray(_ components: [any Page]) -> any Operator {
+//        return List(components, hash: 0)
+//    }
     
+    public static func buildBlock(_ components: any Page...) -> any Operator  {
+        return List(components, hash: 0)
+    }
+            
     public static func buildOptional(_ component: (any Operator)?) -> any Operator {
-        guard let component = component else { return Conditional([]) } // or? Conditional([Div()])
-
-        return Conditional(component.children)
+        guard let component = component else {
+            return List([], hash: -1)
+        }
+        
+        return component //List(component.children, hash: 0)
     }
     
     public static func buildEither(first component: any Operator) -> any Operator {
-        return Conditional(component.children)
+        if let component = component as? List {
+            return List(component.children, hash: component.hash + 1)
+        }
+        
+        return component //List(component.children, hash: 0)
     }
 
     public static func buildEither(second component: any Operator) -> any Operator {
-        return Conditional(component.children)
+        if let component = component as? List {
+            return List(component.children, hash: component.hash + 1)
+        }
+
+        return component // List(component.children, hash: 0)
     }
     
 }

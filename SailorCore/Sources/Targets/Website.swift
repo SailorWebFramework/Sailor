@@ -31,7 +31,6 @@ extension Website {
         SailboatGlobal.initialize(SailorWebManager())
         let body = Self().body
         
-        // TODO: auto add body if not defined?
         if body is Body {
             SailboatGlobal.manager.build(page: body)
         } else {

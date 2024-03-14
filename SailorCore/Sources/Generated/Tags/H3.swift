@@ -39,7 +39,7 @@ public struct H3: Element {
         self.id = id
         self.attributes = [:]
         self.events = [:]
-        self.content = bodyValue ?? { List([]) }
+        self.content = bodyValue ?? { List() }
         #if os(WASI)
         self.renderer = JSNode(named: Self.name, elementID: id)
         #else
