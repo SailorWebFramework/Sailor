@@ -55,23 +55,25 @@ extension JSNode: Renderable {
             fatalError("reconciling two different node types")
         }
         
-        // TODO: theoretically this should always be true so remove the else?
-        if oldContent.hash == newContent.hash {
-            print("hash is the same")
-            reconcileBody(oldList: oldContent, newList: newContent)
-            
-        } else {
-            print("hash is different rebuilding")
+        reconcileBody(oldList: oldContent, newList: newContent, aboveElement: nil, newContent: newContent)
 
-            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
-            // TODO: also need to clear the children elements array in manager
-            self.clearBody()
-            self.build(page: newContent, parent: myElement)
-        }
+//        // TODO: theoretically this should always be true so remove the else?
+//        if oldContent.hash == newContent.hash {
+//            print("hash is the same")
+//            reconcileBody(oldList: oldContent, newList: newContent, aboveElement: nil, newContent: newContent)
+//            
+//        } else {
+//            print("hash is different rebuilding")
+//
+//            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
+//            // TODO: also need to clear the children elements array in manager
+//            self.clearBody()
+//            self.build(page: newContent, parent: myElement)
+//        }
 
     }
     
-    private func reconcileBody(oldList: any Operator, newList: any Operator, aboveElement: (any Element)? = nil) {
+    private func reconcileBody(oldList: any Operator, newList: any Operator, aboveElement: (any Element)? = nil, newContent: any Operator) {
         guard oldList.children.count == newList.children.count else {
             fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
         }
@@ -89,10 +91,12 @@ extension JSNode: Renderable {
             if let oldOp = oldList.children[i] as? any Operator,
                let newOp = newList.children[i] as? any Operator {
                 
+                print(oldOp.hash, "==", newOp.hash, "?")
+                
                 if oldOp.hash == newOp.hash {
                     print("_hash is the same")
 
-                    reconcileBody(oldList: oldOp, newList: newOp, aboveElement: last)
+                    reconcileBody(oldList: oldOp, newList: newOp, aboveElement: last, newContent: newContent)
                 } else {
                     // rebuild
                     
@@ -107,7 +111,8 @@ extension JSNode: Renderable {
                     // TODO: remove this replace with above
                     let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]!
                     self.clearBody()
-                    self.build(page: myElement.content(), parent: myElement)
+                    self.build(page: newContent, parent: myElement)
+                    SailboatGlobal.manager.managedPages.children[self.elementID] = newContent
                 }
             }
         }
