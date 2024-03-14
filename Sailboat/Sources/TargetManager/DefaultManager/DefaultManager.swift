@@ -19,6 +19,7 @@ public final class ManagedPages {
     ///
     public var elements: [ElementID: any Element] = [:]
     
+    // TODO: i dont actually need to store the operator, i just need the hashes in order 
     ///
     public var children: [ElementID: any Operator] = [:]
     
@@ -86,10 +87,6 @@ open class DefaultManager {
                     // if a || b || c
                     // if a evaluates to true right now, i dont need to check b or c until a changes
                     SailboatGlobal.manager.dumpTo(element: element)
-                    
-                    //TODO: remove this and do a shallow diff
-//                        element.renderer.reconcile(operator: content, to children: managedPages.children[elementID])
-//                    element.renderer.build(page: content, parent: element)
                     
                     // update attributes shallowly
                     element.renderer.render()
