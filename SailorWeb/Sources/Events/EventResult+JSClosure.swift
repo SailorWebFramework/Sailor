@@ -12,7 +12,6 @@ extension EventResult {
 
     static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
-
             guard let firstEvent = event.first else {
                 // TODO error better
                 fatalError("EVENT UPDATE FAILED")
