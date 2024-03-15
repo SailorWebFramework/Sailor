@@ -48,16 +48,21 @@ public protocol Renderable {
 public extension Renderable {
     
     /// build a page to this renderer and add it to parent
-    func build(page: any Page, parent: (any Element)?) {
+    func build(page: any Page, parent: (any Element)?)  -> (any Element)? {
         // if page is an Operator
         if let page = page as? any Operator {
             
+            var last: (any Element)? = nil
             // add children
             for child in page.children {
-                build(page: child, parent: parent)
+                let element = build(page: child, parent: parent)
+                
+                if element != nil {
+                    last = element
+                }
             }
             
-            return
+            return last
         }
         
         // if page is an HTMLElement
@@ -69,9 +74,9 @@ public extension Renderable {
             //TODO: also remove them when they go out of scope, also only save pages with state?
             SailboatGlobal.manager.managedPages.elements[page.id] = page
             
-//            if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
-
-            SailboatGlobal.manager.managedPages.children[page.id] = operatorPage
+            if !SailboatGlobal.manager.managedPages.stateHistory.isEmpty {
+                SailboatGlobal.manager.managedPages.children[page.id] = operatorPage
+            }
 
             SailboatGlobal.manager.dumpTo(element: page)
             
@@ -83,10 +88,10 @@ public extension Renderable {
             if let parent = parent {
                 page.renderer.addToParent(parent)
             }
-
-            return
+            
+            return page
         }
         
-        build(page: page.body, parent: parent)
+        return build(page: page.body, parent: parent)
     }
 }
