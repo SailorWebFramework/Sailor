@@ -11,9 +11,7 @@ import SailorShared
 
 public final class JSNode {
 
-    internal var element: JSObject
-//    internal var children: [JSNode]
-    
+    internal var element: JSObject    
     internal var elementID: ElementID
 
     internal var events: [String: JSClosure] // Events
@@ -22,7 +20,9 @@ public final class JSNode {
     // TODO: remove?
     internal var attributes: JSAttributes
     
-//    internal weak var parent: JSNode?
+    /// should be used by renderable to render children
+//    weak internal var aboveNode: (JSNode)? = nil
+    internal var aboveElement: (any Element)? = nil
 
     public convenience init(elementID: ElementID) {
         self.init(
@@ -38,20 +38,16 @@ public final class JSNode {
         self.init(
             element: pageElement,
             elementID: elementID, 
-            parent: nil,
             events: [:],
             attributes: [:]
         )
     }
     
-    private init(element: JSObject, elementID: ElementID, parent: JSNode? = nil, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
+    private init(element: JSObject, elementID: ElementID, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
         self.element = element
         self.events = events
-//        self.parent = parent
         self.attributes = attributes
-//        self.children = []
         self.elementID = elementID
-//        self.isTextComponent = true
     }
 
     internal func editContent(text: String, append: Bool = false) {
@@ -93,121 +89,5 @@ public final class JSNode {
         
         _ = self.element.addEventListener?(name, jsClosure)
     }
- 
-    
-//    func removeFromDOM() {
-//        // remove from DOM
-//        
-//
-//    }
     
 }
-
-
-//MARK- Remove?
-//extension JSNode {
-    //
-    //    private func replaceTag(with htmlNode: ElementNode) {
-    ////        guard let index = self.parent?.children.firstIndex(where: { $0 === self }) else {
-    ////            fatalError("js-node doesnt exist in parent")
-    ////        }
-    //
-    //        guard let pageName = (htmlNode.page as? any Element)?.name else {
-    //            fatalError("page not an Element")
-    ////            return
-    //        }
-    //
-    //        reset()
-    //
-    //        if tagName?.uppercased() != pageName.uppercased(),
-    //           let parent = self.element.parentElement.object {
-    //
-    //            let newTag = Self.document.createElement(pageName.uppercased()).object
-    //
-    //            _ = parent.replaceChild!(newTag, self.element)
-    //            // TODO: THIS IS FORCE IS IT OK
-    //            self.element = newTag!
-    //        }
-    //
-    //    }
-    //
-    //    /// shallowly updates node, ie: TextContent, Attributes, & Events
-    //    func updateShallow(with node: ElementNode) {
-    //        guard let page = node.page as? any Element else { fatalError() }
-    //
-    //        // if different replace element
-    //        if tagName?.uppercased() != page.name.uppercased() {
-    //            self.replaceTag(with: node)
-    //        }
-    //
-    //        // remove old events and add new ones
-    //
-    //        // update text
-    //        switch node.content {
-    //        case .text(let value):
-    //            // THIS IS MF UP
-    //            for child in self.children {
-    //                child.removeFromDOM()
-    //            }
-    //
-    //            children = [] // TODO: should not need this
-    //
-    //            self.editContent(text: value)
-    //
-    //        case .list(_):
-    //
-    //            // Get the length of the children collection
-    //            let length = Int(self.element.children.length.number ?? 0)
-    //
-    //            if length == 0 {
-    //                self.editContent(text: "")
-    //            }
-    //
-    //        }
-    //
-    //        // TODO: diff events and attributes?
-    //        // make sure order is the same for attributes
-    //
-    //        self.removeEvents()
-    //
-    //        for (name, event) in node.events {
-    //            self.addEvent(name: name, closure: event)
-    //        }
-    //
-    //        if node.attributes != self.attributes {
-    //            self.removeAttributes()
-    //
-    //            for (key, value) in node.attributes {
-    //                self.updateAttribute(name: key, value: value)
-    //            }
-    //        }
-    //
-    //    }
-        
-        // TODO: REMOVE EVENTS ON EXIT
-    //    func reset() {
-    //        for child in self.children {
-    //            child.removeFromDOM()
-    //        }
-    //
-    //        self.children = []
-    ////        self.attributes = [:]
-    //        self.removeEvents()
-    //        self.removeAttributes()
-    //
-    //        self.editContent(text: "")
-    ////        self.isTextComponent = true
-    //
-    //    }
-
-        
-    //    func addToParent() {
-    //        parent?.children.append(self)
-    //        _ = parent?.element.appendChild?(self.element)
-    //
-    //    }
-        
-    //    func addToDocument() {
-    //        _ = Self.document.appendChild(self.element)
-    //    }
-//}

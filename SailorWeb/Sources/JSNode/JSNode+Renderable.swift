@@ -53,6 +53,7 @@ extension JSNode: Renderable {
     
     public func clearEvents() { removeEvents() }
     
+    // TODO: put in renderable
     public func reconcile(with newContent: any Operator) {
         guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
             return
@@ -63,40 +64,26 @@ extension JSNode: Renderable {
         }
         
         var copyOfNewContent = newContent
-        reconcileBody(oldList: oldContent, newList: &copyOfNewContent, aboveElement: nil, newContent: newContent)
+        reconcileBody(oldList: oldContent, newList: &copyOfNewContent)
         
         //ISSUE
         SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
-
-//        // TODO: theoretically this should always be true so remove the else?
-//        if oldContent.hash == newContent.hash {
-//            print("hash is the same")
-//            reconcileBody(oldList: oldContent, newList: newContent, aboveElement: nil, newContent: newContent)
-//            
-//        } else {
-//            print("hash is different rebuilding")
-//
-//            let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]
-//            // TODO: also need to clear the children elements array in manager
-//            self.clearBody()
-//            self.build(page: newContent, parent: myElement)
-//        }
-
     }
     
-    private func reconcileBody(oldList: any Operator, newList: inout any Operator, aboveElement: (any Element)? = nil, newContent: any Operator) {
+    private func reconcileBody(oldList: any Operator, newList: inout any Operator) {
         guard oldList.children.count == newList.children.count else {
             fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
         }
 
         let elementCount = oldList.children.count
-        
-        var last: (any Element)? = aboveElement
-        
+                
         for i in 0..<elementCount {
             if let oldElement = oldList.children[i] as? any Element {
-                last = oldElement
+                if oldElement.renderer is JSNode {
+                    self.aboveElement = oldElement
+                }
                 
+                // keeps the old renderer, consider just replacing the renderer
                 newList.children[i] = oldList.children[i]
             }
             
@@ -106,15 +93,23 @@ extension JSNode: Renderable {
                 print(oldOp.hash, "==", newOp.hash, "?")
                 
                 if oldOp.hash == newOp.hash {
-                    reconcileBody(oldList: oldOp, newList: &newOp, aboveElement: last, newContent: newContent)
+                    reconcileBody(oldList: oldOp, newList: &newOp)
                     
                 } else {
-                    self.clearChildren(from: oldOp, aboveElement: last)
-                    self.build(newOp, under: last)
+                    self.clearChildren(from: oldOp)
                     
+                    self.build(newOp, under: self.aboveElement)
+                    
+//                    if !(newAbove.renderer is JSNode) {
+//                        fatalError("Strings not fully supported with conditionals")
+//                    }
+//                    
+//                    self.aboveElement = newAbove
                 }
                 
+                // sets the old inner list with the new one
                 newList.children[i] = newOp
+                
             }
         }
     }
@@ -126,15 +121,10 @@ extension JSNode: Renderable {
         for child in newContent.children {
             if let child = child as? any Element {
                 if let above = above {
-                    print("adding element below...")
-                    print("\(above)")
                     child.renderer.build(page: child, parent: nil)
                     child.renderer.addBelow(above)
                     
                 } else {
-                    print("adding element at root...")
-                    print("\(above)")
-                    
                     if let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] {
                         child.renderer.build(page: child, parent: nil)
                         child.renderer.addToParent(myElement)
@@ -154,11 +144,13 @@ extension JSNode: Renderable {
                 continue
             }
             
+//            above.renderer.removeBelow()
+            
             // TODO: custom nodes
         }
     }
-    
-    private func clearChildren(from content: any Operator, aboveElement: (any Element)?) {
+        
+    private func clearChildren(from content: any Operator) {
         for child in content.children {
             
             if let child = child as? any Element {
@@ -167,7 +159,7 @@ extension JSNode: Renderable {
             }
             
             if let child = child as? any Operator {
-                clearChildren(from: child, aboveElement: aboveElement)
+                clearChildren(from: child)
                 return
             }
             
@@ -196,7 +188,7 @@ extension JSNode: Renderable {
         }
 
         // TODO: diff events and attributes?
-        // make sure order is the same for attributes
+        // make sure order is the same for attributes, does this actually help in speed?
         if page.attributes != self.attributes {
             self.removeAttributes()
 
