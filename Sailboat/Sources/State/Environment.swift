@@ -16,6 +16,7 @@ public class Environment<TargetEnvironment: SomeEnvironment, Value> {
     // TODO: check this is force casting
     public var wrappedValue: Value {
         let env = (SailboatGlobal.manager.environment as? TargetEnvironment)
+        print("forcing environment")
         if let keyPath = self.keyPath {
             return env![keyPath: keyPath]
         }

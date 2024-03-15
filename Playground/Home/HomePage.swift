@@ -54,6 +54,7 @@ struct HomePage: Page {
             Button { "press me" }
                 .onClick {
                     myNum += 1
+//                    print("hey...")
                 }
 //            else {
 //                H3{"brooo: \(myNum)"}

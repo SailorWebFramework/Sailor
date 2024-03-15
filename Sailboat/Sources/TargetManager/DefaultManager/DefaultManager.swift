@@ -96,6 +96,9 @@ open class DefaultManager {
                     
                     managedEvent.semaphore -= 1
 
+                } else {
+                    // remove elementID in states if it has been removed
+                    managedPages.stateElementMap[stateID]?.remove(elementID)
                 }
             }
         }

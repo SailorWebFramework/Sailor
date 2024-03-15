@@ -67,8 +67,10 @@ public extension Renderable {
             let operatorPage = page.content()
 
             //TODO: also remove them when they go out of scope, also only save pages with state?
-//          if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
             SailboatGlobal.manager.managedPages.elements[page.id] = page
+            
+//            if !SailboatGlobal.manager.stateCallbackHistory.isEmpty { }
+
             SailboatGlobal.manager.managedPages.children[page.id] = operatorPage
 
             SailboatGlobal.manager.dumpTo(element: page)
