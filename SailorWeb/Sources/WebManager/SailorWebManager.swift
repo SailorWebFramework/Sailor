@@ -18,16 +18,16 @@ public final class SailorWebManager: DefaultManager {
         
     }
     
-    override public func build<GenericPage: Page>(page: GenericPage) {
-        super.build(page: page)
-
-    }
-    
-    override public func update() {
-        super.update()
-    }
+//    override public func build<GenericPage: Page>(page: GenericPage) {
+//        super.build(page: page)
+//
+//    }
+//    
+//    override public func update() {
+//        super.update()
+//    }
     
     // TODO: logic to reconcile the DOMTree with the Virtual DOM
-    private func reconcile() { }
+//    private func reconcile() { }
     
 }

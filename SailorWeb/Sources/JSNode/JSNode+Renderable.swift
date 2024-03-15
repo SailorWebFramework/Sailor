@@ -26,8 +26,20 @@ extension JSNode: Renderable {
     public func addBelow(_ node: any Element) {
         let aboveNode = node.renderer as! JSNode
         let parentNode = aboveNode.element.parentNode
+        
+        guard !parentNode.isNull else {
+            fatalError("JSNODE: add below trying to add to node without a parent")
+        }
+
+        _ = parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
+
+    }
+    
+    public func addAbove(_ node: any Element) {
+        let belowNode = node.renderer as! JSNode
+        let parentNode = belowNode.element.parentNode
             
-        parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
+        _ = parentNode.insertBefore(self.element, belowNode.element)
 
     }
     
@@ -37,17 +49,12 @@ extension JSNode: Renderable {
 
     }
     
-    public func clearAttributes() {
-        removeAttributes()
-    }
+    public func clearAttributes() { removeAttributes() }
     
-    public func clearEvents() {
-        removeEvents()
-    }
+    public func clearEvents() { removeEvents() }
     
     public func reconcile(with newContent: any Operator) {
         guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
-            print("BRO WHAT")
             return
         }
         
@@ -55,7 +62,11 @@ extension JSNode: Renderable {
             fatalError("reconciling two different node types")
         }
         
-        reconcileBody(oldList: oldContent, newList: newContent, aboveElement: nil, newContent: newContent)
+        var copyOfNewContent = newContent
+        reconcileBody(oldList: oldContent, newList: &copyOfNewContent, aboveElement: nil, newContent: newContent)
+        
+        //ISSUE
+        SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
 
 //        // TODO: theoretically this should always be true so remove the else?
 //        if oldContent.hash == newContent.hash {
@@ -73,7 +84,7 @@ extension JSNode: Renderable {
 
     }
     
-    private func reconcileBody(oldList: any Operator, newList: any Operator, aboveElement: (any Element)? = nil, newContent: any Operator) {
+    private func reconcileBody(oldList: any Operator, newList: inout any Operator, aboveElement: (any Element)? = nil, newContent: any Operator) {
         guard oldList.children.count == newList.children.count else {
             fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
         }
@@ -83,42 +94,94 @@ extension JSNode: Renderable {
         var last: (any Element)? = aboveElement
         
         for i in 0..<elementCount {
-            
             if let oldElement = oldList.children[i] as? any Element {
                 last = oldElement
+                
+                newList.children[i] = oldList.children[i]
             }
             
             if let oldOp = oldList.children[i] as? any Operator,
-               let newOp = newList.children[i] as? any Operator {
+               var newOp = newList.children[i] as? any Operator {
                 
                 print(oldOp.hash, "==", newOp.hash, "?")
                 
                 if oldOp.hash == newOp.hash {
-                    print("_hash is the same")
-
-                    reconcileBody(oldList: oldOp, newList: newOp, aboveElement: last, newContent: newContent)
-                } else {
-                    // rebuild
+                    reconcileBody(oldList: oldOp, newList: &newOp, aboveElement: last, newContent: newContent)
                     
-                    print("SHOULD BE REMOVING INNER LIST")
-                    print("_hash is different rebuilding")
-
-//                    oldList.replace(with: newList)
-//                    removeUnder()
-//                    self.build(page: newOp, under: last)
-                    // TODO: update the children array to the new child operator
-
-                    // TODO: remove this replace with above
-                    let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID]!
-                    self.clearBody()
-                    self.build(page: newContent, parent: myElement)
-                    SailboatGlobal.manager.managedPages.children[self.elementID] = newContent
+                } else {
+                    self.clearChildren(from: oldOp, aboveElement: last)
+                    self.build(newOp, under: last)
+                    
                 }
+                
+                newList.children[i] = newOp
             }
         }
-        
     }
     
+    private func addChild(_ child: any Element, below: (any Element)?) { }
+    
+    private func build(_ newContent: any Operator, under aboveElement: (any Element)?) {
+        var above = aboveElement
+        for child in newContent.children {
+            if let child = child as? any Element {
+                if let above = above {
+                    print("adding element below...")
+                    print("\(above)")
+                    child.renderer.build(page: child, parent: nil)
+                    child.renderer.addBelow(above)
+                    
+                } else {
+                    print("adding element at root...")
+                    print("\(above)")
+                    
+                    if let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] {
+                        child.renderer.build(page: child, parent: nil)
+                        child.renderer.addToParent(myElement)
+                        
+                    } else {
+                        fatalError("element doesnt exist in global state")
+                    }
+                
+                }
+                
+                above = child
+                continue
+            }
+            
+            if let child = child as? any Operator {
+                build(child, under: above)
+                continue
+            }
+            
+            // TODO: custom nodes
+        }
+    }
+    
+    private func clearChildren(from content: any Operator, aboveElement: (any Element)?) {
+        for child in content.children {
+            
+            if let child = child as? any Element {
+                child.renderer.remove()
+                return
+            }
+            
+            if let child = child as? any Operator {
+                clearChildren(from: child, aboveElement: aboveElement)
+                return
+            }
+            
+            
+            // TODO:
+            // Problem.. what happens to custom pages the elements arent loaded
+            // remove the element when rendered.
+            // Custom node must neccisarily have one child
+            // child.body
+
+        }
+    }
+    
+    // TODO: consider renaming
     public func render() {
         guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
             return
@@ -150,9 +213,9 @@ extension JSNode: Renderable {
 
         _ = self.element.remove?()
 
-        self.clearEvents()
-        self.clearAttributes()
-        self.clearBody()
+//        self.clearEvents()
+//        self.clearAttributes()
+//        self.clearBody()
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)
@@ -190,6 +253,6 @@ extension JSNode: Renderable {
         
     }
     
-    public func debugPrint() { self.printNode() }
+//    public func debugPrint() { self.printNode() }
     
 }

@@ -9,11 +9,11 @@ import Sailboat
 
 // TODO: this whole file make strings work as renderable elements
 
-public struct StringRenderer: Renderable {
+public struct StringRenderer<Value: Element>: Renderable {
     
-    var value: String
+    var value: Value
     
-    public init(_ value: String) {
+    public init(_ value: Value) {
         self.value = value
     }
     
@@ -21,11 +21,11 @@ public struct StringRenderer: Renderable {
         guard let parentNode = parent.renderer as? JSNode else {
             return
         }
-        parentNode.editContent(text: self.value, append: true)
+        parentNode.editContent(text: self.value.description, append: true)
     }
         
     public func addChild(_ child: any Element) {
-        child.renderer.addToParent(self.value as! (any Element))
+        child.renderer.addToParent(self.value)
     }
     
     public func clearAttributes() { }
@@ -40,7 +40,7 @@ public struct StringRenderer: Renderable {
     
     public func remove() { }
     
-    public func clear() { }
+//    public func clear() { }
     
     public func clearBody() { }
 
