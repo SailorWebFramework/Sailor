@@ -10,6 +10,10 @@ import Sailboat
 // TODO: this whole file make strings work as renderable elements
 
 public struct StringRenderer<Value: Element>: Renderable {
+    public func remove(at deepIndex: Int) {
+        
+    }
+    
     public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) {
         
     }

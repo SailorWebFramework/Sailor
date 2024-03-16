@@ -8,6 +8,10 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
+    func remove(at deepIndex: Int) {
+        
+    }
+    
     func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) {
         
     }
