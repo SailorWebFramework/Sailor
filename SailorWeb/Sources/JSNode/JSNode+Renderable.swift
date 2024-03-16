@@ -30,16 +30,48 @@ extension JSNode: Renderable {
         return element
     }
     
-    public func addBelow(_ deepIndex: Int, parent: any Element) {
+    public func insertBefore(_ deepIndex: Int, parent: any Element) {
         let parentRenderer = asJSNode(parent)
         
-        print("attempting to add below")
+        print("attempting to add before")
         print("\(self)")
         print("at: \(deepIndex)")
 
         print("to: \(parent)")
 
         let aboveElement = parentRenderer.element.childNodes[deepIndex]
+        
+//        if aboveElement == .null {
+//            if deepIndex == 0 {
+//                addToParent(parent)
+//            } else {
+//                fatalError("Nothing to add above to JSNode")
+//            }
+//        }
+        
+        _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
+        print("after...")
+
+    }
+    
+    public func insertAfter(_ deepIndex: Int, parent: any Element) {
+        let parentRenderer = asJSNode(parent)
+        
+        print("attempting to add after")
+        print("\(self)")
+        print("at: \(deepIndex)")
+
+        print("to: \(parent)")
+
+        let aboveElement = parentRenderer.element.childNodes[deepIndex + 1]
+        
+//        if aboveElement == .null {
+//            if deepIndex == -1 {
+//                addToParent(parent)
+//            } else {
+//                fatalError("Nothing to add below to JSNode")
+//            }
+//        }
         
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         print("after...")
@@ -144,33 +176,22 @@ extension JSNode: Renderable {
 
     }
     
-    public func replace(at index: Int, with element: any Element) {
-//        var children = self.element.childNodes
-
+    public func replace(at deepindex: Int, with element: any Element) {
+        
         // TODO: this doesnt quite work, because of conditional lists
         if let element = element as? any ValueElement {
-            print("Element thing at \(index)")
-            print("Element thing at \(index)")
+            print("Element thing at \(deepindex)")
+            print("Element thing at \(deepindex)")
+            print(self.element.childNodes[deepindex].nodeType.number)
             
-            print(self.element.childNodes[index].nodeType.number!);
-            self.element.childNodes[index].object!.textContent = JSValue.string(element.value.description)
+            self.element.childNodes[deepindex].object!.textContent = JSValue.string(element.value.description)
             
         } else if let jsnode = element.renderer as? JSNode {
             
             if let parent = self.element.parentElement.object {
-                _ = parent.replaceChild!(jsnode.element, self.element.childNodes[index])
+                _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
             }
         }
-        
-
-//        // Loop over the child nodes
-//        for i in 0..<Int(length) {
-//            // Access each child node
-//            let node = children[i]
-//
-//            // Check the nodeType
-//            let nodeType = node.nodeType.number!
-//        }
             
     }
     

@@ -65,12 +65,16 @@ public extension Renderable {
                     fatalError("element doesnt exist in global state")
                 }
                     
-                newIndex += 1
+//                newIndex += 1
 
                 child.renderer.build(child)
-                child.renderer.addBelow(newIndex, parent: myElement)
 
-                
+                if newIndex != -1 {
+                    child.renderer.insertAfter(newIndex, parent: myElement)
+                } else {
+                    child.renderer.insertBefore(0, parent: myElement)
+                }
+
 //                if index != -1 {
 //                    child.renderer.addBelow(newIndex, parent: myElement)
 //                } else {
@@ -78,7 +82,7 @@ public extension Renderable {
 //                    child.renderer.addAbove(newIndex, parent: myElement)
 //                }
 
-//                newIndex += 1
+                newIndex += 1
 
                 continue
             }

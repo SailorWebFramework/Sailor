@@ -11,80 +11,70 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-            Div {
-                "hello this is a test"
-                " did it combine?"
-            }
-            
-            Input($myString)
-            
-            if myString == "hell" {
-                H2{"HOMIE STOP CURSING"}
-
-            } else if  myString == "hello" {
-                H4{"JKJK"}
-
-            } else {
-                H3{"Empty"}
-
-            }
-            
-            if myNum == 10 {
-                A { "hello its" }
-                    .href("#MyImage")
+            H2{ "IM HERE" }
+            if toggle {
+                H1 { "Hello world!" }
                     .onClick {
-                        var value = prompt("IS THIS REAL")
-                        
-                        myString = value
+                        toggle.toggle()
+                    }
+            } else {
+                H3 { "SMallerworld" }
+                    .onClick {
+                        toggle.toggle()
                     }
             }
-            else if myNum == 7 {
-               H2{"my number: \(myNum)"}
-
-            }
-            else if myNum == 8 {
-               H2{"my number: \(myNum)"}
-
-            }
-            else if myNum == 9 {
-                H2{"my number: \(myNum)"}
-
-            }
             
-            // not working
-            H6{"number: \(myNum)"}
-
             
-            Button { "press me" }
-                .onClick {
-                    myNum += 1
-//                    print("hey...")
-                }
-//            else {
-//                H3{"brooo: \(myNum)"}
+            H4{ "HELLO ME" }
+
+//            Div {
+//                "hello this is a test"
+//                " did it combine?"
+//            }
+//            
+//            Input($myString)
+//            
+//            if myString == "hell" {
+//                H2{"HOMIE STOP CURSING"}
+//
+//            } else if  myString == "hello" {
+//                H4{"JKJK"}
+//
+//            } else {
+//                H3{"Empty"}
 //
 //            }
-//            Input($myString)
-//            Button{"btn \(toggle)"}
+//            
+//            if myNum == 10 {
+//                A { "hello its" }
+//                    .href("#MyImage")
+//                    .onClick {
+//                        var value = prompt("IS THIS REAL")
+//                        
+//                        myString = value
+//                    }
+//            }
+//            else if myNum == 7 {
+//               H2{"my number: \(myNum)"}
+//
+//            }
+//            else if myNum == 8 {
+//               H2{"my number: \(myNum)"}
+//
+//            }
+//            else if myNum == 9 {
+//                H2{"my number: \(myNum)"}
+//
+//            }
+//            
+//            // not working
+//            H6{"number: \(myNum)"}
+//
+//            
+//            Button { "press me" }
 //                .onClick {
-//                    toggle.toggle()
 //                    myNum += 1
-//                    print("TOGGLE THE THING")
 //                }
-//            
-//            
-//            Div{"title \(!toggle)"}
-//
-//            
-//            H2{"my number: \(myNum)"}
-//
-//            
-//            H3{"you typed: \(myString)"}
-//                .id("MyImage")
-
-            
-//            Img(src: "Sailor_Playground.resources/favicon.ico", alt: "icon picture")
-
         }
     }
 }
