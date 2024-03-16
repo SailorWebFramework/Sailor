@@ -51,6 +51,10 @@ struct HomePage: Page {
 
             }
             
+            // not working
+            H6{"number: \(myNum)"}
+
+            
             Button { "press me" }
                 .onClick {
                     myNum += 1

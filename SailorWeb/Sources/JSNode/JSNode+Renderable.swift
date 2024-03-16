@@ -53,125 +53,7 @@ extension JSNode: Renderable {
     
     public func clearEvents() { removeEvents() }
     
-    // TODO: put in renderable
-    public func reconcile(with newContent: any Operator) {
-        guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
-            return
-        }
-        
-        guard type(of: newContent) == type(of: oldContent) else {
-            fatalError("reconciling two different node types")
-        }
-        
-        var copyOfNewContent = newContent
-        reconcileBody(oldList: oldContent, newList: &copyOfNewContent)
-        
-        //ISSUE
-        SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
-    }
-    
-    private func reconcileBody(oldList: any Operator, newList: inout any Operator) {
-        guard oldList.children.count == newList.children.count else {
-            fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
-        }
-
-        let elementCount = oldList.children.count
-                
-        for i in 0..<elementCount {
-            if let oldElement = oldList.children[i] as? any Element {
-                if oldElement.renderer is JSNode {
-                    self.aboveElement = oldElement
-                }
-                
-                // keeps the old renderer, consider just replacing the renderer
-                newList.children[i] = oldList.children[i]
-            }
-            
-            if let oldOp = oldList.children[i] as? any Operator,
-               var newOp = newList.children[i] as? any Operator {
-                
-                print(oldOp.hash, "==", newOp.hash, "?")
-                
-                if oldOp.hash == newOp.hash {
-                    reconcileBody(oldList: oldOp, newList: &newOp)
-                    
-                } else {
-                    self.clearChildren(from: oldOp)
-                    
-                    self.build(newOp, under: self.aboveElement)
-                    
-//                    if !(newAbove.renderer is JSNode) {
-//                        fatalError("Strings not fully supported with conditionals")
-//                    }
-//                    
-//                    self.aboveElement = newAbove
-                }
-                
-                // sets the old inner list with the new one
-                newList.children[i] = newOp
-                
-            }
-        }
-    }
-    
     private func addChild(_ child: any Element, below: (any Element)?) { }
-    
-    private func build(_ newContent: any Operator, under aboveElement: (any Element)?) {
-        var above = aboveElement
-        for child in newContent.children {
-            if let child = child as? any Element {
-                if let above = above {
-                    child.renderer.build(page: child, parent: nil)
-                    child.renderer.addBelow(above)
-                    
-                } else {
-                    if let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] {
-                        child.renderer.build(page: child, parent: nil)
-                        child.renderer.addToParent(myElement)
-                        
-                    } else {
-                        fatalError("element doesnt exist in global state")
-                    }
-                
-                }
-                
-                above = child
-                continue
-            }
-            
-            if let child = child as? any Operator {
-                build(child, under: above)
-                continue
-            }
-            
-//            above.renderer.removeBelow()
-            
-            // TODO: custom nodes
-        }
-    }
-        
-    private func clearChildren(from content: any Operator) {
-        for child in content.children {
-            
-            if let child = child as? any Element {
-                child.renderer.remove()
-                return
-            }
-            
-            if let child = child as? any Operator {
-                clearChildren(from: child)
-                return
-            }
-            
-            
-            // TODO:
-            // Problem.. what happens to custom pages the elements arent loaded
-            // remove the element when rendered.
-            // Custom node must neccisarily have one child
-            // child.body
-
-        }
-    }
     
     // TODO: consider renaming
     public func render() {
@@ -202,7 +84,6 @@ extension JSNode: Renderable {
     }
     
     public func remove() {
-
         _ = self.element.remove?()
 
 //        self.clearEvents()
@@ -236,6 +117,34 @@ extension JSNode: Renderable {
 
     }
     
+    public func replace(at index: Int, with element: any Element) {
+//        var children = self.element.childNodes
+
+        // TODO: this doesnt quite work, because of conditional lists
+        if let element = element as? any ValueElement {
+            print("Element thing")
+            print(self.element.childNodes[index].nodeType.number!);
+            self.element.childNodes[index].object!.textContent = JSValue.string(element.value.description)
+            
+        } else if let jsnode = element.renderer as? JSNode {
+            
+            if let parent = self.element.parentElement.object {
+                _ = parent.replaceChild!(jsnode.element, self.element.childNodes[index])
+            }
+        }
+        
+
+//        // Loop over the child nodes
+//        for i in 0..<Int(length) {
+//            // Access each child node
+//            let node = children[i]
+//
+//            // Check the nodeType
+//            let nodeType = node.nodeType.number!
+//        }
+            
+    }
+    
     public func updateAttribute(name: String, value: String) {
         _ = self.element.setAttribute?(name, value)
         self.attributes[name] = value
@@ -244,7 +153,5 @@ extension JSNode: Renderable {
         self.sailorEvents.onUpdate(.none)
         
     }
-    
-//    public func debugPrint() { self.printNode() }
-    
+        
 }
