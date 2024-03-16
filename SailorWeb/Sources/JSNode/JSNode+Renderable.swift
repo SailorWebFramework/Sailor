@@ -9,10 +9,47 @@ import Sailboat
 import JavaScriptKit
 
 extension JSNode: Renderable {
+//    public func addAfter(_ index: Int, parent: any Element) {
+//        // TODO: add this node below the index
+////        let aboveNode = node.renderer as! JSNode
+////        let parentNode = aboveNode.element.parentNode
+////        
+////        guard !parentNode.isNull else {
+////            fatalError("JSNODE: add below trying to add to node without a parent")
+////        }
+////
+////        _ = parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
+//
+//    }
+    
+    private func asJSNode(_ element: any Element) -> JSNode {
+        guard let element = element.renderer as? JSNode else {
+            fatalError("Node should not be an Element Value, but Renderer type JSNode")
+        }
+        
+        return element
+    }
+    
+    public func addBelow(_ deepIndex: Int, parent: any Element) {
+        let parentRenderer = asJSNode(parent)
+        
+        print("attempting to add below")
+        print("\(self)")
+        print("at: \(deepIndex)")
+
+        print("to: \(parent)")
+
+        let aboveElement = parentRenderer.element.childNodes[deepIndex]
+        
+        _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
+        print("after...")
+
+    }
+    
     
     public func addToParent(_ parent: any Element) {
-        let parentNode = parent.renderer as! JSNode
-        
+        let parentNode = asJSNode(parent)
+
         _ = parentNode.element.appendChild?(self.element)
 
         // on appear called once the JSNode becomes renderable
@@ -23,25 +60,14 @@ extension JSNode: Renderable {
         self.sailorEvents.task(.none)
     }
     
-    public func addBelow(_ node: any Element) {
-        let aboveNode = node.renderer as! JSNode
-        let parentNode = aboveNode.element.parentNode
-        
-        guard !parentNode.isNull else {
-            fatalError("JSNODE: add below trying to add to node without a parent")
-        }
-
-        _ = parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
-
-    }
-    
-    public func addAbove(_ node: any Element) {
-        let belowNode = node.renderer as! JSNode
-        let parentNode = belowNode.element.parentNode
-            
-        _ = parentNode.insertBefore(self.element, belowNode.element)
-
-    }
+//    public func addAbove(_ node: any Element) {
+//        let belowNode = asJSNode(node)
+//
+//        let parentNode = belowNode.element.parentNode
+//            
+//        _ = parentNode.insertBefore(self.element, belowNode.element)
+//
+//    }
     
     public func clearBody() {
         // TODO: this probably overrides some non-string elements...
@@ -49,6 +75,7 @@ extension JSNode: Renderable {
 
     }
     
+    // TODO: remove these?
     public func clearAttributes() { removeAttributes() }
     
     public func clearEvents() { removeEvents() }
@@ -99,7 +126,7 @@ extension JSNode: Renderable {
     }
     
     public func replace(with element: any Element) {
-        let jsnode = element.renderer as! JSNode
+        let jsnode = asJSNode(element)
 
         if let parent = self.element.parentElement.object {
             _ = parent.replaceChild!(jsnode.element, self.element)
@@ -122,7 +149,9 @@ extension JSNode: Renderable {
 
         // TODO: this doesnt quite work, because of conditional lists
         if let element = element as? any ValueElement {
-            print("Element thing")
+            print("Element thing at \(index)")
+            print("Element thing at \(index)")
+            
             print(self.element.childNodes[index].nodeType.number!);
             self.element.childNodes[index].object!.textContent = JSValue.string(element.value.description)
             

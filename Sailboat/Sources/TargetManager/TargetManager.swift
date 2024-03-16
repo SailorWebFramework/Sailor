@@ -95,7 +95,7 @@ open class TargetManager {
         }
         
         if let page = page as? any Element {
-            page.renderer.build(page: page, parent: nil)
+            page.renderer.build(page)
             return
         }
 
