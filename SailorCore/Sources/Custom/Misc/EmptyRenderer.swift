@@ -8,11 +8,16 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
-    var elementID: ElementID = "EMPTY"
-
-    func addBelow(_ index: Int, parent: any Sailboat.Element) {
+    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) {
         
     }
+    
+    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) {
+        
+    }
+    
+    var elementID: ElementID = "EMPTY"
+
     
     func replace(at: Int, with: any Element) { }
     

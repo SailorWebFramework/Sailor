@@ -19,8 +19,8 @@ public protocol Renderable {
     
 //    func addAfter(_ index: Int, parent: any Element)
 
-    func addBelow(_ index: Int, parent: any Element)
-
+    func insertAfter(_ deepIndex: Int, parent: any Element)
+    func insertBefore(_ deepIndex: Int, parent: any Element)
 
     /// remove this element permenately
     func remove()
