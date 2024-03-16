@@ -12,6 +12,8 @@ struct HomePage: Page {
     var body: some Page {
         Div {
             H2{ "IM HERE" }
+            
+            // TODO: not removing correctly
             if toggle {
                 H1 { "Hello world!" }
                     .onClick {
@@ -22,73 +24,96 @@ struct HomePage: Page {
                     .onClick {
                         toggle.toggle()
                     }
+                
+                H3 { "SMallerworld 2" }
+                    .onClick {
+                        toggle.toggle()
+                    }
+                
+                H3 { "SMallerworld 3" }
+                    .onClick {
+                        toggle.toggle()
+                    }
             }
+            
+            SubPageInner()
+            
             
             
             H4{ "HELLO ME" }
+            
+            SubPageInner()
 
-//            Div {
-//                "hello this is a test"
-//                " did it combine?"
-//            }
-//            
-//            Input($myString)
-//            
-//            if myString == "hell" {
-//                H2{"HOMIE STOP CURSING"}
-//
-//            } else if  myString == "hello" {
-//                H4{"JKJK"}
-//
-//            } else {
-//                H3{"Empty"}
-//
-//            }
-//            
-//            if myNum == 10 {
-//                A { "hello its" }
-//                    .href("#MyImage")
-//                    .onClick {
-//                        var value = prompt("IS THIS REAL")
-//                        
-//                        myString = value
-//                    }
-//            }
-//            else if myNum == 7 {
-//               H2{"my number: \(myNum)"}
-//
-//            }
-//            else if myNum == 8 {
-//               H2{"my number: \(myNum)"}
-//
-//            }
-//            else if myNum == 9 {
-//                H2{"my number: \(myNum)"}
-//
-//            }
-//            
-//            // not working
-//            H6{"number: \(myNum)"}
-//
-//            
-//            Button { "press me" }
-//                .onClick {
-//                    myNum += 1
-//                }
+
+            Div {
+                "hello this is a test"
+                " did it combine?"
+            }
+            
+            Input($myString)
+            
+            if myString == "hell" {
+                H2{"HOMIE STOP CURSING"}
+
+            } else if  myString == "hello" {
+                H4{"JKJK"}
+
+            } else {
+                H3{"Empty"}
+
+            }
+            
+            if myNum == 10 {
+                A { "hello its" }
+                    .href("#MyImage")
+                    .onClick {
+                        var value = prompt("IS THIS REAL")
+                        
+                        myString = value
+                    }
+            }
+            else if myNum == 7 {
+               H2{"my number: \(myNum)"}
+
+            }
+            else if myNum == 8 {
+               H2{"my number: \(myNum)"}
+
+            }
+            else if myNum == 9 {
+                H2{"my number: \(myNum)"}
+
+            }
+            
+            // not working
+            H6{"number: \(myNum)"}
+
+            
+            Button { "press me" }
+                .onClick {
+                    myNum += 1
+                }
         }
     }
 }
 
 
-//struct SubPageInner: Page {
-//    @State var myValue: Int = 0
-//    var body: some Page {
-//        Div("Hello \(myValue)")
-//            .onClick {
-//                myValue += 1
-//            }
-//    }
-//}
+struct SubPageInner: Page {
+    @State var myValue: Int = 0
+    var body: some Page {
+        Div {
+            Div { "Hello \(myValue)" }
+                .onClick {
+                    myValue += 1
+                }
+            
+            if myValue % 2 == 0 {
+                A { "I am a link" }
+            }
+            
+        }
+    }
+}
 
 
 // idea with macros?
