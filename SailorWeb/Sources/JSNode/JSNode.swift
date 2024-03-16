@@ -11,8 +11,9 @@ import SailorShared
 
 public final class JSNode {
 
-    internal var element: JSObject    
-    internal var elementID: ElementID
+    public var elementID: ElementID
+
+    internal var element: JSObject
 
     internal var events: [String: JSClosure] // Events
     internal var sailorEvents: SailorEvents = .init()

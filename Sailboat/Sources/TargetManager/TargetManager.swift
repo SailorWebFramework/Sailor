@@ -56,6 +56,8 @@ open class TargetManager {
             for elementID in elementIDs {
                 if let element = managedPages.elements[elementID] {
                     
+                    print("State: \(stateID), Element: \(element)")
+                    
                     managedEvent.semaphore += 1
 
                     // builds the shallow content body and adds its state to the watchers

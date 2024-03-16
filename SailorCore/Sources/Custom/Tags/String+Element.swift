@@ -13,7 +13,8 @@ import SailorWeb
 #endif
 
 // TODO: get string to work properly
-extension String: Element {
+extension String: ValueElement {
+    public var value: String { self }
     
     public var renderer: any Renderable {
         get { 
