@@ -41,24 +41,6 @@ public extension Element {
 
 }
 
-public struct ElementAttributeGroup: AttributeGroup {
-
-    public var name: String
-    public var value: String
-    public var override: Bool
-    
-    public init(name: String, value: String) {
-        self.name = name
-        self.value = value
-        self.override = true
-    }
-    public init(name: String, value: String, override: Bool) {
-        self.name = name
-        self.value = value
-        self.override = override
-    }
-}
-
 // TODO: make this internal? / remove?
 public extension Element {
     

@@ -41,14 +41,6 @@ extension JSNode: Renderable {
 
         let aboveElement = parentRenderer.element.childNodes[deepIndex]
         
-//        if aboveElement == .null {
-//            if deepIndex == 0 {
-//                addToParent(parent)
-//            } else {
-//                fatalError("Nothing to add above to JSNode")
-//            }
-//        }
-        
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         print("after...")
 
@@ -64,20 +56,11 @@ extension JSNode: Renderable {
         print("to: \(parent)")
 
         let aboveElement = parentRenderer.element.childNodes[deepIndex + 1]
-        
-//        if aboveElement == .null {
-//            if deepIndex == -1 {
-//                addToParent(parent)
-//            } else {
-//                fatalError("Nothing to add below to JSNode")
-//            }
-//        }
-        
+
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         print("after...")
 
     }
-    
     
     public func addToParent(_ parent: any Element) {
         let parentNode = asJSNode(parent)
@@ -91,15 +74,6 @@ extension JSNode: Renderable {
         // TODO: make task launch asyncronously
         self.sailorEvents.task(.none)
     }
-    
-//    public func addAbove(_ node: any Element) {
-//        let belowNode = asJSNode(node)
-//
-//        let parentNode = belowNode.element.parentNode
-//            
-//        _ = parentNode.insertBefore(self.element, belowNode.element)
-//
-//    }
     
     public func clearBody() {
         // TODO: this probably overrides some non-string elements...
@@ -145,9 +119,9 @@ extension JSNode: Renderable {
     public func remove() {
         _ = self.element.remove?()
 
-//        self.clearEvents()
-//        self.clearAttributes()
-//        self.clearBody()
+        self.clearEvents()
+        self.clearAttributes()
+        self.clearBody()
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)
@@ -155,6 +129,11 @@ extension JSNode: Renderable {
         // TODO: should this be before onDisappear?
         SailboatGlobal.manager.managedPages.elements[self.elementID] = nil
 
+    }
+    
+    public func remove(at deepIndex: Int) {
+        
+        
     }
     
     public func replace(with element: any Element) {

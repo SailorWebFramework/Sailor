@@ -24,8 +24,10 @@ public extension Renderable {
 
         _ = reconcileBody(oldList: oldContent, newList: &copyOfNewContent, index: -1)
         
-        //TODO: ISSUE, EDIT: what i dont think theres an issue
         SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
+        
+        print("COPYCOPY")
+        copyOfNewContent.printPage()
     }
     
     
@@ -50,7 +52,8 @@ public extension Renderable {
                 } else {
                     newList.children[i] = oldElement
                 }
-
+                
+                continue
             }
             
             if let oldOp = oldList.children[i] as? any Operator,
@@ -61,33 +64,45 @@ public extension Renderable {
                 if oldOp.hash == newOp.hash {
                     deepindex = reconcileBody(oldList: oldOp, newList: &newOp, index: deepindex)
                 } else {
-                    clearChildren(from: oldOp)
+                    clearChildren(from: oldOp, at: deepindex)
                     deepindex = build(newOp, after: deepindex)
                 }
                 
                 // sets the old inner list with the new one
                 newList.children[i] = newOp
                 
+                continue
             }
+            
+            // if custom node skip it and add 1 to the deep index
+            deepindex += 1
+            
         }
         
         return deepindex
     }
     
     // TODO: do i need this?
-    private func clearChildren(from content: any Operator) {
+    private func clearChildren(from content: any Operator, at index: Int) {
         for child in content.children {
             
             if let child = child as? any Element {
                 child.renderer.remove()
-                return
+                
+                continue
             }
             
             if let child = child as? any Operator {
-                clearChildren(from: child)
-                return
+                clearChildren(from: child, at: index)
+                
+                continue
             }
             
+            // TODO: custom node here?
+//            child.renderer.remove(at: index)
+
+
+//            clearChildren(from: child)
             
             // TODO:
             // Problem.. what happens to custom pages the elements arent loaded

@@ -20,4 +20,15 @@ public final class ManagedPages {
     
     /// the current callback history of changed state values, use dump to clear the history
     public var stateHistory: Set<StateID> = []
+    
+    public func registerElement(_ element: any Element, _ operatorPage: any Operator) {
+        self.elements[element.id] = element
+        
+        if !self.stateHistory.isEmpty {
+            self.children[element.id] = operatorPage
+        }
+        
+        SailboatGlobal.manager.dumpTo(element: element)
+    }
+    
 }

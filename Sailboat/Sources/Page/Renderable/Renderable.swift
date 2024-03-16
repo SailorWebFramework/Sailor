@@ -12,18 +12,17 @@ public protocol Renderable {
     /// add this element to the parent element
     func addToParent(_ parent: any Element)
     
-    /// add this element below another element
-//    func addBelow(_ node: any Element)
-    
-//    func addBelow(_ index: Int)
-    
-//    func addAfter(_ index: Int, parent: any Element)
-
+    ///
     func insertAfter(_ deepIndex: Int, parent: any Element)
+    
+    ///
     func insertBefore(_ deepIndex: Int, parent: any Element)
 
     /// remove this element permenately
     func remove()
+    
+    ///
+    func remove(at deepIndex: Int)
     
     /// remove all attributes
     func clearAttributes()
@@ -34,21 +33,20 @@ public protocol Renderable {
     /// remove the children elements from being rendered
     func clearBody()
     
-    /// diff and reconcile and rebuild the body of the current element
-//    func reconcile(with operator: any Operator)
-    
-    /// build the body of the current element
-//    func build(with operator: any Operator)
-    
     // TODO: maybe rename to shallow render?
     /// replace this node with another element
-    func replace(with renderable: any Element)
+//    func replace(with renderable: any Element)
     
     ///
     func replace(at: Int, with: any Element)
     
     /// shallow render of an element
     func render()
+    
+    // TODO:
+//    func renderAttributes()
+    
+//    func renderEvents()
     
     /// update the specified attribute
     func updateAttribute(name: String, value: String)
