@@ -31,14 +31,7 @@ public extension Renderable {
             // run the page builder closure to create an operator node
             let operatorPage = page.content()
             
-            // TODO: make helper func registerNewPage?
-            SailboatGlobal.manager.managedPages.elements[page.id] = page
-            
-            if !SailboatGlobal.manager.managedPages.stateHistory.isEmpty {
-                SailboatGlobal.manager.managedPages.children[page.id] = operatorPage
-            }
-            
-            SailboatGlobal.manager.dumpTo(element: page)
+            SailboatGlobal.managedPages.registerElement(page, operatorPage)
             
             build(page: operatorPage, parent: page)
             
@@ -57,45 +50,36 @@ public extension Renderable {
     }
     
     ///
-    internal func build(_ newContent: any Operator, after index: Int) -> Int {
-        var newIndex: Int = index
-        for child in newContent.children {
-            if let child = child as? any Element {
-                guard let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
-                    fatalError("element doesnt exist in global state")
-                }
-                    
-//                newIndex += 1
+    internal func build(_ newContent: any Page, after index: Int) -> Int {
+        guard let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
+            fatalError("element doesnt exist in global state")
+        }
+        
+        var newIndex = index
+        
+        if let newContent = newContent as? any Element {
+            
+            newContent.renderer.build(newContent)
 
-                child.renderer.build(child)
-
-                if newIndex != -1 {
-                    child.renderer.insertAfter(newIndex, parent: myElement)
-                } else {
-                    child.renderer.insertBefore(0, parent: myElement)
-                }
-
-//                if index != -1 {
-//                    child.renderer.addBelow(newIndex, parent: myElement)
-//                } else {
-//                    // TODO: this is wrong?, actually i dont think this is possible?
-//                    child.renderer.addAbove(newIndex, parent: myElement)
-//                }
-
-                newIndex += 1
-
-                continue
+            if newIndex != -1 {
+                newContent.renderer.insertAfter(newIndex, parent: myElement)
+            } else {
+                newContent.renderer.insertBefore(0, parent: myElement)
             }
             
-            if let child = child as? any Operator {
+            newIndex += 1
+            
+        } else if let newContent = newContent as? any Operator {
+            for child in newContent.children {
                 newIndex = build(child, after: newIndex)
-                continue
             }
-                        
-            // TODO: custom nodes
+            
+        } else {
+            newIndex = build(newContent.body, after: newIndex)
+            
         }
+        
         return newIndex
     }
-    
     
 }
