@@ -13,8 +13,15 @@ public protocol Renderable {
     func addToParent(_ parent: any Element)
     
     /// add this element below another element
-    func addBelow(_ node: any Element)
+//    func addBelow(_ node: any Element)
     
+//    func addBelow(_ index: Int)
+    
+//    func addAfter(_ index: Int, parent: any Element)
+
+    func addBelow(_ index: Int, parent: any Element)
+
+
     /// remove this element permenately
     func remove()
     
