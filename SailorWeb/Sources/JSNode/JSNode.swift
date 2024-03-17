@@ -13,10 +13,11 @@ public final class JSNode {
 
     public var elementID: ElementID
 
+    public var sailorEvents: SailorEvents = .init()
+
     internal var element: JSObject
 
     internal var events: [String: JSClosure] // Events
-    internal var sailorEvents: SailorEvents = .init()
     
     // TODO: remove?
     internal var attributes: JSAttributes
@@ -25,12 +26,13 @@ public final class JSNode {
 //    weak internal var aboveNode: (JSNode)? = nil
     internal var aboveElement: (any Element)? = nil
 
-    public convenience init(elementID: ElementID) {
+    public convenience init(elementID: ElementID, _ type: JSNodeType) {
         self.init(
-            element: JSNode.body,
+            element: type.getJSObject(),
             elementID: elementID
         )
     }
+    
     public convenience init(named name: String, elementID: ElementID) {
         guard let pageElement = Self.document.createElement(name).object else {
             fatalError("page node not possible")

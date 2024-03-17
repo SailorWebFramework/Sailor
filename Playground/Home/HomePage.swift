@@ -16,12 +16,15 @@ struct HomePage: Page {
                 .onClick {
                     toggle.toggle()
                 }
+                
             // TODO: not removing correctly
             if toggle {
                 H1 { "Hello world!" }
                     .onClick {
                         toggle.toggle()
                     }
+
+
             } else {
                 H3 { "SMallerworld" }
                     .onClick {
@@ -44,8 +47,6 @@ struct HomePage: Page {
                 
             }
             
-            
-            
             H4{ "HELLO ME" }
             
             if toggle {
@@ -62,17 +63,17 @@ struct HomePage: Page {
             
             
             Input($myString)
-            
-            //            if myString == "hell" {
-            //                H2{"HOMIE STOP CURSING"}
-            //
-            //            } else if  myString == "hello" {
-            //                H4{"JKJK"}
-            //
-            //            } else {
-            //                H3{"Empty"}
-            //
-            //            }
+
+            if myString == "hell" {
+                H2{"HOMIE STOP CURSING"}
+
+            } else if  myString == "hello" {
+                H4{"JKJK"}
+
+            } else {
+                H3{"Empty"}
+
+            }
             //
             //            if myNum == 10 {
             //                A { "hello its" }

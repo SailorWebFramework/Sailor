@@ -9,13 +9,26 @@ struct TestWebsite: Website {
     var body: some Page {
         Body {
             H1 { environment.url }
+                .onAppear {
+                    print("BRUH?")
+                }
+            
+//                .head {
+//                    Title { "This is a title" }
+//                    Link(rel: "stylesheet", href: "Global.css")
+//                    Link(rel: "icon", href: "favicon.ico")
+//                }
             HomePage()
+        }
+        .onAppear {
+            print("HELLO WORLD")
         }
         .head {
             Title { "This is a title" }
-            Link(rel: "stylesheet", href: "sheet3.css")
+            Link(rel: "stylesheet", href: "Global.css")
             Link(rel: "icon", href: "favicon.ico")
         }
+
     }
 }
 

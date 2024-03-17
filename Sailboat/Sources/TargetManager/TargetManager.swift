@@ -95,7 +95,7 @@ open class TargetManager {
         }
         
         if let page = page as? any Element {
-            page.renderer.build(page)
+            RenderableUtils.build(page)
             return
         }
 
