@@ -84,6 +84,10 @@ public extension Renderable {
     
     // TODO: do i need this?
     private func clearChildren(from content: any Operator, at index: Int) {
+        guard let myPage = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
+            fatalError("old content doesnt exist or is stateless")
+        }
+        
         for child in content.children {
             
             if let child = child as? any Element {
@@ -98,8 +102,8 @@ public extension Renderable {
                 continue
             }
             
-            // TODO: custom node here?
-//            child.renderer.remove(at: index)
+            // TODO: custom node here? wtf is the parent
+            myPage.renderer.remove(at: index + 1)
 
 
 //            clearChildren(from: child)

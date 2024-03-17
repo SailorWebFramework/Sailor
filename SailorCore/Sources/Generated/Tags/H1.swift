@@ -46,6 +46,7 @@ public struct H1: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        self.attributes["id"] = id
         //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 

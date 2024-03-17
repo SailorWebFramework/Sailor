@@ -132,8 +132,19 @@ extension JSNode: Renderable {
     }
     
     public func remove(at deepIndex: Int) {
+        let node = self.element.childNodes[deepIndex]
         
+        if node == .null {
+            fatalError("cannot remove at index \(deepIndex)")
+        }
         
+        if case let JSValue.string(idToRemove) = node.getAttribute("id") {
+            print("removing \(idToRemove.description)")
+            SailboatGlobal.managedPages.elements[idToRemove.description]?.renderer.remove()
+        } else {
+            print("the node at index \(deepIndex), doesnt have id... probably stateless?")
+        }
+    
     }
     
     public func replace(with element: any Element) {

@@ -12,7 +12,10 @@ struct HomePage: Page {
     var body: some Page {
         Div {
             H2{ "IM HERE" }
-            
+                .id("hellounique")
+                .onClick {
+                    toggle.toggle()
+                }
             // TODO: not removing correctly
             if toggle {
                 H1 { "Hello world!" }
@@ -36,63 +39,72 @@ struct HomePage: Page {
                     }
             }
             
-            SubPageInner()
+            if toggle {
+                SubPageInner()
+                
+            }
             
             
             
             H4{ "HELLO ME" }
             
-            SubPageInner()
-
-
+            if toggle {
+                SubPageInner()
+                SubPageInner()
+                
+            }
+            
             Div {
                 "hello this is a test"
                 " did it combine?"
             }
+            .id("jdfhjdfdhf")
+            
             
             Input($myString)
             
-            if myString == "hell" {
-                H2{"HOMIE STOP CURSING"}
-
-            } else if  myString == "hello" {
-                H4{"JKJK"}
-
-            } else {
-                H3{"Empty"}
-
-            }
-            
-            if myNum == 10 {
-                A { "hello its" }
-                    .href("#MyImage")
-                    .onClick {
-                        var value = prompt("IS THIS REAL")
-                        
-                        myString = value
-                    }
-            }
-            else if myNum == 7 {
-               H2{"my number: \(myNum)"}
-
-            }
-            else if myNum == 8 {
-               H2{"my number: \(myNum)"}
-
-            }
-            else if myNum == 9 {
-                H2{"my number: \(myNum)"}
-
-            }
-            
-            // not working
-            H6{"number: \(myNum)"}
-
-            
-            Button { "press me" }
-                .onClick {
-                    myNum += 1
-                }
+            //            if myString == "hell" {
+            //                H2{"HOMIE STOP CURSING"}
+            //
+            //            } else if  myString == "hello" {
+            //                H4{"JKJK"}
+            //
+            //            } else {
+            //                H3{"Empty"}
+            //
+            //            }
+            //
+            //            if myNum == 10 {
+            //                A { "hello its" }
+            //                    .href("#MyImage")
+            //                    .onClick {
+            //                        var value = prompt("IS THIS REAL")
+            //
+            //                        myString = value
+            //                    }
+            //            }
+            //            else if myNum == 7 {
+            //               H2{"my number: \(myNum)"}
+            //
+            //            }
+            //            else if myNum == 8 {
+            //               H2{"my number: \(myNum)"}
+            //
+            //            }
+            //            else if myNum == 9 {
+            //                H2{"my number: \(myNum)"}
+            //
+            //            }
+            //
+            //            // not working
+            //            H6{"number: \(myNum)"}
+            //
+            //
+            //            Button { "press me" }
+            //                .onClick {
+            //                    myNum += 1
+            //                }
+            //        }
         }
     }
 }
@@ -111,6 +123,22 @@ struct SubPageInner: Page {
                 A { "I am a link" }
             }
             
+            if myValue % 2 == 0 {
+                SubPageInner2()
+            }
+            
+        }
+    }
+}
+
+
+struct SubPageInner2: Page {
+//    @State var myValue: Int = 0
+    var body: some Page {
+        Div {
+            H1 { "SUBPAGEINNER2" }
+            H1 { "SUBPAGEINNER2" }
+
         }
     }
 }
