@@ -9,18 +9,6 @@ import Sailboat
 import JavaScriptKit
 
 extension JSNode: Renderable {
-//    public func addAfter(_ index: Int, parent: any Element) {
-//        // TODO: add this node below the index
-////        let aboveNode = node.renderer as! JSNode
-////        let parentNode = aboveNode.element.parentNode
-////        
-////        guard !parentNode.isNull else {
-////            fatalError("JSNODE: add below trying to add to node without a parent")
-////        }
-////
-////        _ = parentNode.insertBefore(self.element, aboveNode.element.nextSibling)
-//
-//    }
     
     private func asJSNode(_ element: any Element) -> JSNode {
         guard let element = element.renderer as? JSNode else {
@@ -32,34 +20,20 @@ extension JSNode: Renderable {
     
     public func insertBefore(_ deepIndex: Int, parent: any Element) {
         let parentRenderer = asJSNode(parent)
-        
-        print("attempting to add before")
-        print("\(self)")
-        print("at: \(deepIndex)")
-
-        print("to: \(parent)")
-
         let aboveElement = parentRenderer.element.childNodes[deepIndex]
         
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
-        print("after...")
-
+        
+        self.sailorEvents.onAppear(.none)
     }
     
     public func insertAfter(_ deepIndex: Int, parent: any Element) {
         let parentRenderer = asJSNode(parent)
-        
-        print("attempting to add after")
-        print("\(self)")
-        print("at: \(deepIndex)")
-
-        print("to: \(parent)")
-
         let aboveElement = parentRenderer.element.childNodes[deepIndex + 1]
 
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
-        print("after...")
-
+        
+        self.sailorEvents.onAppear(.none)
     }
     
     public func addToParent(_ parent: any Element) {
@@ -77,8 +51,8 @@ extension JSNode: Renderable {
     
     public func clearBody() {
         // TODO: this probably overrides some non-string elements...
+        // TODO: somehow need to call remove on all inner elements
         self.element.innerHTML = ""
-
     }
     
     // TODO: remove these?
@@ -119,9 +93,9 @@ extension JSNode: Renderable {
     public func remove() {
         _ = self.element.remove?()
 
-        self.clearEvents()
-        self.clearAttributes()
-        self.clearBody()
+//        self.clearEvents()
+//        self.clearAttributes()
+//        self.clearBody()
 
         // on disappear called once the JSNode gets removed
         self.sailorEvents.onDisappear(.none)
@@ -156,28 +130,18 @@ extension JSNode: Renderable {
 
         self.sailorEvents.onDisappear(.none)
         
-        // TODO: do this for the parent renderer
-        // on appear called once the JSNode becomes renderable
-//        parentRenderer.sailorEvents.onAppear(.none)
-        
-        // launch tasks on the background thread on render
-        // TODO: make task launch asyncronously
-//        parentRenderer.sailorEvents.task(.none)
-
+        if let elementRenderer = element.renderer as? JSNode {
+            elementRenderer.sailorEvents.onAppear(.none)
+            elementRenderer.sailorEvents.task(.none)
+        }
     }
     
     public func replace(at deepindex: Int, with element: any Element) {
         
-        // TODO: this doesnt quite work, because of conditional lists
         if let element = element as? any ValueElement {
-            print("Element thing at \(deepindex)")
-            print("Element thing at \(deepindex)")
-            print(self.element.childNodes[deepindex].nodeType.number)
-            
             self.element.childNodes[deepindex].object!.textContent = JSValue.string(element.value.description)
             
         } else if let jsnode = element.renderer as? JSNode {
-            
             if let parent = self.element.parentElement.object {
                 _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
             }
