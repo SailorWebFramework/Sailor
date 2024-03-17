@@ -5,30 +5,30 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-// TODO: dictionary use thing so   @Environment(\.myCustomSetting) var mySetting works?
-// TODO: somehow pass it down
+
+public protocol SomeEnvironment { }
 
 @propertyWrapper
-public class Environment<Value: Equatable> {
-    let get: () -> Value
-    let set: (Value) -> Void
+public class Environment<TargetEnvironment: SomeEnvironment, Value> {
+    
+    var keyPath: KeyPath<TargetEnvironment, Value>?
 
+    // TODO: check this is force casting
     public var wrappedValue: Value {
-        get { get() }
-        set { set(newValue) }
+        let env = (SailboatGlobal.manager.environment as? TargetEnvironment)
+        print("forcing environment")
+        if let keyPath = self.keyPath {
+            return env![keyPath: keyPath]
+        }
+        return env as! Value
     }
 
-    public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
-        fatalError("Not implemented yet")
-        self.get = get
-        self.set = set
+    public init(_ keyPath: KeyPath<TargetEnvironment, Value>) {
+        self.keyPath = keyPath
     }
     
-    static func constant(_ value: Value) -> Binding<Value> {
-        Binding(
-            get: { value },
-            set: { _ in }
-        )
+    public init() {
+        keyPath = nil
     }
     
 }

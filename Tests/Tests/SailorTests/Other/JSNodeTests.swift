@@ -14,12 +14,13 @@ final class JSNodeTests: XCTestCase, SailorTestCase {
 
     override func setUp() {
         super.setUp()
-        SailorGlobal.initialize(SailorManager())
+        // TODO: do this
+//        SailorGlobal.initialize(SailorManager())
     }
 
     override func tearDown() {
-        sailorManager.documentNode.reset()
-        SailorGlobal.manager = nil
+//        sailorManager.documentNode.reset()
+        SailboatGlobal.manager = nil
     }
 
     func testBasicStateRender() throws {

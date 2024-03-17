@@ -1,35 +1,62 @@
 import Sailor
 
-struct AboutPage: Page {
-    @State var myNum: Int = 0
-    var body: some Page {
-        Div {
-            Div("This is the about page")
-            
-            Div(
-                .className("hello"),
-                .title("main-container"),
-                .data("test", "i am on the page"),
-                .id("UNIQUE123")
-            ) {
-//                A(.href("https://www.google.com"){"Press me!"}
-//                <a href="https://www.google.com">Press me!</a>
-//                A("hyperlink").href("https://www.google.com")
-                A("hyperlink")
-                    .href("https://www.google.com")
-//                    .attribute()
-//                    .attribute(.href("https://www.google.com"))
-
-            }
-            .style(
-                .backgroundColor(.rgb(100, 40, 100))
-
-//                .backgroundColor(myNum % 4 == 0 ? .rgb(100, 0, 100) : .rgb(0, 100, 100)),
-//                .width(.int(100))
-            )
-            .onClick {
-                print("I was clicked")
-            }
-        }
-    }
-}
+//struct AboutPage: Page {
+//    @State var myNum: Int = 0
+//    @State var myString: String = ""
+//    @State var url: String = ""
+//
+//    let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+//    
+//    var body: some Page {
+//        Div {
+//            Div(myString)
+//            SubPage1(myString: $myString)
+//            Button("click me")
+//                .onClick {
+//                    myNum += 1
+//                }
+//            H3("num: \(myNum)")
+////
+//            
+////            Div{ myString }
+////            SubPage1(myString: $myString)
+////            Button{"click me"}
+////                .onClick {
+////                    myNum += 1
+////                }
+////            H3{"num: \(myNum)"}
+//            
+//            
+////            A(href: "www.mysite.com")
+//            
+////                .href{"www.google.com"}
+////                .alt{"this is a link"}
+//            
+//            
+//        }
+//    }
+//}
+//
+//struct SubPage1: Page {
+//    @State var myNum: Int = 1
+//    @Binding var myString: String
+//    
+//    let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+//    
+//    var body: some Page {
+//        Div {
+//            A("CLICK").href("#Hello")
+//            H1("This is a \(myString)")
+//            H2("subtitle")
+//            
+//            Button("hey candy")
+//                .onClick {
+//                    myString = "mine bruh"
+//                }
+//
+//            Input($myString)
+//                .id("Hello")
+//     
+//        }
+//    }
+//}

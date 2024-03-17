@@ -5,10 +5,15 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
 
 /// Div used to test internal Sailboat
 public struct TDiv: Element {
+    public var id: Sailboat.ElementID = UUID().uuidString
+
+    public var renderer: some Renderable = TestRenderable()
+    
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String
@@ -26,7 +31,7 @@ public struct TDiv: Element {
     }
     
     public var attributes: [String: String]
-    public var events: Events
+    public var events: [String: (EventResult) -> Void]
     public var content: TagContent
 
     public init() {

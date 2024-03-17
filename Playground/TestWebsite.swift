@@ -1,108 +1,81 @@
 import Sailor
-import JavaScriptKit
 
+#if os(WASI)
 @main
+#endif
 struct TestWebsite: Website {
-    var config: Config{
-        Config(
-            routes: [
-                Route("/") { MainPageWebsite() },
-                Route("404") { MainPageWebsite() },
-                Route("#about") { MainPageWebsite() }
-            ],
-            metadata: [
-                "title": "Test Website",
-                "description": "This is a test website"
-            ]
-        )
-    }
+    @Environment var environment: Env
     
-    @State var location: Location = .home
-
     var body: some Page {
-        Div {
-            NavBar(location: $location)
-            
-            switch location {
-            case .home:
-                HomePage()
-            case .about:
-                AboutPage()
-            case .explore:
-                Div {
-                    Div("TODO: Explore page")
-                }
-            }
+        Body {
+            H1 { environment.url }
+            HomePage()
         }
-    }
-    var router = Router()
-
-    // var body: some Page {
-    //     HomePage()
-    // }
-}
-
-struct MainPageWebsite: Page {
-    @State var location: Location = .home
-
-    var body: some Page {
-        Div {
-            NavBar(location: $location)
-            
-            switch location {
-            case .home:
-                HomePage()
-            case .about:
-                AboutPage()
-            case .explore:
-                Div {
-                    Div("TODO: Explore page")
-                }
-            }
+        .head {
+            Title { "This is a title" }
+            Link(rel: "stylesheet", href: "sheet3.css")
+            Link(rel: "icon", href: "favicon.ico")
         }
     }
 }
 
+// TODO: vvvv
+// Make custom properties for FavIcon and LinkCSS
+//            FavIcon("resources/icon.ico")
+//            LinkCSS("sheet1.css")
 
-enum Location {
-    case home, about, explore
-}
-
-struct NavBar: Page {
-    @Binding var location: Location
-    var body: some Page {
-        Div {
-            Button("About")
-                .onClick {
-                    location = .about
-                }
-            Button("Home")
-                .onClick {
-                    location = .home
-                }
-            Button("Exlore")
-                .onClick {
-                    location = .explore
-                }
-        }
-    }
-}
-//
-//struct TestWebsite: Website {
-//    var routes: Routes {
-//        Route("home") { HomePage() }
-//        
-//        Route("about") { AboutPage() }
-//        
-//        Route("404") { NotFoundPage() }
-//    }
+//struct NavBar: Page {
+//    // TODO: fix the weird generics expected by the environment variables
+////    @Navigator(\.navigation) var navigation: Navigation<AppRoutes>
 //    
-//}
+////    @State var hello: Int = 0
+//    @Environment(\.navigation) var navigation: Navigation
+//    @Environment(\.url) var url
 //
-//
-//Routes {
-//    "home": HomePage()
-//    "about": AboutPage()
-//    "404": NotFoundPage()
+//    var body: some Page {
+//        Div {
+//            Div{"URL: \(url)"}
+//            Div {
+//                Button{"About"}
+//                    .onClick {
+//                        navigation.go(to: .about)
+//                    }
+//                Button{"Home"}
+//                    .onClick {
+//                        navigation.go(to: .home)
+//                    }
+//                Button{"Exlore"}
+//                    .onClick {
+//                        navigation.go(to: .explore)
+//                    }
+//            }
+//        }
+//    }
 //}
 
+
+
+//            Router {
+//
+//                Route(.defaultRoute) {
+//                    HomePage()
+//                }
+//
+//                Route(.about) {
+//                    Div{"about we go?"}
+//
+//                }
+//
+//                Route(.explore) {
+//                    Div{"explore we go?"}
+//                }
+//
+//            } notFound: {
+//                NotFoundPage()
+//            }
+            //            Link(rel: "stylesheet", href:"Sailor_Playground.resources/Global.css")
+
+            //            NavBar()
+                        
+//                        Div{"\(environment.url.description)"}
+                        

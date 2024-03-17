@@ -131,7 +131,7 @@ public class LinkedList<Value>: Sequence {
         }
         output += "; SIZE: \(count)"
 
-        Swift.print(output)
+//        Swift.print(output)
 
     }
     

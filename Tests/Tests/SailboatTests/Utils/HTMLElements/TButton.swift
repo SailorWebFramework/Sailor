@@ -5,10 +5,67 @@
 //  Created by Joshua Davis.
 //
 
+import Foundation
 import Sailboat
+
+// TODO: do this
+class TestRenderable: Renderable {
+    func addToParent(_ parentNode: Sailboat.Renderable) {
+        
+    }
+    
+    func addChild(_ childNode: Sailboat.Renderable) {
+        
+    }
+    
+    func render(page: any Element) {
+        
+    }
+    
+    func remove() {
+        
+    }
+    
+    func replace(with renderable: Sailboat.Renderable) {
+        
+    }
+    
+    func update(attributes: [String : String]) {
+        
+    }
+    
+    func updateAttribute(name: String, value: String) {
+        
+    }
+    
+    func addEvent(name: String, closure value: (Sailboat.EventResult) -> Void) {
+        
+    }
+    
+    func onAppear() {
+        
+    }
+    
+    func onDisappear() {
+        
+    }
+    
+    func onUpdate() {
+        
+    }
+    
+    func debugPrint() {
+        
+    }
+    
+}
 
 /// Button used to test internal Sailboat
 public struct TButton: Element {
+    public var id: Sailboat.ElementID = UUID().uuidString
+    
+    public var renderer: some Renderable = TestRenderable()
+    
     public struct ElementAttributeGroup: AttributeGroup {
         public let name: String
         public let value: String
@@ -26,7 +83,7 @@ public struct TButton: Element {
     }
     
     public var attributes: [String: String]
-    public var events: Events
+    public var events: [String: (EventResult) -> Void]
     public var content: TagContent
 
     public init() {

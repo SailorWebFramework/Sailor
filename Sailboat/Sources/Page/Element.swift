@@ -5,24 +5,27 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-public protocol Element: Page {
-    
-    associatedtype ElementAttributeGroup: AttributeGroup
+import Foundation
 
-    /// HTML tag name, all lowercased
-    var name: String { get }
+public typealias ElementID = String
+
+public protocol Element: Page, Identifiable {
     
-    /// attributes on HTML tag
+    /// Unique Element ID used to diff items
+    var id: ElementID { get set }
+    
+    /// attributes on tag
     var attributes: [String: String] { get set }
     
     /// event names and values attached to this HTMLElement
-    var events: Events { get set }
+    var events: [String: (EventResult) -> Void] { get set }
     
+    // TODO: dubug why (() -> any Operator)? doesnt work
     /// content within HTML tags
-    var content: TagContent { get set }
-
-    /// add attribute to this Element
-    func attribute(_ value: ElementAttributeGroup) -> Self
+    var content: () -> any Operator { get set }
+    
+    /// used to render this element
+    var renderer: any Renderable { get set }
         
 }
 
@@ -32,16 +35,43 @@ public extension Element {
     }
     
     var body: some Page {
-        InternalError.recursingInPageBody(name: self.name)
+        InternalError.recursingInPageBody(name: String(describing: type(of: self)))
         return self
     }
+
+}
+
+// TODO: make this internal? / remove?
+public extension Element {
     
-    func attribute(_ value: ElementAttributeGroup) -> Self {
+    func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
         if attributes[value.name] == value.value { return self }
 
         var copy = self
-        copy.attributes[value.name] = value.value
+        
+        // TODO: this logic is gross
+        if override || copy.attributes[value.name] == nil {
+            copy.attributes[value.name] = value.value
+        } else {
+            copy.attributes[value.name]! += value.value
+        }
+        
         return copy
         
+    }
+    
+    func withEvent(name: String, _ closure: @escaping (EventResult) -> Void) -> Self {
+        var copy = self
+        
+        if let oldEvent = copy.events[name] {
+            copy.events[name] = { value in
+                oldEvent(value)
+                closure(value)
+            }
+        } else {
+            copy.events[name] = closure
+        }
+        
+        return copy
     }
 }
