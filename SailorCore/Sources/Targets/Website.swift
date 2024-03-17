@@ -6,49 +6,47 @@
 //
 
 import Sailboat
+import SailorShared
 
 #if os(WASI)
-
-// Code specific to WASI platform
 import SailorWeb
+#endif
 
 // TODO: remove App and only use Website for web apps to avoid SwiftUI collisions
 // TODO: Later maybe create App if SwiftUI-like Syntax is ever adopted for cross-platform / native apps
 public protocol Website: Page {
     static func main()
     
-//    associatedtype WebRoutes: Routes
     associatedtype AppBody: Page
     var body: AppBody { get }
     
-    
     init()
 }
+
+#if os(WASI)
 
 extension Website {
     
     public static func main() {
         SailboatGlobal.initialize(SailorWebManager())
-        let body = Self().body
-        
-        if body is Body {
-            SailboatGlobal.manager.build(page: body)
+        let pageBody = Self().body
+        let bodyElement: any Element = if let body = pageBody as? Body {
+            body
         } else {
-            SailboatGlobal.manager.build(page: Body { body })
+            Body { pageBody }
         }
+        
+        SailboatGlobal.manager.build(page: bodyElement)
+        
+        // runs the onAppear event for the Body
+        if let bodyRenderer = bodyElement.renderer as? JSNode {
+            bodyRenderer.sailorEvents.onAppear(.none)
+        }
+
     }
 }
 
 #else
-
-public protocol Website: Page {
-    static func main()
-    
-    associatedtype AppBody: Page
-    var body: AppBody { get }
-    
-    init()
-}
 
 extension Website {
     public static func main() {

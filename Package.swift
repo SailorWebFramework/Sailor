@@ -83,7 +83,8 @@ let package = Package(
             resources: [
                 //🧭Compass Generated Resources (DONT REMOVE THIS COMMENT)
 //                .process("Resources/hello.css"),
-//                .process("Resources/Assets/favicon.ico")
+                .process("Resources/Assets/favicon.ico"),
+                .process("Resources/Assets/Global.css")
 
 //                .process("Resources/Assests/")
                 //🧭End (DONT REMOVE THIS COMMENT)

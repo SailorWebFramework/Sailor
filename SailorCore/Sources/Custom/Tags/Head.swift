@@ -1,5 +1,5 @@
 //
-//  Body.swift
+//  Head.swift
 //
 //  Created by Joshua Davis.
 //
@@ -15,7 +15,7 @@ import SailorWeb
 //TODO: auto-generate maybe so its not annoying to update
 
 /// The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.
-public struct Body: Element {
+public struct Head: Element {
     /// name of the html tag associated with this type
     public static var name: String { "body" }
 
@@ -41,7 +41,7 @@ public struct Body: Element {
         self.content = bodyValue ?? { List() }
         // special renderer for body
         #if os(WASI)
-        self.renderer = JSNode(elementID: id, .body)
+        self.renderer = JSNode(elementID: id, .head)
         #else
         self.renderer = EmptyRenderer()
         #endif
@@ -50,8 +50,8 @@ public struct Body: Element {
 
     }
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
-        self.init(bodyValue: content)
+    public init() {
+        self.init(bodyValue: nil)
     }
 
 
