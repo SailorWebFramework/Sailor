@@ -47,11 +47,6 @@ public extension GlobalAttributeGroup {
         .init(name: "hidden", value: value.description)
     }
 
-    ///Defines a unique identifier for the element.
-    static func id(_ value: String) -> Self {
-        .init(name: "id", value: value.description)
-    }
-
     ///Disables element and all inner elements.
     static func inert(_ value: Bool) -> Self {
         .init(name: "inert", value: value.description)
@@ -128,11 +123,6 @@ public extension Element {
     ///Defines whether this element is hidden or not.
     func hidden(_ value: Bool) -> Self {
         attribute(ElementAttributeGroup(name: "hidden", value: value.description))
-    }
-
-    ///Defines a unique identifier for the element.
-    func id(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "id", value: value.description))
     }
 
     ///Disables element and all inner elements.
