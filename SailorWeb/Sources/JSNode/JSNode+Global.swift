@@ -28,5 +28,19 @@ extension JSNode {
         let number = element.nodeType.number
         return Int(number ?? -1)
     }
+    
+    public enum JSNodeType {
+        case head
+        case body
+        
+        func getJSObject() -> JSObject {
+            switch self {
+            case .head:
+                JSNode.head
+            case .body:
+                JSNode.body
+            }
+        }
+    }
 
 }

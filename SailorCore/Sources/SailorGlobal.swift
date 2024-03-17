@@ -9,7 +9,7 @@ import Sailboat
 
 /// Sailor Specific global environment
 enum SailorGlobal {
-    /// head "stack" should be pushed and popped when items appear and disappear
-    static var headItems: [ElementID: any Operator] = [:]
+    /// head
+    static var headRef: Head = Head()
     
 }
