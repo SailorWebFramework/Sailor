@@ -9,10 +9,10 @@ struct TestWebsite: Website {
     
     var head: Head {
         Head {
-            Title { "This is a title" }
-            Link(rel: "stylesheet", href: "Sailor_Playground.resources/hello.css")
-            Link(rel: "stylesheet", href: "Sailor_Playground.resources/Global.css")
-            Link(rel: "icon", href: "favicon.ico")
+//            Title { "This is a title" }
+//            Link(rel: "stylesheet", href: "Sailor_Playground.resources/hello.css")
+//            Link(rel: "stylesheet", href: "Sailor_Playground.resources/Global.css")
+//            Link(rel: "icon", href: "favicon.ico")
         }
     }
     
@@ -20,18 +20,12 @@ struct TestWebsite: Website {
         Body {
             H1 { environment.url }
             HomePage()
-                .head {
-                    Link(rel: "", href: "AHb.css")
-                }
+//                .head {
+//                    Link(rel: "", href: "AHb.css")
+//                }
         }
         .onAppear {
             print("Starting App...")
         }
     }
-    
 }
-
-// TODO: vvvv
-// Make custom properties for FavIcon and LinkCSS
-//            FavIcon("resources/icon.ico")
-//            LinkCSS("sheet1.css")

@@ -24,7 +24,7 @@ public struct H5: BodyElement {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: String]
+    public var attributes: [String: () -> String]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
@@ -34,7 +34,7 @@ public struct H5: BodyElement {
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Fragment)?) {
+        internal init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -45,12 +45,11 @@ public struct H5: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-
-        // sets the id
-        self.attributes["id"] = id
+        
+        self.attributes["id"] = { id }
     }
 
-    public init(@PageBuilder content: @escaping () -> any Fragment) {
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

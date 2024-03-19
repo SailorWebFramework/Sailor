@@ -9,7 +9,7 @@ import JavaScriptKit
 
 //MARK- Global
 extension JSNode {
-    typealias JSAttributes = [String: String]
+//    typealias JSAttributes = [String: String]
 
     static let window = JSObject.global.window
     static let document = JSObject.global.document
@@ -29,7 +29,7 @@ extension JSNode {
         return Int(number ?? -1)
     }
     
-    public enum JSNodeType {
+    public enum SpecialJSNodeType {
         case head
         case body
         

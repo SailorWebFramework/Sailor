@@ -14,6 +14,8 @@ import SailorWeb
 
 // TODO: get string to work properly
 extension String: ValueElement, BodyPage, HeadPage {
+//    public static var name: String { }
+    
     public var value: String { self }
     
     public var renderer: any Renderable {
@@ -27,7 +29,7 @@ extension String: ValueElement, BodyPage, HeadPage {
         set(newValue) { }
     }
     
-    public var attributes: [String : String] {
+    public var attributes: [String : () -> String] {
         get { [:] }
         set(newValue) { }
     }

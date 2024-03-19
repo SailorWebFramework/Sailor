@@ -46,14 +46,14 @@ struct HomePage: Page {
                 "hello this is a test"
                 " did it combine?"
             }
-            .id("jdfhjdfdhf")
+            .id{"jdfhjdfdhf"}
             
             
             Input($myString)
             
         }
         .head {
-            Link(rel: "", href: "HomePage.css")
+            Link(rel: {""}, href: {"HomePage.css"})
         }
     }
 }
@@ -69,7 +69,7 @@ struct SubPageInner: Page {
                 }
             
             if myValue % 2 == 0 {
-                A { "I am a link" }
+                A({ "I am a link" })
             }
             
             if myValue % 2 == 0 {

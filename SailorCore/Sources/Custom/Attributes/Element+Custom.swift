@@ -15,23 +15,28 @@ import SailorWeb
 
 public extension Element {
     ///One or more class names defined as a class style.
-    func classes(_ values: String...) -> Self {
-        attribute(.init(name: "class", value: values.joined(separator: " ") + " "), override: false)
+//    func classes(_ values: String...) -> Self {
+//        attribute(.init(name: "class", value: values.joined(separator: " ") + " "), override: false)
+//    }
+    
+    func className(_ values: @escaping () -> String) -> Self {
+        attribute(.init(name: "class", value: values), override: false)
     }
     
     ///Defines a unique identifier for the element.
-    func id(_ value:  String) -> Self {
+    func id(_ value: @escaping () -> String) -> Self {
         var copy = self
         
-        if value == copy.id { return self }
+//        if value == copy.id { return self }
         
-        copy.id = value
+        // TODO: also make it set the element id property, or remove it?
+//        copy.id = value
         
         // TODO: remove this only use element id property?
         copy.attributes["id"] = value
         
-        // TODO: only add when its a state property or a custom page?
-        copy.renderer.elementID = value
+        // TODO: add this back with func
+//        copy.renderer.elementID = value
         
         return copy
     }
