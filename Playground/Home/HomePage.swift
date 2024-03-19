@@ -54,7 +54,6 @@ struct HomePage: Page {
         }
         .head {
             Link(rel: "", href: "HomePage.css")
-
         }
     }
 }
