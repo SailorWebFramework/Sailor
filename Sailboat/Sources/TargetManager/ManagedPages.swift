@@ -13,7 +13,7 @@ public final class ManagedPages {
     // TODO: edit, Think on this, i might need the old values because of the renderers
     // TODO: would be sick if i didnt could probably get the elements from the root element from the DOM
     /// the rendered children of the operator nodes of stateful elements
-    public var children: [ElementID: any Operator] = [:]
+    public var children: [ElementID: any Fragment] = [:]
     
     /// map of states to the pages they include
     public var stateElementMap: [StateID: Set<ElementID>] = [:]
@@ -21,7 +21,7 @@ public final class ManagedPages {
     /// the current callback history of changed state values, use dump to clear the history
     public var stateHistory: Set<StateID> = []
     
-    public func registerElement(_ element: any Element, _ operatorPage: any Operator) {
+    public func registerElement(_ element: any Element, _ operatorPage: any Fragment) {
         self.elements[element.id] = element
         
         if !self.stateHistory.isEmpty {

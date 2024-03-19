@@ -20,7 +20,7 @@ public extension Element {
     }
     
     ///Defines a unique identifier for the element.
-    func id(_ value: String) -> Self {
+    func id(_ value:  String) -> Self {
         var copy = self
         
         if value == copy.id { return self }
@@ -38,4 +38,5 @@ public extension Element {
     
     // TODO: more custom methods?
     // ...
+
 }

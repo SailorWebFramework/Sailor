@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The link element allows authors to link their document to other resources.
-public struct Link: Element {
+public struct Link: HeadElement {
     /// name of the html tag associated with this type
     public static var name: String { "link" }
 
@@ -30,11 +30,11 @@ public struct Link: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -52,9 +52,14 @@ public struct Link: Element {
 
     public init(rel: String, href: String) {
         self.init(bodyValue: nil)
-
+        
         self.attributes["rel"] = rel.description
-        self.attributes["href"] = href.description
+
+        if !href.hasPrefix("https://") {
+            self.attributes["href"] = href.description
+        } else {
+            self.attributes["href"] = href.description
+        }
     }
 
 

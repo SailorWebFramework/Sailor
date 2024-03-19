@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The span element doesn't mean anything on its own, but can be useful when used together with the global attributes, e.g. class, lang, or dir. It represents its children.
-public struct Span: Element {
+public struct Span: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "span" }
 
@@ -30,11 +30,11 @@ public struct Span: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,11 +46,11 @@ public struct Span: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

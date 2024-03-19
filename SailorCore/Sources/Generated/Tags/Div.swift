@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The div element has no special meaning at all. It represents its children. It can be used with the class, lang, and title attributes to mark up semantics common to a group of consecutive elements.
-public struct Div: Element {
+public struct Div: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "div" }
 
@@ -30,11 +30,11 @@ public struct Div: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,12 +46,12 @@ public struct Div: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

@@ -29,7 +29,7 @@ internal extension Page {
         func createPrintString(page: any Page, tab: Int) -> String {
             var output = ""
             
-            if let op = page as? any Operator {
+            if let op = page as? any Fragment {
                 output += " " * tab + page.description + " {" + "\n"
                 
                 for oppage in op.children {

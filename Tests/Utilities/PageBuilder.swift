@@ -10,11 +10,11 @@ import Sailboat
 @resultBuilder
 public struct PageBuilder {
     
-    public static func buildArray(_ components: [any Page]) -> any Operator {
+    public static func buildArray(_ components: [any Page]) -> any Fragment {
         return List(components)
     }
 
-    public static func buildBlock(_ components: any Page...) -> any Operator  {
+    public static func buildBlock(_ components: any Page...) -> any Fragment  {
         return List(components)
     }
         
@@ -47,7 +47,7 @@ public struct PageBuilder {
 //        return expression//TextString(expression)
 //    }
     
-    public static func buildOptional(_ component: (any Operator)?) -> any Operator {
+    public static func buildOptional(_ component: (any Fragment)?) -> any Fragment {
         // this should be the dependencies of the conditional
         
         guard let component = component else { return Conditional([]) } // or? Conditional([Div()])
@@ -55,11 +55,11 @@ public struct PageBuilder {
         return Conditional(component.children)
     }
     
-    public static func buildEither(first component: any Operator) -> any Operator {
+    public static func buildEither(first component: any Fragment) -> any Fragment {
         return Conditional(component.children)
     }
 
-    public static func buildEither(second component: any Operator) -> any Operator {
+    public static func buildEither(second component: any Fragment) -> any Fragment {
         return Conditional(component.children)
     }
     

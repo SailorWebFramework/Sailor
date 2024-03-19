@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The h6 element represents a level 6 heading.
-public struct H6: Element {
+public struct H6: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "h6" }
 
@@ -30,11 +30,11 @@ public struct H6: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,11 +46,11 @@ public struct H6: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

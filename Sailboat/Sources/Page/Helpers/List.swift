@@ -5,7 +5,7 @@
 //  Created by Joshua Davis on 10/12/23.
 //
 
-public struct List: Operator {
+public struct List: Fragment {
     
     /// hash associated with which conditional this block is in
     public var hash: Int
@@ -13,11 +13,6 @@ public struct List: Operator {
     // TODO: make this ID field unique?
     public var children: [any Page]
 
-    public var body: some Page {
-        InternalError.recursingInPageBody(name: "List")
-        return self
-    }
-    
     public var description: String {
         "List(children: \(children.count), hash: \(hash))"
     }

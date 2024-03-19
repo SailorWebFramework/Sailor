@@ -7,6 +7,9 @@
 
 import Sailboat
 
+// TODO: this?
+//public typealias Page = BodyPage
+
 public typealias Page = Sailboat.Page
 public typealias State = Sailboat.State
 public typealias Binding = Sailboat.Binding

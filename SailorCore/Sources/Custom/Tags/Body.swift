@@ -15,7 +15,7 @@ import SailorWeb
 //TODO: auto-generate maybe so its not annoying to update
 
 /// The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.
-public struct Body: Element {
+public struct Body: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "body" }
 
@@ -29,11 +29,11 @@ public struct Body: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -50,7 +50,7 @@ public struct Body: Element {
 
     }
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

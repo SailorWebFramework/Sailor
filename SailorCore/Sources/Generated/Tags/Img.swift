@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The img element represents an image.
-public struct Img: Element {
+public struct Img: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "img" }
 
@@ -30,11 +30,11 @@ public struct Img: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,8 +46,8 @@ public struct Img: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
     public init(src: String, alt: String) {
