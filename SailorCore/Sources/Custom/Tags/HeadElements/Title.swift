@@ -24,7 +24,7 @@ public struct Title: HeadElement {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: String]
+    public var attributes: [String: () -> String]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
@@ -34,7 +34,7 @@ public struct Title: HeadElement {
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Fragment)?) {
+    internal init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -45,15 +45,13 @@ public struct Title: HeadElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-
-        self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
+        
+        self.attributes["id"] = { id }
     }
-
+    
     public init(@HeadBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
-
 
 }
 

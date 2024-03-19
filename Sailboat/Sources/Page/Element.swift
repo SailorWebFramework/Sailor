@@ -11,11 +11,14 @@ public typealias ElementID = String
 
 public protocol Element: Page, Identifiable {
     
+    ///
+//    static var name: String { get }
+
     /// Unique Element ID used to diff items
     var id: ElementID { get set }
     
     /// attributes on tag
-    var attributes: [String: String] { get set }
+    var attributes: [String: () -> String] { get set }
     
     /// event names and values attached to this HTMLElement
     var events: [String: (EventResult) -> Void] { get set }
@@ -44,7 +47,8 @@ public extension Element {
 public extension Element {
     
     func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
-        if attributes[value.name] == value.value { return self }
+        // TODO: dont think i can do this anymore cuz func
+        //        if attributes[value.name] == value.value { return self }
 
         var copy = self
         
@@ -52,7 +56,9 @@ public extension Element {
         if override || copy.attributes[value.name] == nil {
             copy.attributes[value.name] = value.value
         } else {
-            copy.attributes[value.name]! += value.value
+            copy.attributes[value.name] = {
+                copy.attributes[value.name]!() + value.value()
+            }
         }
         
         return copy
