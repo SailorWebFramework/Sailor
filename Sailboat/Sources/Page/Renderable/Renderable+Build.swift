@@ -27,7 +27,7 @@ public extension Renderable {
             
             newIndex += 1
             
-        } else if let newContent = newContent as? any Operator {
+        } else if let newContent = newContent as? any Fragment {
             for child in newContent.children {
                 newIndex = build(child, after: newIndex)
             }

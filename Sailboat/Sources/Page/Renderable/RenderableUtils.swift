@@ -16,7 +16,7 @@ public enum RenderableUtils {
     /// build a page to this renderer and add it to parent
     public static func build(page: any Page, parent: (any Element)?) {
         // if page is an Operator
-        if let page = page as? any Operator {
+        if let page = page as? any Fragment {
             
             // add children
             for child in page.children {

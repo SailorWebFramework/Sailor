@@ -8,7 +8,7 @@
 public extension Renderable {
     
     /// reconciles the current node with the body of newContent
-    func reconcile(with newContent: any Operator) {
+    func reconcile(with newContent: any Fragment) {
         guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
             fatalError("old content doesnt exist or is stateless")
         }
@@ -19,19 +19,14 @@ public extension Renderable {
         
         var copyOfNewContent = newContent
         
-        print("reconciling \(newContent)")
-        print(newContent.children)
-
         _ = reconcileBody(oldList: oldContent, newList: &copyOfNewContent, index: -1)
         
         SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
         
-        print("COPYCOPY")
         copyOfNewContent.printPage()
     }
     
-    
-    private func reconcileBody(oldList: any Operator, newList: inout any Operator, index deepindex: Int) -> Int {
+    private func reconcileBody(oldList: any Fragment, newList: inout any Fragment, index deepindex: Int) -> Int {
         guard oldList.children.count == newList.children.count else {
             fatalError("TWO OPERATORS SHOULD NOT HAVE SAME HASH AND DIFFERENT AMOUNT OF ELEMENTS")
         }
@@ -44,8 +39,6 @@ public extension Renderable {
             if let oldElement = oldList.children[i] as? any Element {
                 deepindex += 1
                 
-                print(oldElement.description)
-
                 // keeps the old renderer, or replaces a value-element ex: String
                 if let newChild = newList.children[i] as? any ValueElement {
                     self.replace(at: deepindex, with: newChild)
@@ -56,14 +49,17 @@ public extension Renderable {
                 continue
             }
             
-            if let oldOp = oldList.children[i] as? any Operator,
-               var newOp = newList.children[i] as? any Operator {
-                
-                print(oldOp.hash, "==", newOp.hash, "?")
-                
+            if let oldOp = oldList.children[i] as? any Fragment,
+               var newOp = newList.children[i] as? any Fragment {
+                                
+                // check if the list hash is the same
                 if oldOp.hash == newOp.hash {
                     deepindex = reconcileBody(oldList: oldOp, newList: &newOp, index: deepindex)
                 } else {
+                    // clear and build new children if hash differs
+                    // TODO: instead of clear children and rebuild consider diffing
+                    // This will allow SwiftUI-like libraries to be able to function correctly
+                    // this is because Sailor uses closures for data but swiftUI doesnt
                     clearChildren(from: oldOp, at: deepindex)
                     deepindex = build(newOp, after: deepindex)
                 }
@@ -83,7 +79,7 @@ public extension Renderable {
     }
     
     // TODO: do i need this?
-    private func clearChildren(from content: any Operator, at index: Int) {
+    private func clearChildren(from content: any Fragment, at index: Int) {
         guard let myPage = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
             fatalError("old content doesnt exist or is stateless")
         }
@@ -96,7 +92,7 @@ public extension Renderable {
                 continue
             }
             
-            if let child = child as? any Operator {
+            if let child = child as? any Fragment {
                 clearChildren(from: child, at: index)
                 
                 continue
