@@ -78,12 +78,10 @@ extension JSNode: Renderable {
 
         // TODO: diff events and attributes?
         // make sure order is the same for attributes, does this actually help in speed?
-        if page.attributes != self.attributes {
-            self.removeAttributes()
+        self.removeAttributes()
 
-            for (key, value) in page.attributes {
-                self.updateAttribute(name: key, value: value)
-            }
+        for (key, value) in page.attributes {
+            self.updateAttribute(name: key, value: value())
         }
 
         // on update called once the JSNode elements update
