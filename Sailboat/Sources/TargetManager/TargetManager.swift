@@ -61,7 +61,7 @@ open class TargetManager {
                     managedEvent.semaphore += 1
 
                     // builds the shallow content body and adds its state to the watchers
-                    let content: any Operator = element.content()
+                    let content: any Fragment = element.content()
                     
                     // TODO:
                     // remove previous states dumped because it short circuits so theres no need to test it
@@ -84,7 +84,7 @@ open class TargetManager {
     }
     
     internal func initialBuild(page: any Page) {
-        if let page = page as? any Operator {
+        if let page = page as? any Fragment {
 
             // add children
             for child in page.children {

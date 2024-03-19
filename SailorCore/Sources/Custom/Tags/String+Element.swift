@@ -13,7 +13,7 @@ import SailorWeb
 #endif
 
 // TODO: get string to work properly
-extension String: ValueElement {
+extension String: ValueElement, BodyPage, HeadPage {
     public var value: String { self }
     
     public var renderer: any Renderable {
@@ -37,7 +37,7 @@ extension String: ValueElement {
         set(newValue) { }
     }
     
-    public var content: () -> any Operator {
+    public var content: () -> any Fragment {
         get { { List() } }
         set(newValue) { }
     }
@@ -45,11 +45,6 @@ extension String: ValueElement {
     public var id: ElementID {
         get { "STRING" }
         set(newValue) { }
-    }
-    
-    public var body: some Page {
-        fatalError("Infinitly recursing in String")
-        return self
     }
     
 }

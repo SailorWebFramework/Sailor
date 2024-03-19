@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
-public struct A: Element {
+public struct A: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "a" }
 
@@ -30,11 +30,11 @@ public struct A: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,12 +46,12 @@ public struct A: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
 
-    public init(@PageBuilder content: @escaping () -> any Operator) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 
@@ -61,7 +61,7 @@ public struct A: Element {
         self.attributes["href"] = href.description
     }
 
-    public init(href: String, @PageBuilder content: @escaping () -> any Operator) {
+    public init(href: String, @PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
 
         self.attributes["href"] = href.description

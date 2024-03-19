@@ -8,29 +8,20 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
-    func remove(at deepIndex: Int) {
-        
-    }
-    
-    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) {
-        
-    }
-    
-    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) {
-        
-    }
-    
     var elementID: ElementID = "EMPTY"
 
+    func remove(at deepIndex: Int) { }
+    
+    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) { }
+    
+    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) { }
     
     func replace(at: Int, with: any Element) { }
     
-    func reconcile(with operator: any Sailboat.Operator) { }
+    func reconcile(with operator: any Sailboat.Fragment) { }
 
     func addToParent(_ parentNode: any Element) { }
     
-//    func addBelow(_ node: any Element) { }
-
     func remove() { }
         
     func clearBody() { }

@@ -2,58 +2,45 @@ import Sailor
 
 struct HomePage: Page {
 
-    @State var myNum: Int = 6
+    @State var names: [String] = ["Josh", "Andy", "Tom"]
+
+    @State var myNum: Int = 7
     @State var myString: String = ""
 
-    @State var toggle: Bool = true
+    @State var toggle: Bool = false
     
+    @Environment var environment: Env
+
     let source = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 
     var body: some Page {
         Div {
-            H2{ "IM HERE" }
-                .id("hellounique")
-                .onClick {
-                    toggle.toggle()
-                }
-                
-            // TODO: not removing correctly
+            Title { "hello" }
+
+            H3 { "Hi my name is \(myString)" }
+            
             if toggle {
                 H1 { "Hello world!" }
                     .onClick {
                         toggle.toggle()
                     }
-
-
+                
+                if myNum == 7 {
+                    H1 { "Hello world!" }
+    
+                        .onClick {
+                            toggle.toggle()
+                        }
+                }
+                
             } else {
                 H3 { "SMallerworld" }
                     .onClick {
                         toggle.toggle()
                     }
-                
-                H3 { "SMallerworld 2" }
-                    .onClick {
-                        toggle.toggle()
-                    }
-                
-                H3 { "SMallerworld 3" }
-                    .onClick {
-                        toggle.toggle()
-                    }
             }
             
-            if toggle {
-                SubPageInner()
-                
-            }
-            
-            H4{ "HELLO ME" }
-            
-            if toggle {
-                SubPageInner()
-                SubPageInner()
-                
-            }
+            H4 { "HELLO ME" }
             
             Div {
                 "hello this is a test"
@@ -63,49 +50,11 @@ struct HomePage: Page {
             
             
             Input($myString)
+            
+        }
+        .head {
+            Link(rel: "", href: "HomePage.css")
 
-            if myString == "hell" {
-                H2{"HOMIE STOP CURSING"}
-
-            } else if  myString == "hello" {
-                H4{"JKJK"}
-
-            } else {
-                H3{"Empty"}
-
-            }
-            //
-            //            if myNum == 10 {
-            //                A { "hello its" }
-            //                    .href("#MyImage")
-            //                    .onClick {
-            //                        var value = prompt("IS THIS REAL")
-            //
-            //                        myString = value
-            //                    }
-            //            }
-            //            else if myNum == 7 {
-            //               H2{"my number: \(myNum)"}
-            //
-            //            }
-            //            else if myNum == 8 {
-            //               H2{"my number: \(myNum)"}
-            //
-            //            }
-            //            else if myNum == 9 {
-            //                H2{"my number: \(myNum)"}
-            //
-            //            }
-            //
-            //            // not working
-            //            H6{"number: \(myNum)"}
-            //
-            //
-            //            Button { "press me" }
-            //                .onClick {
-            //                    myNum += 1
-            //                }
-            //        }
         }
     }
 }

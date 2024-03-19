@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The input element represents a typed data field, usually with a form control to allow the user to edit the data.
-public struct Input: Element {
+public struct Input: BodyElement {
     /// name of the html tag associated with this type
     public static var name: String { "input" }
 
@@ -30,11 +30,11 @@ public struct Input: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -46,8 +46,8 @@ public struct Input: Element {
         self.renderer = EmptyRenderer()
         #endif
 
+        // sets the id
         self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
     }
 
     public init(type: Unit.InputType, _ value: Binding<String>) {
