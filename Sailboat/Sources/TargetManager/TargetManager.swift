@@ -5,7 +5,6 @@
 //  Created by Joshua Davis on 12/30/23.
 //
 
-// TODO: Rename to target manager and remove the old target manager??
 /// Manager used for testing, does not render to DOM
 open class TargetManager {
 
@@ -104,7 +103,6 @@ open class TargetManager {
     }
     
     // TODO: move all these to managed page and managed event
-
     
     public func dumpTo(element: any Element) {
         let states = dump()
