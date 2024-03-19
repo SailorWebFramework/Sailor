@@ -19,14 +19,9 @@ public final class JSNode {
 
     internal var events: [String: JSClosure] // Events
     
-    // TODO: remove?
-    internal var attributes: JSAttributes
+    internal var attributes: [String: String]
     
-    /// should be used by renderable to render children
-//    weak internal var aboveNode: (JSNode)? = nil
-    internal var aboveElement: (any Element)? = nil
-
-    public convenience init(elementID: ElementID, _ type: JSNodeType) {
+    public convenience init(elementID: ElementID, _ type: SpecialJSNodeType) {
         self.init(
             element: type.getJSObject(),
             elementID: elementID
@@ -40,16 +35,14 @@ public final class JSNode {
         
         self.init(
             element: pageElement,
-            elementID: elementID, 
-            events: [:],
-            attributes: [:]
+            elementID: elementID
         )
     }
     
-    private init(element: JSObject, elementID: ElementID, events: [String : JSClosure] = [:], attributes: JSAttributes = [:]) {
+    private init(element: JSObject, elementID: ElementID) {
         self.element = element
-        self.events = events
-        self.attributes = attributes
+        self.events = [:]
+        self.attributes = [:]
         self.elementID = elementID
     }
 

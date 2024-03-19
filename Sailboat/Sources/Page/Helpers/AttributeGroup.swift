@@ -8,9 +8,9 @@
 public protocol AttributeGroup: CustomStringConvertible, Equatable { // Comparable
     var description: String { get }
     var name: String { get }
-    var value: String { get } // TODO: consider changing to any AttributeValue?
+    var value: () -> String { get } // TODO: consider changing to any AttributeValue?
     
-    init(name: String, value: String)
+    init(name: String, value: @escaping () -> String)
 
 }
 
@@ -27,17 +27,21 @@ public extension AttributeGroup {
 
 
 public struct ElementAttributeGroup: AttributeGroup {
+    public static func == (lhs: ElementAttributeGroup, rhs: ElementAttributeGroup) -> Bool {
+        return lhs.description == rhs.description
+    }
+    
 
     public var name: String
-    public var value: String
+    public var value: () -> String
     public var override: Bool
     
-    public init(name: String, value: String) {
+    public init(name: String, value: @escaping () -> String) {
         self.name = name
         self.value = value
         self.override = true
     }
-    public init(name: String, value: String, override: Bool) {
+    public init(name: String, value: @escaping () -> String, override: Bool) {
         self.name = name
         self.value = value
         self.override = override
