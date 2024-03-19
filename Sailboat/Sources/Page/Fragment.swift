@@ -1,12 +1,12 @@
 //
-//  Operator.swift
-//  
+//  Fragment.swift
+//
 //
 //  Created by Joshua Davis on 12/22/23.
 //
 
 /// Operators are along the page tree and DOMNode Structure but are Hidden (not rendered) used to assist in rendering
-public protocol Operator: Page {
+public protocol Fragment: Page {
     
     var hash: Int { get set }
 
@@ -15,8 +15,12 @@ public protocol Operator: Page {
     
 }
 
-public extension Operator {
+public extension Fragment {
     var description: String {
-        "Operator(type: \(type(of: self)), children: \(children.count)"
+        "Fragment(type: \(type(of: self)), children: \(children.count)"
+    }
+    
+    var body: Never {
+        .error()
     }
 }

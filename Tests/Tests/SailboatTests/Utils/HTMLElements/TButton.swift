@@ -90,7 +90,7 @@ public struct TButton: Element {
         self.init("")
     }
 
-    public init(_ attributes: [String:String] = .init(), @PageBuilder content: @escaping () -> any Operator) {
+    public init(_ attributes: [String:String] = .init(), @PageBuilder content: @escaping () -> any Fragment) {
         self.content = .list(content)
         self.attributes = attributes
         self.events = [:]

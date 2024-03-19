@@ -17,9 +17,10 @@ import SailorWeb
 public protocol Website: Page {
     static func main()
     
-    associatedtype AppBody: Page
-    var body: AppBody { get }
+    var body: Body { get }
     
+    var head: Head { get }
+
     init()
 }
 
@@ -29,12 +30,10 @@ extension Website {
     
     public static func main() {
         SailboatGlobal.initialize(SailorWebManager())
-        let pageBody = Self().body
-        let bodyElement: any Element = if let body = pageBody as? Body {
-            body
-        } else {
-            Body { pageBody }
-        }
+        
+        let bodyElement = Self().body
+        
+        SailorGlobal.initialize(head: Self().head)
         
         SailboatGlobal.manager.build(page: bodyElement)
         

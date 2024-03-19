@@ -16,7 +16,7 @@ import SailorWeb
 #endif
 
 /// The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
-public struct Meta: Element {
+public struct Meta: HeadElement {
     /// name of the html tag associated with this type
     public static var name: String { "meta" }
 
@@ -30,11 +30,11 @@ public struct Meta: Element {
     public var events: [String: (EventResult) -> Void]
 
     /// content that is contained by this html element
-    public var content: () -> any Operator
+    public var content: () -> any Fragment
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Operator)?) {
+    private init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]

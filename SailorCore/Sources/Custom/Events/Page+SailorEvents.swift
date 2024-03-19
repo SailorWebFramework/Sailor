@@ -92,13 +92,13 @@ public extension Page {
         }
     }
     
-    private func traversePage(_ page: any Page, completion: (any Element) -> any Element) -> any Element {
+    internal func traversePage(_ page: any Page, completion: (any Element) -> any Element) -> any Element {
         if let page = page as? any Element {
             return completion(page)
         }
         
         // TODO: because of router what should the expected outcome be?
-        if let page = page as? any Operator {
+        if let page = page as? any Fragment {
             
             if let firstChild = page.children.first {
                 return traversePage(firstChild, completion: completion)

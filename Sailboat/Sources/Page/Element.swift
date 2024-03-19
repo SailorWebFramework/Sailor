@@ -22,7 +22,7 @@ public protocol Element: Page, Identifiable {
     
     // TODO: dubug why (() -> any Operator)? doesnt work
     /// content within HTML tags
-    var content: () -> any Operator { get set }
+    var content: () -> any Fragment { get set }
     
     /// used to render this element
     var renderer: any Renderable { get set }
@@ -34,9 +34,8 @@ public extension Element {
         "Element(type: \(type(of: self)), attributes: \(self.attributes), events: \(self.events), content: \(self.content))"
     }
     
-    var body: some Page {
-        InternalError.recursingInPageBody(name: String(describing: type(of: self)))
-        return self
+    var body: Never {
+        .error()
     }
 
 }
