@@ -24,7 +24,7 @@ public struct Link: HeadElement {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: String]
+    public var attributes: [String: () -> String]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
@@ -46,20 +46,15 @@ public struct Link: HeadElement {
         self.renderer = EmptyRenderer()
         #endif
 
-        self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
+        // sets the id
+        self.attributes["id"] = { id }
     }
 
-    public init(rel: String, href: String) {
+    public init(rel: (@escaping () -> String), href: (@escaping () -> String)) {
         self.init(bodyValue: nil)
-        
-        self.attributes["rel"] = rel.description
 
-        if !href.hasPrefix("https://") {
-            self.attributes["href"] = href.description
-        } else {
-            self.attributes["href"] = href.description
-        }
+        self.attributes["rel"] = { rel().description }
+        self.attributes["href"] = { href().description }
     }
 
 
@@ -68,43 +63,44 @@ public struct Link: HeadElement {
 // MARK: - Attributes
 public extension Link {
     ///The URL of the link.
-    func href(_ value: String) -> Self {
-        attribute(.init(name: "href", value: value.description))
+    func href(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "href", value: { value().description }))
     }
 
     ///How the element handles cross-origin requests.
-    func crossorigin(_ value: Unit.CrossOrigin) -> Self {
-        attribute(.init(name: "crossorigin", value: value.description))
+    func crossorigin(_ value: (@escaping () -> Unit.CrossOrigin)) -> Self {
+        attribute(.init(name: "crossorigin", value: { value().description }))
     }
 
     ///Specifies the language of the linked document.
-    func hreflang(_ value: Unit.Language) -> Self {
-        attribute(.init(name: "hreflang", value: value.description))
+    func hreflang(_ value: (@escaping () -> Unit.Language)) -> Self {
+        attribute(.init(name: "hreflang", value: { value().description }))
     }
 
     ///Specifies what media/device the linked document is optimized for.
-    func media(_ value: String) -> Self {
-        attribute(.init(name: "media", value: value.description))
+    func media(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "media", value: { value().description }))
     }
 
     ///Specifies which referrer information to send when fetching the linked resource.
-    func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-        attribute(.init(name: "referrerpolicy", value: value.description))
+    func referrerpolicy(_ value: (@escaping () -> Unit.ReferrerPolicy)) -> Self {
+        attribute(.init(name: "referrerpolicy", value: { value().description }))
     }
 
     ///Specifies the relationship between the current document and the linked document.
-    func rel(_ value: String) -> Self {
-        attribute(.init(name: "rel", value: value.description))
+    func rel(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "rel", value: { value().description }))
     }
 
     ///The sizes attribute gives the sizes of the icons for visual media.
-    func sizes(_ value: String) -> Self {
-        attribute(.init(name: "sizes", value: value.description))
+    func sizes(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "sizes", value: { value().description }))
     }
 
     ///Specifies the media type of the linked document.
-    func type(_ value: String) -> Self {
-        attribute(.init(name: "type", value: value.description))
+    func type(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "type", value: { value().description }))
     }
 
 }
+

@@ -24,7 +24,7 @@ public struct Meta: HeadElement {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: String]
+    public var attributes: [String: () -> String]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
@@ -34,7 +34,7 @@ public struct Meta: HeadElement {
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Fragment)?) {
+    internal init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -45,12 +45,11 @@ public struct Meta: HeadElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-
-        self.attributes["id"] = id
-        //SailboatGlobal.manager.managedPages.elements[id] = self
+        
+        self.attributes["id"] = { id }
     }
-
-    public init() {  
+    
+    public init() {
         self.init(bodyValue: nil)
     }
 
@@ -60,23 +59,23 @@ public struct Meta: HeadElement {
 // MARK: - Attributes
 public extension Meta {
     ///Declares the document's character encoding.
-    func charset(_ value: String) -> Self {
-        attribute(.init(name: "charset", value: value.description))
+    func charset(_ value: @escaping () -> String) -> Self {
+        attribute(.init(name: "charset", value: { value().description }))
     }
 
     ///The value of the element.
-    func content(_ value: String) -> Self {
-        attribute(.init(name: "content", value: value.description))
+    func content(_ value: @escaping () -> String) -> Self {
+        attribute(.init(name: "content", value: { value().description }))
     }
 
     ///Indicates that the content is a pragma directive.
-    func httpEquiv(_ value: String) -> Self {
-        attribute(.init(name: "httpEquiv", value: value.description))
+    func httpEquiv(_ value: @escaping () -> String) -> Self {
+        attribute(.init(name: "httpEquiv", value: { value().description }))
     }
 
     ///The name of the metadata.
-    func name(_ value: String) -> Self {
-        attribute(.init(name: "name", value: value.description))
+    func name(_ value: @escaping () -> String) -> Self {
+        attribute(.init(name: "name", value: { value().description }))
     }
 
 }

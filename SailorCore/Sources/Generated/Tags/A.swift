@@ -24,7 +24,7 @@ public struct A: BodyElement {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: String]
+    public var attributes: [String: () -> String]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
@@ -34,7 +34,7 @@ public struct A: BodyElement {
 
     public var renderer: any Renderable
 
-    private init(bodyValue: (() -> any Fragment)?) {
+        internal init(bodyValue: (() -> any Fragment)?) {
         let id = UUID().uuidString
         self.id = id
         self.attributes = [:]
@@ -45,26 +45,25 @@ public struct A: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-
-        // sets the id
-        self.attributes["id"] = id
+        
+        self.attributes["id"] = { id }
     }
 
 
-    public init(@PageBuilder content: @escaping () -> any Fragment) {
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 
-    public init(href: String) {
+    public init(href: (@escaping () -> String)) {
         self.init(bodyValue: nil)
 
-        self.attributes["href"] = href.description
+        self.attributes["href"] = { href().description }
     }
 
-    public init(href: String, @PageBuilder content: @escaping () -> any Fragment) {
+    public init(href: (@escaping () -> String), @PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
 
-        self.attributes["href"] = href.description
+        self.attributes["href"] = { href().description }
     }
 
 
@@ -73,43 +72,43 @@ public struct A: BodyElement {
 // MARK: - Attributes
 public extension A {
     ///The URL of the link.
-    func href(_ value: String) -> Self {
-        attribute(.init(name: "href", value: value.description))
+    func href(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "href", value: { value().description }))
     }
 
     ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
-    func download(_ value: String) -> Self {
-        attribute(.init(name: "download", value: value.description))
+    func download(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "download", value: { value().description }))
     }
 
     ///Specifies the language of the linked document.
-    func hreflang(_ value: Unit.Language) -> Self {
-        attribute(.init(name: "hreflang", value: value.description))
+    func hreflang(_ value: (@escaping () -> Unit.Language)) -> Self {
+        attribute(.init(name: "hreflang", value: { value().description }))
     }
 
     ///Specifies what media/device the linked document is optimized for.
-    func media(_ value: String) -> Self {
-        attribute(.init(name: "media", value: value.description))
+    func media(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "media", value: { value().description }))
     }
 
     ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
-    func ping(_ value: String...) -> Self {
-        attribute(.init(name: "ping", value: value.description))
+    func ping(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "ping", value: { value().description }))
     }
 
     ///Specifies which referrer information to send when fetching the linked resource.
-    func referrerpolicy(_ value: Unit.ReferrerPolicy) -> Self {
-        attribute(.init(name: "referrerpolicy", value: value.description))
+    func referrerpolicy(_ value: (@escaping () -> Unit.ReferrerPolicy)) -> Self {
+        attribute(.init(name: "referrerpolicy", value: { value().description }))
     }
 
     ///Specifies the relationship between the current document and the linked document.
-    func rel(_ value: String) -> Self {
-        attribute(.init(name: "rel", value: value.description))
+    func rel(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "rel", value: { value().description }))
     }
 
     ///Specifies where to open the linked document.
-    func target(_ value: Unit.Target) -> Self {
-        attribute(.init(name: "target", value: value.description))
+    func target(_ value: (@escaping () -> Unit.Target)) -> Self {
+        attribute(.init(name: "target", value: { value().description }))
     }
 
 }

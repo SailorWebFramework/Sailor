@@ -7,162 +7,80 @@
 
 import Sailboat
 
-///Group of all global attributes, which are attributes that can be used with any HTML element.
-public protocol GlobalAttributeGroup: AttributeGroup { }
-
-public extension GlobalAttributeGroup {
-    
-    ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
-    static func accesskey(_ value: Character) -> Self {
-        .init(name: "accesskey", value: value.description)
-    }
-
-    ///Specifies wheather or not this element is editable or not.
-    static func contenteditable(_ value: Bool) -> Self {
-        .init(name: "contenteditable", value: value ? "true" : "false")
-    }
-
-    ///Stores custom data to the webiste to this element (name, value).
-    static func data(_ name: String, _ value: String) -> Self {
-        .init(name: "data-\(name)", value: value.description)
-    }
-
-    ///Defines text direction of the content.
-    static func dir(_ value: Unit.Direction) -> Self {
-        .init(name: "dir", value: value.description)
-    }
-
-    ///Defines whether this element is draggable, often used for drag and drop operations.
-    static func draggable(_ value: Unit.AutoBool) -> Self {
-        .init(name: "draggable", value: value.description)
-    }
-
-    ///Allows the appearence of the enter key to be different on mobile.
-    static func enterkeyhint(_ value: Unit.EnterKeyHint) -> Self {
-        .init(name: "enterkeyhint", value: value.description)
-    }
-
-    ///Defines whether this element is hidden or not.
-    static func hidden(_ value: Bool) -> Self {
-        .init(name: "hidden", value: value.description)
-    }
-
-    ///Disables element and all inner elements.
-    static func inert(_ value: Bool) -> Self {
-        .init(name: "inert", value: value.description)
-    }
-
-    ///Defines the input mode for the element when the keyboard is active.
-    static func inputmode(_ value: Unit.InputMode) -> Self {
-        .init(name: "inputmode", value: value.description)
-    }
-
-    ///Defines the language of the content.
-    static func lang(_ value: Unit.Language) -> Self {
-        .init(name: "lang", value: value.description)
-    }
-
-    ///Defines a popover element, it will be placed on top of the content. This element is invisible until it is called by another element witha popovertarget attribute.
-    static func popover(_ value: Bool) -> Self {
-        .init(name: "popover", value: value.description)
-    }
-
-    ///Defines whether the element should have spell checking enabled or not.
-    static func spellcheck(_ value: Bool) -> Self {
-        .init(name: "spellcheck", value: value.description)
-    }
-
-    ///Defines the tab order of the element.
-    static func tabindex(_ value: Int) -> Self {
-        .init(name: "tabindex", value: value.description)
-    }
-
-    ///Defines the title of the element, typically shown as a tooltip hint.
-    static func title(_ value: String) -> Self {
-        .init(name: "title", value: value.description)
-    }
-
-    ///Defines whether the content should be translated or not.
-    static func translate(_ value: Unit.Question) -> Self {
-        .init(name: "translate", value: value.description)
-    }
-
-}
-
 public extension Element {
     ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
-    func accesskey(_ value: Character) -> Self {
-        attribute(ElementAttributeGroup(name: "accesskey", value: value.description))
+    func accesskey(_ value: (@escaping () -> Character)) -> Self {
+        attribute(.init(name: "accesskey", value: { value().description }))
     }
 
     ///Specifies wheather or not this element is editable or not.
-    func contenteditable(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "contenteditable", value: value.description))
+    func contenteditable(_ value: (@escaping () -> Bool)) -> Self {
+        attribute(.init(name: "contenteditable", value: { value().description }))
     }
 
     ///Stores custom data to the webiste to this element (name, value).
-    func data(_ name: String, _ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "data-name", value: value.description))
+    func data(_ name: String, _ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "data-name", value: { value().description }))
     }
 
     ///Defines text direction of the content.
-    func dir(_ value: Unit.Direction) -> Self {
-        attribute(ElementAttributeGroup(name: "dir", value: value.description))
+    func dir(_ value: (@escaping () -> Unit.Direction)) -> Self {
+        attribute(.init(name: "dir", value: { value().description }))
     }
 
     ///Defines whether this element is draggable, often used for drag and drop operations.
-    func draggable(_ value: Unit.AutoBool) -> Self {
-        attribute(ElementAttributeGroup(name: "draggable", value: value.description))
+    func draggable(_ value: (@escaping () -> Unit.AutoBool)) -> Self {
+        attribute(.init(name: "draggable", value: { value().description }))
     }
 
     ///Allows the appearence of the enter key to be different on mobile.
-    func enterkeyhint(_ value: Unit.EnterKeyHint) -> Self {
-        attribute(ElementAttributeGroup(name: "enterkeyhint", value: value.description))
+    func enterkeyhint(_ value: (@escaping () -> Unit.EnterKeyHint)) -> Self {
+        attribute(.init(name: "enterkeyhint", value: { value().description }))
     }
 
     ///Defines whether this element is hidden or not.
-    func hidden(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "hidden", value: value.description))
+    func hidden(_ value: (@escaping () -> Bool)) -> Self {
+        attribute(.init(name: "hidden", value: { value().description }))
     }
 
     ///Disables element and all inner elements.
-    func inert(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "inert", value: value.description))
+    func inert(_ value: (@escaping () -> Bool)) -> Self {
+        attribute(.init(name: "inert", value: { value().description }))
     }
 
     ///Defines the input mode for the element when the keyboard is active.
-    func inputmode(_ value: Unit.InputMode) -> Self {
-        attribute(ElementAttributeGroup(name: "inputmode", value: value.description))
+    func inputmode(_ value: (@escaping () -> Unit.InputMode)) -> Self {
+        attribute(.init(name: "inputmode", value: { value().description }))
     }
 
     ///Defines the language of the content.
-    func lang(_ value: Unit.Language) -> Self {
-        attribute(ElementAttributeGroup(name: "lang", value: value.description))
+    func lang(_ value: (@escaping () -> Unit.Language)) -> Self {
+        attribute(.init(name: "lang", value: { value().description }))
     }
 
     ///Defines a popover element, it will be placed on top of the content. This element is invisible until it is called by another element witha popovertarget attribute.
-    func popover(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "popover", value: value.description))
+    func popover(_ value: (@escaping () -> Bool)) -> Self {
+        attribute(.init(name: "popover", value: { value().description }))
     }
 
     ///Defines whether the element should have spell checking enabled or not.
-    func spellcheck(_ value: Bool) -> Self {
-        attribute(ElementAttributeGroup(name: "spellcheck", value: value.description))
+    func spellcheck(_ value: (@escaping () -> Bool)) -> Self {
+        attribute(.init(name: "spellcheck", value: { value().description }))
     }
 
     ///Defines the tab order of the element.
-    func tabindex(_ value: Int) -> Self {
-        attribute(ElementAttributeGroup(name: "tabindex", value: value.description))
+    func tabindex(_ value: (@escaping () -> Int)) -> Self {
+        attribute(.init(name: "tabindex", value: { value().description }))
     }
 
     ///Defines the title of the element, typically shown as a tooltip hint.
-    func title(_ value: String) -> Self {
-        attribute(ElementAttributeGroup(name: "title", value: value.description))
+    func title(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "title", value: { value().description }))
     }
 
     ///Defines whether the content should be translated or not.
-    func translate(_ value: Unit.Question) -> Self {
-        attribute(ElementAttributeGroup(name: "translate", value: value.description))
+    func translate(_ value: (@escaping () -> Unit.Question)) -> Self {
+        attribute(.init(name: "translate", value: { value().description }))
     }
 
 }
