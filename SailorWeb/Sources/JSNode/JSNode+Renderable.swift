@@ -9,50 +9,86 @@ import Sailboat
 import JavaScriptKit
 
 extension JSNode: Renderable {
-    
-    private func asJSNode(_ element: any Element) -> JSNode {
-        guard let element = element.renderer as? JSNode else {
-            fatalError("Node should not be an Element Value, but Renderer type JSNode")
-        }
-                
-        return element
-    }
-    
-    private func didAddToDOM() {
-        // on appear called once the JSNode becomes renderable
-        self.sailorEvents.onAppear(.none)
+
+    public func addToParent(_ parent: any Element) {
+        let parentNode = asJSNode(parent)
+        _ = parentNode.element.appendChild?(self.element)
         
-        // launch tasks on the background thread on render
-        // TODO: make task launch asyncronously
-        self.sailorEvents.task(.none)
+        self.enterEvents()
+
     }
     
     public func insertBefore(_ deepIndex: Int, parent: any Element) {
         let parentRenderer = asJSNode(parent)
         let aboveElement = parentRenderer.element.childNodes[deepIndex]
-        
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        didAddToDOM()
+        self.enterEvents()
     }
     
     public func insertAfter(_ deepIndex: Int, parent: any Element) {
         let parentRenderer = asJSNode(parent)
         let aboveElement = parentRenderer.element.childNodes[deepIndex + 1]
-
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        didAddToDOM()
+        self.enterEvents()
 
     }
     
-    public func addToParent(_ parent: any Element) {
-        let parentNode = asJSNode(parent)
+    public func replace(with element: any Element) {
+        let jsnode = asJSNode(element)
 
-        _ = parentNode.element.appendChild?(self.element)
+        if let parent = self.element.parentElement.object {
+            _ = parent.replaceChild!(jsnode.element, self.element)
+            
+            // TODO: register node?
+            //SailboatGlobal.managedPages.registerElement(element, operatorPage)
+
+            // TODO: might be an issue because render Attributes dumps dependencies
+//            jsnode.renderAttributes()
+//            jsnode.renderEvents()
+        }
+
+        self.exitEvents()
         
-        didAddToDOM()
+        if let elementRenderer = element.renderer as? JSNode {
+            elementRenderer.enterEvents()
+        }
+    }
+    
+    public func replace(at deepindex: Int, with element: any Element) {
+        
+        if let element = element as? any ValueElement {
+            self.element.childNodes[deepindex].object!.textContent = JSValue.string(element.value.description)
+            
+        } else if let jsnode = element.renderer as? JSNode {
+            if let parent = self.element.parentElement.object {
+                _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
+            }
+            
+            // TODO: register node?
+            //SailboatGlobal.managedPages.registerElement(element, operatorPage)
 
+            // TODO: might be an issue because render Attributes dumps dependencies
+//            jsnode.renderAttributes()
+//            jsnode.renderEvents()
+//            jsnode.didAddToDOM()
+
+            // TODO: need to be able to get the renderer of the child for the exit events
+//            self.element.childNodes[deepindex].exitEvents()
+        }
+            
+    }
+    
+    public func remove() {
+        _ = self.element.remove?()
+        
+        // TODO: recurse over children and call their exitEvents
+        // for child in children { child.renderer.remove() }
+
+        SailboatGlobal.manager.managedPages.elements[self.elementID] = nil
+
+        exitEvents()
     }
     
     public func renderAttributes() {
@@ -86,21 +122,6 @@ extension JSNode: Renderable {
         
     }
     
-    public func remove() {
-        _ = self.element.remove?()
-
-//        self.clearEvents()
-//        self.clearAttributes()
-//        self.clearBody()
-
-        // on disappear called once the JSNode gets removed
-        self.sailorEvents.onDisappear(.none)
-        
-        // TODO: should this be before onDisappear?
-        SailboatGlobal.manager.managedPages.elements[self.elementID] = nil
-
-    }
-    
     public func remove(at deepIndex: Int) {
         let node = self.element.childNodes[deepIndex]
         
@@ -109,40 +130,11 @@ extension JSNode: Renderable {
         }
         
         if case let JSValue.string(idToRemove) = node.getAttribute("id") {
-            print("removing \(idToRemove.description)")
             SailboatGlobal.managedPages.elements[idToRemove.description]?.renderer.remove()
         } else {
             print("the node at index \(deepIndex), doesnt have id... probably stateless?")
         }
     
-    }
-    
-    public func replace(with element: any Element) {
-        let jsnode = asJSNode(element)
-
-        if let parent = self.element.parentElement.object {
-            _ = parent.replaceChild!(jsnode.element, self.element)
-        }
-
-        self.sailorEvents.onDisappear(.none)
-        
-        if let elementRenderer = element.renderer as? JSNode {
-            elementRenderer.sailorEvents.onAppear(.none)
-            elementRenderer.sailorEvents.task(.none)
-        }
-    }
-    
-    public func replace(at deepindex: Int, with element: any Element) {
-        
-        if let element = element as? any ValueElement {
-            self.element.childNodes[deepindex].object!.textContent = JSValue.string(element.value.description)
-            
-        } else if let jsnode = element.renderer as? JSNode {
-            if let parent = self.element.parentElement.object {
-                _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
-            }
-        }
-            
     }
     
     public func updateAttribute(name: String, value: String) {
@@ -154,4 +146,35 @@ extension JSNode: Renderable {
         
     }
         
+}
+
+//MARK- Helpers
+extension JSNode {
+    
+    internal func asJSNode(_ element: any Element) -> JSNode {
+        guard let element = element.renderer as? JSNode else {
+            fatalError("Node should not be an Element Value, but Renderer type JSNode")
+        }
+                
+        return element
+    }
+    
+    
+    public func enterEvents() {
+        // on appear called once the JSNode becomes renderable
+        self.sailorEvents.onAppear(.none)
+        
+        // launch tasks on the background thread on render
+        // TODO: make task launch asyncronously
+        self.sailorEvents.task(.none)
+    }
+    
+    public func exitEvents() {
+        
+        // on disappear called once the JSNode gets removed
+        self.sailorEvents.onDisappear(.none)
+        
+        
+    }
+    
 }
