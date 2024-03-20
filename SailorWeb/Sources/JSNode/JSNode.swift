@@ -13,13 +13,16 @@ public final class JSNode {
 
     public var elementID: ElementID
 
-    public var sailorEvents: SailorEvents = .init()
+    public var sailorEvents: SailorEvents
 
     internal var element: JSObject
 
     internal var events: [String: JSClosure] // Events
     
     internal var attributes: [String: String]
+    
+    // TODO: remove later and replace with renderable buildEvents and buildAttribute rm render()
+    internal var wasBuilt: Bool = false
     
     public convenience init(elementID: ElementID, _ type: SpecialJSNodeType) {
         self.init(
@@ -44,6 +47,7 @@ public final class JSNode {
         self.events = [:]
         self.attributes = [:]
         self.elementID = elementID
+        self.sailorEvents = SailorEvents(from: elementID)
     }
 
     internal func editContent(text: String, append: Bool = false) {
@@ -74,11 +78,12 @@ public final class JSNode {
     }
     
     public func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
-        // add sailor events to its array
+        // add sailor events to its array, skip sailor events
         if name.first == "_" {
-            self.sailorEvents[name] = closure
             return
         }
+        
+        print("ADDING EVENT \(name)")
         
         let jsClosure = EventResult.getClosure(name, action: closure)
         self.events[name] = jsClosure
