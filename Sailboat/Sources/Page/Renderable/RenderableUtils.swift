@@ -32,11 +32,13 @@ public enum RenderableUtils {
             // run the page builder closure to create an operator node
             let operatorPage = page.content()
             
-            // render current page to parent
-            page.renderer.render()
-            
             SailboatGlobal.managedPages.registerElement(page, operatorPage)
             
+            // render current page to parent
+            page.renderer.renderEvents()
+            
+            page.renderer.renderAttributes()
+
             build(page: operatorPage, parent: page)
             
             if let parent = parent {

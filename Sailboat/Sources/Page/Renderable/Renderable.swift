@@ -21,17 +21,17 @@ public protocol Renderable {
     /// remove this element permenately
     func remove()
     
-    ///
+    /// removes child of the current element at the deep index (including the inner of Fragments)
     func remove(at deepIndex: Int)
     
     /// remove all attributes
-    func clearAttributes()
+//    func clearAttributes()
     
     /// remove all events
-    func clearEvents()
+//    func clearEvents()
 
     /// remove the children elements from being rendered
-    func clearBody()
+//    func clearBody()
     
     // TODO: maybe rename to shallow render?
     /// replace this node with another element
@@ -40,15 +40,13 @@ public protocol Renderable {
     ///
     func replace(at: Int, with: any Element)
     
-    /// shallow render of an element
-    func render()
+    /// shallow render of an element events
+    func renderEvents()
     
-    // TODO:
-//    func renderAttributes()
-    
-//    func renderEvents()
-    
+    /// shallow render of an element attributes
+    func renderAttributes()
+
     /// update the specified attribute
-    func updateAttribute(name: String, value: String)
+//    func updateAttribute(name: String, value: String)
     
 }

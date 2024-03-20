@@ -30,16 +30,25 @@ public protocol Website: Page {
 extension Website {
     public static func main() {
         SailboatGlobal.initialize(SailorWebManager())
-        SailorGlobal.initialize(head: Self().head)
         
         let bodyElement = Self().body
-        
+        let headElement = Self().head
+
+        SailorGlobal.initialize(head: headElement)
         SailboatGlobal.manager.build(page: bodyElement)
-                
+        
+        print("BODY:", bodyElement.description)
+        
         // runs the onAppear event for the Body
         if let bodyRenderer = bodyElement.renderer as? JSNode {
+            
+            print("BODY: WHAT IS HAPPEN")
             bodyRenderer.sailorEvents.onAppear(.none)
             // TODO: more events here like task
+            print("BODY:", bodyRenderer.sailorEvents.onAppear)
+        
+            print("BODY: AFTER")
+
         }
 
     }
