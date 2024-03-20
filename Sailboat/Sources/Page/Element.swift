@@ -23,7 +23,7 @@ public protocol Element: Page, Identifiable {
     /// event names and values attached to this HTMLElement
     var events: [String: (EventResult) -> Void] { get set }
     
-    // TODO: dubug why (() -> any Operator)? doesnt work
+    // TODO: dubug why (() -> any Fragment)? doesnt work
     /// content within HTML tags
     var content: () -> any Fragment { get set }
     

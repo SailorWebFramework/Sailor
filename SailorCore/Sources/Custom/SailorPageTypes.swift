@@ -8,16 +8,16 @@
 import Sailboat
 
 /// This element can be placed in the head of the component
-protocol HeadElement: Element, HeadPage {} // HeadElement : Element
+protocol HeadElement: Element, HeadPage {}
 
 ///
-public protocol HeadPage: Sailboat.Page {} // HeadElement : Element
+public protocol HeadPage: Sailboat.Page {}
 
 ///
 protocol BodyElement: Element, BodyPage {}
 
 /// This element can be placed in the body
-public protocol BodyPage: Sailboat.Page {} // BodyElement : Element
+public protocol BodyPage: Sailboat.Page {}
 
 ///
 //extension MyPage: BodyPage where MyPage == any Page { }
