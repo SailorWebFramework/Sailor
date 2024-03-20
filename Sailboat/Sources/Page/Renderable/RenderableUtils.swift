@@ -36,7 +36,6 @@ public enum RenderableUtils {
             
             // render current page to parent
             page.renderer.renderEvents()
-            
             page.renderer.renderAttributes()
 
             build(page: operatorPage, parent: page)

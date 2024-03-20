@@ -41,16 +41,8 @@ extension Website {
         
         // runs the onAppear event for the Body
         if let bodyRenderer = bodyElement.renderer as? JSNode {
-            
-            print("BODY: WHAT IS HAPPEN")
-            bodyRenderer.sailorEvents.onAppear(.none)
-            // TODO: more events here like task
-            print("BODY:", bodyRenderer.sailorEvents.onAppear)
-        
-            print("BODY: AFTER")
-
+            bodyRenderer.enterEvents()
         }
-
     }
 }
 
