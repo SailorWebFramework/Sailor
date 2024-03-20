@@ -26,9 +26,6 @@ open class TargetManager {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
         
-        // TODO: remove to activate update
-        managedEvent.semaphore += 1
-        
         // sema up + down to ensure the built state vars dont trigger an update
         managedEvent.semaphore += 1
                 
