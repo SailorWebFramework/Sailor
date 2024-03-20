@@ -15,39 +15,39 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-            Title { "hello" }
-
-            H3 { "Hi my name is \(myString)" }
             
-            if toggle {
-                H1 { "Hello world!" }
-                    .onClick {
-                        toggle.toggle()
-                    }
-                
-                if myNum == 7 {
-                    H1 { "Hello world!" }
-    
-                        .onClick {
-                            toggle.toggle()
-                        }
-                }
-                
-            } else {
-                H3 { "SMallerworld" }
-                    .onClick {
-                        toggle.toggle()
-                    }
-            }
+//            for name in names {
+//                H3 { "Hi my name is \(name)" }
+//            }
+//            
+//            if toggle {
+//                H1 { "Hello world!" }
+//                    .onClick {
+//                        toggle.toggle()
+//                    }
+//                
+//                if myNum == 7 {
+//                    H1 { "Hello world!" }
+//                        .onClick {
+//                            toggle.toggle()
+//                        }
+//                }
+//                
+//            } else {
+//                H3 { "SMallerworld" }
+//                    .onClick {
+//                        toggle.toggle()
+//                    }
+//            }
             
             H4 { "HELLO ME" }
+                .id({ "hello-unique-id" })
             
             Div {
                 "hello this is a test"
                 " did it combine?"
+                myString
             }
-            .id{"jdfhjdfdhf"}
-            
             
             Input($myString)
             
@@ -57,7 +57,6 @@ struct HomePage: Page {
         }
     }
 }
-
 
 struct SubPageInner: Page {
     @State var myValue: Int = 0
@@ -69,13 +68,14 @@ struct SubPageInner: Page {
                 }
             
             if myValue % 2 == 0 {
-                A({ "I am a link" })
+                A(href: { "www.google.com" }){
+                    "I am a link"
+                }
             }
             
             if myValue % 2 == 0 {
                 SubPageInner2()
             }
-            
         }
     }
 }

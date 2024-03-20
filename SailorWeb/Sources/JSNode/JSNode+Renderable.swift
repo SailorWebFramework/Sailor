@@ -14,8 +14,18 @@ extension JSNode: Renderable {
         guard let element = element.renderer as? JSNode else {
             fatalError("Node should not be an Element Value, but Renderer type JSNode")
         }
-        
+                
         return element
+    }
+    
+    private func didAddToDOM() {
+        print("DID ADD TO DOM?")
+        // on appear called once the JSNode becomes renderable
+        self.sailorEvents.onAppear(.none)
+        
+        // launch tasks on the background thread on render
+        // TODO: make task launch asyncronously
+        self.sailorEvents.task(.none)
     }
     
     public func insertBefore(_ deepIndex: Int, parent: any Element) {
@@ -24,7 +34,7 @@ extension JSNode: Renderable {
         
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        self.sailorEvents.onAppear(.none)
+        didAddToDOM()
     }
     
     public func insertAfter(_ deepIndex: Int, parent: any Element) {
@@ -33,7 +43,8 @@ extension JSNode: Renderable {
 
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        self.sailorEvents.onAppear(.none)
+        didAddToDOM()
+
     }
     
     public func addToParent(_ parent: any Element) {
@@ -41,12 +52,8 @@ extension JSNode: Renderable {
 
         _ = parentNode.element.appendChild?(self.element)
 
-        // on appear called once the JSNode becomes renderable
-        self.sailorEvents.onAppear(.none)
-        
-        // launch tasks on the background thread on render
-        // TODO: make task launch asyncronously
-        self.sailorEvents.task(.none)
+        didAddToDOM()
+
     }
     
     public func clearBody() {
@@ -60,7 +67,7 @@ extension JSNode: Renderable {
     
     public func clearEvents() { removeEvents() }
     
-    private func addChild(_ child: any Element, below: (any Element)?) { }
+//    private func addChild(_ child: any Element, below: (any Element)?) { }
     
     // TODO: consider renaming
     public func render() {
