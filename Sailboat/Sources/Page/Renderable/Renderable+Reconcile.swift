@@ -78,7 +78,6 @@ public extension Renderable {
         return deepindex
     }
     
-    // TODO: do i need this?
     private func clearChildren(from content: any Fragment, at index: Int) {
         guard let myPage = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
             fatalError("old content doesnt exist or is stateless")
@@ -98,11 +97,8 @@ public extension Renderable {
                 continue
             }
             
-            // TODO: custom node here? wtf is the parent
+            // custom node here? wtf is the parent
             myPage.renderer.remove(at: index + 1)
-
-
-//            clearChildren(from: child)
             
             // TODO:
             // Problem.. what happens to custom pages the elements arent loaded
@@ -112,5 +108,4 @@ public extension Renderable {
 
         }
     }
-    
 }
