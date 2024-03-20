@@ -7,6 +7,7 @@
 
 import Sailboat
 import SailorShared
+import JavaScriptKit
 
 #if os(WASI)
 import SailorWeb
@@ -27,19 +28,18 @@ public protocol Website: Page {
 #if os(WASI)
 
 extension Website {
-    
     public static func main() {
         SailboatGlobal.initialize(SailorWebManager())
+        SailorGlobal.initialize(head: Self().head)
         
         let bodyElement = Self().body
         
-        SailorGlobal.initialize(head: Self().head)
-        
         SailboatGlobal.manager.build(page: bodyElement)
-        
+                
         // runs the onAppear event for the Body
         if let bodyRenderer = bodyElement.renderer as? JSNode {
             bodyRenderer.sailorEvents.onAppear(.none)
+            // TODO: more events here like task
         }
 
     }

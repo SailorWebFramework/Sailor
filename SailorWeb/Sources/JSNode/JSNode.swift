@@ -58,8 +58,9 @@ public final class JSNode {
     internal func removeAttributes() {
         
         for (name, _) in attributes {
-            _ = self.element.removeAttribute?(name.description)
+            _ = self.element.removeAttribute?(name)
         }
+        
         self.attributes = [:]
     }
     
@@ -72,7 +73,6 @@ public final class JSNode {
         self.events = [:]
     }
     
-    // TODO: make this (EventResult) -> Void
     public func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
         // add sailor events to its array
         if name.first == "_" {
