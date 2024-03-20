@@ -1,5 +1,5 @@
 //
-//  Head.swift
+//  Body.swift
 //
 //  Created by Joshua Davis.
 //
@@ -7,17 +7,19 @@
 import Foundation
 import Sailboat
 import SailorShared
+
 #if os(WASI)
 import SailorWeb
 #else
-//
+// if any other target are created
 #endif
+
 //TODO: auto-generate maybe so its not annoying to update
 
 /// The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.
-public struct Head: Element {
+public struct Body: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "head" }
+    public static var name: String { "body" }
 
     /// unique identifier for this html element
     public var id: ElementID
@@ -40,7 +42,7 @@ public struct Head: Element {
         self.events = [:]
         self.content = bodyValue ?? { List() }
         #if os(WASI)
-        self.renderer = JSNode(named: Self.name, elementID: id)
+        self.renderer = JSNode(elementID: id, .body)
         #else
         self.renderer = EmptyRenderer()
         #endif
@@ -48,11 +50,7 @@ public struct Head: Element {
         self.attributes["id"] = { id }
     }
     
-    public init() {
-        self.init(bodyValue: nil)
-    }
-    
-    public init(@HeadBuilder content: @escaping () -> any Fragment) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

@@ -51,6 +51,8 @@ extension JSNode: Renderable {
         let parentNode = asJSNode(parent)
 
         _ = parentNode.element.appendChild?(self.element)
+        
+//        _ = JSNode.body.appendChild?(self.element)
 
         didAddToDOM()
 
