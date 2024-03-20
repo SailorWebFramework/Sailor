@@ -35,11 +35,11 @@ struct HomePage: Page {
                 
             } else {
                 Button { "SMallerworld" }
-                    .onClick {
-                        toggle.toggle()
-                    }
                     .onAppear {
                         print("BUTTON EXISTS")
+                    }
+                    .onClick {
+                        toggle.toggle()
                     }
             }
             
