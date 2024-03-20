@@ -35,5 +35,13 @@ struct EmptyRenderer: Renderable {
     func render() { }
     
     func updateAttribute(name: String, value: String) { }
+    
+    public func renderEvents() {
+        
+    }
+    
+    public func renderAttributes() {
+        
+    }
         
 }

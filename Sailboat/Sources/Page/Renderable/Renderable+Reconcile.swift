@@ -23,7 +23,7 @@ public extension Renderable {
         
         SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
         
-        copyOfNewContent.printPage()
+//        copyOfNewContent.printPage()
     }
     
     private func reconcileBody(oldList: any Fragment, newList: inout any Fragment, index deepindex: Int) -> Int {

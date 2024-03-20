@@ -22,7 +22,7 @@ struct TestWebsite: Website {
             HomePage()
         }
         .onAppear {
-            print("BUILT Starting App...")
+            print("BODY: BUILT Starting App...")
         }
     }
 }

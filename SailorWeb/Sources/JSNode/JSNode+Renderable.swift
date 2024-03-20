@@ -19,7 +19,6 @@ extension JSNode: Renderable {
     }
     
     private func didAddToDOM() {
-        print("DID ADD TO DOM?")
         // on appear called once the JSNode becomes renderable
         self.sailorEvents.onAppear(.none)
         
@@ -52,49 +51,39 @@ extension JSNode: Renderable {
 
         _ = parentNode.element.appendChild?(self.element)
         
-//        _ = JSNode.body.appendChild?(self.element)
-
         didAddToDOM()
 
     }
     
-    public func clearBody() {
-        // TODO: this probably overrides some non-string elements...
-        // TODO: somehow need to call remove on all inner elements
-        self.element.innerHTML = ""
-    }
-    
-    // TODO: remove these?
-    public func clearAttributes() { removeAttributes() }
-    
-    public func clearEvents() { removeEvents() }
-    
-//    private func addChild(_ child: any Element, below: (any Element)?) { }
-    
-    // TODO: consider renaming
-    public func render() {
+    public func renderAttributes() {
         guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
             return
         }
         
-        // TODO: Think events should never have to be readded?
-        //self.removeEvents()
-        if self.events.isEmpty && self.sailorEvents.isEmpty {
-            for (name, event) in page.events {
-                self.addEvent(name: name, closure: event)
-            }
-        }
-
-        // TODO: diff events and attributes?
-        // make sure order is the same for attributes, does this actually help in speed?
         self.removeAttributes()
 
         for (key, value) in page.attributes {
             self.updateAttribute(name: key, value: value())
         }
-
-        // on update called once the JSNode elements update
+        
+        // dump the built states to the element dependency
+        SailboatGlobal.manager.dumpTo(element: page)
+        
         self.sailorEvents.onUpdate(.none)
+    }
+    
+    public func renderEvents() {
+        guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
+            return
+        }
+        
+        // TODO: do i need this
+        removeEvents()
+        
+        for (name, event) in page.events {
+            self.addEvent(name: name, closure: event)
+        }
+        
     }
     
     public func remove() {
