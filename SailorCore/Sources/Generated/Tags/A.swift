@@ -49,11 +49,6 @@ public struct A: BodyElement {
         self.attributes["id"] = { id }
     }
 
-
-    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
-    }
-
     public init(href: (@escaping () -> String)) {
         self.init(bodyValue: nil)
 

@@ -54,7 +54,6 @@ public struct Body: BodyElement {
         self.init(bodyValue: content)
     }
 
-
 }
 
 // MARK: - Attributes

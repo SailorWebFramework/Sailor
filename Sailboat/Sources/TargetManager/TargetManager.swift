@@ -22,14 +22,17 @@ open class TargetManager {
 
     public init() { }
       
-    open func build<GenericPage: Page>(page: GenericPage) {
+    open func build(page: any Element) {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
         
-        // sema up + down to ensure the built state vars dont trigger an update
+        // TODO: remove to activate update
         managedEvent.semaphore += 1
         
-        self.initialBuild(page: page)
+        // sema up + down to ensure the built state vars dont trigger an update
+        managedEvent.semaphore += 1
+                
+        RenderableUtils.build(page)
         
         managedEvent.semaphore -= 1
 
@@ -82,28 +85,7 @@ open class TargetManager {
         }
     }
     
-    internal func initialBuild(page: any Page) {
-        if let page = page as? any Fragment {
-
-            // add children
-            for child in page.children {
-                initialBuild(page: child)
-            }
-
-            return
-        }
-        
-        if let page = page as? any Element {
-            RenderableUtils.build(page)
-            return
-        }
-
-        initialBuild(page: page.body)
-
-    }
-    
     // TODO: move all these to managed page and managed event
-    
     public func dumpTo(element: any Element) {
         let states = dump()
                 
