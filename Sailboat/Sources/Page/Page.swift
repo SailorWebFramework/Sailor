@@ -22,31 +22,33 @@ public extension Page {
     }
         
 }
-
-internal extension Page {
-    
-    func printPage() {
-        func createPrintString(page: any Page, tab: Int) -> String {
-            var output = ""
-            
-            if let op = page as? any Fragment {
-                output += " " * tab + page.description + " {" + "\n"
-                
-                for oppage in op.children {
-                    output += createPrintString(page: oppage, tab: tab + 2)
-                }
-                
-                output += " " * tab + "}" + "\n"
-                
-            } else {
-                output += " " * tab + page.description + "\n"
-            }
-            
-            return output
-        }
-        
-        print(createPrintString(page: self, tab: 0))
-
-    }
-    
-}
+//
+//internal extension Page {
+//    
+//    func printPage() {
+//        func createPrintString(page: any Page, tab: Int) -> String {
+//            var output = ""
+//            
+//            if let op = page as? any Fragment {
+//                output += " " * tab + page.description + " {" + "\n"
+//                
+//                for oppage in op.children {
+//                    output += createPrintString(page: oppage, tab: tab + 2)
+//                }
+//                
+//                output += " " * tab + "}" + "\n"
+//                
+//            } let element = page as? any Element {
+//                
+//            } else {
+//                output += " " * tab + page.description + "\n"
+//            }
+//            
+//            return output
+//        }
+//        
+//        print(createPrintString(page: self, tab: 0))
+//
+//    }
+//    
+//}
