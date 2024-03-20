@@ -10,7 +10,6 @@ public struct List: Fragment {
     /// hash associated with which conditional this block is in
     public var hash: Int
     
-    // TODO: make this ID field unique?
     public var children: [any Page]
 
     public var description: String {

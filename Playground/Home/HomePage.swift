@@ -16,36 +16,37 @@ struct HomePage: Page {
     var body: some Page {
         Div {
             
-//            for name in names {
-//                H3 { "Hi my name is \(name)" }
-//            }
-//            
-//            if toggle {
-//                H1 { "Hello world!" }
-//                    .onClick {
-//                        toggle.toggle()
-//                    }
-//                
-//                if myNum == 7 {
-//                    H1 { "Hello world!" }
-//                        .onClick {
-//                            toggle.toggle()
-//                        }
-//                }
-//                
-//            } else {
-//                H3 { "SMallerworld" }
-//                    .onClick {
-//                        toggle.toggle()
-//                    }
-//            }
+            for name in names {
+                H3 { "Hi my name is \(name)" }
+            }
+            
+            if toggle {
+                H1 { "Hello world!" }
+                    .onClick {
+                        toggle.toggle()
+                    }
+                
+                if myNum == 7 {
+                    H1 { "Hello world!" }
+                        .onClick {
+                            toggle.toggle()
+                        }
+                }
+                
+            } else {
+                Button { "SMallerworld" }
+                    .onClick {
+                        toggle.toggle()
+                    }
+                    .onAppear {
+                        print("BUTTON EXISTS")
+                    }
+            }
             
             H4 { "HELLO ME" }
                 .id({ "hello-unique-id" })
             
             Div {
-                "hello this is a test"
-                " did it combine?"
                 myString
             }
             

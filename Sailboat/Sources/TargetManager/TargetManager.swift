@@ -69,7 +69,8 @@ open class TargetManager {
                     SailboatGlobal.manager.dumpTo(element: element)
                     
                     // update attributes shallowly and reconcile body
-                    element.renderer.render()
+                    element.renderer.renderAttributes()
+                    
                     element.renderer.reconcile(with: content)
                     
                     managedEvent.semaphore -= 1
