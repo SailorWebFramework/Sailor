@@ -19,10 +19,11 @@ public final class JSNode {
 
     internal var events: [String: JSClosure] // Events
     
+    /// The built key and values of the attributes
     internal var attributes: [String: String]
     
     // TODO: remove later and replace with renderable buildEvents and buildAttribute rm render()
-    internal var wasBuilt: Bool = false
+//    internal var wasBuilt: Bool = false
     
     public convenience init(elementID: ElementID, _ type: SpecialJSNodeType) {
         self.init(
