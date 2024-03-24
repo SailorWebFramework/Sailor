@@ -43,9 +43,11 @@ struct HomePage: Page {
                     }
             }
             
-            H4 { "HELLO ME" }
-                .id({ "hello-unique-id" })
-            
+            if myString == "hello" {
+                H4 { "HELLO ME" }
+                    .id({ "hello-unique-id" })
+            }
+
             Div {
                 myString
             }

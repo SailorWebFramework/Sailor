@@ -24,9 +24,10 @@ public final class ManagedPages {
     public func registerElement(_ element: any Element, _ operatorPage: any Fragment) {
         self.elements[element.id] = element
         
-        if !self.stateHistory.isEmpty {
+        // TODO: this doesnt work but something like this should be implemented
+//        if !self.stateHistory.isEmpty {
             self.children[element.id] = operatorPage
-        }
+//        }
         
         SailboatGlobal.manager.dumpTo(element: element)
     }
