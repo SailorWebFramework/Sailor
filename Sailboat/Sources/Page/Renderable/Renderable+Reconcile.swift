@@ -23,7 +23,6 @@ public extension Renderable {
         
         SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
         
-//        copyOfNewContent.printPage()
     }
     
     private func reconcileBody(oldList: any Fragment, newList: inout any Fragment, index deepindex: Int) -> Int {
@@ -36,6 +35,7 @@ public extension Renderable {
         var deepindex = deepindex
                 
         for i in 0..<elementCount {
+            print("ELEMENT #\(i) rendered")
             if let oldElement = oldList.children[i] as? any Element {
                 deepindex += 1
                 

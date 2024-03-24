@@ -59,7 +59,12 @@ extension JSNode: Renderable {
     public func replace(at deepindex: Int, with element: any Element) {
         
         if let element = element as? any ValueElement {
-            self.element.childNodes[deepindex].object!.textContent = JSValue.string(element.value.description)
+            // if the element was empty then give it a child or change it
+            if let obj = self.element.childNodes[deepindex].object {
+                obj.textContent = JSValue.string(element.value.description)
+            } else {
+                self.element.textContent = JSValue.string(element.value.description)
+            }
             
         } else if let jsnode = element.renderer as? JSNode {
             if let parent = self.element.parentElement.object {
@@ -85,10 +90,12 @@ extension JSNode: Renderable {
         
         // TODO: recurse over children and call their exitEvents
         // for child in children { child.renderer.remove() }
-
-        SailboatGlobal.manager.managedPages.elements[self.elementID] = nil
-
+        
         exitEvents()
+        
+        // TODO: this doesnt work
+        SailboatGlobal.managedPages.elements[self.elementID] = nil
+
     }
     
     public func renderAttributes() {
