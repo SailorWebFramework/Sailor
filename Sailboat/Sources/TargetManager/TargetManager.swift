@@ -36,17 +36,6 @@ open class TargetManager {
     }
     
     open func update() {
-        
-        print("elements...")
-        
-        print(managedPages.elements)
-        print("children...")
-
-        print(managedPages.children)
-
-        print("map...")
-
-        print(managedPages.stateElementMap)
 
         for stateID in managedEvent.states {
             guard let elementIDs = managedPages.stateElementMap[stateID] else { continue }
@@ -61,17 +50,23 @@ open class TargetManager {
 
                     // builds the shallow content body and adds its state to the watchers
                     let content: any Fragment = element.content()
-                    
-                    // TODO:
-                    // remove previous states dumped because it short circuits so theres no need to test it
-                    // if a || b || c
-                    // if a evaluates to true right now, i dont need to check b or c until a changes
+                             
+                    print("BUILT CONTENT")
+
+                    // TODO: consider removing previous states dumped because it short circuits so theres no need to test it :ex. if a || b || c ,, i dont need to check b or c until a changes
                     SailboatGlobal.manager.dumpTo(element: element)
                     
+                    print("DUMPED CONTENT")
+
                     // update attributes shallowly and reconcile body
                     element.renderer.renderAttributes()
                     
+                    print("RENDERED ATTRIBUTES")
+
                     element.renderer.reconcile(with: content)
+                    
+                    print("RECONCILE")
+
                     
                     managedEvent.semaphore -= 1
 
