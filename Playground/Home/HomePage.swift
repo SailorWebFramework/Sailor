@@ -15,26 +15,27 @@ struct HomePage: Page {
 
     var body: some Page {
         Div {
-            
             for name in names {
                 H3 { "Hi my name is \(name)" }
             }
             
             if toggle {
-                H1 { "Hello world!" }
+                H1 { "OMG you pressed the button!" }
+                    .id { myString == "hello" ? "myTrue" : "myFalse" }
                     .onClick {
                         toggle.toggle()
                     }
                 
                 if myNum == 7 {
-                    H1 { "Hello world!" }
+                    H1 { "Congrats" }
                         .onClick {
                             toggle.toggle()
                         }
                 }
                 
             } else {
-                Button { "SMallerworld" }
+                Button { "Press THIS" }
+//                    .disabled(^toggle)
                     .onAppear {
                         print("BUTTON EXISTS")
                     }
@@ -42,17 +43,35 @@ struct HomePage: Page {
                         toggle.toggle()
                     }
             }
-            
+                        
             if myString == "hello" {
                 H4 { "HELLO ME" }
                     .id({ "hello-unique-id" })
             }
 
-            Div {
-                myString
+            if !toggle {
+                Div {
+                    "This is a string: \(myString)"
+                    
+                    myString
+                                        
+                    B {
+                        "this is bolded"
+                    }
+                    
+                    """
+                    This is my other string: \(myString)
+                    """
+                    
+                    B {
+                        "this should be bold"
+                    }
+                }
             }
             
             Input($myString)
+                .id { myString == "hello" ? "1myTrue" : "1myFalse" }
+
             
         }
         .head {

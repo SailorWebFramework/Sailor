@@ -17,66 +17,32 @@ public struct StringRenderer<Value: Element>: Renderable {
 
     public init(_ value: Value) {
         self.value = value
-//        self.parent = nil
     }
-    
-    public func renderEvents() {
-        
-    }
-    
-    public func renderAttributes() {
-        
-    }
-    
-    public func remove(at deepIndex: Int) {
-        
-    }
-    
-    public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) {
-        
-    }
-    
-    public func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) {
-        
-    }
-
-    public func replace(at: Int, with: any Element) { }
-    
-
     
     public func addToParent(_ parent: any Element) {
         guard let parentNode = parent.renderer as? JSNode else {
             return
         }
                 
-        parentNode.editContent(text: self.value.description, append: true)
+        parentNode.appendContent(text: self.value.description)
     }
-        
-//    public func addChild(_ child: any Element) {
-//        child.renderer.addToParent(self.value)
-//    }
-//    
-//    // TODO: remove these 2
-//    public func clearAttributes() { }
-//    
-//    public func clearEvents() { }
-    
-    
-//    public func reconcile(with operator: any Operator) { }
-    
-//    public func debugPrint() { print(self.value) }
 
-//    public func addBelow(_ node: any Element) { }
+    public func replace(at: Int, with: any Element) { }
+    
+    public func replace(with renderable: any Element) { }
     
     public func remove() { }
     
-//    public func clear() { }
-    
-//    public func clearBody() { }
+    public func remove(at deepIndex: Int) { }
 
-    public func replace(with renderable: any Element) { }
-    
     public func updateAttribute(name: String, value: String) { }
-            
-//    public func render() { }
+    
+    public func renderEvents() { }
+    
+    public func renderAttributes() { }
+    
+    public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) { }
+    
+    public func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) { }
+
 }
