@@ -62,9 +62,13 @@ extension JSNode: Renderable {
             // if the element was empty then give it a child or change it
             if let obj = self.element.childNodes[deepindex].object {
                 obj.textContent = JSValue.string(element.value.description)
+
             } else {
-                self.element.textContent = JSValue.string(element.value.description)
+                fatalError("COULD NOT FIND STRING INDEX IN DOM")
             }
+//            else {
+//                self.element.textContent = JSValue.string(element.value.description)
+//            }
             
         } else if let jsnode = element.renderer as? JSNode {
             if let parent = self.element.parentElement.object {
