@@ -7,6 +7,7 @@
 
 import Sailboat
 
+// TODO: consider just removing or moving to main JSNode class
 extension JSNode: CustomStringConvertible {
     
     public var description: String {
