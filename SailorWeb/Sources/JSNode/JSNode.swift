@@ -11,19 +11,20 @@ import SailorShared
 
 public final class JSNode {
 
+    ///
     public var elementID: ElementID
 
+    ///
     public var sailorEvents: SailorEvents
 
+    ///
     internal var element: JSObject
 
+    ///
     internal var events: [String: JSClosure] // Events
     
     /// The built key and values of the attributes
     internal var attributes: [String: String]
-    
-    // TODO: remove later and replace with renderable buildEvents and buildAttribute rm render()
-//    internal var wasBuilt: Bool = false
     
     public convenience init(elementID: ElementID, _ type: SpecialJSNodeType) {
         self.init(
@@ -51,13 +52,11 @@ public final class JSNode {
         self.sailorEvents = SailorEvents(from: elementID)
     }
 
-    internal func editContent(text: String, append: Bool = false) {
-        if append {
-            self.element.innerHTML = JSValue.string((self.element.textContent.string ?? "") + text)
-            return
-        }
+    // TODO: remove append and default to it?
+    internal func appendContent(text: String) {
+        let newTextNode = Self.document.createTextNode(JSValue.string(text))
+        _ = self.element.appendChild?(newTextNode)
         
-        self.element.textContent = JSValue.string(text)
     }
     
     internal func removeAttributes() {
