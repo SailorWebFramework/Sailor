@@ -16,9 +16,9 @@ extension Unit {
         public var description: String {
             switch self {
             case .eager:
-                return "eager"
+                    return "eager"
             case .lazy:
-                return "lazy"
+                    return "lazy"
             }
         }
     }

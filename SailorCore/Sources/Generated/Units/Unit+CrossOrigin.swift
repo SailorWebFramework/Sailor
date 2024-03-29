@@ -16,9 +16,9 @@ extension Unit {
         public var description: String {
             switch self {
             case .anonymous:
-                return "anonymous"
+                    return "anonymous"
             case .useCredentials:
-                return "use-credentials"
+                    return "use-credentials"
             }
         }
     }

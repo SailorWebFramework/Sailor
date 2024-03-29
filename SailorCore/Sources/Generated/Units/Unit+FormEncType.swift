@@ -19,11 +19,11 @@ extension Unit {
         public var description: String {
             switch self {
             case .applicationXWwwFormUrlencoded:
-                return "application/x-www-form-urlencoded"
+                    return "application/x-www-form-urlencoded"
             case .multipartFormData:
-                return "multipart/form-data"
+                    return "multipart/form-data"
             case .textPlain:
-                return "text/plain"
+                    return "text/plain"
             }
         }
     }

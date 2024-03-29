@@ -7,7 +7,6 @@
 
 import Sailboat
 
-
 // TODO: consider removing however it resturns Self rather than in Page any Element which allows it to be a top-level page
 public extension Element {
     func head(@HeadBuilder _ builder: @escaping () -> any Fragment) -> Self {

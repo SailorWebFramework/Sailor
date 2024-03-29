@@ -24,7 +24,7 @@ public final class JSNode {
     internal var events: [String: JSClosure] // Events
     
     /// The built key and values of the attributes
-    internal var attributes: [String: String]
+    internal var attributes: [String: any AttributeValue]
     
     public convenience init(elementID: ElementID, _ type: SpecialJSNodeType) {
         self.init(

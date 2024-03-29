@@ -35,7 +35,6 @@ public extension Renderable {
         var deepindex = deepindex
                 
         for i in 0..<elementCount {
-            print("ELEMENT #\(i) rendered")
             if let oldElement = oldList.children[i] as? any Element {
                 deepindex += 1
                 

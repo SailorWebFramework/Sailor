@@ -29,7 +29,7 @@ extension String: ValueElement, BodyPage, HeadPage {
         set(newValue) { }
     }
     
-    public var attributes: [String : () -> String] {
+    public var attributes: [String : () -> any AttributeValue] {
         get { [:] }
         set(newValue) { }
     }

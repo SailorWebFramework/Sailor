@@ -19,11 +19,11 @@ extension Unit {
         public var description: String {
             switch self {
             case .true:
-                return "true"
+                    return "true"
             case .false:
-                return "false"
+                    return "false"
             case .auto:
-                return "auto"
+                    return "auto"
             }
         }
     }

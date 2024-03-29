@@ -148,8 +148,8 @@ extension JSNode: Renderable {
     
     }
     
-    public func updateAttribute(name: String, value: String) {
-        _ = self.element.setAttribute?(name, value)
+    public func updateAttribute(name: String, value: any AttributeValue) {
+        _ = self.element.setAttribute?(name, value.description)
         self.attributes[name] = value
         
         // on update called once the JSNode elements update
