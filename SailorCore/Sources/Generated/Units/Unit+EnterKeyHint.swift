@@ -31,19 +31,19 @@ extension Unit {
         public var description: String {
             switch self {
             case .done:
-                return "done"
+                    return "done"
             case .enter:
-                return "enter"
+                    return "enter"
             case .go:
-                return "go"
+                    return "go"
             case .next:
-                return "next"
+                    return "next"
             case .previous:
-                return "previous"
+                    return "previous"
             case .search:
-                return "search"
+                    return "search"
             case .send:
-                return "send"
+                    return "send"
             }
         }
     }

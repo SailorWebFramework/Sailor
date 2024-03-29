@@ -18,7 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"), // 0.15.0
-        .package(url:"https://github.com/swiftwasm/carton", from: "1.0.1")//, // 0.15.0
+        .package(url:"https://github.com/swiftwasm/carton", from: "1.0.2")//, // 0.15.0
 //        .package(url: "https://github.com/apple/swift-syntax", from: "509.0.0")
 
     ],
@@ -31,6 +31,7 @@ let package = Package(
                 "SailorWeb"
             ],
             path: "Sailor"
+            
         ),
         .target(
             name: "SailorCore",
@@ -84,7 +85,7 @@ let package = Package(
                 //🧭Compass Generated Resources (DONT REMOVE THIS COMMENT)
 //                .process("Resources/hello.css"),
                 .process("Resources/Assets/favicon.ico"),
-                .process("Resources/hello.css"),
+//                .process("Resources/hello.css"),
 
                 .process("Resources/Global.css")
 

@@ -22,13 +22,13 @@ extension Unit {
         public var description: String {
             switch self {
             case .blank:
-                return "_blank"
+                    return "_blank"
             case .self:
-                return "_self"
+                    return "_self"
             case .parent:
-                return "_parent"
+                    return "_parent"
             case .top:
-                return "_top"
+                    return "_top"
             }
         }
     }

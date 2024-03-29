@@ -10,11 +10,6 @@ import Sailboat
 public final class SailorEvents {
     var elementID: ElementID
     var element: any Element {
-//        print("element:")
-//        print(SailboatGlobal.managedPages.elements)
-//        print("BR")
-//        print(elementID)
-//        print(SailboatGlobal.managedPages.elements[elementID])
         guard let element = SailboatGlobal.managedPages.elements[elementID] else {
             fatalError("SailorEvents: Element Doesnt Exist in Memory")
         }

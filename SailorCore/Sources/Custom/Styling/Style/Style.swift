@@ -5,13 +5,7 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-// TODO: remove this?
-/// Unit associated with style properties
-public protocol StyleValue: Hashable {
-    var description: String { get }
-}
-
-public struct Style: AttributeValue {
+public struct Style {
     public static func == (lhs: Style, rhs: Style) -> Bool {
         lhs.properties == rhs.properties
     }

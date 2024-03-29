@@ -5,6 +5,8 @@
 //  Created by Joshua Davis on 12/18/23.
 //
 
+// TODO: remove
+
 public class LinkedList<Value>: Sequence {
     
     private(set) var head: LinkedListNode<Value>? = nil

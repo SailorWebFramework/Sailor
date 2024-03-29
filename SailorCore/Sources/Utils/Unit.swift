@@ -8,7 +8,20 @@
 /// Umbrella for all style units
 public enum Unit { }
 
-/// Unit associated with style properties
-//public protocol StyleValue: Hashable {
-//    var description: String { get }
-//}
+
+// TODO: do i put description with percent?
+public struct Percent: CustomStringConvertible, Equatable {
+    public var description: String {
+        "\(self.value)" //         "\(self.value)%"
+    }
+    
+    var value: Int
+    
+//    init(_ value: Double) {
+//        self.value = value
+//    }
+    
+    public init(_ value: Int) {
+        self.value = value
+    }
+}

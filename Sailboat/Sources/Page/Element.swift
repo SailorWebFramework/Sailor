@@ -18,7 +18,7 @@ public protocol Element: Page, Identifiable {
     var id: ElementID { get set }
     
     /// attributes on tag
-    var attributes: [String: () -> String] { get set }
+    var attributes: [String: () -> any AttributeValue] { get set }
     
     /// event names and values attached to this HTMLElement
     var events: [String: (EventResult) -> Void] { get set }
@@ -46,20 +46,23 @@ public extension Element {
 // TODO: make this internal? / remove?
 public extension Element {
     
+    // TODO: remove ovveride? remove this func?
     func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
         // TODO: dont think i can do this anymore cuz func
         //        if attributes[value.name] == value.value { return self }
 
         var copy = self
         
-        // TODO: this logic is gross
-        if override || copy.attributes[value.name] == nil {
-            copy.attributes[value.name] = value.value
-        } else {
-            copy.attributes[value.name] = {
-                copy.attributes[value.name]!() + value.value()
-            }
-        }
+        copy.attributes[value.name] = value.value
+
+//        // TODO: this logic is gross
+//        if override || copy.attributes[value.name] == nil {
+//            copy.attributes[value.name] = value.value
+//        } else {
+//            copy.attributes[value.name] = {
+//                copy.attributes[value.name]!() + value.value()
+//            }
+//        }
         
         return copy
         

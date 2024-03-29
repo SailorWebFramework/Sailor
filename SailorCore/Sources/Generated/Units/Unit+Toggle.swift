@@ -16,9 +16,9 @@ extension Unit {
         public var description: String {
             switch self {
             case .on:
-                return "on"
+                    return "on"
             case .off:
-                return "off"
+                    return "off"
             }
         }
     }

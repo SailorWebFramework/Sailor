@@ -34,21 +34,21 @@ extension Unit {
         public var description: String {
             switch self {
             case .decimal:
-                return "decimal"
+                    return "decimal"
             case .email:
-                return "email"
+                    return "email"
             case .none:
-                return "none"
+                    return "none"
             case .numeric:
-                return "numeric"
+                    return "numeric"
             case .search:
-                return "search"
+                    return "search"
             case .tel:
-                return "tel"
+                    return "tel"
             case .text:
-                return "text"
+                    return "text"
             case .url:
-                return "url"
+                    return "url"
             }
         }
     }

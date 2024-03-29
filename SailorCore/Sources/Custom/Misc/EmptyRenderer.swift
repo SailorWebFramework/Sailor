@@ -36,12 +36,8 @@ struct EmptyRenderer: Renderable {
     
     func updateAttribute(name: String, value: String) { }
     
-    public func renderEvents() {
-        
-    }
+    public func renderEvents() { }
     
-    public func renderAttributes() {
-        
-    }
+    public func renderAttributes() { }
         
 }

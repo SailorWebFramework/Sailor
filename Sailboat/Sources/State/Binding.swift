@@ -7,7 +7,6 @@
 
 import Foundation
 
-//TODO: allow for one state to update elements that share listeners
 @propertyWrapper
 public class Binding<Value: Equatable>: Stateful {
     public let id: StateID

@@ -7,18 +7,33 @@
 
 extension Unit {
     public enum Color: Equatable, CustomStringConvertible {
+        ///Defines a color in hexadecimal format.
+        case `hex`(String)
+        
         ///Defines an RGB color.
         case `rgb`(Int, Int, Int)
         
         ///Defines an RGBA color.
-        case `rgba`(Int, Int, Int, Int)
+        case `rgba`(Int, Int, Int, Double)
+        
+        ///Defines an HSL color.
+        case `hsl`(Int, Percent, Percent)
+        
+        ///Defines an HSLA color.
+        case `hsla`(Int, Percent, Percent, Double)
         
         public var description: String {
             switch self {
+            case .hex(let hex):
+                return "\(hex)"
             case .rgb(let r, let g, let b):
-                return "rgb(\(r) \(g) \(b))"
+                    return "rgb(\(r) \(g) \(b))"
             case .rgba(let r, let g, let b, let a):
-                return "rgba(\(r) \(g) \(b) \(a))"
+                    return "rgba(\(r) \(g) \(b) \(a))"
+            case .hsl(let h, let s, let l):
+                return "hsl(\(h) \(s)% \(l)%)"
+            case .hsla(let h, let s, let l, let a):
+                return "hsla(\(h) \(s)% \(l)% \(a))"
             }
         }
     }

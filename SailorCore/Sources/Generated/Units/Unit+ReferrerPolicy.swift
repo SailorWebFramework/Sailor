@@ -34,21 +34,21 @@ extension Unit {
         public var description: String {
             switch self {
             case .noReferrer:
-                return "no-referrer"
+                    return "no-referrer"
             case .noReferrerWhenDowngrade:
-                return "no-referrer-when-downgrade"
+                    return "no-referrer-when-downgrade"
             case .origin:
-                return "origin"
+                    return "origin"
             case .originWhenCrossOrigin:
-                return "origin-when-cross-origin"
+                    return "origin-when-cross-origin"
             case .sameOrigin:
-                return "same-origin"
+                    return "same-origin"
             case .strictOrigin:
-                return "strict-origin"
+                    return "strict-origin"
             case .strictOriginWhenCrossOrigin:
-                return "strict-origin-when-cross-origin"
+                    return "strict-origin-when-cross-origin"
             case .unsafeUrl:
-                return "unsafe-url"
+                    return "unsafe-url"
             }
         }
     }

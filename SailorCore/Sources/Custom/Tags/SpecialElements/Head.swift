@@ -23,7 +23,7 @@ public struct Head: Element {
     public var id: ElementID
 
     /// attributes associated with this type
-    public var attributes: [String: () -> String]
+    public var attributes: [String: () -> any AttributeValue]
 
     /// events associated with this type
     public var events: [String: (EventResult) -> Void]
