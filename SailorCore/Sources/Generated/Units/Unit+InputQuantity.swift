@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum InputQuantity: Equatable, CustomStringConvertible {
-        ///The minimum value for a number.
-        case `number`(Int)
-        
-        ///The minimum date for a date input.
-        case `date`(String)
-        
+    public struct InputQuantity {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .number(let value):
-                    return "number(\(value))"
-            case .date(let value):
-                    return "date(\(value))"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The minimum value for a number.
+        public static func `number`(_ value: Int) -> Self {
+            return .init("number(\(value))")
+        }
+
+        ///The minimum date for a date input.
+        public static func `date`(_ value: String) -> Self {
+            return .init("date(\(value))")
+        }
+
+
     }
 }

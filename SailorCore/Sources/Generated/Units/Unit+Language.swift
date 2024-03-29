@@ -6,930 +6,937 @@
 //
 
 extension Unit {
-    public enum Language: Equatable, CustomStringConvertible {
-        ///language code for Abkhazian.
-        case `ab`
-        
-        ///language code for Afar.
-        case `aa`
-        
-        ///language code for Afrikaans.
-        case `af`
-        
-        ///language code for Akan.
-        case `ak`
-        
-        ///language code for Albanian.
-        case `sq`
-        
-        ///language code for Amharic.
-        case `am`
-        
-        ///language code for Arabic.
-        case `ar`
-        
-        ///language code for Aragonese.
-        case `an`
-        
-        ///language code for Armenian.
-        case `hy`
-        
-        ///language code for Assamese.
-        case `as`
-        
-        ///language code for Avaric.
-        case `av`
-        
-        ///language code for Avestan.
-        case `ae`
-        
-        ///language code for Aymara.
-        case `ay`
-        
-        ///language code for Azerbaijani.
-        case `az`
-        
-        ///language code for Bambara.
-        case `bm`
-        
-        ///language code for Bashkir.
-        case `ba`
-        
-        ///language code for Basque.
-        case `eu`
-        
-        ///language code for Belarusian.
-        case `be`
-        
-        ///language code for Bengali.
-        case `bn`
-        
-        ///language code for Bihari.
-        case `bh`
-        
-        ///language code for Bislama.
-        case `bi`
-        
-        ///language code for Bosnian.
-        case `bs`
-        
-        ///language code for Breton.
-        case `br`
-        
-        ///language code for Bulgarian.
-        case `bg`
-        
-        ///language code for Burmese.
-        case `my`
-        
-        ///language code for Catalan.
-        case `ca`
-        
-        ///language code for Chamorro.
-        case `ch`
-        
-        ///language code for Chechen.
-        case `ce`
-        
-        ///language code for Chichewa.
-        case `ny`
-        
-        ///language code for Chinese.
-        case `zh`
-        
-        ///language code for Chuvash.
-        case `cv`
-        
-        ///language code for Cornish.
-        case `kw`
-        
-        ///language code for Corsican.
-        case `co`
-        
-        ///language code for Cree.
-        case `cr`
-        
-        ///language code for Croatian.
-        case `hr`
-        
-        ///language code for Czech.
-        case `cs`
-        
-        ///language code for Danish.
-        case `da`
-        
-        ///language code for Divehi.
-        case `dv`
-        
-        ///language code for Dutch.
-        case `nl`
-        
-        ///language code for Dzongkha.
-        case `dz`
-        
-        ///language code for English.
-        case `en`
-        
-        ///language code for Esperanto.
-        case `eo`
-        
-        ///language code for Estonian.
-        case `et`
-        
-        ///language code for Ewe.
-        case `ee`
-        
-        ///language code for Faroese.
-        case `fo`
-        
-        ///language code for Fijian.
-        case `fj`
-        
-        ///language code for Finnish.
-        case `fi`
-        
-        ///language code for French.
-        case `fr`
-        
-        ///language code for Frisian.
-        case `fy`
-        
-        ///language code for Fulah.
-        case `ff`
-        
-        ///language code for Galician.
-        case `gl`
-        
-        ///language code for Georgian.
-        case `ka`
-        
-        ///language code for German.
-        case `de`
-        
-        ///language code for Greek.
-        case `el`
-        
-        ///language code for Guarani.
-        case `gn`
-        
-        ///language code for Gujarati.
-        case `gu`
-        
-        ///language code for Haitian.
-        case `ht`
-        
-        ///language code for Hausa.
-        case `ha`
-        
-        ///language code for Hebrew.
-        case `he`
-        
-        ///language code for Herero.
-        case `hz`
-        
-        ///language code for Hindi.
-        case `hi`
-        
-        ///language code for Hiri Motu.
-        case `ho`
-        
-        ///language code for Hungarian.
-        case `hu`
-        
-        ///language code for Interlingua.
-        case `ia`
-        
-        ///language code for Indonesian.
-        case `id`
-        
-        ///language code for Interlingue.
-        case `ie`
-        
-        ///language code for Irish.
-        case `ga`
-        
-        ///language code for Igbo.
-        case `ig`
-        
-        ///language code for Inupiaq.
-        case `ik`
-        
-        ///language code for Ido.
-        case `io`
-        
-        ///language code for Icelandic.
-        case `is`
-        
-        ///language code for Italian.
-        case `it`
-        
-        ///language code for Inuktitut.
-        case `iu`
-        
-        ///language code for Japanese.
-        case `ja`
-        
-        ///language code for Javanese.
-        case `jv`
-        
-        ///language code for Kalaallisut.
-        case `kl`
-        
-        ///language code for Kannada.
-        case `kn`
-        
-        ///language code for Kanuri.
-        case `kr`
-        
-        ///language code for Kashmiri.
-        case `ks`
-        
-        ///language code for Kazakh.
-        case `kk`
-        
-        ///language code for Khmer.
-        case `km`
-        
-        ///language code for Kikuyu.
-        case `ki`
-        
-        ///language code for Kinyarwanda.
-        case `rw`
-        
-        ///language code for Kirghiz.
-        case `ky`
-        
-        ///language code for Komi.
-        case `kv`
-        
-        ///language code for Kongo.
-        case `kg`
-        
-        ///language code for Korean.
-        case `ko`
-        
-        ///language code for Kurdish.
-        case `ku`
-        
-        ///language code for Kwanyama.
-        case `kj`
-        
-        ///language code for Latin.
-        case `la`
-        
-        ///language code for Luxembourgish.
-        case `lb`
-        
-        ///language code for Ganda.
-        case `lg`
-        
-        ///language code for Limburgish.
-        case `li`
-        
-        ///language code for Lingala.
-        case `ln`
-        
-        ///language code for Lao.
-        case `lo`
-        
-        ///language code for Lithuanian.
-        case `lt`
-        
-        ///language code for Luba-Katanga.
-        case `lu`
-        
-        ///language code for Latvian.
-        case `lv`
-        
-        ///language code for Manx.
-        case `gv`
-        
-        ///language code for Macedonian.
-        case `mk`
-        
-        ///language code for Malagasy.
-        case `mg`
-        
-        ///language code for Malay.
-        case `ms`
-        
-        ///language code for Malayalam.
-        case `ml`
-        
-        ///language code for Maltese.
-        case `mt`
-        
-        ///language code for Maori.
-        case `mi`
-        
-        ///language code for Marathi.
-        case `mr`
-        
-        ///language code for Marshallese.
-        case `mh`
-        
-        ///language code for Mongolian.
-        case `mn`
-        
-        ///language code for Nauru.
-        case `na`
-        
-        ///language code for Navajo.
-        case `nv`
-        
-        ///language code for North Ndebele.
-        case `nd`
-        
-        ///language code for Nepali.
-        case `ne`
-        
-        ///language code for Ndonga.
-        case `ng`
-        
-        ///language code for Norwegian Bokmål.
-        case `nb`
-        
-        ///language code for Norwegian Nynorsk.
-        case `nn`
-        
-        ///language code for Norwegian.
-        case `no`
-        
-        ///language code for Nuosu.
-        case `ii`
-        
-        ///language code for South Ndebele.
-        case `nr`
-        
-        ///language code for Occitan.
-        case `oc`
-        
-        ///language code for Ojibwe.
-        case `oj`
-        
-        ///language code for Old Church Slavonic.
-        case `cu`
-        
-        ///language code for Oromo.
-        case `om`
-        
-        ///language code for Oriya.
-        case `or`
-        
-        ///language code for Ossetian.
-        case `os`
-        
-        ///language code for Punjabi.
-        case `pa`
-        
-        ///language code for Pali.
-        case `pi`
-        
-        ///language code for Persian.
-        case `fa`
-        
-        ///language code for Polish.
-        case `pl`
-        
-        ///language code for Pashto.
-        case `ps`
-        
-        ///language code for Portuguese.
-        case `pt`
-        
-        ///language code for Quechua.
-        case `qu`
-        
-        ///language code for Romansh.
-        case `rm`
-        
-        ///language code for Kirundi.
-        case `rn`
-        
-        ///language code for Romanian.
-        case `ro`
-        
-        ///language code for Russian.
-        case `ru`
-        
-        ///language code for Sanskrit.
-        case `sa`
-        
-        ///language code for Sardinian.
-        case `sc`
-        
-        ///language code for Sindhi.
-        case `sd`
-        
-        ///language code for Northern Sami.
-        case `se`
-        
-        ///language code for Samoan.
-        case `sm`
-        
-        ///language code for Sango.
-        case `sg`
-        
-        ///language code for Serbian.
-        case `sr`
-        
-        ///language code for Gaelic.
-        case `gd`
-        
-        ///language code for Shona.
-        case `sn`
-        
-        ///language code for Sinhala.
-        case `si`
-        
-        ///language code for Slovak.
-        case `sk`
-        
-        ///language code for Slovene.
-        case `sl`
-        
-        ///language code for Somali.
-        case `so`
-        
-        ///language code for Southern Sotho.
-        case `st`
-        
-        ///language code for Spanish.
-        case `es`
-        
-        ///language code for Sundanese.
-        case `su`
-        
-        ///language code for Swahili.
-        case `sw`
-        
-        ///language code for Swati.
-        case `ss`
-        
-        ///language code for Swedish.
-        case `sv`
-        
-        ///language code for Tamil.
-        case `ta`
-        
-        ///language code for Telugu.
-        case `te`
-        
-        ///language code for Tajik.
-        case `tg`
-        
-        ///language code for Thai.
-        case `th`
-        
-        ///language code for Tigrinya.
-        case `ti`
-        
-        ///language code for Tibetan.
-        case `bo`
-        
-        ///language code for Turkmen.
-        case `tk`
-        
-        ///language code for Tagalog.
-        case `tl`
-        
-        ///language code for Tswana.
-        case `tn`
-        
-        ///language code for Tonga.
-        case `to`
-        
-        ///language code for Turkish.
-        case `tr`
-        
-        ///language code for Tsonga.
-        case `ts`
-        
-        ///language code for Tatar.
-        case `tt`
-        
-        ///language code for Twi.
-        case `tw`
-        
-        ///language code for Tahitian.
-        case `ty`
-        
-        ///language code for Uighur.
-        case `ug`
-        
-        ///language code for Ukrainian.
-        case `uk`
-        
-        ///language code for Urdu.
-        case `ur`
-        
-        ///language code for Uzbek.
-        case `uz`
-        
-        ///language code for Venda.
-        case `ve`
-        
-        ///language code for Vietnamese.
-        case `vi`
-        
-        ///language code for Volapük.
-        case `vo`
-        
-        ///language code for Walloon.
-        case `wa`
-        
-        ///language code for Welsh.
-        case `cy`
-        
-        ///language code for Wolof.
-        case `wo`
-        
-        ///language code for Xhosa.
-        case `xh`
-        
-        ///language code for Yiddish.
-        case `yi`
-        
-        ///language code for Yoruba.
-        case `yo`
-        
-        ///language code for Zhuang.
-        case `za`
-        
-        ///language code for Zulu.
-        case `zu`
-        
+    public struct Language {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .ab:
-                    return "ab"
-            case .aa:
-                    return "aa"
-            case .af:
-                    return "af"
-            case .ak:
-                    return "ak"
-            case .sq:
-                    return "sq"
-            case .am:
-                    return "am"
-            case .ar:
-                    return "ar"
-            case .an:
-                    return "an"
-            case .hy:
-                    return "hy"
-            case .as:
-                    return "as"
-            case .av:
-                    return "av"
-            case .ae:
-                    return "ae"
-            case .ay:
-                    return "ay"
-            case .az:
-                    return "az"
-            case .bm:
-                    return "bm"
-            case .ba:
-                    return "ba"
-            case .eu:
-                    return "eu"
-            case .be:
-                    return "be"
-            case .bn:
-                    return "bn"
-            case .bh:
-                    return "bh"
-            case .bi:
-                    return "bi"
-            case .bs:
-                    return "bs"
-            case .br:
-                    return "br"
-            case .bg:
-                    return "bg"
-            case .my:
-                    return "my"
-            case .ca:
-                    return "ca"
-            case .ch:
-                    return "ch"
-            case .ce:
-                    return "ce"
-            case .ny:
-                    return "ny"
-            case .zh:
-                    return "zh"
-            case .cv:
-                    return "cv"
-            case .kw:
-                    return "kw"
-            case .co:
-                    return "co"
-            case .cr:
-                    return "cr"
-            case .hr:
-                    return "hr"
-            case .cs:
-                    return "cs"
-            case .da:
-                    return "da"
-            case .dv:
-                    return "dv"
-            case .nl:
-                    return "nl"
-            case .dz:
-                    return "dz"
-            case .en:
-                    return "en"
-            case .eo:
-                    return "eo"
-            case .et:
-                    return "et"
-            case .ee:
-                    return "ee"
-            case .fo:
-                    return "fo"
-            case .fj:
-                    return "fj"
-            case .fi:
-                    return "fi"
-            case .fr:
-                    return "fr"
-            case .fy:
-                    return "fy"
-            case .ff:
-                    return "ff"
-            case .gl:
-                    return "gl"
-            case .ka:
-                    return "ka"
-            case .de:
-                    return "de"
-            case .el:
-                    return "el"
-            case .gn:
-                    return "gn"
-            case .gu:
-                    return "gu"
-            case .ht:
-                    return "ht"
-            case .ha:
-                    return "ha"
-            case .he:
-                    return "he"
-            case .hz:
-                    return "hz"
-            case .hi:
-                    return "hi"
-            case .ho:
-                    return "ho"
-            case .hu:
-                    return "hu"
-            case .ia:
-                    return "ia"
-            case .id:
-                    return "id"
-            case .ie:
-                    return "ie"
-            case .ga:
-                    return "ga"
-            case .ig:
-                    return "ig"
-            case .ik:
-                    return "ik"
-            case .io:
-                    return "io"
-            case .is:
-                    return "is"
-            case .it:
-                    return "it"
-            case .iu:
-                    return "iu"
-            case .ja:
-                    return "ja"
-            case .jv:
-                    return "jv"
-            case .kl:
-                    return "kl"
-            case .kn:
-                    return "kn"
-            case .kr:
-                    return "kr"
-            case .ks:
-                    return "ks"
-            case .kk:
-                    return "kk"
-            case .km:
-                    return "km"
-            case .ki:
-                    return "ki"
-            case .rw:
-                    return "rw"
-            case .ky:
-                    return "ky"
-            case .kv:
-                    return "kv"
-            case .kg:
-                    return "kg"
-            case .ko:
-                    return "ko"
-            case .ku:
-                    return "ku"
-            case .kj:
-                    return "kj"
-            case .la:
-                    return "la"
-            case .lb:
-                    return "lb"
-            case .lg:
-                    return "lg"
-            case .li:
-                    return "li"
-            case .ln:
-                    return "ln"
-            case .lo:
-                    return "lo"
-            case .lt:
-                    return "lt"
-            case .lu:
-                    return "lu"
-            case .lv:
-                    return "lv"
-            case .gv:
-                    return "gv"
-            case .mk:
-                    return "mk"
-            case .mg:
-                    return "mg"
-            case .ms:
-                    return "ms"
-            case .ml:
-                    return "ml"
-            case .mt:
-                    return "mt"
-            case .mi:
-                    return "mi"
-            case .mr:
-                    return "mr"
-            case .mh:
-                    return "mh"
-            case .mn:
-                    return "mn"
-            case .na:
-                    return "na"
-            case .nv:
-                    return "nv"
-            case .nd:
-                    return "nd"
-            case .ne:
-                    return "ne"
-            case .ng:
-                    return "ng"
-            case .nb:
-                    return "nb"
-            case .nn:
-                    return "nn"
-            case .no:
-                    return "no"
-            case .ii:
-                    return "ii"
-            case .nr:
-                    return "nr"
-            case .oc:
-                    return "oc"
-            case .oj:
-                    return "oj"
-            case .cu:
-                    return "cu"
-            case .om:
-                    return "om"
-            case .or:
-                    return "or"
-            case .os:
-                    return "os"
-            case .pa:
-                    return "pa"
-            case .pi:
-                    return "pi"
-            case .fa:
-                    return "fa"
-            case .pl:
-                    return "pl"
-            case .ps:
-                    return "ps"
-            case .pt:
-                    return "pt"
-            case .qu:
-                    return "qu"
-            case .rm:
-                    return "rm"
-            case .rn:
-                    return "rn"
-            case .ro:
-                    return "ro"
-            case .ru:
-                    return "ru"
-            case .sa:
-                    return "sa"
-            case .sc:
-                    return "sc"
-            case .sd:
-                    return "sd"
-            case .se:
-                    return "se"
-            case .sm:
-                    return "sm"
-            case .sg:
-                    return "sg"
-            case .sr:
-                    return "sr"
-            case .gd:
-                    return "gd"
-            case .sn:
-                    return "sn"
-            case .si:
-                    return "si"
-            case .sk:
-                    return "sk"
-            case .sl:
-                    return "sl"
-            case .so:
-                    return "so"
-            case .st:
-                    return "st"
-            case .es:
-                    return "es"
-            case .su:
-                    return "su"
-            case .sw:
-                    return "sw"
-            case .ss:
-                    return "ss"
-            case .sv:
-                    return "sv"
-            case .ta:
-                    return "ta"
-            case .te:
-                    return "te"
-            case .tg:
-                    return "tg"
-            case .th:
-                    return "th"
-            case .ti:
-                    return "ti"
-            case .bo:
-                    return "bo"
-            case .tk:
-                    return "tk"
-            case .tl:
-                    return "tl"
-            case .tn:
-                    return "tn"
-            case .to:
-                    return "to"
-            case .tr:
-                    return "tr"
-            case .ts:
-                    return "ts"
-            case .tt:
-                    return "tt"
-            case .tw:
-                    return "tw"
-            case .ty:
-                    return "ty"
-            case .ug:
-                    return "ug"
-            case .uk:
-                    return "uk"
-            case .ur:
-                    return "ur"
-            case .uz:
-                    return "uz"
-            case .ve:
-                    return "ve"
-            case .vi:
-                    return "vi"
-            case .vo:
-                    return "vo"
-            case .wa:
-                    return "wa"
-            case .cy:
-                    return "cy"
-            case .wo:
-                    return "wo"
-            case .xh:
-                    return "xh"
-            case .yi:
-                    return "yi"
-            case .yo:
-                    return "yo"
-            case .za:
-                    return "za"
-            case .zu:
-                    return "zu"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///language code for Abkhazian.
+        public static var `ab`: Self {
+            return .init("ab")
+        }
+
+        ///language code for Afar.
+        public static var `aa`: Self {
+            return .init("aa")
+        }
+
+        ///language code for Afrikaans.
+        public static var `af`: Self {
+            return .init("af")
+        }
+
+        ///language code for Akan.
+        public static var `ak`: Self {
+            return .init("ak")
+        }
+
+        ///language code for Albanian.
+        public static var `sq`: Self {
+            return .init("sq")
+        }
+
+        ///language code for Amharic.
+        public static var `am`: Self {
+            return .init("am")
+        }
+
+        ///language code for Arabic.
+        public static var `ar`: Self {
+            return .init("ar")
+        }
+
+        ///language code for Aragonese.
+        public static var `an`: Self {
+            return .init("an")
+        }
+
+        ///language code for Armenian.
+        public static var `hy`: Self {
+            return .init("hy")
+        }
+
+        ///language code for Assamese.
+        public static var `as`: Self {
+            return .init("as")
+        }
+
+        ///language code for Avaric.
+        public static var `av`: Self {
+            return .init("av")
+        }
+
+        ///language code for Avestan.
+        public static var `ae`: Self {
+            return .init("ae")
+        }
+
+        ///language code for Aymara.
+        public static var `ay`: Self {
+            return .init("ay")
+        }
+
+        ///language code for Azerbaijani.
+        public static var `az`: Self {
+            return .init("az")
+        }
+
+        ///language code for Bambara.
+        public static var `bm`: Self {
+            return .init("bm")
+        }
+
+        ///language code for Bashkir.
+        public static var `ba`: Self {
+            return .init("ba")
+        }
+
+        ///language code for Basque.
+        public static var `eu`: Self {
+            return .init("eu")
+        }
+
+        ///language code for Belarusian.
+        public static var `be`: Self {
+            return .init("be")
+        }
+
+        ///language code for Bengali.
+        public static var `bn`: Self {
+            return .init("bn")
+        }
+
+        ///language code for Bihari.
+        public static var `bh`: Self {
+            return .init("bh")
+        }
+
+        ///language code for Bislama.
+        public static var `bi`: Self {
+            return .init("bi")
+        }
+
+        ///language code for Bosnian.
+        public static var `bs`: Self {
+            return .init("bs")
+        }
+
+        ///language code for Breton.
+        public static var `br`: Self {
+            return .init("br")
+        }
+
+        ///language code for Bulgarian.
+        public static var `bg`: Self {
+            return .init("bg")
+        }
+
+        ///language code for Burmese.
+        public static var `my`: Self {
+            return .init("my")
+        }
+
+        ///language code for Catalan.
+        public static var `ca`: Self {
+            return .init("ca")
+        }
+
+        ///language code for Chamorro.
+        public static var `ch`: Self {
+            return .init("ch")
+        }
+
+        ///language code for Chechen.
+        public static var `ce`: Self {
+            return .init("ce")
+        }
+
+        ///language code for Chichewa.
+        public static var `ny`: Self {
+            return .init("ny")
+        }
+
+        ///language code for Chinese.
+        public static var `zh`: Self {
+            return .init("zh")
+        }
+
+        ///language code for Chuvash.
+        public static var `cv`: Self {
+            return .init("cv")
+        }
+
+        ///language code for Cornish.
+        public static var `kw`: Self {
+            return .init("kw")
+        }
+
+        ///language code for Corsican.
+        public static var `co`: Self {
+            return .init("co")
+        }
+
+        ///language code for Cree.
+        public static var `cr`: Self {
+            return .init("cr")
+        }
+
+        ///language code for Croatian.
+        public static var `hr`: Self {
+            return .init("hr")
+        }
+
+        ///language code for Czech.
+        public static var `cs`: Self {
+            return .init("cs")
+        }
+
+        ///language code for Danish.
+        public static var `da`: Self {
+            return .init("da")
+        }
+
+        ///language code for Divehi.
+        public static var `dv`: Self {
+            return .init("dv")
+        }
+
+        ///language code for Dutch.
+        public static var `nl`: Self {
+            return .init("nl")
+        }
+
+        ///language code for Dzongkha.
+        public static var `dz`: Self {
+            return .init("dz")
+        }
+
+        ///language code for English.
+        public static var `en`: Self {
+            return .init("en")
+        }
+
+        ///language code for Esperanto.
+        public static var `eo`: Self {
+            return .init("eo")
+        }
+
+        ///language code for Estonian.
+        public static var `et`: Self {
+            return .init("et")
+        }
+
+        ///language code for Ewe.
+        public static var `ee`: Self {
+            return .init("ee")
+        }
+
+        ///language code for Faroese.
+        public static var `fo`: Self {
+            return .init("fo")
+        }
+
+        ///language code for Fijian.
+        public static var `fj`: Self {
+            return .init("fj")
+        }
+
+        ///language code for Finnish.
+        public static var `fi`: Self {
+            return .init("fi")
+        }
+
+        ///language code for French.
+        public static var `fr`: Self {
+            return .init("fr")
+        }
+
+        ///language code for Frisian.
+        public static var `fy`: Self {
+            return .init("fy")
+        }
+
+        ///language code for Fulah.
+        public static var `ff`: Self {
+            return .init("ff")
+        }
+
+        ///language code for Galician.
+        public static var `gl`: Self {
+            return .init("gl")
+        }
+
+        ///language code for Georgian.
+        public static var `ka`: Self {
+            return .init("ka")
+        }
+
+        ///language code for German.
+        public static var `de`: Self {
+            return .init("de")
+        }
+
+        ///language code for Greek.
+        public static var `el`: Self {
+            return .init("el")
+        }
+
+        ///language code for Guarani.
+        public static var `gn`: Self {
+            return .init("gn")
+        }
+
+        ///language code for Gujarati.
+        public static var `gu`: Self {
+            return .init("gu")
+        }
+
+        ///language code for Haitian.
+        public static var `ht`: Self {
+            return .init("ht")
+        }
+
+        ///language code for Hausa.
+        public static var `ha`: Self {
+            return .init("ha")
+        }
+
+        ///language code for Hebrew.
+        public static var `he`: Self {
+            return .init("he")
+        }
+
+        ///language code for Herero.
+        public static var `hz`: Self {
+            return .init("hz")
+        }
+
+        ///language code for Hindi.
+        public static var `hi`: Self {
+            return .init("hi")
+        }
+
+        ///language code for Hiri Motu.
+        public static var `ho`: Self {
+            return .init("ho")
+        }
+
+        ///language code for Hungarian.
+        public static var `hu`: Self {
+            return .init("hu")
+        }
+
+        ///language code for Interlingua.
+        public static var `ia`: Self {
+            return .init("ia")
+        }
+
+        ///language code for Indonesian.
+        public static var `id`: Self {
+            return .init("id")
+        }
+
+        ///language code for Interlingue.
+        public static var `ie`: Self {
+            return .init("ie")
+        }
+
+        ///language code for Irish.
+        public static var `ga`: Self {
+            return .init("ga")
+        }
+
+        ///language code for Igbo.
+        public static var `ig`: Self {
+            return .init("ig")
+        }
+
+        ///language code for Inupiaq.
+        public static var `ik`: Self {
+            return .init("ik")
+        }
+
+        ///language code for Ido.
+        public static var `io`: Self {
+            return .init("io")
+        }
+
+        ///language code for Icelandic.
+        public static var `is`: Self {
+            return .init("is")
+        }
+
+        ///language code for Italian.
+        public static var `it`: Self {
+            return .init("it")
+        }
+
+        ///language code for Inuktitut.
+        public static var `iu`: Self {
+            return .init("iu")
+        }
+
+        ///language code for Japanese.
+        public static var `ja`: Self {
+            return .init("ja")
+        }
+
+        ///language code for Javanese.
+        public static var `jv`: Self {
+            return .init("jv")
+        }
+
+        ///language code for Kalaallisut.
+        public static var `kl`: Self {
+            return .init("kl")
+        }
+
+        ///language code for Kannada.
+        public static var `kn`: Self {
+            return .init("kn")
+        }
+
+        ///language code for Kanuri.
+        public static var `kr`: Self {
+            return .init("kr")
+        }
+
+        ///language code for Kashmiri.
+        public static var `ks`: Self {
+            return .init("ks")
+        }
+
+        ///language code for Kazakh.
+        public static var `kk`: Self {
+            return .init("kk")
+        }
+
+        ///language code for Khmer.
+        public static var `km`: Self {
+            return .init("km")
+        }
+
+        ///language code for Kikuyu.
+        public static var `ki`: Self {
+            return .init("ki")
+        }
+
+        ///language code for Kinyarwanda.
+        public static var `rw`: Self {
+            return .init("rw")
+        }
+
+        ///language code for Kirghiz.
+        public static var `ky`: Self {
+            return .init("ky")
+        }
+
+        ///language code for Komi.
+        public static var `kv`: Self {
+            return .init("kv")
+        }
+
+        ///language code for Kongo.
+        public static var `kg`: Self {
+            return .init("kg")
+        }
+
+        ///language code for Korean.
+        public static var `ko`: Self {
+            return .init("ko")
+        }
+
+        ///language code for Kurdish.
+        public static var `ku`: Self {
+            return .init("ku")
+        }
+
+        ///language code for Kwanyama.
+        public static var `kj`: Self {
+            return .init("kj")
+        }
+
+        ///language code for Latin.
+        public static var `la`: Self {
+            return .init("la")
+        }
+
+        ///language code for Luxembourgish.
+        public static var `lb`: Self {
+            return .init("lb")
+        }
+
+        ///language code for Ganda.
+        public static var `lg`: Self {
+            return .init("lg")
+        }
+
+        ///language code for Limburgish.
+        public static var `li`: Self {
+            return .init("li")
+        }
+
+        ///language code for Lingala.
+        public static var `ln`: Self {
+            return .init("ln")
+        }
+
+        ///language code for Lao.
+        public static var `lo`: Self {
+            return .init("lo")
+        }
+
+        ///language code for Lithuanian.
+        public static var `lt`: Self {
+            return .init("lt")
+        }
+
+        ///language code for Luba-Katanga.
+        public static var `lu`: Self {
+            return .init("lu")
+        }
+
+        ///language code for Latvian.
+        public static var `lv`: Self {
+            return .init("lv")
+        }
+
+        ///language code for Manx.
+        public static var `gv`: Self {
+            return .init("gv")
+        }
+
+        ///language code for Macedonian.
+        public static var `mk`: Self {
+            return .init("mk")
+        }
+
+        ///language code for Malagasy.
+        public static var `mg`: Self {
+            return .init("mg")
+        }
+
+        ///language code for Malay.
+        public static var `ms`: Self {
+            return .init("ms")
+        }
+
+        ///language code for Malayalam.
+        public static var `ml`: Self {
+            return .init("ml")
+        }
+
+        ///language code for Maltese.
+        public static var `mt`: Self {
+            return .init("mt")
+        }
+
+        ///language code for Maori.
+        public static var `mi`: Self {
+            return .init("mi")
+        }
+
+        ///language code for Marathi.
+        public static var `mr`: Self {
+            return .init("mr")
+        }
+
+        ///language code for Marshallese.
+        public static var `mh`: Self {
+            return .init("mh")
+        }
+
+        ///language code for Mongolian.
+        public static var `mn`: Self {
+            return .init("mn")
+        }
+
+        ///language code for Nauru.
+        public static var `na`: Self {
+            return .init("na")
+        }
+
+        ///language code for Navajo.
+        public static var `nv`: Self {
+            return .init("nv")
+        }
+
+        ///language code for North Ndebele.
+        public static var `nd`: Self {
+            return .init("nd")
+        }
+
+        ///language code for Nepali.
+        public static var `ne`: Self {
+            return .init("ne")
+        }
+
+        ///language code for Ndonga.
+        public static var `ng`: Self {
+            return .init("ng")
+        }
+
+        ///language code for Norwegian Bokmål.
+        public static var `nb`: Self {
+            return .init("nb")
+        }
+
+        ///language code for Norwegian Nynorsk.
+        public static var `nn`: Self {
+            return .init("nn")
+        }
+
+        ///language code for Norwegian.
+        public static var `no`: Self {
+            return .init("no")
+        }
+
+        ///language code for Nuosu.
+        public static var `ii`: Self {
+            return .init("ii")
+        }
+
+        ///language code for South Ndebele.
+        public static var `nr`: Self {
+            return .init("nr")
+        }
+
+        ///language code for Occitan.
+        public static var `oc`: Self {
+            return .init("oc")
+        }
+
+        ///language code for Ojibwe.
+        public static var `oj`: Self {
+            return .init("oj")
+        }
+
+        ///language code for Old Church Slavonic.
+        public static var `cu`: Self {
+            return .init("cu")
+        }
+
+        ///language code for Oromo.
+        public static var `om`: Self {
+            return .init("om")
+        }
+
+        ///language code for Oriya.
+        public static var `or`: Self {
+            return .init("or")
+        }
+
+        ///language code for Ossetian.
+        public static var `os`: Self {
+            return .init("os")
+        }
+
+        ///language code for Punjabi.
+        public static var `pa`: Self {
+            return .init("pa")
+        }
+
+        ///language code for Pali.
+        public static var `pi`: Self {
+            return .init("pi")
+        }
+
+        ///language code for Persian.
+        public static var `fa`: Self {
+            return .init("fa")
+        }
+
+        ///language code for Polish.
+        public static var `pl`: Self {
+            return .init("pl")
+        }
+
+        ///language code for Pashto.
+        public static var `ps`: Self {
+            return .init("ps")
+        }
+
+        ///language code for Portuguese.
+        public static var `pt`: Self {
+            return .init("pt")
+        }
+
+        ///language code for Quechua.
+        public static var `qu`: Self {
+            return .init("qu")
+        }
+
+        ///language code for Romansh.
+        public static var `rm`: Self {
+            return .init("rm")
+        }
+
+        ///language code for Kirundi.
+        public static var `rn`: Self {
+            return .init("rn")
+        }
+
+        ///language code for Romanian.
+        public static var `ro`: Self {
+            return .init("ro")
+        }
+
+        ///language code for Russian.
+        public static var `ru`: Self {
+            return .init("ru")
+        }
+
+        ///language code for Sanskrit.
+        public static var `sa`: Self {
+            return .init("sa")
+        }
+
+        ///language code for Sardinian.
+        public static var `sc`: Self {
+            return .init("sc")
+        }
+
+        ///language code for Sindhi.
+        public static var `sd`: Self {
+            return .init("sd")
+        }
+
+        ///language code for Northern Sami.
+        public static var `se`: Self {
+            return .init("se")
+        }
+
+        ///language code for Samoan.
+        public static var `sm`: Self {
+            return .init("sm")
+        }
+
+        ///language code for Sango.
+        public static var `sg`: Self {
+            return .init("sg")
+        }
+
+        ///language code for Serbian.
+        public static var `sr`: Self {
+            return .init("sr")
+        }
+
+        ///language code for Gaelic.
+        public static var `gd`: Self {
+            return .init("gd")
+        }
+
+        ///language code for Shona.
+        public static var `sn`: Self {
+            return .init("sn")
+        }
+
+        ///language code for Sinhala.
+        public static var `si`: Self {
+            return .init("si")
+        }
+
+        ///language code for Slovak.
+        public static var `sk`: Self {
+            return .init("sk")
+        }
+
+        ///language code for Slovene.
+        public static var `sl`: Self {
+            return .init("sl")
+        }
+
+        ///language code for Somali.
+        public static var `so`: Self {
+            return .init("so")
+        }
+
+        ///language code for Southern Sotho.
+        public static var `st`: Self {
+            return .init("st")
+        }
+
+        ///language code for Spanish.
+        public static var `es`: Self {
+            return .init("es")
+        }
+
+        ///language code for Sundanese.
+        public static var `su`: Self {
+            return .init("su")
+        }
+
+        ///language code for Swahili.
+        public static var `sw`: Self {
+            return .init("sw")
+        }
+
+        ///language code for Swati.
+        public static var `ss`: Self {
+            return .init("ss")
+        }
+
+        ///language code for Swedish.
+        public static var `sv`: Self {
+            return .init("sv")
+        }
+
+        ///language code for Tamil.
+        public static var `ta`: Self {
+            return .init("ta")
+        }
+
+        ///language code for Telugu.
+        public static var `te`: Self {
+            return .init("te")
+        }
+
+        ///language code for Tajik.
+        public static var `tg`: Self {
+            return .init("tg")
+        }
+
+        ///language code for Thai.
+        public static var `th`: Self {
+            return .init("th")
+        }
+
+        ///language code for Tigrinya.
+        public static var `ti`: Self {
+            return .init("ti")
+        }
+
+        ///language code for Tibetan.
+        public static var `bo`: Self {
+            return .init("bo")
+        }
+
+        ///language code for Turkmen.
+        public static var `tk`: Self {
+            return .init("tk")
+        }
+
+        ///language code for Tagalog.
+        public static var `tl`: Self {
+            return .init("tl")
+        }
+
+        ///language code for Tswana.
+        public static var `tn`: Self {
+            return .init("tn")
+        }
+
+        ///language code for Tonga.
+        public static var `to`: Self {
+            return .init("to")
+        }
+
+        ///language code for Turkish.
+        public static var `tr`: Self {
+            return .init("tr")
+        }
+
+        ///language code for Tsonga.
+        public static var `ts`: Self {
+            return .init("ts")
+        }
+
+        ///language code for Tatar.
+        public static var `tt`: Self {
+            return .init("tt")
+        }
+
+        ///language code for Twi.
+        public static var `tw`: Self {
+            return .init("tw")
+        }
+
+        ///language code for Tahitian.
+        public static var `ty`: Self {
+            return .init("ty")
+        }
+
+        ///language code for Uighur.
+        public static var `ug`: Self {
+            return .init("ug")
+        }
+
+        ///language code for Ukrainian.
+        public static var `uk`: Self {
+            return .init("uk")
+        }
+
+        ///language code for Urdu.
+        public static var `ur`: Self {
+            return .init("ur")
+        }
+
+        ///language code for Uzbek.
+        public static var `uz`: Self {
+            return .init("uz")
+        }
+
+        ///language code for Venda.
+        public static var `ve`: Self {
+            return .init("ve")
+        }
+
+        ///language code for Vietnamese.
+        public static var `vi`: Self {
+            return .init("vi")
+        }
+
+        ///language code for Volapük.
+        public static var `vo`: Self {
+            return .init("vo")
+        }
+
+        ///language code for Walloon.
+        public static var `wa`: Self {
+            return .init("wa")
+        }
+
+        ///language code for Welsh.
+        public static var `cy`: Self {
+            return .init("cy")
+        }
+
+        ///language code for Wolof.
+        public static var `wo`: Self {
+            return .init("wo")
+        }
+
+        ///language code for Xhosa.
+        public static var `xh`: Self {
+            return .init("xh")
+        }
+
+        ///language code for Yiddish.
+        public static var `yi`: Self {
+            return .init("yi")
+        }
+
+        ///language code for Yoruba.
+        public static var `yo`: Self {
+            return .init("yo")
+        }
+
+        ///language code for Zhuang.
+        public static var `za`: Self {
+            return .init("za")
+        }
+
+        ///language code for Zulu.
+        public static var `zu`: Self {
+            return .init("zu")
+        }
+
+
     }
 }

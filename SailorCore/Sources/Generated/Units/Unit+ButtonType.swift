@@ -6,25 +6,32 @@
 //
 
 extension Unit {
-    public enum ButtonType: Equatable, CustomStringConvertible {
-        ///A clickable button.
-        case `button`
-        
-        ///A reset button.
-        case `reset`
-        
-        ///A submit button.
-        case `submit`
-        
+    public struct ButtonType {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .button:
-                    return "button"
-            case .reset:
-                    return "reset"
-            case .submit:
-                    return "submit"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///A clickable button.
+        public static var `button`: Self {
+            return .init("button")
+        }
+
+        ///A reset button.
+        public static var `reset`: Self {
+            return .init("reset")
+        }
+
+        ///A submit button.
+        public static var `submit`: Self {
+            return .init("submit")
+        }
+
+
     }
 }

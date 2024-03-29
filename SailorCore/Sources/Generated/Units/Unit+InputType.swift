@@ -6,120 +6,127 @@
 //
 
 extension Unit {
-    public enum InputType: Equatable, CustomStringConvertible {
-        ///A clickable button.
-        case `button`
-        
-        ///A checkbox.
-        case `checkbox`
-        
-        ///A color picker.
-        case `color`
-        
-        ///A date picker.
-        case `date`
-        
-        ///A date and time picker.
-        case `datetimeLocal`
-        
-        ///An email input.
-        case `email`
-        
-        ///A file input.
-        case `file`
-        
-        ///A hidden input.
-        case `hidden`
-        
-        ///An image input.
-        case `image`
-        
-        ///A month picker.
-        case `month`
-        
-        ///A number input.
-        case `number`
-        
-        ///A password input.
-        case `password`
-        
-        ///A radio button.
-        case `radio`
-        
-        ///A range input.
-        case `range`
-        
-        ///A reset button.
-        case `reset`
-        
-        ///A search input.
-        case `search`
-        
-        ///A submit button.
-        case `submit`
-        
-        ///A telephone input.
-        case `tel`
-        
-        ///A text input.
-        case `text`
-        
-        ///A time picker.
-        case `time`
-        
-        ///A URL input.
-        case `url`
-        
-        ///A week picker.
-        case `week`
-        
+    public struct InputType {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .button:
-                    return "button"
-            case .checkbox:
-                    return "checkbox"
-            case .color:
-                    return "color"
-            case .date:
-                    return "date"
-            case .datetimeLocal:
-                    return "datetime-local"
-            case .email:
-                    return "email"
-            case .file:
-                    return "file"
-            case .hidden:
-                    return "hidden"
-            case .image:
-                    return "image"
-            case .month:
-                    return "month"
-            case .number:
-                    return "number"
-            case .password:
-                    return "password"
-            case .radio:
-                    return "radio"
-            case .range:
-                    return "range"
-            case .reset:
-                    return "reset"
-            case .search:
-                    return "search"
-            case .submit:
-                    return "submit"
-            case .tel:
-                    return "tel"
-            case .text:
-                    return "text"
-            case .time:
-                    return "time"
-            case .url:
-                    return "url"
-            case .week:
-                    return "week"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///A clickable button.
+        public static var `button`: Self {
+            return .init("button")
+        }
+
+        ///A checkbox.
+        public static var `checkbox`: Self {
+            return .init("checkbox")
+        }
+
+        ///A color picker.
+        public static var `color`: Self {
+            return .init("color")
+        }
+
+        ///A date picker.
+        public static var `date`: Self {
+            return .init("date")
+        }
+
+        ///A date and time picker.
+        public static var `datetimeLocal`: Self {
+            return .init("datetime-local")
+        }
+
+        ///An email input.
+        public static var `email`: Self {
+            return .init("email")
+        }
+
+        ///A file input.
+        public static var `file`: Self {
+            return .init("file")
+        }
+
+        ///A hidden input.
+        public static var `hidden`: Self {
+            return .init("hidden")
+        }
+
+        ///An image input.
+        public static var `image`: Self {
+            return .init("image")
+        }
+
+        ///A month picker.
+        public static var `month`: Self {
+            return .init("month")
+        }
+
+        ///A number input.
+        public static var `number`: Self {
+            return .init("number")
+        }
+
+        ///A password input.
+        public static var `password`: Self {
+            return .init("password")
+        }
+
+        ///A radio button.
+        public static var `radio`: Self {
+            return .init("radio")
+        }
+
+        ///A range input.
+        public static var `range`: Self {
+            return .init("range")
+        }
+
+        ///A reset button.
+        public static var `reset`: Self {
+            return .init("reset")
+        }
+
+        ///A search input.
+        public static var `search`: Self {
+            return .init("search")
+        }
+
+        ///A submit button.
+        public static var `submit`: Self {
+            return .init("submit")
+        }
+
+        ///A telephone input.
+        public static var `tel`: Self {
+            return .init("tel")
+        }
+
+        ///A text input.
+        public static var `text`: Self {
+            return .init("text")
+        }
+
+        ///A time picker.
+        public static var `time`: Self {
+            return .init("time")
+        }
+
+        ///A URL input.
+        public static var `url`: Self {
+            return .init("url")
+        }
+
+        ///A week picker.
+        public static var `week`: Self {
+            return .init("week")
+        }
+
+
     }
 }

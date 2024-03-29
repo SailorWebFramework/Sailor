@@ -6,35 +6,42 @@
 //
 
 extension Unit {
-    public enum Color: Equatable, CustomStringConvertible {
-        ///Defines a color in hexadecimal format.
-        case `hex`(String)
-        
-        ///Defines an RGB color.
-        case `rgb`(Int, Int, Int)
-        
-        ///Defines an RGBA color.
-        case `rgba`(Int, Int, Int, Double)
-        
-        ///Defines an HSL color.
-        case `hsl`(Int, Percent, Percent)
-        
-        ///Defines an HSLA color.
-        case `hsla`(Int, Percent, Percent, Double)
-        
+    public struct Color {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .hex(let hex):
-                return "\(hex)"
-            case .rgb(let r, let g, let b):
-                    return "rgb(\(r) \(g) \(b))"
-            case .rgba(let r, let g, let b, let a):
-                    return "rgba(\(r) \(g) \(b) \(a))"
-            case .hsl(let h, let s, let l):
-                return "hsl(\(h) \(s)% \(l)%)"
-            case .hsla(let h, let s, let l, let a):
-                return "hsla(\(h) \(s)% \(l)% \(a))"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///Defines a color in hexadecimal format.
+        public static func `hex`(_ hex: String) -> Self {
+            return .init("\(hex)")
+        }
+
+        ///Defines an RGB color.
+        public static func `rgb`(_ r: Int, _ g: Int, _ b: Int) -> Self {
+            return .init("rgb(\(r) \(g) \(b))")
+        }
+
+        ///Defines an RGBA color.
+        public static func `rgba`(_ r: Int, _ g: Int, _ b: Int, _ a: Double) -> Self {
+            return .init("rgba(\(r) \(g) \(b) \(a))")
+        }
+
+        ///Defines an HSL color.
+        public static func `hsl`(_ h: Int, _ s: Percent, _ l: Percent) -> Self {
+            return .init("hsl(\(h) \(s)% \(l)%)")
+        }
+
+        ///Defines an HSLA color.
+        public static func `hsla`(_ h: Int, _ s: Percent, _ l: Percent, _ a: Double) -> Self {
+            return .init("hsla(\(h) \(s)% \(l)% \(a))")
+        }
+
+
     }
 }

@@ -6,25 +6,32 @@
 //
 
 extension Unit {
-    public enum PopoverTargetAction: Equatable, CustomStringConvertible {
-        ///Hides the popover.
-        case `hide`
-        
-        ///Shows the popover.
-        case `show`
-        
-        ///Toggles the visibility of the popover.
-        case `toggle`
-        
+    public struct PopoverTargetAction {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .hide:
-                    return "hide"
-            case .show:
-                    return "show"
-            case .toggle:
-                    return "toggle"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///Hides the popover.
+        public static var `hide`: Self {
+            return .init("hide")
+        }
+
+        ///Shows the popover.
+        public static var `show`: Self {
+            return .init("show")
+        }
+
+        ///Toggles the visibility of the popover.
+        public static var `toggle`: Self {
+            return .init("toggle")
+        }
+
+
     }
 }

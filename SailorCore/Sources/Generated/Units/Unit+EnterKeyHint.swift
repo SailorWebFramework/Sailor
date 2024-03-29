@@ -6,45 +6,52 @@
 //
 
 extension Unit {
-    public enum EnterKeyHint: Equatable, CustomStringConvertible {
-        ///The user is done with this text field.
-        case `done`
-        
-        ///The user is done with this text field.
-        case `enter`
-        
-        ///The user is done with this text field.
-        case `go`
-        
-        ///The user is done with this text field.
-        case `next`
-        
-        ///The user is done with this text field.
-        case `previous`
-        
-        ///The user is done with this text field.
-        case `search`
-        
-        ///The user is done with this text field.
-        case `send`
-        
+    public struct EnterKeyHint {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .done:
-                    return "done"
-            case .enter:
-                    return "enter"
-            case .go:
-                    return "go"
-            case .next:
-                    return "next"
-            case .previous:
-                    return "previous"
-            case .search:
-                    return "search"
-            case .send:
-                    return "send"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The user is done with this text field.
+        public static var `done`: Self {
+            return .init("done")
+        }
+
+        ///The user is done with this text field.
+        public static var `enter`: Self {
+            return .init("enter")
+        }
+
+        ///The user is done with this text field.
+        public static var `go`: Self {
+            return .init("go")
+        }
+
+        ///The user is done with this text field.
+        public static var `next`: Self {
+            return .init("next")
+        }
+
+        ///The user is done with this text field.
+        public static var `previous`: Self {
+            return .init("previous")
+        }
+
+        ///The user is done with this text field.
+        public static var `search`: Self {
+            return .init("search")
+        }
+
+        ///The user is done with this text field.
+        public static var `send`: Self {
+            return .init("send")
+        }
+
+
     }
 }

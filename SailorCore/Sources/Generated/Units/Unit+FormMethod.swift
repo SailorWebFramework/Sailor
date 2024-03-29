@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum FormMethod: Equatable, CustomStringConvertible {
-        ///The form data is appended to the URL.
-        case `get`
-        
-        ///The form data is sent to the server.
-        case `post`
-        
+    public struct FormMethod {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .get:
-                    return "get"
-            case .post:
-                    return "post"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The form data is appended to the URL.
+        public static var `get`: Self {
+            return .init("get")
+        }
+
+        ///The form data is sent to the server.
+        public static var `post`: Self {
+            return .init("post")
+        }
+
+
     }
 }

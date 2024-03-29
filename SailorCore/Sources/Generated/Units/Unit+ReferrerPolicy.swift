@@ -6,50 +6,57 @@
 //
 
 extension Unit {
-    public enum ReferrerPolicy: Equatable, CustomStringConvertible {
-        ///The browser will not send a referrer.
-        case `noReferrer`
-        
-        ///The browser will not send a referrer when navigating from HTTPS to HTTP.
-        case `noReferrerWhenDowngrade`
-        
-        ///The browser will send the origin of the referrer.
-        case `origin`
-        
-        ///The browser will send the origin of the referrer when navigating from the same origin.
-        case `originWhenCrossOrigin`
-        
-        ///The browser will send the full referrer when navigating from the same origin.
-        case `sameOrigin`
-        
-        ///The browser will send the origin of the referrer.
-        case `strictOrigin`
-        
-        ///The browser will send the origin of the referrer when navigating from the same origin.
-        case `strictOriginWhenCrossOrigin`
-        
-        ///The browser will send the full referrer.
-        case `unsafeUrl`
-        
+    public struct ReferrerPolicy {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .noReferrer:
-                    return "no-referrer"
-            case .noReferrerWhenDowngrade:
-                    return "no-referrer-when-downgrade"
-            case .origin:
-                    return "origin"
-            case .originWhenCrossOrigin:
-                    return "origin-when-cross-origin"
-            case .sameOrigin:
-                    return "same-origin"
-            case .strictOrigin:
-                    return "strict-origin"
-            case .strictOriginWhenCrossOrigin:
-                    return "strict-origin-when-cross-origin"
-            case .unsafeUrl:
-                    return "unsafe-url"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The browser will not send a referrer.
+        public static var `noReferrer`: Self {
+            return .init("no-referrer")
+        }
+
+        ///The browser will not send a referrer when navigating from HTTPS to HTTP.
+        public static var `noReferrerWhenDowngrade`: Self {
+            return .init("no-referrer-when-downgrade")
+        }
+
+        ///The browser will send the origin of the referrer.
+        public static var `origin`: Self {
+            return .init("origin")
+        }
+
+        ///The browser will send the origin of the referrer when navigating from the same origin.
+        public static var `originWhenCrossOrigin`: Self {
+            return .init("origin-when-cross-origin")
+        }
+
+        ///The browser will send the full referrer when navigating from the same origin.
+        public static var `sameOrigin`: Self {
+            return .init("same-origin")
+        }
+
+        ///The browser will send the origin of the referrer.
+        public static var `strictOrigin`: Self {
+            return .init("strict-origin")
+        }
+
+        ///The browser will send the origin of the referrer when navigating from the same origin.
+        public static var `strictOriginWhenCrossOrigin`: Self {
+            return .init("strict-origin-when-cross-origin")
+        }
+
+        ///The browser will send the full referrer.
+        public static var `unsafeUrl`: Self {
+            return .init("unsafe-url")
+        }
+
+
     }
 }

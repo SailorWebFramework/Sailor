@@ -6,35 +6,42 @@
 //
 
 extension Unit {
-    public enum AlignItems: Equatable, CustomStringConvertible {
-        ///Aligns the items to the baseline.
-        case `baseline`
-        
-        ///Aligns the items in the center.
-        case `center`
-        
-        ///Aligns the items at the end.
-        case `flexEnd`
-        
-        ///Aligns the items at the start.
-        case `flexStart`
-        
-        ///Stretches the items to fill the container.
-        case `stretch`
-        
+    public struct AlignItems {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .baseline:
-                    return "baseline"
-            case .center:
-                    return "center"
-            case .flexEnd:
-                    return "flex-end"
-            case .flexStart:
-                    return "flex-start"
-            case .stretch:
-                    return "stretch"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///Aligns the items to the baseline.
+        public static var `baseline`: Self {
+            return .init("baseline")
+        }
+
+        ///Aligns the items in the center.
+        public static var `center`: Self {
+            return .init("center")
+        }
+
+        ///Aligns the items at the end.
+        public static var `flexEnd`: Self {
+            return .init("flex-end")
+        }
+
+        ///Aligns the items at the start.
+        public static var `flexStart`: Self {
+            return .init("flex-start")
+        }
+
+        ///Stretches the items to fill the container.
+        public static var `stretch`: Self {
+            return .init("stretch")
+        }
+
+
     }
 }
