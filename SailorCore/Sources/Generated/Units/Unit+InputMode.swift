@@ -6,50 +6,57 @@
 //
 
 extension Unit {
-    public enum InputMode: Equatable, CustomStringConvertible {
-        ///A numeric value with a decimal point.
-        case `decimal`
-        
-        ///An email address.
-        case `email`
-        
-        ///No input mode.
-        case `none`
-        
-        ///A numeric value.
-        case `numeric`
-        
-        ///A search field.
-        case `search`
-        
-        ///A telephone number.
-        case `tel`
-        
-        ///A free-form text field.
-        case `text`
-        
-        ///A URL.
-        case `url`
-        
+    public struct InputMode {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .decimal:
-                    return "decimal"
-            case .email:
-                    return "email"
-            case .none:
-                    return "none"
-            case .numeric:
-                    return "numeric"
-            case .search:
-                    return "search"
-            case .tel:
-                    return "tel"
-            case .text:
-                    return "text"
-            case .url:
-                    return "url"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///A numeric value with a decimal point.
+        public static var `decimal`: Self {
+            return .init("decimal")
+        }
+
+        ///An email address.
+        public static var `email`: Self {
+            return .init("email")
+        }
+
+        ///No input mode.
+        public static var `none`: Self {
+            return .init("none")
+        }
+
+        ///A numeric value.
+        public static var `numeric`: Self {
+            return .init("numeric")
+        }
+
+        ///A search field.
+        public static var `search`: Self {
+            return .init("search")
+        }
+
+        ///A telephone number.
+        public static var `tel`: Self {
+            return .init("tel")
+        }
+
+        ///A free-form text field.
+        public static var `text`: Self {
+            return .init("text")
+        }
+
+        ///A URL.
+        public static var `url`: Self {
+            return .init("url")
+        }
+
+
     }
 }

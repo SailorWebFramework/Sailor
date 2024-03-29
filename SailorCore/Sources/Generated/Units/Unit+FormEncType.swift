@@ -6,25 +6,32 @@
 //
 
 extension Unit {
-    public enum FormEncType: Equatable, CustomStringConvertible {
-        ///The form data is URL encoded.
-        case `applicationXWwwFormUrlencoded`
-        
-        ///The form data is sent as a multipart form.
-        case `multipartFormData`
-        
-        ///The form data is sent as plain text.
-        case `textPlain`
-        
+    public struct FormEncType {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .applicationXWwwFormUrlencoded:
-                    return "application/x-www-form-urlencoded"
-            case .multipartFormData:
-                    return "multipart/form-data"
-            case .textPlain:
-                    return "text/plain"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The form data is URL encoded.
+        public static var `applicationXWwwFormUrlencoded`: Self {
+            return .init("application/x-www-form-urlencoded")
+        }
+
+        ///The form data is sent as a multipart form.
+        public static var `multipartFormData`: Self {
+            return .init("multipart/form-data")
+        }
+
+        ///The form data is sent as plain text.
+        public static var `textPlain`: Self {
+            return .init("text/plain")
+        }
+
+
     }
 }

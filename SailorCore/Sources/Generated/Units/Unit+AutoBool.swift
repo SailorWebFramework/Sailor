@@ -6,25 +6,32 @@
 //
 
 extension Unit {
-    public enum AutoBool: Equatable, CustomStringConvertible {
-        ///true value for auto-bool.
-        case `true`
-        
-        ///false value for auto-bool.
-        case `false`
-        
-        ///default behavior of this element on this browser.
-        case `auto`
-        
+    public struct AutoBool {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .true:
-                    return "true"
-            case .false:
-                    return "false"
-            case .auto:
-                    return "auto"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///true value for auto-bool.
+        public static var `true`: Self {
+            return .init("true")
+        }
+
+        ///false value for auto-bool.
+        public static var `false`: Self {
+            return .init("false")
+        }
+
+        ///default behavior of this element on this browser.
+        public static var `auto`: Self {
+            return .init("auto")
+        }
+
+
     }
 }

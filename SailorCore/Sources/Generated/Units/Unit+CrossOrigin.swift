@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum CrossOrigin: Equatable, CustomStringConvertible {
-        ///The request does not include credentials.
-        case `anonymous`
-        
-        ///The request includes credentials.
-        case `useCredentials`
-        
+    public struct CrossOrigin {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .anonymous:
-                    return "anonymous"
-            case .useCredentials:
-                    return "use-credentials"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The request does not include credentials.
+        public static var `anonymous`: Self {
+            return .init("anonymous")
+        }
+
+        ///The request includes credentials.
+        public static var `useCredentials`: Self {
+            return .init("use-credentials")
+        }
+
+
     }
 }

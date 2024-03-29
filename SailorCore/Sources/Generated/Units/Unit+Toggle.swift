@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum Toggle: Equatable, CustomStringConvertible {
-        ///The toggle is on.
-        case `on`
-        
-        ///The toggle is off.
-        case `off`
-        
+    public struct Toggle {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .on:
-                    return "on"
-            case .off:
-                    return "off"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The toggle is on.
+        public static var `on`: Self {
+            return .init("on")
+        }
+
+        ///The toggle is off.
+        public static var `off`: Self {
+            return .init("off")
+        }
+
+
     }
 }

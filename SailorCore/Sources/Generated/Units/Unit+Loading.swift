@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum Loading: Equatable, CustomStringConvertible {
-        ///The browser will load the image immediately.
-        case `eager`
-        
-        ///The browser will load the image when it is in the viewport.
-        case `lazy`
-        
+    public struct Loading {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .eager:
-                    return "eager"
-            case .lazy:
-                    return "lazy"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The browser will load the image immediately.
+        public static var `eager`: Self {
+            return .init("eager")
+        }
+
+        ///The browser will load the image when it is in the viewport.
+        public static var `lazy`: Self {
+            return .init("lazy")
+        }
+
+
     }
 }

@@ -6,20 +6,27 @@
 //
 
 extension Unit {
-    public enum Question: Equatable, CustomStringConvertible {
-        ///The answer is yes.
-        case `yes`
-        
-        ///The answer is no.
-        case `no`
-        
+    public struct Question {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .yes:
-                    return "yes"
-            case .no:
-                    return "no"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The answer is yes.
+        public static var `yes`: Self {
+            return .init("yes")
+        }
+
+        ///The answer is no.
+        public static var `no`: Self {
+            return .init("no")
+        }
+
+
     }
 }

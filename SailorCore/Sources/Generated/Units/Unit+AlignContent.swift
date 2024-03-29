@@ -6,40 +6,47 @@
 //
 
 extension Unit {
-    public enum AlignContent: Equatable, CustomStringConvertible {
-        ///Aligns the content in the center.
-        case `center`
-        
-        ///Aligns the content at the end.
-        case `flexEnd`
-        
-        ///Aligns the content at the start.
-        case `flexStart`
-        
-        ///Distributes the content evenly with space around.
-        case `spaceAround`
-        
-        ///Distributes the content evenly with space between.
-        case `spaceBetween`
-        
-        ///Stretches the content to fill the container.
-        case `stretch`
-        
+    public struct AlignContent {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .center:
-                    return "center"
-            case .flexEnd:
-                    return "flex-end"
-            case .flexStart:
-                    return "flex-start"
-            case .spaceAround:
-                    return "space-around"
-            case .spaceBetween:
-                    return "space-between"
-            case .stretch:
-                    return "stretch"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///Aligns the content in the center.
+        public static var `center`: Self {
+            return .init("center")
+        }
+
+        ///Aligns the content at the end.
+        public static var `flexEnd`: Self {
+            return .init("flex-end")
+        }
+
+        ///Aligns the content at the start.
+        public static var `flexStart`: Self {
+            return .init("flex-start")
+        }
+
+        ///Distributes the content evenly with space around.
+        public static var `spaceAround`: Self {
+            return .init("space-around")
+        }
+
+        ///Distributes the content evenly with space between.
+        public static var `spaceBetween`: Self {
+            return .init("space-between")
+        }
+
+        ///Stretches the content to fill the container.
+        public static var `stretch`: Self {
+            return .init("stretch")
+        }
+
+
     }
 }

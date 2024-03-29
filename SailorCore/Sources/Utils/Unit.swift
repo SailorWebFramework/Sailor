@@ -5,7 +5,7 @@
 //  Created by Joshua Davis on 10/6/23.
 //
 
-/// Umbrella for all style units
+/// Umbrella for all attributes+style units
 public enum Unit { }
 
 

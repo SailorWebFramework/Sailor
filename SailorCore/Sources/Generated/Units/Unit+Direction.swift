@@ -6,25 +6,32 @@
 //
 
 extension Unit {
-    public enum Direction: Equatable, CustomStringConvertible {
-        ///The default value. Defines left to right text rendering.
-        case `ltr`
-        
-        ///Defines right to left text rendering.
-        case `rtl`
-        
-        ///Browser decides the text direction.
-        case `auto`
-        
+    public struct Direction {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .ltr:
-                    return "ltr"
-            case .rtl:
-                    return "rtl"
-            case .auto:
-                    return "auto"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The default value. Defines left to right text rendering.
+        public static var `ltr`: Self {
+            return .init("ltr")
+        }
+
+        ///Defines right to left text rendering.
+        public static var `rtl`: Self {
+            return .init("rtl")
+        }
+
+        ///Browser decides the text direction.
+        public static var `auto`: Self {
+            return .init("auto")
+        }
+
+
     }
 }

@@ -6,40 +6,47 @@
 //
 
 extension Unit {
-    public enum AlignSelf: Equatable, CustomStringConvertible {
-        ///The default value.
-        case `auto`
-        
-        ///Aligns the item to the baseline.
-        case `baseline`
-        
-        ///Aligns the item in the center.
-        case `center`
-        
-        ///Aligns the item at the end.
-        case `flexEnd`
-        
-        ///Aligns the item at the start.
-        case `flexStart`
-        
-        ///Stretches the item to fill the container.
-        case `stretch`
-        
+    public struct AlignSelf {
+        var value: String
+
         public var description: String {
-            switch self {
-            case .auto:
-                    return "auto"
-            case .baseline:
-                    return "baseline"
-            case .center:
-                    return "center"
-            case .flexEnd:
-                    return "flex-end"
-            case .flexStart:
-                    return "flex-start"
-            case .stretch:
-                    return "stretch"
-            }
+            self.value
         }
+
+        init(_ value: String) {
+            self.value = value
+        }
+
+        ///The default value.
+        public static var `auto`: Self {
+            return .init("auto")
+        }
+
+        ///Aligns the item to the baseline.
+        public static var `baseline`: Self {
+            return .init("baseline")
+        }
+
+        ///Aligns the item in the center.
+        public static var `center`: Self {
+            return .init("center")
+        }
+
+        ///Aligns the item at the end.
+        public static var `flexEnd`: Self {
+            return .init("flex-end")
+        }
+
+        ///Aligns the item at the start.
+        public static var `flexStart`: Self {
+            return .init("flex-start")
+        }
+
+        ///Stretches the item to fill the container.
+        public static var `stretch`: Self {
+            return .init("stretch")
+        }
+
+
     }
 }
