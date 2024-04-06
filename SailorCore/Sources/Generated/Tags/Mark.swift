@@ -45,8 +45,6 @@ public struct Mark: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
     }
 
     public init(@PageBuilder _ content: @escaping () -> any Fragment) {

@@ -8,7 +8,23 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
+    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Renderable) {
+        
+    }
+    
+    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Renderable) {
+        
+    }
+    
+    func replace(at: Int, with: any Sailboat.Renderable) {
+        
+    }
+    
     var elementID: ElementID = "EMPTY"
+    
+    var id: String {
+        "EMPTY"
+    }
 
     func remove(at deepIndex: Int) { }
     

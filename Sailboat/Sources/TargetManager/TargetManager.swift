@@ -51,23 +51,14 @@ open class TargetManager {
                     // builds the shallow content body and adds its state to the watchers
                     let content: any Fragment = element.content()
                              
-                    print("BUILT CONTENT")
-
                     // TODO: consider removing previous states dumped because it short circuits so theres no need to test it :ex. if a || b || c ,, i dont need to check b or c until a changes
                     SailboatGlobal.manager.dumpTo(element: element)
                     
-                    print("DUMPED CONTENT")
-
                     // update attributes shallowly and reconcile body
                     element.renderer.renderAttributes()
                     
-                    print("RENDERED ATTRIBUTES")
-
                     element.renderer.reconcile(with: content)
-                    
-                    print("RECONCILE")
-
-                    
+                                        
                     managedEvent.semaphore -= 1
 
                 } else {

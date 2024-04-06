@@ -45,8 +45,6 @@ public struct Input: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
     }
 
     public init(type: (@escaping () -> Unit.InputType), _ value: Binding<String>) {

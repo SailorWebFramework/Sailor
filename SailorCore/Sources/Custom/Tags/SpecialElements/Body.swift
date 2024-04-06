@@ -46,8 +46,7 @@ public struct Body: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
+
     }
     
     public init(@PageBuilder content: @escaping () -> any Fragment) {

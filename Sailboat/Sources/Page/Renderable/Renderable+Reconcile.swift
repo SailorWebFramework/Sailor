@@ -9,7 +9,8 @@ public extension Renderable {
     
     /// reconciles the current node with the body of newContent
     func reconcile(with newContent: any Fragment) {
-        guard let oldContent = SailboatGlobal.manager.managedPages.children[self.elementID] else {
+        
+        guard let oldContent = SailboatGlobal.manager.managedPages.children[self.id] else {
             fatalError("old content doesnt exist or is stateless")
         }
         
@@ -21,7 +22,7 @@ public extension Renderable {
         
         _ = reconcileBody(oldList: oldContent, newList: &copyOfNewContent, index: -1)
         
-        SailboatGlobal.manager.managedPages.children[self.elementID] = copyOfNewContent
+        SailboatGlobal.manager.managedPages.children[self.id] = copyOfNewContent
         
     }
     
@@ -40,7 +41,7 @@ public extension Renderable {
                 
                 // keeps the old renderer, or replaces a value-element ex: String
                 if let newChild = newList.children[i] as? any ValueElement {
-                    self.replace(at: deepindex, with: newChild)
+                    self.replace(at: deepindex, with: newChild.renderer)
                 } else {
                     newList.children[i] = oldElement
                 }
@@ -78,7 +79,7 @@ public extension Renderable {
     }
     
     private func clearChildren(from content: any Fragment, at index: Int) {
-        guard let myPage = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
+        guard let myPage = SailboatGlobal.manager.managedPages.elements[self.id] else {
             fatalError("old content doesnt exist or is stateless")
         }
         

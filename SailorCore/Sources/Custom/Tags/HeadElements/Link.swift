@@ -46,8 +46,6 @@ public struct Link: HeadElement {
         self.renderer = EmptyRenderer()
         #endif
 
-        // sets the id
-        self.attributes["id"] = { id }
     }
 
     public init(rel: (@escaping () -> String), href: (@escaping () -> String)) {

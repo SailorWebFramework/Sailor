@@ -7,16 +7,18 @@
 
 public protocol Renderable {
     
-    var elementID: ElementID { get set }
+    var id: ElementID { get }
+    
+//    var elementID: ElementID { get set }
 
     /// add this element to the parent element
     func addToParent(_ parent: any Element)
     
     ///
-    func insertAfter(_ deepIndex: Int, parent: any Element)
+    func insertAfter(_ deepIndex: Int, parent: any Renderable)
     
     ///
-    func insertBefore(_ deepIndex: Int, parent: any Element)
+    func insertBefore(_ deepIndex: Int, parent: any Renderable)
 
     /// remove this element permenately
     func remove()
@@ -38,7 +40,7 @@ public protocol Renderable {
 //    func replace(with renderable: any Element)
     
     ///
-    func replace(at: Int, with: any Element)
+    func replace(at: Int, with: any Renderable)
     
     /// shallow render of an element events
     func renderEvents()
