@@ -78,17 +78,20 @@ public final class JSNode {
     }
     
     public func addEvent(name: String, closure: @escaping (EventResult) -> Void) {
+        // TODO: verify this, sailor events now stored on DOM
         // add sailor events to its array, skip sailor events
-        if name.first == "_" {
-            return
-        }
+//        if name.first == "_" {
+//            return
+//        }
         
         print("ADDING EVENT \(name)")
+        
         
         let jsClosure = EventResult.getClosure(name, action: closure)
         self.events[name] = jsClosure
         
         _ = self.element.addEventListener?(name, jsClosure)
     }
+
     
 }

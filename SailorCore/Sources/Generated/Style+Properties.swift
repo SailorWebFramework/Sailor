@@ -6,29 +6,124 @@
 //
 
 public extension Style.Property {
-    /// Sets the background color property.
-    static func backgroundColor(_ value: Unit.Color) -> Self {
-        .init(name: "background-color", value: value.description)
-    }
-
     /// Sets the accent color property.
-    static func accentColor(_ value: Unit.Color) -> Self {
-        .init(name: "accent-color", value: value.description)
+    static func accentColor(_ color: Unit.Color) -> Self {
+        .init(
+            name: "accent-color",
+            value: "\(color.description)"
+        )
     }
 
     /// Sets the align-content property.
     static func alignContent(_ value: Unit.AlignContent) -> Self {
-        .init(name: "align-content", value: value.description)
+        .init(
+            name: "align-content",
+            value: "\(value.description)"
+        )
     }
 
     /// Sets the align-items property.
     static func alignItems(_ value: Unit.AlignItems) -> Self {
-        .init(name: "align-items", value: value.description)
+        .init(
+            name: "align-items",
+            value: "\(value.description)"
+        )
     }
 
     /// Sets the align-self property.
     static func alignSelf(_ value: Unit.AlignSelf) -> Self {
-        .init(name: "align-self", value: value.description)
+        .init(
+            name: "align-self",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the aspect-ratio property.
+    static func aspectRatio(_ value: Unit.AspectRatio) -> Self {
+        .init(
+            name: "aspect-ratio",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Shorthand for other background things .
+    static func background(_ attachement: Unit.Attachment, _ color: Unit.Color, _ clip: Unit.VisualBox, _ origin: Unit.VisualBox) -> Self {
+        .init(
+            name: "background",
+            value: "\(attachement.description) \(color.description) \(clip.description) \(origin.description)"
+        )
+    }
+
+    /// Add a graphical effect to the area behind an element.
+    static func backdropFilter(_ filter: Unit.Filter) -> Self {
+        .init(
+            name: "backdrop-filter",
+            value: "\(filter.description)"
+        )
+    }
+
+    /// Sets the visibility of the back face of an element.
+    static func backfaceVisibility(_ visibility: Unit.Visibility) -> Self {
+        .init(
+            name: "backface-visibility",
+            value: "\(visibility.description)"
+        )
+    }
+
+    /// Sets whether a background image is fixed or scrolls with the rest of the page.
+    static func backgroundAttachment(_ attachment: Unit.Attachment) -> Self {
+        .init(
+            name: "background-attachment",
+            value: "\(attachment.description)"
+        )
+    }
+
+    /// Sets the background blend mode property.
+    static func backgroundBlendMode(_ blendMode: Unit.BlendMode) -> Self {
+        .init(
+            name: "background-blend-mode",
+            value: "\(blendMode.description)"
+        )
+    }
+
+    /// Sets the background clip property.
+    static func backgroundClip(_ visualBox: Unit.VisualBox) -> Self {
+        .init(
+            name: "background-clip",
+            value: "\(visualBox.description)"
+        )
+    }
+
+    /// Sets the background color property.
+    static func backgroundColor(_ color: Unit.Color) -> Self {
+        .init(
+            name: "background-color",
+            value: "\(color.description)"
+        )
+    }
+
+    /// Sets the background origin property.
+    static func backgroundOrigin(_ visualBox: Unit.VisualBox) -> Self {
+        .init(
+            name: "background-origin",
+            value: "\(visualBox.description)"
+        )
+    }
+
+    /// Sets the background position property.
+    static func backgroundPositionX(_ positionX: Unit.PositionX) -> Self {
+        .init(
+            name: "background-position-x",
+            value: "\(positionX.description)"
+        )
+    }
+
+    /// Sets the background position property.
+    static func backgroundPositionY(_ positionY: Unit.PositionY) -> Self {
+        .init(
+            name: "background-position-y",
+            value: "\(positionY.description)"
+        )
     }
 
 }

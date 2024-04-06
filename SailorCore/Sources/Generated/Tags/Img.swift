@@ -45,8 +45,6 @@ public struct Img: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
     }
 
     public init(src: (@escaping () -> String), alt: (@escaping () -> String)) {

@@ -9,9 +9,9 @@ public extension Renderable {
     
     ///
     internal func build(_ newContent: any Page, after index: Int) -> Int {
-        guard let myElement = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
-            fatalError("element doesnt exist in global state")
-        }
+//        guard let myElement = SailboatGlobal.manager.managedPages.elements[self.element] else {
+//            fatalError("element doesnt exist in global state")
+//        }
         
         var newIndex = index
         
@@ -20,9 +20,9 @@ public extension Renderable {
             RenderableUtils.build(newContent)
 
             if newIndex != -1 {
-                newContent.renderer.insertAfter(newIndex, parent: myElement)
+                newContent.renderer.insertAfter(newIndex, parent: self)
             } else {
-                newContent.renderer.insertBefore(0, parent: myElement)
+                newContent.renderer.insertBefore(0, parent: self)
             }
             
             newIndex += 1

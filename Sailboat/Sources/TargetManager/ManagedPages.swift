@@ -22,11 +22,18 @@ public final class ManagedPages {
     public var stateHistory: Set<StateID> = []
     
     public func registerElement(_ element: any Element, _ operatorPage: any Fragment) {
-        self.elements[element.id] = element
+        // TODO: force unwrapping at some point dont register nodes
+//        guard let id = element.attributes["id"]?().description else {
+//            fatalError("ID DOESNT EXIST")
+//        }
+        
+        let id = element.id
+        
+        self.elements[id] = element
         
         // TODO: this doesnt work but something like this should be implemented
 //        if !self.stateHistory.isEmpty {
-            self.children[element.id] = operatorPage
+            self.children[id] = operatorPage
 //        }
         
         SailboatGlobal.manager.dumpTo(element: element)

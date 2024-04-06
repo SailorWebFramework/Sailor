@@ -19,7 +19,7 @@ extension Unit {
 
         ///Defines a color in hexadecimal format.
         public static func `hex`(_ hex: String) -> Self {
-            return .init("\(hex)")
+            return .init("\(hex.description)")
         }
 
         ///Defines an RGB color.
@@ -34,12 +34,22 @@ extension Unit {
 
         ///Defines an HSL color.
         public static func `hsl`(_ h: Int, _ s: Percent, _ l: Percent) -> Self {
-            return .init("hsl(\(h) \(s)% \(l)%)")
+            return .init("hsl(\(h.description) \(s.description)% \(l.description)%)")
         }
 
         ///Defines an HSLA color.
         public static func `hsla`(_ h: Int, _ s: Percent, _ l: Percent, _ a: Double) -> Self {
-            return .init("hsla(\(h) \(s)% \(l)% \(a))")
+            return .init("hsla(\(h.description) \(s.description)% \(l.description)% \(a.description))")
+        }
+
+        ///Defines a transparent color.
+        public static var `transparent`: Self {
+            return .init("transparent")
+        }
+
+        ///Defines the color red.
+        public static var `red`: Self {
+            return .init("red")
         }
 
 

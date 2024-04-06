@@ -45,8 +45,6 @@ public struct A: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
     }
 
     public init(href: (@escaping () -> String)) {

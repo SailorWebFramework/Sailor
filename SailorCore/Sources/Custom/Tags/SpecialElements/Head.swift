@@ -44,8 +44,7 @@ public struct Head: Element {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
+
     }
     
     public init() {

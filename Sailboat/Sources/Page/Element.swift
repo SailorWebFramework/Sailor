@@ -9,7 +9,8 @@ import Foundation
 
 public typealias ElementID = String
 
-public protocol Element: Page, Identifiable {
+//, Identifiable
+public protocol Element: Page {
     
     ///
 //    static var name: String { get }

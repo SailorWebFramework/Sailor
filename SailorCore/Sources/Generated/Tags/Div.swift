@@ -45,8 +45,6 @@ public struct Div: BodyElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
     }
 
 

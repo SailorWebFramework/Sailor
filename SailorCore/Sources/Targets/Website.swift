@@ -40,9 +40,10 @@ extension Website {
         print("BODY:", bodyElement.description)
         
         // runs the onAppear event for the Body
-        if let bodyRenderer = bodyElement.renderer as? JSNode {
-            bodyRenderer.enterEvents()
-        }
+        // TODO: FIX THIS I REMOVED IT FOR TEST
+//        if let bodyRenderer = bodyElement.renderer as? JSNode {
+//            bodyRenderer.enterEvents()
+//        }
     }
 }
 

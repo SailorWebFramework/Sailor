@@ -45,8 +45,7 @@ public struct Title: HeadElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-        
-        self.attributes["id"] = { id }
+
     }
     
     public init(@HeadBuilder content: @escaping () -> any Fragment) {
