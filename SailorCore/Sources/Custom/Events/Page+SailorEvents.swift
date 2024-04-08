@@ -32,7 +32,7 @@ public extension Element {
             completion()
         }
     }
-    
+
     //
     func environmentObject(_ object: ObservableObject) -> Self {
         withEvent(name: "_makeEnvironmentObject") { _ in

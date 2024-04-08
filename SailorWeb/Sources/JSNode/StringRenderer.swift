@@ -9,28 +9,17 @@ import Sailboat
 
 // TODO: this whole file make strings work as renderable elements
 
-public struct StringRenderer<Value: Element>: Renderable {
-    public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Renderable) {
-        
-    }
-    
-    public func insertBefore(_ deepIndex: Int, parent: any Sailboat.Renderable) {
-        
-    }
-    
-    public func replace(at: Int, with: any Sailboat.Renderable) {
-        
-    }
+public struct StringRenderer: Renderable {
     
     public var id: String {
         return "STRING"
     }
     
-    var value: Value
+    var value: String
     
     public var elementID: ElementID = "STRING"
 
-    public init(_ value: Value) {
+    public init(_ value: String) {
         self.value = value
     }
     
@@ -39,12 +28,8 @@ public struct StringRenderer<Value: Element>: Renderable {
             return
         }
                 
-        parentNode.appendContent(text: self.value.description)
+        parentNode.appendContent(text: self.value)
     }
-
-    public func replace(at: Int, with: any Element) { }
-    
-    public func replace(with renderable: any Element) { }
     
     public func remove() { }
     
@@ -56,8 +41,10 @@ public struct StringRenderer<Value: Element>: Renderable {
     
     public func renderAttributes() { }
     
-    public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Element) { }
+    public func insertAfter(_ deepIndex: Int, parent: any Sailboat.Renderable) { }
     
-    public func insertBefore(_ deepIndex: Int, parent: any Sailboat.Element) { }
+    public func insertBefore(_ deepIndex: Int, parent: any Sailboat.Renderable) { }
+    
+    public func replace(at: Int, with: any Sailboat.Renderable) { }
 
 }

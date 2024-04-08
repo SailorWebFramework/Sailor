@@ -45,36 +45,32 @@ extension JSNode: Renderable {
         if let parent = self.element.parentElement.object {
             _ = parent.replaceChild!(jsnode.element, self.element)
             
-            // TODO: register node?
-            //SailboatGlobal.managedPages.registerElement(element, operatorPage)
-
-            // TODO: might be an issue because render Attributes dumps dependencies
+            // TODO: dump dependencies? might be an issue because render Attributes dumps dependencies
 //            jsnode.renderAttributes()
 //            jsnode.renderEvents()
         }
         
         JSNode.enterEvents(on: jsnode.element)
-        
-//        if let elementRenderer = renderer as? JSNode {
-//            elementRenderer.enterEvents()
-//        }
     }
     
     public func replace(at deepindex: Int, with renderer: any Renderable) {
-        
-        if let element = element as? any ValueElement {
+        if let stringRenderer = renderer as? StringRenderer {
             // if the element was empty then give it a child or change it
             if let obj = self.element.childNodes[deepindex].object {
-                obj.textContent = JSValue.string(element.value.description)
+                obj.textContent = JSValue.string(stringRenderer.value)
 
             } else {
                 fatalError("COULD NOT FIND STRING INDEX IN DOM")
             }
 
         } else if let jsnode = renderer as? JSNode {
+            
             if let parent = self.element.parentElement.object {
                 _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
             }
+            
+//            SailboatGlobal.managedPages.elements[self.elementID] = nil
+
             
             // TODO: register node?
             //SailboatGlobal.managedPages.registerElement(element, operatorPage)
@@ -91,13 +87,14 @@ extension JSNode: Renderable {
     }
     
     public func remove() {
-        _ = self.element.remove?()
         
         // TODO: recurse over children and call their exitEvents
         // for child in children { child.renderer.remove() }
         
         JSNode.exitEvents(on: self.element)
         
+        _ = self.element.remove?()
+
         // TODO: this doesnt work
 //        SailboatGlobal.managedPages.elements[self.elementID] = nil
 
@@ -117,7 +114,8 @@ extension JSNode: Renderable {
         // dump the built states to the element dependency
         SailboatGlobal.manager.dumpTo(element: page)
         
-        self.sailorEvents.onUpdate(.none)
+        // TODO: onUpdate should it be called here? when do we call it
+//        self.sailorEvents.onUpdate(.none)
     }
     
     public func renderEvents() {
@@ -138,10 +136,6 @@ extension JSNode: Renderable {
         guard let node = self.element.childNodes[deepIndex].object else {
             fatalError("cannot remove an object that doesnt exist")
         }
-        
-//        if node == .null {
-//            fatalError("cannot remove at index \(deepIndex)")
-//        }
 
         JSNode.exitEvents(on: node)
 
@@ -188,6 +182,10 @@ extension JSNode {
     }
     
     
+    public func enterEvents() {
+        JSNode.enterEvents(on: self.element)
+    }
+    
     public static func enterEvents(on object: JSObject) {
 //        // on appear called once the JSNode becomes renderable
 //        self.sailorEvents.onAppear(.none)
@@ -208,7 +206,6 @@ extension JSNode {
 //        self.sailorEvents.onDisappear(.none)
                 
         /// Set properties on the eventInit object
-        
         deeplyLaunchEvents(from: object) { object in
             callEvent(named: "_disappear", on: object)
         }

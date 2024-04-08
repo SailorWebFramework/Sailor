@@ -79,9 +79,9 @@ public extension Renderable {
     }
     
     private func clearChildren(from content: any Fragment, at index: Int) {
-        guard let myPage = SailboatGlobal.manager.managedPages.elements[self.id] else {
-            fatalError("old content doesnt exist or is stateless")
-        }
+//        guard let myPage = SailboatGlobal.manager.managedPages.elements[self.id] else {
+//            fatalError("old content doesnt exist or is stateless")
+//        }
         
         for child in content.children {
             
@@ -98,7 +98,7 @@ public extension Renderable {
             }
             
             // custom node here? wtf is the parent
-            myPage.renderer.remove(at: index + 1)
+            self.remove(at: index + 1)
             
             // TODO:
             // Problem.. what happens to custom pages the elements arent loaded

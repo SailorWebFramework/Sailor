@@ -37,6 +37,9 @@ open class TargetManager {
     
     open func update() {
 
+        print("STATE BEFORE: \(managedEvent.states)")
+        print(managedPages.elements)
+
         for stateID in managedEvent.states {
             guard let elementIDs = managedPages.stateElementMap[stateID] else { continue }
                 
@@ -67,6 +70,9 @@ open class TargetManager {
                 }
             }
         }
+        
+        print("STATE AFTER: \(managedEvent.states)")
+        print(managedPages.elements)
     }
     
     // TODO: move all these to managed page and managed event
