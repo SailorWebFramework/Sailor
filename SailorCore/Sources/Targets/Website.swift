@@ -13,8 +13,6 @@ import JavaScriptKit
 import SailorWeb
 #endif
 
-// TODO: remove App and only use Website for web apps to avoid SwiftUI collisions
-// TODO: Later maybe create App if SwiftUI-like Syntax is ever adopted for cross-platform / native apps
 public protocol Website: Page {
     static func main()
     
@@ -36,14 +34,15 @@ extension Website {
 
         SailorGlobal.initialize(head: headElement)
         SailboatGlobal.manager.build(page: bodyElement)
+                
+        // runs the onAppear event for the Body and Head
+        if let bodyRenderer = bodyElement.renderer as? JSNode {
+            bodyRenderer.enterEvents()
+        }
         
-        print("BODY:", bodyElement.description)
-        
-        // runs the onAppear event for the Body
-        // TODO: FIX THIS I REMOVED IT FOR TEST
-//        if let bodyRenderer = bodyElement.renderer as? JSNode {
-//            bodyRenderer.enterEvents()
-//        }
+        if let headRenderer = headElement.renderer as? JSNode {
+            headRenderer.enterEvents()
+        }
     }
 }
 

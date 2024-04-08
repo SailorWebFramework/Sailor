@@ -71,9 +71,9 @@ extension JSNode {
     public static func deeplyLaunchEvents(from element: JSObject, _ launcher: @escaping (JSObject) -> Void) {
         
         
-        var total = Int(element.childNodes.length.number!)
+        let total = Int(element.childNodes.length.number!)
         
-        print("launching \(total) events on...")
+//        print("launching \(total) events on...")
         for i in 0..<total {
             if let child = element.childNodes[i].object {
                 deeplyLaunchEvents(from: child, launcher)

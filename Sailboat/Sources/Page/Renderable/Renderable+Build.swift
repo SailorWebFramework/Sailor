@@ -9,10 +9,6 @@ public extension Renderable {
     
     ///
     internal func build(_ newContent: any Page, after index: Int) -> Int {
-//        guard let myElement = SailboatGlobal.manager.managedPages.elements[self.element] else {
-//            fatalError("element doesnt exist in global state")
-//        }
-        
         var newIndex = index
         
         if let newContent = newContent as? any Element {
