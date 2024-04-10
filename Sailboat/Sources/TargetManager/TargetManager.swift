@@ -112,7 +112,6 @@ open class TargetManager {
         }
     }
     
-    
     public func getElement(_ elementID: ElementID) -> (any Element)? {
         self.managedPages.elements[elementID]
     }

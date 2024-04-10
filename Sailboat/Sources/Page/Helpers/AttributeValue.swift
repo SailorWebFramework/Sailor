@@ -6,6 +6,6 @@
 //
 
 ///Unit associated with attrubutes
-public protocol AttributeValue: Hashable, CustomStringConvertible, Equatable {
+public protocol AttributeValue: CustomStringConvertible, Equatable {
     var description: String { get }
 }

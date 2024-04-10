@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SailboatGlobal.swift
 //  
 //
 //  Created by Joshua Davis on 12/29/23.

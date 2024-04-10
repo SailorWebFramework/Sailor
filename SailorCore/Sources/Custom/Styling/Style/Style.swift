@@ -1,11 +1,13 @@
 //
-//  File.swift
-//  
+//  Style.swift
+//
 //
 //  Created by Joshua Davis on 10/3/23.
 //
 
-public struct Style {
+public protocol StyleAdjacent { }
+
+public struct Style: StyleAdjacent {
     public static func == (lhs: Style, rhs: Style) -> Bool {
         lhs.properties == rhs.properties
     }

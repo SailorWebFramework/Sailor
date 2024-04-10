@@ -22,7 +22,7 @@ public struct Percent: CustomStringConvertible, Equatable {
     var value: Int
     
 //    init(_ value: Double) {
-//        self.value = value
+//        self.value = Int(value * 100)
 //    }
     
     public init(_ value: Int) {

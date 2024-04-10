@@ -7,15 +7,15 @@
 
 import Sailboat
 import SailorShared
-
 #if os(WASI)
 import SailorWeb
+#else
+#endif
 
+#if os(WASI)
 public typealias Env = SailorWeb.WebEnvironment
-
 #else
 public typealias Env = EmptyEnvironment
-
 #endif
 
 extension Page {
