@@ -8,7 +8,7 @@
 public struct Never: Page {
     
     public var body: Never {
-        self
+        .error()
     }
     
     static func error() -> Never {

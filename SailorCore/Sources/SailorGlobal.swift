@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  SailorGlobal.swift
+//
 //
 //  Created by Joshua Davis on 3/8/24.
 //
@@ -9,7 +9,7 @@ import Sailboat
 
 /// Sailor Specific global environment
 enum SailorGlobal {
-    /// head
+    /// global head page/element refrence in sailor
     static var headRef: (Head)! = nil
     
     static func initialize(head: Head) {

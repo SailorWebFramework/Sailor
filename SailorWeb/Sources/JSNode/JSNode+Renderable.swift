@@ -69,19 +69,10 @@ extension JSNode: Renderable {
                 _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
             }
             
-//            SailboatGlobal.managedPages.elements[self.elementID] = nil
-
-            
-            // TODO: register node?
+            // TODO: register? call the remove method somehow? call the events? remove from elements map
+            //            SailboatGlobal.managedPages.elements[self.elementID] = nil
             //SailboatGlobal.managedPages.registerElement(element, operatorPage)
-
-            // TODO: might be an issue because render Attributes dumps dependencies
-//            jsnode.renderAttributes()
-//            jsnode.renderEvents()
-//            jsnode.didAddToDOM()
-
-            // TODO: need to be able to get the renderer of the child for the exit events
-//            self.element.childNodes[deepindex].exitEvents()
+            //  self.element.childNodes[deepindex].exitEvents()
         }
             
     }
