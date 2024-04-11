@@ -9,7 +9,7 @@ import Sailboat
 
 public extension Element {
     // TODO: make a style builder
-    func style(_ completion: @escaping () -> Style) -> Self {
+    func style(@StyleBuilder _ completion: @escaping () -> Style) -> Self {
         var copy = self
         
         copy.attributes["style"] = completion
