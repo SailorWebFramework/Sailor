@@ -9,8 +9,6 @@ public protocol Renderable {
     
     var id: ElementID { get }
     
-//    var elementID: ElementID { get set }
-
     /// add this element to the parent element
     func addToParent(_ parent: any Element)
     
