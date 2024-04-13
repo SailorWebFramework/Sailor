@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Loading {
+    public struct Loading: Equatable {
         var value: String
 
         public var description: String {

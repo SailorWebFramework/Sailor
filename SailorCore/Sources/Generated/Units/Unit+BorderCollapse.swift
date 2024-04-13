@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct BorderCollapse {
+    public struct BorderCollapse: Equatable {
         var value: String
 
         public var description: String {

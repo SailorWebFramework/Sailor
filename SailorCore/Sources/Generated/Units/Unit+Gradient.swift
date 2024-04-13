@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Gradient {
+    public struct Gradient: Equatable {
         var value: String
 
         public var description: String {

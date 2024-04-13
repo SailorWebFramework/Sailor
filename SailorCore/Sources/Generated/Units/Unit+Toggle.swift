@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Toggle {
+    public struct Toggle: Equatable {
         var value: String
 
         public var description: String {

@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AspectRatio {
+    public struct AspectRatio: Equatable {
         var value: String
 
         public var description: String {

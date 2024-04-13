@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct VisualBox {
+    public struct VisualBox: Equatable {
         var value: String
 
         public var description: String {

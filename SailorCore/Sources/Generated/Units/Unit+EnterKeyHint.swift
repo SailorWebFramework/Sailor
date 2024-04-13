@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct EnterKeyHint {
+    public struct EnterKeyHint: Equatable {
         var value: String
 
         public var description: String {

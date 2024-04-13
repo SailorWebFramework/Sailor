@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Clear {
+    public struct Clear: Equatable {
         var value: String
 
         public var description: String {

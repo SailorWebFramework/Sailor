@@ -1,62 +1,60 @@
 //
-//  Style.swift
+//  StylePack.swift
+//  
 //
-//
-//  Created by Joshua Davis on 10/3/23.
+//  Created by Joshua Davis on 4/9/24.
 //
 
-public protocol StyleAdjacent { }
+import Sailboat
 
-public struct Style: StyleAdjacent, Equatable {
-    // TODO: fix this?
-    public static func == (lhs: Style, rhs: Style) -> Bool {
-        if lhs.properties.count != rhs.properties.count {
-            return false
-        }
-        return lhs.description == rhs.description
+public protocol Style: AttributeValue, CustomStringConvertible {
+    associatedtype StyleBody: Style
+    var style: StyleBody { get }
+    
+}
+
+public extension Style {
+    var description: String {
+        self.style.description
     }
     
-    public static func none() -> Style { Style() }
-    
-    static func + (left: Style, right: Style) -> Style {
-        var copy = left
-        copy.properties.append(contentsOf: right.properties)
-        return copy
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.description == rhs.description
     }
-    
-    public var properties: [any StyleAdjacent]
-    
-    public var isEmpty: Bool {
-        properties.isEmpty
-    }
-    
-    public var description: String {
-        // TODO: make this more efficient temporarily sorting all the keys before to ensure same rendering
-        let keysSorted = self.properties //.sorted()
+}
+
+public protocol StyleContainer: Style, CustomStringConvertible {
+    var properties: [any Style] { get set }
+}
+
+public extension StyleContainer {
+//    static func == (lhs: Self, rhs: Self) -> Bool {
+//        lhs.description == rhs.description
+//    }
+    var description: String {
         var output = ""
-        for property in keysSorted {
-            if let property = property as? Property {
-                output += "\(property.name): \(property.value);"
-            } else if let property = property as? Style {
-                output += property.description
-            } else if let property = property as? any StyleSheet {
-                output += property.body.description
-            }
+        for property in self.properties {
+            output += property.description
         }
         
         return output
     }
     
-    // TODO: make a named init with mustache
-    public init(_ properties: (any StyleAdjacent)...) {
+    var style: Self {
+        fatalError("style container has no body")
+        return self
+    }
+}
+
+public struct StyleGroup: StyleContainer {
+
+    public var properties: [any Style]
+
+    internal init(_ properties: [any Style]) {
         self.properties = properties
     }
     
-    public init(_ properties: [any StyleAdjacent]) {
-        self.properties = properties
-    }
-    
-    public init(@StyleBuilder _ style: () -> Style) {
+    public init(@StyleBuilder _ style: () -> any StyleContainer) {
         self.properties = style().properties
     }
 

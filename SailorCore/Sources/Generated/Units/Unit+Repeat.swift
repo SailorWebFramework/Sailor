@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Repeat {
+    public struct Repeat: Equatable {
         var value: String
 
         public var description: String {

@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Attachment {
+    public struct Attachment: Equatable {
         var value: String
 
         public var description: String {

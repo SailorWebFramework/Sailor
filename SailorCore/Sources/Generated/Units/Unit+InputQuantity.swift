@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct InputQuantity {
+    public struct InputQuantity: Equatable {
         var value: String
 
         public var description: String {

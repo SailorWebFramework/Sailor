@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct CrossOrigin {
+    public struct CrossOrigin: Equatable {
         var value: String
 
         public var description: String {

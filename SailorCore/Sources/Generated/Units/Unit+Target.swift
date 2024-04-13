@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Target {
+    public struct Target: Equatable {
         var value: String
 
         public var description: String {

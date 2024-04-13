@@ -13,6 +13,7 @@ public enum Unit { }
 
 //public typealias Percent = Int
 
+// TODO: remove?
 // TODO: do i put description with percent?
 public struct Percent: CustomStringConvertible, Equatable {
     public var description: String {

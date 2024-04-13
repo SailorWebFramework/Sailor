@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct CompatAuto {
+    public struct CompatAuto: Equatable {
         var value: String
 
         public var description: String {

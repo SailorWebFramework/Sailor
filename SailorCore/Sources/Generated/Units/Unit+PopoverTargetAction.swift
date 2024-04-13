@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct PopoverTargetAction {
+    public struct PopoverTargetAction: Equatable {
         var value: String
 
         public var description: String {

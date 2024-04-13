@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct LineWidth {
+    public struct LineWidth: Equatable {
         var value: String
 
         public var description: String {

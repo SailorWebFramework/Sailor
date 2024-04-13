@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Direction {
+    public struct Direction: Equatable {
         var value: String
 
         public var description: String {

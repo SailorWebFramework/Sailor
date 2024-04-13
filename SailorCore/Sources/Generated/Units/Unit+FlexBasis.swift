@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct FlexBasis {
+    public struct FlexBasis: Equatable {
         var value: String
 
         public var description: String {

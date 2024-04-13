@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Shown {
+    public struct Shown: Equatable {
         var value: String
 
         public var description: String {

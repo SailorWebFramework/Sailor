@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct LengthPercentage {
+    public struct LengthPercentage: Equatable {
         var value: String
 
         public var description: String {
@@ -88,7 +88,7 @@ extension Unit {
         }
 
         ///The image is a specific percentage of the element.
-        public static func `percent`(_ percent: Percent) -> Self {
+        public static func `percent`(_ percent: Int) -> Self {
             return .init("\(percent.description)%")
         }
 

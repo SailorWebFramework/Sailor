@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AutoBool {
+    public struct AutoBool: Equatable {
         var value: String
 
         public var description: String {

@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AllOrNone {
+    public struct AllOrNone: Equatable {
         var value: String
 
         public var description: String {

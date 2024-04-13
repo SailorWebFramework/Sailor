@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct ContainerType {
+    public struct ContainerType: Equatable {
         var value: String
 
         public var description: String {
