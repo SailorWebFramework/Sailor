@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AutoInt {
+    public struct AutoInt: Equatable {
         var value: String
 
         public var description: String {

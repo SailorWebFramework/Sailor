@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct BlendMode {
+    public struct BlendMode: Equatable {
         var value: String
 
         public var description: String {

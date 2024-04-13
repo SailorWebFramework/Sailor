@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Global {
+    public struct Global: Equatable {
         var value: String
 
         public var description: String {

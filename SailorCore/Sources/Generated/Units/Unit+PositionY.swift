@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct PositionY {
+    public struct PositionY: Equatable {
         var value: String
 
         public var description: String {

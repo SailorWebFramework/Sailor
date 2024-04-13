@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct ImageSource {
+    public struct ImageSource: Equatable {
         var value: String
 
         public var description: String {

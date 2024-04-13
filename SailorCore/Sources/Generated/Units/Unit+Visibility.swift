@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Visibility {
+    public struct Visibility: Equatable {
         var value: String
 
         public var description: String {

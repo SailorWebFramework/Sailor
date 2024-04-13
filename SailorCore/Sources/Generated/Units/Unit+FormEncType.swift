@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct FormEncType {
+    public struct FormEncType: Equatable {
         var value: String
 
         public var description: String {

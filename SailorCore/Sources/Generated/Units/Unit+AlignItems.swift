@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AlignItems {
+    public struct AlignItems: Equatable {
         var value: String
 
         public var description: String {

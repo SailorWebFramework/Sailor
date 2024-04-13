@@ -263,10 +263,10 @@ public enum CSS {
     }
 
     /// Sets the background position property.
-    public static func backgroundSize(_ positionY: Unit.BgSize) -> Property {
+    public static func backgroundSize(_ bgSize: Unit.BgSize) -> Property {
         Property(
             name: "background-size",
-            value: "\(positionY.description)"
+            value: "\(bgSize.description)"
         )
     }
 
@@ -275,6 +275,14 @@ public enum CSS {
         Property(
             name: "background-size",
             value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the background position property.
+    public static func backgroundSize(_ lengthPercentage: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "background-size",
+            value: "\(lengthPercentage.description)"
         )
     }
 

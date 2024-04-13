@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct LengthNumber {
+    public struct LengthNumber: Equatable {
         var value: String
 
         public var description: String {

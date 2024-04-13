@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct AutoColor {
+    public struct AutoColor: Equatable {
         var value: String
 
         public var description: String {

@@ -7,10 +7,13 @@
 
 import Sailboat
 
-extension Style: AttributeValue {
-//    public func hash(into hasher: inout Hasher) {
-//        hasher.combine(self.description)
-//    }
-}
+//extension Styles: AttributeValue {
+////    public func hash(into hasher: inout Hasher) {
+////        hasher.combine(self.description)
+////    }
+//}
+
+//extension Style: AttributeValue { }
+
 extension Int: AttributeValue { }
 extension String: AttributeValue { }

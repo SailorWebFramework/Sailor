@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct ButtonType {
+    public struct ButtonType: Equatable {
         var value: String
 
         public var description: String {

@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct VerticalRelativeDirection {
+    public struct VerticalRelativeDirection: Equatable {
         var value: String
 
         public var description: String {

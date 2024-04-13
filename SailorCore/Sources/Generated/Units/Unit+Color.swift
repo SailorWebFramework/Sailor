@@ -6,7 +6,7 @@
 //
 
 extension Unit {
-    public struct Color {
+    public struct Color: Equatable {
         var value: String
 
         public var description: String {
@@ -47,9 +47,749 @@ extension Unit {
             return .init("transparent")
         }
 
-        ///Defines the color red.
+        ///black color #000000
+        public static var `black`: Self {
+            return .init("black")
+        }
+
+        ///silver color #c0c0c0
+        public static var `silver`: Self {
+            return .init("silver")
+        }
+
+        ///gray color #808080
+        public static var `gray`: Self {
+            return .init("gray")
+        }
+
+        ///white color #ffffff
+        public static var `white`: Self {
+            return .init("white")
+        }
+
+        ///maroon color #800000
+        public static var `maroon`: Self {
+            return .init("maroon")
+        }
+
+        ///red color #ff0000
         public static var `red`: Self {
             return .init("red")
+        }
+
+        ///purple color #800080
+        public static var `purple`: Self {
+            return .init("purple")
+        }
+
+        ///fuchsia color #ff00ff
+        public static var `fuchsia`: Self {
+            return .init("fuchsia")
+        }
+
+        ///green color #008000
+        public static var `green`: Self {
+            return .init("green")
+        }
+
+        ///lime color #00ff00
+        public static var `lime`: Self {
+            return .init("lime")
+        }
+
+        ///olive color #808000
+        public static var `olive`: Self {
+            return .init("olive")
+        }
+
+        ///yellow color #ffff00
+        public static var `yellow`: Self {
+            return .init("yellow")
+        }
+
+        ///navy color #000080
+        public static var `navy`: Self {
+            return .init("navy")
+        }
+
+        ///blue color #0000ff
+        public static var `blue`: Self {
+            return .init("blue")
+        }
+
+        ///teal color #008080
+        public static var `teal`: Self {
+            return .init("teal")
+        }
+
+        ///aqua color #00ffff
+        public static var `aqua`: Self {
+            return .init("aqua")
+        }
+
+        ///aliceblue color #f0f8ff
+        public static var `aliceblue`: Self {
+            return .init("aliceblue")
+        }
+
+        ///antiquewhite color #faebd7
+        public static var `antiquewhite`: Self {
+            return .init("antiquewhite")
+        }
+
+        ///aquamarine color #7fffd4
+        public static var `aquamarine`: Self {
+            return .init("aquamarine")
+        }
+
+        ///azure color #f0ffff
+        public static var `azure`: Self {
+            return .init("azure")
+        }
+
+        ///beige color #f5f5dc
+        public static var `beige`: Self {
+            return .init("beige")
+        }
+
+        ///bisque color #ffe4c4
+        public static var `bisque`: Self {
+            return .init("bisque")
+        }
+
+        ///blanchedalmond color #ffebcd
+        public static var `blanchedalmond`: Self {
+            return .init("blanchedalmond")
+        }
+
+        ///blueviolet color #8a2be2
+        public static var `blueviolet`: Self {
+            return .init("blueviolet")
+        }
+
+        ///brown color #a52a2a
+        public static var `brown`: Self {
+            return .init("brown")
+        }
+
+        ///burlywood color #deb887
+        public static var `burlywood`: Self {
+            return .init("burlywood")
+        }
+
+        ///cadetblue color #5f9ea0
+        public static var `cadetblue`: Self {
+            return .init("cadetblue")
+        }
+
+        ///chartreuse color #7fff00
+        public static var `chartreuse`: Self {
+            return .init("chartreuse")
+        }
+
+        ///chocolate color #d2691e
+        public static var `chocolate`: Self {
+            return .init("chocolate")
+        }
+
+        ///coral color #ff7f50
+        public static var `coral`: Self {
+            return .init("coral")
+        }
+
+        ///cornflowerblue color #6495ed
+        public static var `cornflowerblue`: Self {
+            return .init("cornflowerblue")
+        }
+
+        ///cornsilk color #fff8dc
+        public static var `cornsilk`: Self {
+            return .init("cornsilk")
+        }
+
+        ///crimson color #dc143c
+        public static var `crimson`: Self {
+            return .init("crimson")
+        }
+
+        ///cyan color #00ffff
+        public static var `cyan`: Self {
+            return .init("cyan")
+        }
+
+        ///darkblue color #00008b
+        public static var `darkblue`: Self {
+            return .init("darkblue")
+        }
+
+        ///darkcyan color #008b8b
+        public static var `darkcyan`: Self {
+            return .init("darkcyan")
+        }
+
+        ///darkgoldenrod color #b8860b
+        public static var `darkgoldenrod`: Self {
+            return .init("darkgoldenrod")
+        }
+
+        ///darkgray color #a9a9a9
+        public static var `darkgray`: Self {
+            return .init("darkgray")
+        }
+
+        ///darkgreen color #006400
+        public static var `darkgreen`: Self {
+            return .init("darkgreen")
+        }
+
+        ///darkgrey color #a9a9a9
+        public static var `darkgrey`: Self {
+            return .init("darkgrey")
+        }
+
+        ///darkkhaki color #bdb76b
+        public static var `darkkhaki`: Self {
+            return .init("darkkhaki")
+        }
+
+        ///darkmagenta color #8b008b
+        public static var `darkmagenta`: Self {
+            return .init("darkmagenta")
+        }
+
+        ///darkolivegreen color #556b2f
+        public static var `darkolivegreen`: Self {
+            return .init("darkolivegreen")
+        }
+
+        ///darkorange color #ff8c00
+        public static var `darkorange`: Self {
+            return .init("darkorange")
+        }
+
+        ///darkorchid color #9932cc
+        public static var `darkorchid`: Self {
+            return .init("darkorchid")
+        }
+
+        ///darkred color #8b0000
+        public static var `darkred`: Self {
+            return .init("darkred")
+        }
+
+        ///darksalmon color #e9967a
+        public static var `darksalmon`: Self {
+            return .init("darksalmon")
+        }
+
+        ///darkseagreen color #8fbc8f
+        public static var `darkseagreen`: Self {
+            return .init("darkseagreen")
+        }
+
+        ///darkslateblue color #483d8b
+        public static var `darkslateblue`: Self {
+            return .init("darkslateblue")
+        }
+
+        ///darkslategray color #2f4f4f
+        public static var `darkslategray`: Self {
+            return .init("darkslategray")
+        }
+
+        ///darkslategrey color #2f4f4f
+        public static var `darkslategrey`: Self {
+            return .init("darkslategrey")
+        }
+
+        ///darkturquoise color #00ced1
+        public static var `darkturquoise`: Self {
+            return .init("darkturquoise")
+        }
+
+        ///darkviolet color #9400d3
+        public static var `darkviolet`: Self {
+            return .init("darkviolet")
+        }
+
+        ///deeppink color #ff1493
+        public static var `deeppink`: Self {
+            return .init("deeppink")
+        }
+
+        ///deepskyblue color #00bfff
+        public static var `deepskyblue`: Self {
+            return .init("deepskyblue")
+        }
+
+        ///dimgray color #696969
+        public static var `dimgray`: Self {
+            return .init("dimgray")
+        }
+
+        ///dimgrey color #696969
+        public static var `dimgrey`: Self {
+            return .init("dimgrey")
+        }
+
+        ///dodgerblue color #1e90ff
+        public static var `dodgerblue`: Self {
+            return .init("dodgerblue")
+        }
+
+        ///firebrick color #b22222
+        public static var `firebrick`: Self {
+            return .init("firebrick")
+        }
+
+        ///floralwhite color #fffaf0
+        public static var `floralwhite`: Self {
+            return .init("floralwhite")
+        }
+
+        ///forestgreen color #228b22
+        public static var `forestgreen`: Self {
+            return .init("forestgreen")
+        }
+
+        ///gainsboro color #dcdcdc
+        public static var `gainsboro`: Self {
+            return .init("gainsboro")
+        }
+
+        ///ghostwhite color #f8f8ff
+        public static var `ghostwhite`: Self {
+            return .init("ghostwhite")
+        }
+
+        ///gold color #ffd700
+        public static var `gold`: Self {
+            return .init("gold")
+        }
+
+        ///goldenrod color #daa520
+        public static var `goldenrod`: Self {
+            return .init("goldenrod")
+        }
+
+        ///greenyellow color #adff2f
+        public static var `greenyellow`: Self {
+            return .init("greenyellow")
+        }
+
+        ///grey color #808080
+        public static var `grey`: Self {
+            return .init("grey")
+        }
+
+        ///honeydew color #f0fff0
+        public static var `honeydew`: Self {
+            return .init("honeydew")
+        }
+
+        ///hotpink color #ff69b4
+        public static var `hotpink`: Self {
+            return .init("hotpink")
+        }
+
+        ///indianred color #cd5c5c
+        public static var `indianred`: Self {
+            return .init("indianred")
+        }
+
+        ///indigo color #4b0082
+        public static var `indigo`: Self {
+            return .init("indigo")
+        }
+
+        ///ivory color #fffff0
+        public static var `ivory`: Self {
+            return .init("ivory")
+        }
+
+        ///khaki color #f0e68c
+        public static var `khaki`: Self {
+            return .init("khaki")
+        }
+
+        ///lavender color #e6e6fa
+        public static var `lavender`: Self {
+            return .init("lavender")
+        }
+
+        ///lavenderblush color #fff0f5
+        public static var `lavenderblush`: Self {
+            return .init("lavenderblush")
+        }
+
+        ///lawngreen color #7cfc00
+        public static var `lawngreen`: Self {
+            return .init("lawngreen")
+        }
+
+        ///lemonchiffon color #fffacd
+        public static var `lemonchiffon`: Self {
+            return .init("lemonchiffon")
+        }
+
+        ///lightblue color #add8e6
+        public static var `lightblue`: Self {
+            return .init("lightblue")
+        }
+
+        ///lightcoral color #f08080
+        public static var `lightcoral`: Self {
+            return .init("lightcoral")
+        }
+
+        ///lightcyan color #e0ffff
+        public static var `lightcyan`: Self {
+            return .init("lightcyan")
+        }
+
+        ///lightgoldenrodyellow color #fafad2
+        public static var `lightgoldenrodyellow`: Self {
+            return .init("lightgoldenrodyellow")
+        }
+
+        ///lightgray color #d3d3d3
+        public static var `lightgray`: Self {
+            return .init("lightgray")
+        }
+
+        ///lightgreen color #90ee90
+        public static var `lightgreen`: Self {
+            return .init("lightgreen")
+        }
+
+        ///lightgrey color #d3d3d3
+        public static var `lightgrey`: Self {
+            return .init("lightgrey")
+        }
+
+        ///lightpink color #ffb6c1
+        public static var `lightpink`: Self {
+            return .init("lightpink")
+        }
+
+        ///lightsalmon color #ffa07a
+        public static var `lightsalmon`: Self {
+            return .init("lightsalmon")
+        }
+
+        ///lightseagreen color #20b2aa
+        public static var `lightseagreen`: Self {
+            return .init("lightseagreen")
+        }
+
+        ///lightskyblue color #87cefa
+        public static var `lightskyblue`: Self {
+            return .init("lightskyblue")
+        }
+
+        ///lightslategray color #778899
+        public static var `lightslategray`: Self {
+            return .init("lightslategray")
+        }
+
+        ///lightslategrey color #778899
+        public static var `lightslategrey`: Self {
+            return .init("lightslategrey")
+        }
+
+        ///lightsteelblue color #b0c4de
+        public static var `lightsteelblue`: Self {
+            return .init("lightsteelblue")
+        }
+
+        ///lightyellow color #ffffe0
+        public static var `lightyellow`: Self {
+            return .init("lightyellow")
+        }
+
+        ///limegreen color #32cd32
+        public static var `limegreen`: Self {
+            return .init("limegreen")
+        }
+
+        ///linen color #faf0e6
+        public static var `linen`: Self {
+            return .init("linen")
+        }
+
+        ///magenta color #ff00ff
+        public static var `magenta`: Self {
+            return .init("magenta")
+        }
+
+        ///mediumaquamarine color #66cdaa
+        public static var `mediumaquamarine`: Self {
+            return .init("mediumaquamarine")
+        }
+
+        ///mediumblue color #0000cd
+        public static var `mediumblue`: Self {
+            return .init("mediumblue")
+        }
+
+        ///mediumorchid color #ba55d3
+        public static var `mediumorchid`: Self {
+            return .init("mediumorchid")
+        }
+
+        ///mediumpurple color #9370db
+        public static var `mediumpurple`: Self {
+            return .init("mediumpurple")
+        }
+
+        ///mediumseagreen color #3cb371
+        public static var `mediumseagreen`: Self {
+            return .init("mediumseagreen")
+        }
+
+        ///mediumslateblue color #7b68ee
+        public static var `mediumslateblue`: Self {
+            return .init("mediumslateblue")
+        }
+
+        ///mediumspringgreen color #00fa9a
+        public static var `mediumspringgreen`: Self {
+            return .init("mediumspringgreen")
+        }
+
+        ///mediumturquoise color #48d1cc
+        public static var `mediumturquoise`: Self {
+            return .init("mediumturquoise")
+        }
+
+        ///mediumvioletred color #c71585
+        public static var `mediumvioletred`: Self {
+            return .init("mediumvioletred")
+        }
+
+        ///midnightblue color #191970
+        public static var `midnightblue`: Self {
+            return .init("midnightblue")
+        }
+
+        ///mintcream color #f5fffa
+        public static var `mintcream`: Self {
+            return .init("mintcream")
+        }
+
+        ///mistyrose color #ffe4e1
+        public static var `mistyrose`: Self {
+            return .init("mistyrose")
+        }
+
+        ///moccasin color #ffe4b5
+        public static var `moccasin`: Self {
+            return .init("moccasin")
+        }
+
+        ///navajowhite color #ffdead
+        public static var `navajowhite`: Self {
+            return .init("navajowhite")
+        }
+
+        ///oldlace color #fdf5e6
+        public static var `oldlace`: Self {
+            return .init("oldlace")
+        }
+
+        ///olivedrab color #6b8e23
+        public static var `olivedrab`: Self {
+            return .init("olivedrab")
+        }
+
+        ///orange color #ffa500
+        public static var `orange`: Self {
+            return .init("orange")
+        }
+
+        ///orangered color #ff4500
+        public static var `orangered`: Self {
+            return .init("orangered")
+        }
+
+        ///orchid color #da70d6
+        public static var `orchid`: Self {
+            return .init("orchid")
+        }
+
+        ///palegoldenrod color #eee8aa
+        public static var `palegoldenrod`: Self {
+            return .init("palegoldenrod")
+        }
+
+        ///palegreen color #98fb98
+        public static var `palegreen`: Self {
+            return .init("palegreen")
+        }
+
+        ///paleturquoise color #afeeee
+        public static var `paleturquoise`: Self {
+            return .init("paleturquoise")
+        }
+
+        ///palevioletred color #db7093
+        public static var `palevioletred`: Self {
+            return .init("palevioletred")
+        }
+
+        ///papayawhip color #ffefd5
+        public static var `papayawhip`: Self {
+            return .init("papayawhip")
+        }
+
+        ///peachpuff color #ffdab9
+        public static var `peachpuff`: Self {
+            return .init("peachpuff")
+        }
+
+        ///peru color #cd853f
+        public static var `peru`: Self {
+            return .init("peru")
+        }
+
+        ///pink color #ffc0cb
+        public static var `pink`: Self {
+            return .init("pink")
+        }
+
+        ///plum color #dda0dd
+        public static var `plum`: Self {
+            return .init("plum")
+        }
+
+        ///powderblue color #b0e0e6
+        public static var `powderblue`: Self {
+            return .init("powderblue")
+        }
+
+        ///rosybrown color #bc8f8f
+        public static var `rosybrown`: Self {
+            return .init("rosybrown")
+        }
+
+        ///royalblue color #4169e1
+        public static var `royalblue`: Self {
+            return .init("royalblue")
+        }
+
+        ///saddlebrown color #8b4513
+        public static var `saddlebrown`: Self {
+            return .init("saddlebrown")
+        }
+
+        ///salmon color #fa8072
+        public static var `salmon`: Self {
+            return .init("salmon")
+        }
+
+        ///sandybrown color #f4a460
+        public static var `sandybrown`: Self {
+            return .init("sandybrown")
+        }
+
+        ///seagreen color #2e8b57
+        public static var `seagreen`: Self {
+            return .init("seagreen")
+        }
+
+        ///seashell color #fff5ee
+        public static var `seashell`: Self {
+            return .init("seashell")
+        }
+
+        ///sienna color #a0522d
+        public static var `sienna`: Self {
+            return .init("sienna")
+        }
+
+        ///skyblue color #87ceeb
+        public static var `skyblue`: Self {
+            return .init("skyblue")
+        }
+
+        ///slateblue color #6a5acd
+        public static var `slateblue`: Self {
+            return .init("slateblue")
+        }
+
+        ///slategray color #708090
+        public static var `slategray`: Self {
+            return .init("slategray")
+        }
+
+        ///slategrey color #708090
+        public static var `slategrey`: Self {
+            return .init("slategrey")
+        }
+
+        ///snow color #fffafa
+        public static var `snow`: Self {
+            return .init("snow")
+        }
+
+        ///springgreen color #00ff7f
+        public static var `springgreen`: Self {
+            return .init("springgreen")
+        }
+
+        ///steelblue color #4682b4
+        public static var `steelblue`: Self {
+            return .init("steelblue")
+        }
+
+        ///tan color #d2b48c
+        public static var `tan`: Self {
+            return .init("tan")
+        }
+
+        ///thistle color #d8bfd8
+        public static var `thistle`: Self {
+            return .init("thistle")
+        }
+
+        ///tomato color #ff6347
+        public static var `tomato`: Self {
+            return .init("tomato")
+        }
+
+        ///turquoise color #40e0d0
+        public static var `turquoise`: Self {
+            return .init("turquoise")
+        }
+
+        ///violet color #ee82ee
+        public static var `violet`: Self {
+            return .init("violet")
+        }
+
+        ///wheat color #f5deb3
+        public static var `wheat`: Self {
+            return .init("wheat")
+        }
+
+        ///whitesmoke color #f5f5f5
+        public static var `whitesmoke`: Self {
+            return .init("whitesmoke")
+        }
+
+        ///yellowgreen color #9acd32
+        public static var `yellowgreen`: Self {
+            return .init("yellowgreen")
+        }
+
+        ///rebeccapurple color #663399
+        public static var `rebeccapurple`: Self {
+            return .init("rebeccapurple")
+        }
+
+        ///current color
+        public static var `currentColor`: Self {
+            return .init("currentColor")
         }
 
 
