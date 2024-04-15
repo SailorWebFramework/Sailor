@@ -22,7 +22,7 @@ public struct Body: BodyElement {
     public static var name: String { "body" }
 
     /// unique identifier for this html element
-    public var id: ElementID
+    public var sid: SailboatID? = nil
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]
@@ -36,13 +36,11 @@ public struct Body: BodyElement {
     public var renderer: any Renderable
 
     internal init(bodyValue: (() -> any Fragment)?) {
-        let id = UUID().uuidString
-        self.id = id
         self.attributes = [:]
         self.events = [:]
         self.content = bodyValue ?? { List() }
         #if os(WASI)
-        self.renderer = JSNode(elementID: id, .body)
+        self.renderer = JSNode(.body)
         #else
         self.renderer = EmptyRenderer()
         #endif

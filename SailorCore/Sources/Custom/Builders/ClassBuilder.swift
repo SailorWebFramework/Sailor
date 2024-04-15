@@ -11,11 +11,11 @@ import Sailboat
 public struct ClassBuilder {
     
     public static func buildArray(_ components: [any DynamicClass]) -> any DynamicClassContainer  {
-        components.reduce("") { $0 + $1.description }
+        components.reduce("") { "\($0) \($1.description)" }
     }
     
     public static func buildBlock(_ components: (any DynamicClass)...) -> any DynamicClassContainer  {
-        components.reduce("") { $0 + $1.description }
+        components.reduce("") { "\($0) \($1.description)" }
     }
     
     public static func buildOptional(_ component: (any DynamicClassContainer)?) -> any DynamicClassContainer  {

@@ -62,7 +62,7 @@ class TestRenderable: Renderable {
 
 /// Button used to test internal Sailboat
 public struct TButton: Element {
-    public var id: Sailboat.ElementID = UUID().uuidString
+    public var id: Sailboat.SailboatID = UUID().uuidString
     
     public var renderer: some Renderable = TestRenderable()
     

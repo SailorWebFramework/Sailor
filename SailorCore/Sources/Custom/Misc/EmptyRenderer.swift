@@ -8,23 +8,27 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
-    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Renderable) {
+    func setSailboatID(_ value: Sailboat.SailboatID?) { }
+    
+    var sid: Sailboat.SailboatID? = nil
+    
+    func updateAttribute(name: String, value: any Sailboat.AttributeValue) {
         
     }
     
-    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Renderable) {
+    func addEvent(name: String, value: @escaping (Sailboat.EventResult) -> Void) {
         
     }
     
-    func replace(at: Int, with: any Sailboat.Renderable) {
-        
-    }
+    func insertAfter(_ deepIndex: Int, parent: any Sailboat.Renderable) { }
     
-    var elementID: ElementID = "EMPTY"
+    func insertBefore(_ deepIndex: Int, parent: any Sailboat.Renderable) { }
     
-    var id: String {
-        "EMPTY"
-    }
+    func replace(at: Int, with: any Sailboat.Renderable) { }
+    
+    var elementID: SailboatID = "EMPTY"
+    
+    var id: String { "EMPTY" }
 
     func remove(at deepIndex: Int) { }
     
@@ -46,7 +50,7 @@ struct EmptyRenderer: Renderable {
     
     func clearEvents() { }
 
-    func replace(with renderable: any Element) { }
+//    func replace(with renderable: any Element) { }
     
     func render() { }
     

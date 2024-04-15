@@ -36,4 +36,39 @@ public extension Renderable {
         return newIndex
     }
     
+    internal func renderAttributes(_ attributes: [String: () -> any AttributeValue]) {
+        for (name, value) in attributes {
+            self.updateAttribute(name: name, value: value())
+            
+            let states = SailboatGlobal.manager.dump()
+            
+            guard !states.isEmpty else { continue }
+
+            let sailboatID: String
+            
+            if self.sid == nil {
+                sailboatID = SailboatGlobal.managedPages.createSailboatID()
+                self.setSailboatID(sailboatID)
+
+            } else {
+                // TODO: forcing this
+                sailboatID = self.sid!
+            }
+            
+            // if its a stateful element it should have an ID
+            for stateID in states {
+                // TODO: error if nil?
+                SailboatGlobal.manager.managedPages.attributes[stateID]?.insert(
+                    .init(sid: sailboatID, name: name)
+                )
+            }
+        }
+    }
+    
+    internal func renderEvents(_ events: [String: (EventResult) -> Void]) {
+        for (name, event) in events {
+            self.addEvent(name: name, value: event)
+        }
+    }
+    
 }

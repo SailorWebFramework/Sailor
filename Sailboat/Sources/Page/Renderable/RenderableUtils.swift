@@ -35,8 +35,8 @@ public enum RenderableUtils {
             SailboatGlobal.managedPages.registerElement(page, operatorPage)
             
             // render current page to parent
-            page.renderer.renderEvents()
-            page.renderer.renderAttributes()
+            page.renderer.renderAttributes(page.attributes)
+            page.renderer.renderEvents(page.events)
 
             build(page: operatorPage, parent: page)
             

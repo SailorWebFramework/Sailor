@@ -41,24 +41,26 @@ open class TargetManager {
         print(managedPages.elements)
 
         for stateID in managedEvent.states {
-            guard let elementIDs = managedPages.stateElementMap[stateID] else { continue }
-                
+            let elements = managedPages.statefulElements[stateID] ?? []
+            let attributes = managedPages.attributes[stateID] ?? []
+
             // body updates need a rerender of the body of the element
-            for elementID in elementIDs {
-                if let element = managedPages.elements[elementID] {
+            for sailboatID in elements {
+                if let element = managedPages.elements[sailboatID] {
                     
-                    print("State: \(stateID), Element: \(element)")
+                    print("State: \(sailboatID), Element: \(element)")
                     
                     managedEvent.semaphore += 1
 
                     // builds the shallow content body and adds its state to the watchers
                     let content: any Fragment = element.content()
                              
-                    // TODO: consider removing previous states dumped because it short circuits so theres no need to test it :ex. if a || b || c ,, i dont need to check b or c until a changes
-                    SailboatGlobal.manager.dumpTo(element: element)
+                    let states = dump()
                     
-                    // update attributes shallowly and reconcile body
-                    element.renderer.renderAttributes()
+                    // TODO: consider removing previous states dumped because it short circuits so theres no need to test it :ex. if a || b || c ,, i dont need to check b or c until a changes
+                    for state in states {
+                        managedPages.statefulElements[state, default: []].insert(sailboatID)
+                    }
                     
                     element.renderer.reconcile(with: content)
                                         
@@ -66,9 +68,21 @@ open class TargetManager {
 
                 } else {
                     // remove elementID in states if it has been removed
-                    managedPages.stateElementMap[stateID]?.remove(elementID)
+                    managedPages.statefulElements[stateID]?.remove(sailboatID)
                 }
             }
+            
+            for attribute in attributes {
+                // TODO: issue the element doesnt get set if theres no body state associated
+                guard let element = self.managedPages.elements[attribute.sid],
+                      let attributeClosure = element.attributes[attribute.name] 
+                else {
+                    return
+                }
+ 
+                element.renderer.renderAttributes([attribute.name: attributeClosure])
+            }
+            
         }
         
         print("STATE AFTER: \(managedEvent.states)")
@@ -76,14 +90,16 @@ open class TargetManager {
     }
     
     // TODO: move all these to managed page and managed event
-    public func dumpTo(element: any Element) {
-        let states = dump()
-                
-        for state in states {
-            managedPages.stateElementMap[state, default: []].insert(element.id)
-        }
-
-    }
+//    public func dumpTo(element: any Element) {
+////        let states = dump()
+////                
+////        for state in states {
+////            managedPages.stateElementMap[state, default: []].insert(element.id)
+////        }
+//        
+//
+//
+//    }
     
     // TODO: rename to like
     public func dumpDependency(state: any Stateful) {
@@ -112,8 +128,8 @@ open class TargetManager {
         }
     }
     
-    public func getElement(_ elementID: ElementID) -> (any Element)? {
-        self.managedPages.elements[elementID]
-    }
+//    public func getElement(_ elementID: SailboatID) -> (any Element)? {
+//        self.managedPages.elements[elementID]
+//    }
     
 }
