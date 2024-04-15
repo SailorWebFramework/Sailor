@@ -21,7 +21,7 @@ public struct Meta: HeadElement {
     public static var name: String { "meta" }
 
     /// unique identifier for this html element
-    public var id: ElementID
+    public var sid: SailboatID? = nil
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]
@@ -35,13 +35,11 @@ public struct Meta: HeadElement {
     public var renderer: any Renderable
 
     internal init(bodyValue: (() -> any Fragment)?) {
-        let id = UUID().uuidString
-        self.id = id
         self.attributes = [:]
         self.events = [:]
         self.content = bodyValue ?? { List() }
         #if os(WASI)
-        self.renderer = JSNode(named: Self.name, elementID: id)
+        self.renderer = JSNode(named: Self.name)
         #else
         self.renderer = EmptyRenderer()
         #endif

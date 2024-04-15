@@ -9,6 +9,7 @@ import Sailboat
 
 public protocol DynamicClass: AttributeValue, CustomStringConvertible  {
     associatedtype ClassBody: DynamicClass
+    // TODO: consider renaming
     var classes: ClassBody { get }
 }
 
@@ -21,32 +22,3 @@ public extension DynamicClass {
         lhs.description == rhs.description
     }
 }
-
-public protocol DynamicClassContainer: DynamicClass { }
-
-extension DynamicClassContainer {
-    public var classes: some DynamicClass {
-        fatalError("Classable string does not have body")
-        return ""
-    }
-}
-
-public struct ClassGroup: DynamicClassContainer {
-    public var description: String {
-        self.value
-    }
-    
-    internal var value: String
-    
-    init(@ClassBuilder _ classes: () -> String) {
-        self.value = classes()
-    }
-    
-    internal init(_ value: String) {
-        self.value = value
-    }
-
-
-}
-
-extension String: DynamicClassContainer { }

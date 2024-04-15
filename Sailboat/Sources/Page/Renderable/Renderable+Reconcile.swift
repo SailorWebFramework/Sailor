@@ -10,7 +10,7 @@ public extension Renderable {
     /// reconciles the current node with the body of newContent
     func reconcile(with newContent: any Fragment) {
         
-        guard let oldContent = SailboatGlobal.manager.managedPages.children[self.id] else {
+        guard let sid = self.sid, let oldContent = SailboatGlobal.manager.managedPages.children[sid] else {
             fatalError("old content doesnt exist or is stateless")
         }
         
@@ -22,7 +22,7 @@ public extension Renderable {
         
         _ = reconcileBody(oldList: oldContent, newList: &copyOfNewContent, index: -1)
         
-        SailboatGlobal.manager.managedPages.children[self.id] = copyOfNewContent
+        SailboatGlobal.manager.managedPages.children[sid] = copyOfNewContent
         
     }
     

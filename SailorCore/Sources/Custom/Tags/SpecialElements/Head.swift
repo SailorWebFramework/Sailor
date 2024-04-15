@@ -20,7 +20,7 @@ public struct Head: Element {
     public static var name: String { "head" }
 
     /// unique identifier for this html element
-    public var id: ElementID
+    public var sid: SailboatID? = nil
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]
@@ -34,13 +34,11 @@ public struct Head: Element {
     public var renderer: any Renderable
 
     internal init(bodyValue: (() -> any Fragment)?) {
-        let id = UUID().uuidString
-        self.id = id
         self.attributes = [:]
         self.events = [:]
         self.content = bodyValue ?? { List() }
         #if os(WASI)
-        self.renderer = JSNode(elementID: id, .head)
+        self.renderer = JSNode(.head)
         #else
         self.renderer = EmptyRenderer()
         #endif

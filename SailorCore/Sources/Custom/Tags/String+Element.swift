@@ -44,8 +44,8 @@ extension String: ValueElement, BodyPage, HeadPage {
         set(newValue) { }
     }
     
-    public var id: ElementID {
-        get { "STRING" }
+    public var sid: SailboatID? {
+        get { nil }
         set(newValue) { }
     }
     

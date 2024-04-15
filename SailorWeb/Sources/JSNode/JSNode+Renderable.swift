@@ -6,14 +6,11 @@
 //
 
 import Sailboat
+import SailorShared
 import JavaScriptKit
 
 extension JSNode: Renderable {
-    
-    public var id: ElementID {
-        self.elementID
-    }
-
+        
     public func addToParent(_ parent: any Element) {
         let parentNode = asJSNode(parent.renderer)
         _ = parentNode.element.appendChild?(self.element)
@@ -37,21 +34,21 @@ extension JSNode: Renderable {
         JSNode.enterEvents(on: self.element)
     }
     
-    public func replace(with renderer: any Renderable) {
-        let jsnode = asJSNode(renderer)
-
-        Self.exitEvents(on: self.element)
-
-        if let parent = self.element.parentElement.object {
-            _ = parent.replaceChild!(jsnode.element, self.element)
-            
-            // TODO: dump dependencies? might be an issue because render Attributes dumps dependencies
-//            jsnode.renderAttributes()
-//            jsnode.renderEvents()
-        }
-        
-        JSNode.enterEvents(on: jsnode.element)
-    }
+//    public func replace(with renderer: any Renderable) {
+//        let jsnode = asJSNode(renderer)
+//
+//        Self.exitEvents(on: self.element)
+//
+//        if let parent = self.element.parentElement.object {
+//            _ = parent.replaceChild!(jsnode.element, self.element)
+//            
+//            // TODO: dump dependencies? might be an issue because render Attributes dumps dependencies
+////            jsnode.renderAttributes()
+////            jsnode.renderEvents()
+//        }
+//        
+//        JSNode.enterEvents(on: jsnode.element)
+//    }
     
     public func replace(at deepindex: Int, with renderer: any Renderable) {
         if let stringRenderer = renderer as? StringRenderer {
@@ -70,9 +67,9 @@ extension JSNode: Renderable {
             }
             
             // TODO: register? call the remove method somehow? call the events? remove from elements map
-            //            SailboatGlobal.managedPages.elements[self.elementID] = nil
-            //SailboatGlobal.managedPages.registerElement(element, operatorPage)
-            //  self.element.childNodes[deepindex].exitEvents()
+//                        SailboatGlobal.managedPages.elements[self.elementID] = nil
+//            SailboatGlobal.managedPages.registerElement(element, operatorPage)
+//              self.element.childNodes[deepindex].exitEvents()
         }
             
     }
@@ -91,38 +88,6 @@ extension JSNode: Renderable {
 
     }
     
-    public func renderAttributes() {
-        guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
-            return
-        }
-        
-        self.removeAttributes()
-
-        for (key, value) in page.attributes {
-            self.updateAttribute(name: key, value: value())
-        }
-        
-        // dump the built states to the element dependency
-        SailboatGlobal.manager.dumpTo(element: page)
-        
-        // TODO: onUpdate should it be called here? when do we call it
-//        self.sailorEvents.onUpdate(.none)
-    }
-    
-    public func renderEvents() {
-        guard let page = SailboatGlobal.manager.managedPages.elements[self.elementID] else {
-            return
-        }
-        
-        // TODO: do i need this
-        removeEvents()
-        
-        for (name, event) in page.events {
-            self.addEvent(name: name, closure: event)
-        }
-        
-    }
-    
     public func remove(at deepIndex: Int) {
         guard let node = self.element.childNodes[deepIndex].object else {
             fatalError("cannot remove an object that doesnt exist")
@@ -131,8 +96,8 @@ extension JSNode: Renderable {
         JSNode.exitEvents(on: node)
 
         _ = node.remove?()
-            
         
+        // TODO: call the normal remove() function using the sailor id from the dom
         
 //        print("removing with id: \(node.id)")
 //        SailboatGlobal.managedPages.elements[node.id.description]?.renderer.remove()
@@ -149,14 +114,25 @@ extension JSNode: Renderable {
     
     }
     
+    public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
+        let jsClosure = EventResult.getClosure(name, action: value)
+        self.events[name] = jsClosure
+        
+        _ = self.element.addEventListener?(name, jsClosure)
+    }
+
     public func updateAttribute(name: String, value: any AttributeValue) {
         _ = self.element.setAttribute?(name, value.description)
         self.attributes[name] = value
+    }
+    
+    public func setSailboatID(_ value: SailboatID?) {
+        self.sid = value
         
-        // on update called once the JSNode elements update
-//        self.sailorEvents.onUpdate(.none)
-        JSNode.callEvent(named: "_update", on: self.element)
-        
+        // TODO: what if this is false?
+        if let sid = self.sid {
+            self.updateAttribute(name: "data-sid", value: sid)
+        }
     }
         
 }

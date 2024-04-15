@@ -7,24 +7,24 @@
 
 import Foundation
 
-public typealias ElementID = String
+public typealias SailboatID = String
 
 //, Identifiable
 public protocol Element: Page {
     
     ///
 //    static var name: String { get }
-
-    /// Unique Element ID used to diff items
-    var id: ElementID { get set }
-    
+//
+//    /// Unique Element ID used to diff items
+//    var sid: SailboatID? { get }
+//    
     /// attributes on tag
     var attributes: [String: () -> any AttributeValue] { get set }
     
     /// event names and values attached to this HTMLElement
     var events: [String: (EventResult) -> Void] { get set }
     
-    // TODO: dubug why (() -> any Fragment)? doesnt work
+    // TODO: dubug why (() -> any Fragment)? doesnt work, swiftWASM error?
     /// content within HTML tags
     var content: () -> any Fragment { get set }
     
@@ -34,6 +34,7 @@ public protocol Element: Page {
 }
 
 public extension Element {
+    
     var description: String {
         "Element(type: \(type(of: self)), attributes: \(self.attributes), events: \(self.events), content: \(self.content))"
     }
@@ -83,4 +84,11 @@ public extension Element {
         
         return copy
     }
+    
+//    internal func generateSID() -> Self {
+//        if self.sid != nil { return self }
+//        var copy = self
+////        copy.attributes[SailboatConstants.sidAttributeName] = { UUID().uuidString }
+//        return copy
+//    }
 }

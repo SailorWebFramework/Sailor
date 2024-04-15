@@ -10,14 +10,26 @@ import Sailboat
 // TODO: this whole file make strings work as renderable elements
 
 public struct StringRenderer: Renderable {
+    public func setSailboatID(_ value: Sailboat.SailboatID?) { }
     
-    public var id: String {
-        return "STRING"
+    public var sid: Sailboat.SailboatID? = nil
+    
+    public func updateAttribute(name: String, value: any Sailboat.AttributeValue) {
+        
     }
+    
+    public func addEvent(name: String, value: (Sailboat.EventResult) -> Void) {
+        
+    }
+    
+    
+//    public var id: String {
+//        return "STRING"
+//    }
     
     var value: String
     
-    public var elementID: ElementID = "STRING"
+//    public var elementID: SailboatID = "STRING"
 
     public init(_ value: String) {
         self.value = value
