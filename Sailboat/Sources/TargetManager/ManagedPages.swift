@@ -55,11 +55,12 @@ public final class ManagedPages {
         if states.isEmpty { return }
         
         let newSID = createSailboatID()
+        element.renderer.setSailboatID(newSID)
+
         self.bodies[newSID] = element.content
         self.children[newSID] = operatorPage
-        
-        element.renderer.setSailboatID(newSID)
-        
+        self.renderers[newSID] = element.renderer
+
         for state in states {
             self.statefulElements[state, default: []].insert(newSID)
         }

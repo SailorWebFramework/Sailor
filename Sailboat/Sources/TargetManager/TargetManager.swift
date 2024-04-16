@@ -38,7 +38,11 @@ open class TargetManager {
     open func update() {
 
         print("STATE BEFORE: \(managedEvent.states)")
-//        print(managedPages.elements)
+        print("Attributes: \(managedPages.attributes)")
+        print("Bodies: \(managedPages.bodies)")
+        print("renderers: \(managedPages.renderers)")
+        print("Children: \(managedPages.children)")
+        print("StatesElements: \(managedPages.statefulElements)")
 
         for stateID in managedEvent.states {
             let elements = managedPages.statefulElements[stateID] ?? []
@@ -76,6 +80,7 @@ open class TargetManager {
             
             for attribute in attributes {
                 // TODO: issue the element doesnt get set if theres no body state associated
+                print("updating attribute \(attribute)")
                 guard let renderer = self.managedPages.renderers[attribute.sid] else { return }
  
                 renderer.renderAttributes([attribute.name: attribute.action])
