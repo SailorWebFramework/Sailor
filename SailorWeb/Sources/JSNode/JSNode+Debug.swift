@@ -12,7 +12,7 @@ extension JSNode: CustomStringConvertible {
     
     public var description: String {
         """
-        JSNode(type: \(tagName ?? ""), events: \(events.count), attributes: \(attributes))
+        JSNode(type: \(tagName ?? ""), sid: \(self.sid ?? "nil")
         """
     }
     

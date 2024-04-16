@@ -41,15 +41,13 @@ public extension Renderable {
             self.updateAttribute(name: name, value: value())
             
             let states = SailboatGlobal.manager.dump()
-            print("states of \(name) : \(states)")
+
             guard !states.isEmpty else { continue }
-            print("rendering \(self.sid)")
 
             let sailboatID: String
             
             // register sailboat ID if it doesnt already exist
             if self.sid == nil {
-                print("registering attribute")
                 sailboatID = SailboatGlobal.managedPages.createSailboatID()
                 self.setSailboatID(sailboatID)
                 SailboatGlobal.manager.managedPages.renderers[sailboatID] = self

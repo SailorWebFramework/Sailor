@@ -10,12 +10,12 @@ import SailorShared
 import JavaScriptKit
 
 extension JSNode: Renderable {
-        
-    public func addToParent(_ parent: any Element) {
-        let parentNode = asJSNode(parent.renderer)
+    
+    public func addToParent(_ parent: any Renderable) {
+        let parentNode = asJSNode(parent)
         _ = parentNode.element.appendChild?(self.element)
         
-        JSNode.enterEvents(on: self.element)
+        Self.shallowEnterEvents(on: self.element)
     }
     
     public func insertBefore(_ deepIndex: Int, parent: any Renderable) {
@@ -23,7 +23,7 @@ extension JSNode: Renderable {
         let aboveElement = parentRenderer.element.childNodes[deepIndex]
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        JSNode.enterEvents(on: self.element)
+        Self.shallowEnterEvents(on: self.element)
     }
     
     public func insertAfter(_ deepIndex: Int, parent: any Renderable) {
@@ -31,7 +31,7 @@ extension JSNode: Renderable {
         let aboveElement = parentRenderer.element.childNodes[deepIndex + 1]
         _ = parentRenderer.element.insertBefore?(self.element, aboveElement)
         
-        JSNode.enterEvents(on: self.element)
+        Self.shallowEnterEvents(on: self.element)
     }
     
     public func replace(at deepindex: Int, with renderer: any Renderable) {
@@ -39,7 +39,6 @@ extension JSNode: Renderable {
             // if the element was empty then give it a child or change it
             if let obj = self.element.childNodes[deepindex].object {
                 obj.textContent = JSValue.string(stringRenderer.value)
-
             } else {
                 fatalError("COULD NOT FIND STRING INDEX IN DOM")
             }
@@ -68,14 +67,14 @@ extension JSNode: Renderable {
 
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
         let jsClosure = EventResult.getClosure(name, action: value)
-        self.events[name] = jsClosure
+//        self.events[name] = jsClosure
         
         _ = self.element.addEventListener?(name, jsClosure)
     }
 
     public func updateAttribute(name: String, value: any AttributeValue) {
         _ = self.element.setAttribute?(name, value.description)
-        self.attributes[name] = value
+//        self.attributes[name] = value
     }
     
     public func setSailboatID(_ value: SailboatID?) {
@@ -101,7 +100,7 @@ extension JSNode {
     
     internal func remove(node: JSObject, fromDOM: Bool = true) {
         Self.deeplyLaunchEvents(from: node) { currentNode in
-            JSNode.exitEvents(on: currentNode)
+            Self.shallowExitEvents(on: currentNode)
             if let sailboatID = currentNode.getAttribute?("data-sid").string {
                 RenderableUtils.removeCache(with: sailboatID)
             }
@@ -119,18 +118,28 @@ extension JSNode {
     public static func enterEvents(on object: JSObject) {
         // TODO: make task launch asyncronously
         deeplyLaunchEvents(from: object) { object in
-            callEvent(named: "_appear", on: object)
-            callEvent(named: "_task", on: object)
+            shallowEnterEvents(on: object)
         }
+    }
+    
+    public static func shallowEnterEvents(on object: JSObject) {
+        /// Set properties on the eventInit object
+        callEvent(named: "_appear", on: object)
+        callEvent(named: "_task", on: object)
+    }
+    
+    public static func shallowExitEvents(on object: JSObject) {
+        /// Set properties on the eventInit object
+        callEvent(named: "_disappear", on: object)
 
     }
     
-    public static func exitEvents(on object: JSObject) {
-        /// Set properties on the eventInit object
-        deeplyLaunchEvents(from: object) { object in
-            callEvent(named: "_disappear", on: object)
-        }
-    }
+//    public static func exitEvents(on object: JSObject) {
+//        /// Set properties on the eventInit object
+//        deeplyLaunchEvents(from: object) { object in
+//            callEvent(named: "_disappear", on: object)
+//        }
+//    }
     
 //    public func replace(with renderer: any Renderable) {
 //        let jsnode = asJSNode(renderer)

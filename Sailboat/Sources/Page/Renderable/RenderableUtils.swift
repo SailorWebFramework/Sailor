@@ -41,7 +41,7 @@ public enum RenderableUtils {
             build(page: operatorPage, parent: page)
             
             if let parent = parent {
-                page.renderer.addToParent(parent)
+                page.renderer.addToParent(parent.renderer)
             }
             
             return
@@ -52,13 +52,23 @@ public enum RenderableUtils {
     }
     
     public static func removeCache(with sailboatID: SailboatID) {
+        print("REMOVING \(sailboatID)")
         SailboatGlobal.managedPages.bodies[sailboatID] = nil
         SailboatGlobal.managedPages.children[sailboatID] = nil
         SailboatGlobal.managedPages.renderers[sailboatID] = nil
+        
+        // TODO: must loop over, make this more efficient
 
-        // TODO: must loop over or change definition
-//            SailboatGlobal.managedPages.attributes[sailboatID] = nil
-//            SailboatGlobal.managedPages.statefulElements[sailboatID] = nil
+        for stateID in SailboatGlobal.managedPages.attributes.keys {
+            SailboatGlobal.managedPages.attributes[stateID] = SailboatGlobal.managedPages.attributes[stateID]?.filter {
+                $0.sid != sailboatID
+            }
+        }
+        
+        for stateID in SailboatGlobal.managedPages.statefulElements.keys {
+            SailboatGlobal.managedPages.statefulElements[stateID]?.remove(sailboatID)
+        }
+        
     }
    
 }
