@@ -6,6 +6,7 @@
 //
 
 import JavaScriptKit
+import Sailboat
 
 //MARK- Global
 extension JSNode {
@@ -81,6 +82,19 @@ extension JSNode {
         }
         
         launcher(element)
+    }
+    
+    public static func deeplyGrabSID(from element: JSObject, _ closure: @escaping (SailboatID) -> Void) {
+        let total = Int(element.childNodes.length.number!)
+        
+        for i in 0..<total {
+            if let child = element.childNodes[i].object {
+                deeplyGrabSID(from: child, closure)
+            }
+        }
+        if let sailboatID = element.getAttribute?("data-sid").string {
+            closure(sailboatID)
+        }
     }
 
 }

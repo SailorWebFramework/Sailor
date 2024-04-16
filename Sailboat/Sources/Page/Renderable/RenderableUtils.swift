@@ -50,5 +50,15 @@ public enum RenderableUtils {
         build(page: page.body, parent: parent)
         
     }
+    
+    public static func removeCache(with sailboatID: SailboatID) {
+        SailboatGlobal.managedPages.bodies[sailboatID] = nil
+        SailboatGlobal.managedPages.children[sailboatID] = nil
+        SailboatGlobal.managedPages.renderers[sailboatID] = nil
+
+        // TODO: must loop over or change definition
+//            SailboatGlobal.managedPages.attributes[sailboatID] = nil
+//            SailboatGlobal.managedPages.statefulElements[sailboatID] = nil
+    }
    
 }

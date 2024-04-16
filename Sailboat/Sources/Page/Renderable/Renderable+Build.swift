@@ -46,9 +46,11 @@ public extension Renderable {
 
             let sailboatID: String
             
+            // register sailboat ID if it doesnt already exist
             if self.sid == nil {
                 sailboatID = SailboatGlobal.managedPages.createSailboatID()
                 self.setSailboatID(sailboatID)
+                SailboatGlobal.manager.managedPages.renderers[sailboatID] = self
 
             } else {
                 // TODO: forcing this
@@ -57,9 +59,8 @@ public extension Renderable {
             
             // if its a stateful element it should have an ID
             for stateID in states {
-                // TODO: error if nil?
-                SailboatGlobal.manager.managedPages.attributes[stateID]?.insert(
-                    .init(sid: sailboatID, name: name)
+                SailboatGlobal.manager.managedPages.attributes[stateID, default: []].insert(
+                    .init(sid: sailboatID, action: value, name: name)
                 )
             }
         }
@@ -70,5 +71,6 @@ public extension Renderable {
             self.addEvent(name: name, value: event)
         }
     }
+
     
 }
