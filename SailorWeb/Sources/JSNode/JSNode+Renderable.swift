@@ -51,7 +51,6 @@ extension JSNode: Renderable {
                 _ = parent.replaceChild!(jsnode.element, self.element.childNodes[deepindex])
             }
         }
-            
     }
     
     public func remove() {
@@ -87,7 +86,6 @@ extension JSNode: Renderable {
             self.updateAttribute(name: "data-sid", value: sid)
         }
     }
-        
 }
 
 //MARK- Helpers
@@ -100,7 +98,6 @@ extension JSNode {
                 
         return element
     }
-    
     
     internal func remove(node: JSObject, fromDOM: Bool = true) {
         Self.deeplyLaunchEvents(from: node) { currentNode in
@@ -116,11 +113,11 @@ extension JSNode {
     }
     
     public func enterEvents() {
-        JSNode.enterEvents(on: self.element)
+        Self.enterEvents(on: self.element)
     }
     
     public static func enterEvents(on object: JSObject) {
-//        // TODO: make task launch asyncronously
+        // TODO: make task launch asyncronously
         deeplyLaunchEvents(from: object) { object in
             callEvent(named: "_appear", on: object)
             callEvent(named: "_task", on: object)
@@ -134,7 +131,6 @@ extension JSNode {
             callEvent(named: "_disappear", on: object)
         }
     }
-    
     
 //    public func replace(with renderer: any Renderable) {
 //        let jsnode = asJSNode(renderer)
