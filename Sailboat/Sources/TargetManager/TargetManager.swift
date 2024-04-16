@@ -37,12 +37,12 @@ open class TargetManager {
     
     open func update() {
 
-        print("STATE BEFORE: \(managedEvent.states)")
-        print("Attributes: \(managedPages.attributes)")
-        print("Bodies: \(managedPages.bodies)")
-        print("renderers: \(managedPages.renderers)")
-        print("Children: \(managedPages.children)")
-        print("StatesElements: \(managedPages.statefulElements)")
+//        print("STATE BEFORE: \(managedEvent.states)")
+//        print("Attributes: \(managedPages.attributes)")
+//        print("Bodies: \(managedPages.bodies)")
+//        print("renderers: \(managedPages.renderers)")
+//        print("Children: \(managedPages.children)")
+//        print("StatesElements: \(managedPages.statefulElements)")
 
         for stateID in managedEvent.states {
             let elements = managedPages.statefulElements[stateID] ?? []
@@ -53,7 +53,7 @@ open class TargetManager {
                 if let renderer = managedPages.renderers[sailboatID],
                    let body = managedPages.bodies[sailboatID] {
                     
-                    print("State: \(stateID), Element: \(sailboatID)")
+//                    print("State: \(stateID), Element: \(sailboatID)")
                     // TODO: rempve semaphore, i dont think it does anything...
                     // TODO: edit it stops updates, but seems a bit overkill...
                     managedEvent.semaphore += 1
@@ -78,6 +78,7 @@ open class TargetManager {
                 }
             }
             
+            // TODO: maybe consider batching these attribute updates somehow?
             for attribute in attributes {
                 guard let renderer = self.managedPages.renderers[attribute.sid] else { return }
  
@@ -87,37 +88,29 @@ open class TargetManager {
         }
     }
     
-    // TODO: move all these to managed page and managed event
-//    public func dumpTo(element: any Element) {
-////        let states = dump()
-////                
-////        for state in states {
-////            managedPages.stateElementMap[state, default: []].insert(element.id)
-////        }
-//        
-//
-//
-//    }
-    
     // TODO: rename to like
     public func dumpDependency(state: any Stateful) {
         managedPages.stateHistory.insert(state.id)
     }
     
+    // TODO: rename
     public func dump() -> Set<StateID> {
         let copy = managedPages.stateHistory
         managedPages.stateHistory.removeAll()
         return copy
     }
     
+    // TODO: add to managedEvent
     public func startEvent() {
         managedEvent.semaphore += 1
     }
     
+    // TODO: add to managedEvent
     public func eventAdd<StateValue: Equatable>(state: State<StateValue>) {
         managedEvent.states.insert(state.id)
     }
     
+    // TODO: add to managedEvent
     public func endEvent() {
         managedEvent.semaphore -= 1
 
@@ -125,9 +118,5 @@ open class TargetManager {
             update()
         }
     }
-    
-//    public func getElement(_ elementID: SailboatID) -> (any Element)? {
-//        self.managedPages.elements[elementID]
-//    }
     
 }
