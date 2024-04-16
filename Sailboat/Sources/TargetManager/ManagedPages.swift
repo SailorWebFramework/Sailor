@@ -8,6 +8,14 @@
 import Foundation
 
 public struct ElementAttribute: Hashable {
+    /// the sailboat id of the element
+    let sid: SailboatID
+    //TODO: rename this its not an action lol
+    /// the attribute build action
+    let action: () -> any AttributeValue
+    /// the name of the attribute
+    let name: String
+    
     public static func == (lhs: ElementAttribute, rhs: ElementAttribute) -> Bool {
         lhs.hashValue == rhs.hashValue
     }
@@ -15,23 +23,15 @@ public struct ElementAttribute: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(sid)
         hasher.combine(name)
-
     }
     
-    /// the sailboat id of the element
-    let sid: SailboatID
-    ///
-    let action: () -> any AttributeValue
-    /// the name of the attribute
-    let name: String
 }
 
 public final class ManagedPages {
-    /// all stateful elements that could change throughout the lifecycle of the app
-//    public var elements: [SailboatID: any Element] = [:]
-    
+    ///
     public var renderers: [SailboatID: any Renderable] = [:]
     
+    /// all bodies of stateful elements that could change throughout the lifecycle of the app
     public var bodies: [SailboatID: () -> any Fragment] = [:]
 
     /// references to element attributes that are neccisary for state certian changes
@@ -65,13 +65,7 @@ public final class ManagedPages {
             self.statefulElements[state, default: []].insert(newSID)
         }
     }
-    
-//    public func registerAttribute(_ name: String) {
-//        let newSID = createSailboatID()
-//        self.attributes[] = element
-//        
-//    }
-    
+
     public func createSailboatID() -> String {
         UUID().uuidString
     }
