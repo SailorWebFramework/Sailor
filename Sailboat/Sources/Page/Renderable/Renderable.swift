@@ -11,7 +11,7 @@ public protocol Renderable {
     var sid: SailboatID? { get set }
     
     /// add this element to the parent element
-    func addToParent(_ parent: any Element)
+    func addToParent(_ parent: any Renderable)
     
     ///
     func insertAfter(_ deepIndex: Int, parent: any Renderable)

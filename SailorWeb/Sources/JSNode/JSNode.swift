@@ -19,11 +19,11 @@ public final class JSNode {
 
     // TODO: remove this
     ///
-    internal var events: [String: JSClosure] // Events
+//    internal var events: [String: JSClosure] // Events
     
     // TODO: remove this
     /// The built key and values of the attributes
-    internal var attributes: [String: any AttributeValue]
+//    internal var attributes: [String: any AttributeValue]
     
     public convenience init(_ type: SpecialJSNodeType, sid: SailboatID? = nil) {
         self.init(
@@ -45,8 +45,8 @@ public final class JSNode {
     
     private init(element: JSObject, sid: SailboatID? = nil) {
         self.element = element
-        self.events = [:]
-        self.attributes = [:]
+//        self.events = [:]
+//        self.attributes = [:]
         self.sid = sid
     }
 
@@ -57,21 +57,21 @@ public final class JSNode {
         
     }
     
-    internal func removeAttributes() {
-        
-        for (name, _) in attributes {
-            _ = self.element.removeAttribute?(name)
-        }
-        
-        self.attributes = [:]
-    }
-    
-    
-    internal func removeEvents() {
-        for (name, closure) in events {
-            _ = self.element.removeEventListener?(name, closure)
-        }
-        
-        self.events = [:]
-    }
+//    internal func removeAttributes() {
+//        
+//        for (name, _) in attributes {
+//            _ = self.element.removeAttribute?(name)
+//        }
+//        
+//        self.attributes = [:]
+//    }
+//    
+//    
+//    internal func removeEvents() {
+//        for (name, closure) in events {
+//            _ = self.element.removeEventListener?(name, closure)
+//        }
+//        
+//        self.events = [:]
+//    }
 }

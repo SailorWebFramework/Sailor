@@ -79,17 +79,12 @@ open class TargetManager {
             }
             
             for attribute in attributes {
-                // TODO: issue the element doesnt get set if theres no body state associated
-                print("updating attribute \(attribute)")
                 guard let renderer = self.managedPages.renderers[attribute.sid] else { return }
  
                 renderer.renderAttributes([attribute.name: attribute.action])
             }
             
         }
-        
-        print("STATE AFTER: \(managedEvent.states)")
-//        print(managedPages.elements)
     }
     
     // TODO: move all these to managed page and managed event
