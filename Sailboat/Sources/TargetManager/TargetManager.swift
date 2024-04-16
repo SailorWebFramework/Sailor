@@ -38,7 +38,7 @@ open class TargetManager {
     open func update() {
 
         print("STATE BEFORE: \(managedEvent.states)")
-        print(managedPages.elements)
+//        print(managedPages.elements)
 
         for stateID in managedEvent.states {
             let elements = managedPages.statefulElements[stateID] ?? []
@@ -46,14 +46,16 @@ open class TargetManager {
 
             // body updates need a rerender of the body of the element
             for sailboatID in elements {
-                if let element = managedPages.elements[sailboatID] {
+                if let renderer = managedPages.renderers[sailboatID],
+                   let body = managedPages.bodies[sailboatID] {
                     
-                    print("State: \(sailboatID), Element: \(element)")
-                    
+                    print("State: \(stateID), Element: \(sailboatID)")
+                    // TODO: rempve semaphore, i dont think it does anything...
+                    // TODO: edit it stops updates, but seems a bit overkill...
                     managedEvent.semaphore += 1
 
                     // builds the shallow content body and adds its state to the watchers
-                    let content: any Fragment = element.content()
+                    let content: any Fragment = body()
                              
                     let states = dump()
                     
@@ -62,7 +64,7 @@ open class TargetManager {
                         managedPages.statefulElements[state, default: []].insert(sailboatID)
                     }
                     
-                    element.renderer.reconcile(with: content)
+                    renderer.reconcile(with: content)
                                         
                     managedEvent.semaphore -= 1
 
@@ -74,19 +76,15 @@ open class TargetManager {
             
             for attribute in attributes {
                 // TODO: issue the element doesnt get set if theres no body state associated
-                guard let element = self.managedPages.elements[attribute.sid],
-                      let attributeClosure = element.attributes[attribute.name] 
-                else {
-                    return
-                }
+                guard let renderer = self.managedPages.renderers[attribute.sid] else { return }
  
-                element.renderer.renderAttributes([attribute.name: attributeClosure])
+                renderer.renderAttributes([attribute.name: attribute.action])
             }
             
         }
         
         print("STATE AFTER: \(managedEvent.states)")
-        print(managedPages.elements)
+//        print(managedPages.elements)
     }
     
     // TODO: move all these to managed page and managed event

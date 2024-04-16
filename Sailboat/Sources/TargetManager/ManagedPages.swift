@@ -8,16 +8,32 @@
 import Foundation
 
 public struct ElementAttribute: Hashable {
+    public static func == (lhs: ElementAttribute, rhs: ElementAttribute) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(sid)
+        hasher.combine(name)
+
+    }
+    
     /// the sailboat id of the element
     let sid: SailboatID
+    ///
+    let action: () -> any AttributeValue
     /// the name of the attribute
     let name: String
 }
 
 public final class ManagedPages {
     /// all stateful elements that could change throughout the lifecycle of the app
-    public var elements: [SailboatID: any Element] = [:]
+//    public var elements: [SailboatID: any Element] = [:]
     
+    public var renderers: [SailboatID: any Renderable] = [:]
+    
+    public var bodies: [SailboatID: () -> any Fragment] = [:]
+
     /// references to element attributes that are neccisary for state certian changes
     public var attributes: [StateID: Set<ElementAttribute>] = [:]
 
@@ -39,7 +55,7 @@ public final class ManagedPages {
         if states.isEmpty { return }
         
         let newSID = createSailboatID()
-        self.elements[newSID] = element
+        self.bodies[newSID] = element.content
         self.children[newSID] = operatorPage
         
         element.renderer.setSailboatID(newSID)
