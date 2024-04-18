@@ -42,11 +42,11 @@ public struct Image: BodyElement {
         #endif
     }
 
-    public init(src: (@escaping () -> String), alt: (@escaping () -> String)) {
+    public init() {  
         self.init(bodyValue: nil)
-
-        self.attributes["src"] = { src().description }
-        self.attributes["alt"] = { alt().description }
+    }
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
+        self.init(bodyValue: content)
     }
 
 

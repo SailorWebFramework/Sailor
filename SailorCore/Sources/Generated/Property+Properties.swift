@@ -1166,22 +1166,6 @@ public enum CSS {
         )
     }
 
-    /// Sets the bottom property.
-    public static func bottom(_ length: Unit.AutoLengthPercentage) -> Property {
-        Property(
-            name: "bottom",
-            value: "\(length.description)"
-        )
-    }
-
-    /// Sets the bottom property.
-    public static func bottom(_ globalValue: Unit.Global) -> Property {
-        Property(
-            name: "bottom",
-            value: "\(globalValue.description)"
-        )
-    }
-
     /// Sets the break after property.
     public static func breakAfter(_ value: Unit.Break) -> Property {
         Property(
@@ -2667,6 +2651,86 @@ public enum CSS {
         Property(
             name: "text-decoration-skip-ink",
             value: "\(value.description)"
+        )
+    }
+
+    /// Sets the left property.
+    public static func left(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "left",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the left property.
+    public static func left(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "left",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the right property.
+    public static func right(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "right",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the right property.
+    public static func right(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "right",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the top property.
+    public static func top(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "top",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the top property.
+    public static func top(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "top",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the bottom property.
+    public static func bottom(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "bottom",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the bottom property.
+    public static func bottom(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "bottom",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the position property.
+    public static func position(_ value: Unit.PositionType) -> Property {
+        Property(
+            name: "position",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the position property.
+    public static func position(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "position",
+            value: "\(globalValue.description)"
         )
     }
 

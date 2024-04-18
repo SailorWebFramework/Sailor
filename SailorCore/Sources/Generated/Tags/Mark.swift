@@ -42,6 +42,9 @@ public struct Mark: BodyElement {
         #endif
     }
 
+    public init() {  
+        self.init(bodyValue: nil)
+    }
     public init(@PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
