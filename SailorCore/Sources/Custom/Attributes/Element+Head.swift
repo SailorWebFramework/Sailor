@@ -9,7 +9,7 @@ import Sailboat
 
 // TODO: consider removing however it resturns Self rather than in Page any Element which allows it to be a top-level page
 public extension Element {
-    func head(@HeadBuilder _ builder: @escaping () -> any Fragment) -> Self {
+    func head(@PageBuilder _ builder: @escaping () -> any Fragment) -> Self {
         let built = builder()
 
         // TODO: dont care about state changes right now, but make it so if statements work
@@ -35,7 +35,7 @@ public extension Element {
 }
 
 public extension Page  {
-    func head(@HeadBuilder _ builder: @escaping () -> any Fragment) -> any Element {
+    func head(@PageBuilder _ builder: @escaping () -> any Fragment) -> any Element {
         let built = builder()
         
         // TODO: dont care about state changes right now, but make it so if statements work

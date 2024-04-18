@@ -49,7 +49,7 @@ public struct Head: Element {
         self.init(bodyValue: nil)
     }
     
-    public init(@HeadBuilder content: @escaping () -> any Fragment) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 
