@@ -17,11 +17,6 @@ extension Unit {
             self.value = value
         }
 
-        ///The browser decides the length.
-        public static var `auto`: Self {
-            return .init("auto")
-        }
-
         ///Defines a number of pixels.
         public static func `px`(_ value: Int) -> Self {
             return .init("\(value.description)px")
@@ -95,6 +90,11 @@ extension Unit {
         ///The image is a specific percentage of the element.
         public static func `percent`(_ percent: Int) -> Self {
             return .init("\(percent.description)%")
+        }
+
+        ///The browser decides the value.
+        public static var `auto`: Self {
+            return .init("auto")
         }
 
 

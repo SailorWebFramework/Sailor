@@ -10,12 +10,22 @@ import Sailboat
 @resultBuilder
 public struct ClassBuilder {
     
-    public static func buildArray(_ components: [any DynamicClass]) -> any DynamicClassContainer  {
-        components.reduce("") { "\($0) \($1.description)" }
+    private static func combineClasses(_ components: [any DynamicClass]) -> String {
+        components.reduce("") {
+            if $0 == "" {
+                return $1.description
+            }
+            
+            return "\($0) \($1.description)"
+        }
+    }
+    
+    public static func buildArray(_ components: [any DynamicClass]) -> any DynamicClassContainer {
+        combineClasses(components)
     }
     
     public static func buildBlock(_ components: (any DynamicClass)...) -> any DynamicClassContainer  {
-        components.reduce("") { "\($0) \($1.description)" }
+        combineClasses(components)
     }
     
     public static func buildOptional(_ component: (any DynamicClassContainer)?) -> any DynamicClassContainer  {

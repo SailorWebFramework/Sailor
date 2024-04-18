@@ -43,6 +43,11 @@ public extension Element {
         attribute(.init(name: "hidden", value: { value().description }))
     }
 
+    ///Defines a unique identifier for the element.
+    func id(_ value: (@escaping () -> String)) -> Self {
+        attribute(.init(name: "id", value: { value().description }))
+    }
+
     ///Disables element and all inner elements.
     func inert(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "inert", value: { value().description }))

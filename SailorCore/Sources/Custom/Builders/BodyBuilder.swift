@@ -12,7 +12,6 @@ import Sailboat
 public struct BodyBuilder {
     
     // TODO: should this allowed , should it be stateful?
-
     public static func buildArray(_ components: [any BodyPage]) -> any Fragment {
         return List(components, hash: 0)
     }
