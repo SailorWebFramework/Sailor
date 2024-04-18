@@ -46,7 +46,7 @@ public struct Title: HeadElement {
 
     }
     
-    public init(@HeadBuilder content: @escaping () -> any Fragment) {
+    public init(@PageBuilder content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }
 

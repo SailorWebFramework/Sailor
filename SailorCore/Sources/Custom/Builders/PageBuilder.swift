@@ -9,21 +9,18 @@ import Sailboat
 
 @resultBuilder
 public struct PageBuilder {
-    
-    // TODO: should this allowed , should it be stateful?
 
     public static func buildArray(_ components: [any Page]) -> any Fragment {
-        return List(components, hash: 0)
+        return List(components, hash: String(components.count) + hashKeysHelper(components))
     }
     
     public static func buildBlock(_ components: any Page...) -> any Fragment  {
-        return List(components, hash: 0)
+        return List(components, hash: "")
     }
             
     public static func buildOptional(_ component: (any Fragment)?) -> any Fragment {
         guard let component = component else {
-//            print("OPTIONAL \(-1)")
-            return List([], hash: -1)
+            return List([], hash: "-")
         }
         
         return component
@@ -31,9 +28,8 @@ public struct PageBuilder {
     
     public static func buildEither(first component: any Fragment) -> any Fragment {
         if let component = component as? List {
-//            print("FIRST \((component.hash << 1)+1)")
             // TODO: add then shift?
-            return List(component.children, hash: (component.hash << 1) + 1)
+            return List(component.children, hash: component.hash + "1")
         }
         
         return component
@@ -41,11 +37,27 @@ public struct PageBuilder {
 
     public static func buildEither(second component: any Fragment) -> any Fragment {
         if let component = component as? List {
-//            print("SECOND \((component.hash << 1))")
-            return List(component.children, hash: (component.hash << 1))
+            return List(component.children, hash: component.hash + "0")
         }
 
         return component
+    }
+    
+    private static func hashKeysHelper(_ components: [any Page]) -> String {
+        var output = ""
+        
+        // TODO: verify what happens when key has a @State variable
+        for page in components {
+            if let list = page as? any Fragment {
+                output += hashKeysHelper(list.children)
+            } else if let element = page as? any Element {
+                output += element.attributes["_key"]?().description ?? ""
+            } else {
+                output += hashKeysHelper([page.body])
+            }
+        }
+        
+        return output
     }
     
 }

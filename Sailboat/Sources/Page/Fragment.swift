@@ -10,7 +10,7 @@ public protocol Fragment: Page {
     
     // TODO: hash should be any Equatable or hashable for for-loop fragments
     ///
-    var hash: Int { get set }
+    var hash: String { get set }
 
     ///
     var children: [any Page] { get set }
@@ -21,7 +21,7 @@ public extension Fragment {
     var description: String {
         "Fragment(type: \(type(of: self)), children: \(children.count)"
     }
-    
+
     var body: Never {
         .error()
     }

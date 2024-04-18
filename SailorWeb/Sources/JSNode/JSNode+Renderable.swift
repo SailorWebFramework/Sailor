@@ -73,8 +73,11 @@ extension JSNode: Renderable {
     }
 
     public func updateAttribute(name: String, value: any AttributeValue) {
+        if name.first == "_" {
+            print("UPDATING \(name)")
+            return
+        }
         _ = self.element.setAttribute?(name, value.description)
-//        self.attributes[name] = value
     }
     
     public func setSailboatID(_ value: SailboatID?) {

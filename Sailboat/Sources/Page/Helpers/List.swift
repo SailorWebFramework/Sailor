@@ -8,7 +8,7 @@
 public struct List: Fragment {
     
     /// hash associated with which conditional this block is in
-    public var hash: Int
+    public var hash: String
     
     public var children: [any Page]
 
@@ -17,10 +17,10 @@ public struct List: Fragment {
     }
     
     public init() {
-        self.init([], hash: 0)
+        self.init([], hash: "")
     }
 
-    public init(_ children: [any Page], hash: Int) {
+    public init(_ children: [any Page], hash: String) {
         self.children = children
         self.hash = hash
 
