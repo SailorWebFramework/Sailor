@@ -34,15 +34,15 @@ public final class ManagedPages {
     /// all bodies of stateful elements that could change throughout the lifecycle of the app
     public var bodies: [SailboatID: () -> any Fragment] = [:]
 
-    /// references to element attributes that are neccisary for state certian changes
-    public var attributes: [StateID: Set<ElementAttribute>] = [:]
-
     // TODO: i dont actually need to store the operator, i just need the hashes in order
     // TODO: edit, Think on this, i might need the old values because of the renderers
     // TODO: would be sick if i didnt could probably get the elements from the root element from the DOM
     /// the rendered children of the operator nodes of stateful elements
     public var children: [SailboatID: any Fragment] = [:]
     
+    /// references to element attributes that are neccisary for state certian changes
+    public var attributes: [StateID: Set<ElementAttribute>] = [:]
+
     /// map of states to the pages they include
     public var statefulElements: [StateID: Set<SailboatID>] = [:]
     

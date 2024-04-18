@@ -6,6 +6,14 @@
 //
 
 public enum CSS {
+    /// Sets all properties.
+    public static func all(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "all",
+            value: "\(globalValue.description)"
+        )
+    }
+
     /// Sets the accent color property.
     public static func accentColor(_ color: Unit.Color) -> Property {
         Property(
@@ -119,7 +127,7 @@ public enum CSS {
     }
 
     /// Sets the visibility of the back face of an element.
-    public static func backfaceVisibility(_ visibility: Unit.Visibility) -> Property {
+    public static func backfaceVisibility(_ visibility: Unit.BackfaceVisibility) -> Property {
         Property(
             name: "backface-visibility",
             value: "\(visibility.description)"
@@ -287,7 +295,7 @@ public enum CSS {
     }
 
     /// The block-size CSS property defines the horizontal or vertical size of an element's block, depending on its writing mode.
-    public static func blockSize(_ blockSize: Unit.BlockSize) -> Property {
+    public static func blockSize(_ blockSize: Unit.Size) -> Property {
         Property(
             name: "block-size",
             value: "\(blockSize.description)"
@@ -299,6 +307,14 @@ public enum CSS {
         Property(
             name: "block-size",
             value: "\(globalValue.description)"
+        )
+    }
+
+    /// The block-size CSS property defines the horizontal or vertical size of an element's block, depending on its writing mode.
+    public static func blockSize(_ lengthPercentage: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "block-size",
+            value: "\(lengthPercentage.description)"
         )
     }
 
@@ -1454,6 +1470,22 @@ public enum CSS {
         )
     }
 
+    /// Sets the contain property.
+    public static func contain(_ value: Unit.Contain) -> Property {
+        Property(
+            name: "contain",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the contain property.
+    public static func contain(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "contain",
+            value: "\(globalValue.description)"
+        )
+    }
+
     /// Sets the direction property.
     public static func direction(_ value: Unit.Direction) -> Property {
         Property(
@@ -1579,6 +1611,1062 @@ public enum CSS {
         Property(
             name: "float",
             value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the forced color adjust property.
+    public static func forcedColorAdjust(_ value: Unit.ForcedColorAdjust) -> Property {
+        Property(
+            name: "forced-color-adjust",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the forced color adjust property.
+    public static func forcedColorAdjust(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "forced-color-adjust",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the gap property.
+    public static func gap(_ rowGap: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "gap",
+            value: "\(rowGap.description)"
+        )
+    }
+
+    /// Sets the gap property.
+    public static func gap(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "gap",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the gap property.
+    public static func gap(_ rowGap: Unit.LengthPercentage, _ columnGap: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "gap",
+            value: "\(rowGap.description) \(columnGap.description)"
+        )
+    }
+
+    /// Sets the grid area property.
+    public static func gridArea(_ value: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the grid area property.
+    public static func gridArea(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the grid area property.
+    public static func gridArea(_ value: Unit.GridLine, _ value2: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(value.description) / \(value2.description)"
+        )
+    }
+
+    /// Sets the grid area property.
+    public static func gridArea(_ value: Unit.GridLine, _ value2: Unit.GridLine, _ value3: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(value.description) / \(value2.description) / \(value3.description)"
+        )
+    }
+
+    /// Sets the grid area property.
+    public static func gridArea(_ value: Unit.GridLine, _ value2: Unit.GridLine, _ value3: Unit.GridLine, _ value4: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(value.description) / \(value2.description) / \(value3.description) / \(value4.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.HangingPunctuation) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.None) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.HangingPunctuation, _ value1: Unit.HangingPunctuation) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description) \(value1.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.HangingPunctuation, _ value1: Unit.HangingPunctuationForced) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description) \(value1.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.HangingPunctuation, _ value2: Unit.HangingPunctuation, _ value3: Unit.HangingPunctuationForced) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description) \(value2.description) \(value3.description)"
+        )
+    }
+
+    /// Sets the hanging punctuation property.
+    public static func hangingPunctuation(_ value: Unit.HangingPunctuation, _ value2: Unit.HangingPunctuation, _ value3: Unit.HangingPunctuation, _ value4: Unit.HangingPunctuationForced) -> Property {
+        Property(
+            name: "hanging-punctuation",
+            value: "\(value.description) \(value2.description) \(value3.description) \(value4.description)"
+        )
+    }
+
+    /// Sets the height property.
+    public static func height(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "height",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the height property.
+    public static func height(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "height",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the height property.
+    public static func height(_ heightValue: Unit.Size) -> Property {
+        Property(
+            name: "height",
+            value: "\(heightValue.description)"
+        )
+    }
+
+    /// Sets the width property.
+    public static func width(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "width",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the width property.
+    public static func width(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "width",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the width property.
+    public static func width(_ widthValue: Unit.Size) -> Property {
+        Property(
+            name: "width",
+            value: "\(widthValue.description)"
+        )
+    }
+
+    /// Sets the z-index property.
+    public static func zIndex(_ value: Unit.AutoInt) -> Property {
+        Property(
+            name: "z-index",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the z-index property.
+    public static func zIndex(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "z-index",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the windows property.
+    public static func windows(_ value: Int) -> Property {
+        Property(
+            name: "windows",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the windows property.
+    public static func windows(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "windows",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the word break property.
+    public static func wordBreak(_ value: Unit.WordBreak) -> Property {
+        Property(
+            name: "word-break",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the word break property.
+    public static func wordBreak(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "word-break",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the word spacing property.
+    public static func wordSpacing(_ length: Unit.Normal) -> Property {
+        Property(
+            name: "word-spacing",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the word spacing property.
+    public static func wordSpacing(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "word-spacing",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the word spacing property.
+    public static func wordSpacing(_ length: Unit.Length) -> Property {
+        Property(
+            name: "word-spacing",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the writing mode property.
+    public static func writingMode(_ value: Unit.WritingMode) -> Property {
+        Property(
+            name: "writing-mode",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the writing mode property.
+    public static func writingMode(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "writing-mode",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the white space property.
+    public static func whiteSpace(_ value: Unit.WhiteSpace) -> Property {
+        Property(
+            name: "white-space",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the white space property.
+    public static func whiteSpace(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "white-space",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the white space collapse property.
+    public static func whiteSpaceCollapse(_ value: Unit.WhiteSpaceCollapse) -> Property {
+        Property(
+            name: "white-space-collapse",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the white space collapse property.
+    public static func whiteSpaceCollapse(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "white-space-collapse",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the visibility property.
+    public static func visibility(_ value: Unit.Visibility) -> Property {
+        Property(
+            name: "visibility",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the visibility property.
+    public static func visibility(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "visibility",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func padding(_ allFourSides: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding",
+            value: "\(allFourSides.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func padding(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func padding(_ topPadding: Unit.LengthPercentage, _ bottomPadding: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding",
+            value: "\(topPadding.description) \(bottomPadding.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func padding(_ topPadding: Unit.LengthPercentage, _ leftRightPadding: Unit.LengthPercentage, _ bottomPadding: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding",
+            value: "\(topPadding.description) \(leftRightPadding.description) \(bottomPadding.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func padding(_ topPadding: Unit.LengthPercentage, _ rightPadding: Unit.LengthPercentage, _ bottomPadding: Unit.LengthPercentage, _ leftPadding: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding",
+            value: "\(topPadding.description) \(rightPadding.description) \(bottomPadding.description) \(leftPadding.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func paddingBlockEnd(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-block-end",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding block end property.
+    public static func paddingBlockEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-block-end",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding block start property.
+    public static func paddingBlockStart(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-block-start",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding block start property.
+    public static func paddingBlockStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-block-start",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding block property.
+    public static func paddingBlock(_ blockStart: Unit.LengthPercentage, _ blockEnd: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-block",
+            value: "\(blockStart.description) \(blockEnd.description)"
+        )
+    }
+
+    /// Sets the padding block property.
+    public static func paddingBlock(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-block",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding inline property.
+    public static func paddingInline(_ inlineStart: Unit.LengthPercentage, _ inlineEnd: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-inline",
+            value: "\(inlineStart.description) \(inlineEnd.description)"
+        )
+    }
+
+    /// Sets the padding inline property.
+    public static func paddingInline(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-inline",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding inline end property.
+    public static func paddingInlineEnd(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-inline-end",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding inline end property.
+    public static func paddingInlineEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-inline-end",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding inline start property.
+    public static func paddingInlineStart(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-inline-start",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding inline start property.
+    public static func paddingInlineStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-inline-start",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding top property.
+    public static func paddingTop(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-top",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding top property.
+    public static func paddingTop(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-top",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding right property.
+    public static func paddingRight(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-right",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding right property.
+    public static func paddingRight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-right",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding bottom property.
+    public static func paddingBottom(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-bottom",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding bottom property.
+    public static func paddingBottom(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-bottom",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the padding left property.
+    public static func paddingLeft(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "padding-left",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the padding left property.
+    public static func paddingLeft(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "padding-left",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlockEnd(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-block-end",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlockEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-block-end",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlockStart(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-block-start",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlockStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-block-start",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlock(_ blockStart: Unit.AutoLengthPercentage, _ blockEnd: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-block",
+            value: "\(blockStart.description) \(blockEnd.description)"
+        )
+    }
+
+    /// Sets the margin block end property.
+    public static func marginBlock(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-block",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin inline property.
+    public static func marginInline(_ inlineStart: Unit.AutoLengthPercentage, _ inlineEnd: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-inline",
+            value: "\(inlineStart.description) \(inlineEnd.description)"
+        )
+    }
+
+    /// Sets the margin inline property.
+    public static func marginInline(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-inline",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin inline end property.
+    public static func marginInlineEnd(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-inline-end",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin inline end property.
+    public static func marginInlineEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-inline-end",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin inline start property.
+    public static func marginInlineStart(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-inline-start",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin inline start property.
+    public static func marginInlineStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-inline-start",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin top property.
+    public static func marginTop(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-top",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin top property.
+    public static func marginTop(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-top",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin right property.
+    public static func marginRight(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-right",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin right property.
+    public static func marginRight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-right",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin bottom property.
+    public static func marginBottom(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-bottom",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin bottom property.
+    public static func marginBottom(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-bottom",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin left property.
+    public static func marginLeft(_ length: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin-left",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the margin left property.
+    public static func marginLeft(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin-left",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin property.
+    public static func margin(_ topBottom: Unit.AutoLengthPercentage, _ leftRight: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin",
+            value: "\(topBottom.description) \(leftRight.description)"
+        )
+    }
+
+    /// Sets the margin property.
+    public static func margin(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "margin",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the margin property.
+    public static func margin(_ top: Unit.AutoLengthPercentage, _ leftRight: Unit.AutoLengthPercentage, _ bottom: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin",
+            value: "\(top.description) \(leftRight.description) \(bottom.description)"
+        )
+    }
+
+    /// Sets the margin property.
+    public static func margin(_ top: Unit.AutoLengthPercentage, _ right: Unit.AutoLengthPercentage, _ bottom: Unit.AutoLengthPercentage, _ left: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin",
+            value: "\(top.description) \(right.description) \(bottom.description) \(left.description)"
+        )
+    }
+
+    /// Sets the margin property.
+    public static func margin(_ allFourSides: Unit.AutoLengthPercentage) -> Property {
+        Property(
+            name: "margin",
+            value: "\(allFourSides.description)"
+        )
+    }
+
+    /// Sets the min block size property.
+    public static func minBlockSize(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "min-block-size",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the min block size property.
+    public static func minBlockSize(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "min-block-size",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the min block size property.
+    public static func minBlockSize(_ size: Unit.Size) -> Property {
+        Property(
+            name: "min-block-size",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the min height property.
+    public static func minHeight(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "min-height",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the min height property.
+    public static func minHeight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "min-height",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the min height property.
+    public static func minHeight(_ size: Unit.Size) -> Property {
+        Property(
+            name: "min-height",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the min inline size property.
+    public static func minInlineSize(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "min-inline-size",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the min inline size property.
+    public static func minInlineSize(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "min-inline-size",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the min inline size property.
+    public static func minInlineSize(_ size: Unit.Size) -> Property {
+        Property(
+            name: "min-inline-size",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the min width property.
+    public static func minWidth(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "min-width",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the min width property.
+    public static func minWidth(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "min-width",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the min width property.
+    public static func minWidth(_ size: Unit.Size) -> Property {
+        Property(
+            name: "min-width",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the max block size property.
+    public static func maxBlockSize(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "max-block-size",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the max block size property.
+    public static func maxBlockSize(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "max-block-size",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the max block size property.
+    public static func maxBlockSize(_ size: Unit.Size) -> Property {
+        Property(
+            name: "max-block-size",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the max height property.
+    public static func maxHeight(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "max-height",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the max height property.
+    public static func maxHeight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "max-height",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the max height property.
+    public static func maxHeight(_ size: Unit.Size) -> Property {
+        Property(
+            name: "max-height",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the max inline size property.
+    public static func maxInlineSize(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "max-inline-size",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the max inline size property.
+    public static func maxInlineSize(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "max-inline-size",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the max inline size property.
+    public static func maxInlineSize(_ size: Unit.Size) -> Property {
+        Property(
+            name: "max-inline-size",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the max width property.
+    public static func maxWidth(_ length: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "max-width",
+            value: "\(length.description)"
+        )
+    }
+
+    /// Sets the max width property.
+    public static func maxWidth(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "max-width",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the max width property.
+    public static func maxWidth(_ size: Unit.Size) -> Property {
+        Property(
+            name: "max-width",
+            value: "\(size.description)"
+        )
+    }
+
+    /// Sets the text align property.
+    public static func textAlign(_ value: Unit.TextAlign) -> Property {
+        Property(
+            name: "text-align",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text align property.
+    public static func textAlign(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-align",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text align last property.
+    public static func textAlignLast(_ value: Unit.TextAlign) -> Property {
+        Property(
+            name: "text-align-last",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text align last property.
+    public static func textAlignLast(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-align-last",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text combine upright property.
+    public static func textCombineUpright(_ value: Unit.AllOrNone) -> Property {
+        Property(
+            name: "text-combine-upright",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text combine upright property.
+    public static func textCombineUpright(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-combine-upright",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text decoration color property.
+    public static func textDecorationColor(_ color: Unit.Color) -> Property {
+        Property(
+            name: "text-decoration-color",
+            value: "\(color.description)"
+        )
+    }
+
+    /// Sets the text decoration color property.
+    public static func textDecorationColor(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-decoration-color",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text decoration line property.
+    public static func textDecorationLine(_ value: Unit.None) -> Property {
+        Property(
+            name: "text-decoration-line",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text decoration line property.
+    public static func textDecorationLine(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-decoration-line",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text decoration line property.
+    public static func textDecorationLine(_ value: Unit.TextDecorationLine) -> Property {
+        Property(
+            name: "text-decoration-line",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text decoration line property.
+    public static func textDecorationLine(_ value: Unit.TextDecorationLine, _ value1: Unit.TextDecorationLine) -> Property {
+        Property(
+            name: "text-decoration-line",
+            value: "\(value.description) \(value1.description)"
+        )
+    }
+
+    /// Sets the text decoration line property.
+    public static func textDecorationLine(_ value: Unit.TextDecorationLine, _ value1: Unit.TextDecorationLine, _ value2: Unit.TextDecorationLine) -> Property {
+        Property(
+            name: "text-decoration-line",
+            value: "\(value.description) \(value1.description) \(value2.description)"
+        )
+    }
+
+    /// Sets the text justify property.
+    public static func textJustify(_ value: Unit.TextJustify) -> Property {
+        Property(
+            name: "text-justify",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text justify property.
+    public static func textJustify(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-justify",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text decoration skip ink property.
+    public static func textDecorationSkipInk(_ value: Unit.AllOrNone) -> Property {
+        Property(
+            name: "text-decoration-skip-ink",
+            value: "\(value.description)"
+        )
+    }
+
+    /// Sets the text decoration skip ink property.
+    public static func textDecorationSkipInk(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "text-decoration-skip-ink",
+            value: "\(globalValue.description)"
+        )
+    }
+
+    /// Sets the text decoration skip ink property.
+    public static func textDecorationSkipInk(_ value: Unit.Auto) -> Property {
+        Property(
+            name: "text-decoration-skip-ink",
+            value: "\(value.description)"
         )
     }
 

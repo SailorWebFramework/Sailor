@@ -24,6 +24,7 @@ public extension Element {
         }.onDisappear {
             // TODO: make a RenderableUtil for remove
             // remove items from head
+            
             for element in built.children {
                 guard let element = element as? any Element else { continue }
                 

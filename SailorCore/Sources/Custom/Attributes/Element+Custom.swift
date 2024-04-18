@@ -25,11 +25,6 @@ public extension Element {
         attribute(.init(name: "class", value: value), override: false)
     }
 
-    ///Defines a unique identifier for the element.
-    func id(_ value: @escaping () -> String) -> Self {
-        attribute(.init(name: "id", value: value), override: true)
-    }
-    
     // TODO: more custom methods?
     // ...
 
