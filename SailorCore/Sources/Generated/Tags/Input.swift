@@ -42,17 +42,6 @@ public struct Input: BodyElement {
         #endif
     }
 
-    public init(type: (@escaping () -> Unit.InputType), _ value: Binding<String>) {
-        self.init(bodyValue: nil)
-
-        self.attributes["type"] = { type().description }
-        self.attributes["value"] = { value.wrappedValue.description }
-        self.events["input"] = { eventResult in
-            guard case let .string(bindedValue) = eventResult else { return }
-            value.set(bindedValue)
-        }
-    }
-
     public init(_ value: Binding<String>) {
         self.init(bodyValue: nil)
 
@@ -61,6 +50,13 @@ public struct Input: BodyElement {
             guard case let .string(bindedValue) = eventResult else { return }
             value.set(bindedValue)
         }
+    }
+
+    public init() {  
+        self.init(bodyValue: nil)
+    }
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
+        self.init(bodyValue: content)
     }
 
 

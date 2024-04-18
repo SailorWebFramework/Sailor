@@ -10,6 +10,7 @@ import Foundation
 public typealias StateID = String
 
 public protocol Stateful {
+    associatedtype Value: Equatable
     var id: StateID { get }
 }
 

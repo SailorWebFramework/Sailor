@@ -42,13 +42,11 @@ public struct Div: BodyElement {
         #endif
     }
 
-
-    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
-    }
-
     public init() {  
         self.init(bodyValue: nil)
+    }
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
+        self.init(bodyValue: content)
     }
 
 

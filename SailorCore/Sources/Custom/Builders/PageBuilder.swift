@@ -10,8 +10,13 @@ import Sailboat
 @resultBuilder
 public struct PageBuilder {
 
+    // TODO: is this the expected functionality
     public static func buildArray(_ components: [any Page]) -> any Fragment {
-        return List(components, hash: String(components.count) + hashKeysHelper(components))
+        let keys = hashKeysHelper(components)
+        if keys == "" {
+            return List(components, hash: String(components.count))
+        }
+        return List(components, hash: keys)
     }
     
     public static func buildBlock(_ components: any Page...) -> any Fragment  {

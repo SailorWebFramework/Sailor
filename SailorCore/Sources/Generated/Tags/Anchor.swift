@@ -42,16 +42,11 @@ public struct Anchor: BodyElement {
         #endif
     }
 
-    public init(href: (@escaping () -> String)) {
+    public init() {  
         self.init(bodyValue: nil)
-
-        self.attributes["href"] = { href().description }
     }
-
-    public init(href: (@escaping () -> String), @PageBuilder _ content: @escaping () -> any Fragment) {
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
-
-        self.attributes["href"] = { href().description }
     }
 
 
