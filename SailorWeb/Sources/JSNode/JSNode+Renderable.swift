@@ -52,34 +52,30 @@ extension JSNode: Renderable {
         }
     }
     
-    public func remove() {
-        remove(node: self.element)
-    }
+    public func remove() { remove(node: self.element) }
 
     public func remove(at deepIndex: Int) {
         guard let node = self.element.childNodes[deepIndex].object else {
             fatalError("cannot remove an object that doesnt exist")
         }
-
         remove(node: node)
-
+        
     }
 
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
         let jsClosure = EventResult.getClosure(name, action: value)
-//        self.events[name] = jsClosure
         
         _ = self.element.addEventListener?(name, jsClosure)
     }
 
     public func updateAttribute(name: String, value: any AttributeValue) {
         if name.first == "_" {
-            print("UPDATING \(name)")
             return
         }
         _ = self.element.setAttribute?(name, value.description)
     }
     
+    // TODO: make this non-optional?
     public func setSailboatID(_ value: SailboatID?) {
         self.sid = value
         
@@ -114,17 +110,20 @@ extension JSNode {
         }
     }
     
-    public func enterEvents() {
-        Self.enterEvents(on: self.element)
-    }
+//    public func enterEvents() {
+//        Self.enterEvents(on: self.element)
+//    }
+//    
+//    public static func enterEvents(on object: JSObject) {
+//        // TODO: make task launch asyncronously
+//        deeplyLaunchEvents(from: object) { object in
+//            shallowEnterEvents(on: object)
+//        }
+//    }
     
-    public static func enterEvents(on object: JSObject) {
-        // TODO: make task launch asyncronously
-        deeplyLaunchEvents(from: object) { object in
-            shallowEnterEvents(on: object)
-        }
+    public func shallowEnterEvents() {
+        JSNode.shallowEnterEvents(on: self.element)
     }
-    
     public static func shallowEnterEvents(on object: JSObject) {
         /// Set properties on the eventInit object
         callEvent(named: "_appear", on: object)

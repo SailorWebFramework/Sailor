@@ -18,7 +18,7 @@ import SailorWeb
 /// The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.
 public struct Italic: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "italic" }
+    public static var name: String { "i" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

@@ -18,7 +18,7 @@ import SailorWeb
 /// The u element represents a span of text with an unarticulated, though explicitly rendered, non-textual annotation, such as labeling the text as being a proper name in Chinese text (a Chinese proper name mark), or labeling the text as being misspelt.
 public struct Underline: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "underline" }
+    public static var name: String { "u" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

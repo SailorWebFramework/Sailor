@@ -18,7 +18,7 @@ import SailorWeb
 /// The ol element represents an ordered list of items, typically rendered as a numbered list.
 public struct OrderedList: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "orderedlist" }
+    public static var name: String { "ol" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

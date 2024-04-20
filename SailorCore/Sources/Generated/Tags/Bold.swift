@@ -18,7 +18,7 @@ import SailorWeb
 /// The b element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood, such as key words in a document abstract, product names in a review, actionable words in interactive text-driven software, or an article lede.
 public struct Bold: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "bold" }
+    public static var name: String { "b" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

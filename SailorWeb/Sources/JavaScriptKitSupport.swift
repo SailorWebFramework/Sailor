@@ -6,7 +6,7 @@
 //
 
 import JavaScriptKit
-//import Sailboat
+import Sailboat
 
 // JavascriptKit Passthrough
 
@@ -19,7 +19,9 @@ public func prompt(_ text: String) -> String { JSObject.global.prompt.function?(
 public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int {
     Int(
         JSObject.global.setTimeout.function!(JSClosure { _ in
+            SailboatGlobal.manager.startEvent()
             completion()
+            SailboatGlobal.manager.endEvent()
             return .undefined
         }, amount).number ?? 0.0
     )
