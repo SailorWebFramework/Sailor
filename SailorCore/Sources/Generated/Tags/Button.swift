@@ -55,57 +55,57 @@ public struct Button: BodyElement {
 // MARK: - Attributes
 public extension Button {
     ///Specifies that the button should automatically get focus when the page loads.
-    func autofocus(_ value: (@escaping () -> Bool)) -> Self {
+    func `autofocus`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "autofocus", value: { value().description }))
     }
 
     ///Specifies that the button should be disabled.
-    func disabled(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///Specifies one or more forms the button belongs to.
-    func form(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///Specifies the URL of the file that will process the input control when the form is submitted.
-    func formaction(_ value: (@escaping () -> String)) -> Self {
+    func `formaction`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "formaction", value: { value().description }))
     }
 
     ///Specifies how the form data should be encoded when submitting it to the server.
-    func formenctype(_ value: (@escaping () -> Unit.FormEncType)) -> Self {
+    func `formenctype`(_ value: (@escaping () -> Unit.FormEncType)) -> Self {
         attribute(.init(name: "formenctype", value: { value().description }))
     }
 
     ///Specifies the HTTP method to use when sending form data.
-    func formmethod(_ value: (@escaping () -> Unit.FormMethod)) -> Self {
+    func `formmethod`(_ value: (@escaping () -> Unit.FormMethod)) -> Self {
         attribute(.init(name: "formmethod", value: { value().description }))
     }
 
     ///Specifies that the form-data should not be validated on submission.
-    func formnovalidate(_ value: (@escaping () -> Bool)) -> Self {
+    func `formnovalidate`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "formnovalidate", value: { value().description }))
     }
 
     ///Specifies where to display the response after submitting the form.
-    func formtarget(_ value: (@escaping () -> Unit.Target)) -> Self {
+    func `formtarget`(_ value: (@escaping () -> Unit.Target)) -> Self {
         attribute(.init(name: "formtarget", value: { value().description }))
     }
 
     ///Specifies the name of the button.
-    func name(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 
     ///Specifies the type of button.
-    func type(_ value: (@escaping () -> Unit.ButtonType)) -> Self {
+    func `type`(_ value: (@escaping () -> Unit.ButtonType)) -> Self {
         attribute(.init(name: "type", value: { value().description }))
     }
 
     ///Specifies the initial value of the button.
-    func value(_ value: (@escaping () -> String)) -> Self {
+    func `value`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 

@@ -18,7 +18,7 @@ import SailorWeb
 /// The ul element represents an unordered list of items, typically rendered as a bulleted list.
 public struct UnorderedList: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "unorderedlist" }
+    public static var name: String { "ul" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

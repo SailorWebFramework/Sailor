@@ -84,6 +84,8 @@ let package = Package(
             resources: [
                 //🧭Compass Generated Resources (DONT REMOVE THIS COMMENT)
                 .process("Resources/Assets/favicon.ico"),
+                .process("Resources/MainStyles.css")
+
                 //🧭End (DONT REMOVE THIS COMMENT)
             ]
         ),

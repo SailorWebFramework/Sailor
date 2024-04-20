@@ -18,7 +18,7 @@ import SailorWeb
 /// The p element represents a paragraph.
 public struct Paragraph: BodyElement {
     /// name of the html tag associated with this type
-    public static var name: String { "paragraph" }
+    public static var name: String { "p" }
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

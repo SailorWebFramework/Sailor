@@ -50,10 +50,22 @@ public final class JSNode {
         self.sid = sid
     }
 
-    // TODO: remove append and default to it?
     internal func appendContent(text: String) {
         let newTextNode = Self.document.createTextNode(JSValue.string(text))
         _ = self.element.appendChild?(newTextNode)
+        
+        // TODO: get \t to work?
+        // TODO: \n not working because changing the deep index of text nodes
+//        let parts = text.components(separatedBy: "\n")
+//        for (i, part) in parts.enumerated() {
+//            if i > 0 {
+//                let br = Self.document.createElement("br")
+//                _ = self.element.appendChild?(br)
+//            }
+//            
+//            let textNode = Self.document.createTextNode(JSValue.string(part))
+//            _ = self.element.appendChild?(textNode)
+//        }
         
     }
     

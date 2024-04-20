@@ -37,11 +37,11 @@ extension Website {
                 
         // runs the onAppear event for the Body and Head
         if let bodyRenderer = bodyElement.renderer as? JSNode {
-            bodyRenderer.enterEvents()
+            bodyRenderer.shallowEnterEvents()
         }
         
         if let headRenderer = headElement.renderer as? JSNode {
-            headRenderer.enterEvents()
+            headRenderer.shallowEnterEvents()
         }
     }
 }

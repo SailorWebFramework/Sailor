@@ -65,167 +65,167 @@ public struct Input: BodyElement {
 // MARK: - Attributes
 public extension Input {
     ///Specifies the types of files that the server accepts (only for type=&quot;file&quot;).
-    func accept(_ value: (@escaping () -> String)) -> Self {
+    func `accept`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "accept", value: { value().description }))
     }
 
     ///The alternative text for the image specified by src when the input type is image.
-    func alt(_ value: (@escaping () -> String)) -> Self {
+    func `alt`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "alt", value: { value().description }))
     }
 
     ///Specifies whether the input element should have autocomplete enabled.
-    func autocomplete(_ value: (@escaping () -> Unit.Toggle)) -> Self {
+    func `autocomplete`(_ value: (@escaping () -> Unit.Toggle)) -> Self {
         attribute(.init(name: "autocomplete", value: { value().description }))
     }
 
     ///Specifies that the input element should automatically get focus when the page loads.
-    func autofocus(_ value: (@escaping () -> Bool)) -> Self {
+    func `autofocus`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "autofocus", value: { value().description }))
     }
 
     ///Specifies that an input element should be pre-selected when the page loads (for type=&quot;radio&quot; or type=&quot;checkbox&quot;).
-    func checked(_ value: (@escaping () -> Bool)) -> Self {
+    func `checked`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "checked", value: { value().description }))
     }
 
     ///Specifies that the input element should be directionally isolated from its surrounding content.
-    func dirname(_ value: (@escaping () -> String)) -> Self {
+    func `dirname`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "dirname", value: { value().description }))
     }
 
     ///Specifies that the input element should be disabled.
-    func disabled(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///Specifies one or more forms the input element belongs to.
-    func form(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///Specifies the URL of the file that will process the input control when the form is submitted.
-    func formaction(_ value: (@escaping () -> String)) -> Self {
+    func `formaction`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "formaction", value: { value().description }))
     }
 
     ///Specifies how the form data should be encoded when submitting it to the server.
-    func formenctype(_ value: (@escaping () -> Unit.FormEncType)) -> Self {
+    func `formenctype`(_ value: (@escaping () -> Unit.FormEncType)) -> Self {
         attribute(.init(name: "formenctype", value: { value().description }))
     }
 
     ///Specifies the HTTP method to use when sending form data.
-    func formmethod(_ value: (@escaping () -> Unit.FormMethod)) -> Self {
+    func `formmethod`(_ value: (@escaping () -> Unit.FormMethod)) -> Self {
         attribute(.init(name: "formmethod", value: { value().description }))
     }
 
     ///Specifies that the form-data should not be validated on submission.
-    func formnovalidate(_ value: (@escaping () -> Bool)) -> Self {
+    func `formnovalidate`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "formnovalidate", value: { value().description }))
     }
 
     ///Specifies where to display the response after submitting the form.
-    func formtarget(_ value: (@escaping () -> Unit.Target)) -> Self {
+    func `formtarget`(_ value: (@escaping () -> Unit.Target)) -> Self {
         attribute(.init(name: "formtarget", value: { value().description }))
     }
 
     ///The height of the image input (only for type=&quot;image&quot;).
-    func height(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: (@escaping () -> Int)) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///Specifies a datalist for the input element.
-    func list(_ value: (@escaping () -> String)) -> Self {
+    func `list`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "list", value: { value().description }))
     }
 
     ///Specifies the maximum value for the input element.
-    func max(_ value: (@escaping () -> Unit.InputQuantity)) -> Self {
+    func `max`(_ value: (@escaping () -> Unit.InputQuantity)) -> Self {
         attribute(.init(name: "max", value: { value().description }))
     }
 
     ///Specifies the maximum number of characters allowed in the input element.
-    func maxlength(_ value: (@escaping () -> Int)) -> Self {
+    func `maxlength`(_ value: (@escaping () -> Int)) -> Self {
         attribute(.init(name: "maxlength", value: { value().description }))
     }
 
     ///Specifies the minimum value for the input element.
-    func min(_ value: (@escaping () -> Unit.InputQuantity)) -> Self {
+    func `min`(_ value: (@escaping () -> Unit.InputQuantity)) -> Self {
         attribute(.init(name: "min", value: { value().description }))
     }
 
     ///Specifies the minimum number of characters allowed in the input element.
-    func minlength(_ value: (@escaping () -> Int)) -> Self {
+    func `minlength`(_ value: (@escaping () -> Int)) -> Self {
         attribute(.init(name: "minlength", value: { value().description }))
     }
 
     ///Specifies that the user is allowed to enter more than one value in the input element.
-    func multiple(_ value: (@escaping () -> Bool)) -> Self {
+    func `multiple`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "multiple", value: { value().description }))
     }
 
     ///Specifies the name of the input element.
-    func name(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 
     ///Specifies a regular expression that the input element's value is checked against.
-    func pattern(_ value: (@escaping () -> String)) -> Self {
+    func `pattern`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "pattern", value: { value().description }))
     }
 
     ///Specifies a short hint that describes the expected value of the input element.
-    func placeholder(_ value: (@escaping () -> String)) -> Self {
+    func `placeholder`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "placeholder", value: { value().description }))
     }
 
     ///Specifies the target of the popover.
-    func popovertarget(_ value: (@escaping () -> String)) -> Self {
+    func `popovertarget`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "popovertarget", value: { value().description }))
     }
 
     ///Specifies the action of the popover target.
-    func popovertargetaction(_ value: (@escaping () -> Unit.PopoverTargetAction)) -> Self {
+    func `popovertargetaction`(_ value: (@escaping () -> Unit.PopoverTargetAction)) -> Self {
         attribute(.init(name: "popovertargetaction", value: { value().description }))
     }
 
     ///Specifies that the input element is read only.
-    func readonly(_ value: (@escaping () -> Bool)) -> Self {
+    func `readonly`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "readonly", value: { value().description }))
     }
 
     ///Specifies that the input element must be filled out before submitting the form.
-    func required(_ value: (@escaping () -> Bool)) -> Self {
+    func `required`(_ value: (@escaping () -> Bool)) -> Self {
         attribute(.init(name: "required", value: { value().description }))
     }
 
     ///Specifies the width of the input element, in characters.
-    func size(_ value: (@escaping () -> Int)) -> Self {
+    func `size`(_ value: (@escaping () -> Int)) -> Self {
         attribute(.init(name: "size", value: { value().description }))
     }
 
     ///Specifies the URL of the image to use as a submit button (only for type=&quot;image&quot;).
-    func src(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///Specifies the legal number intervals for the input element.
-    func step(_ value: (@escaping () -> String)) -> Self {
+    func `step`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "step", value: { value().description }))
     }
 
     ///Specifies the type of input element to display.
-    func type(_ value: (@escaping () -> Unit.InputType)) -> Self {
+    func `type`(_ value: (@escaping () -> Unit.InputType)) -> Self {
         attribute(.init(name: "type", value: { value().description }))
     }
 
     ///Specifies the initial value of the input element.
-    func value(_ value: (@escaping () -> String)) -> Self {
+    func `value`(_ value: (@escaping () -> String)) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 
     ///The width of the image input (only for type=&quot;image&quot;).
-    func width(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: (@escaping () -> Int)) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 

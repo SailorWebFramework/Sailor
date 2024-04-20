@@ -6,6 +6,7 @@
 //
 
 import Sailboat
+import SailorShared
 
 public protocol Style: AttributeValue, CustomStringConvertible {
     associatedtype StyleBody: Style
@@ -21,4 +22,14 @@ public extension Style {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.description == rhs.description
     }
+}
+
+// TODO: consider removing later on, neccisary for total CSS elements right now
+extension String: Style {
+    
+    public var style: some Style {
+        fatalError("String Style causing infinite recursion")
+        return self
+    }
+    
 }
