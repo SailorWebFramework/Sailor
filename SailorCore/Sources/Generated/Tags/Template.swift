@@ -55,7 +55,7 @@ public struct Template: BodyElement {
 // MARK: - Attributes
 public extension Template {
     ///The shadow root of the template element.
-    func `shadowrootmode`(_ value: (@escaping () -> Unit.ShadowRootMode)) -> Self {
+    func `shadowrootmode`(_ value: @autoclosure @escaping () -> Unit.ShadowRootMode) -> Self {
         attribute(.init(name: "shadowrootmode", value: { value().description }))
     }
 

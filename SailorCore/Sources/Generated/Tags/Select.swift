@@ -55,37 +55,37 @@ public struct Select: BodyElement {
 // MARK: - Attributes
 public extension Select {
     ///Specifies whether the form control should have autocomplete enabled.
-    func `autocomplete`(_ value: (@escaping () -> Unit.Toggle)) -> Self {
+    func `autocomplete`(_ value: @autoclosure @escaping () -> Unit.Toggle) -> Self {
         attribute(.init(name: "autocomplete", value: { value().description }))
     }
 
     ///Specifies that the form control is disabled.
-    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///The form element that the select element is associated with (its form owner).
-    func `form`(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///Specifies that multiple options can be selected at once.
-    func `multiple`(_ value: (@escaping () -> Bool)) -> Self {
+    func `multiple`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "multiple", value: { value().description }))
     }
 
     ///The name of the select element.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 
     ///Specifies that the user must select a value before submitting the form.
-    func `required`(_ value: (@escaping () -> Bool)) -> Self {
+    func `required`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "required", value: { value().description }))
     }
 
     ///The number of options to show in the control.
-    func `size`(_ value: (@escaping () -> Int)) -> Self {
+    func `size`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "size", value: { value().description }))
     }
 

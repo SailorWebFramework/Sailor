@@ -82,7 +82,7 @@ open class TargetManager {
             for attribute in attributes {
                 guard let renderer = self.managedPages.renderers[attribute.sid] else { return }
  
-                renderer.renderAttributes([attribute.name: attribute.action])
+                renderer.renderAttributes([attribute.name: attribute.value])
             }
             
         }

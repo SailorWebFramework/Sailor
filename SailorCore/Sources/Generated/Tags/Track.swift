@@ -55,27 +55,27 @@ public struct Track: BodyElement {
 // MARK: - Attributes
 public extension Track {
     ///Specifies that the track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
-    func `default`(_ value: (@escaping () -> Bool)) -> Self {
+    func `default`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "default", value: { value().description }))
     }
 
     ///Specifies the kind of text track.
-    func `kind`(_ value: (@escaping () -> Unit.TextTrackKind)) -> Self {
+    func `kind`(_ value: @autoclosure @escaping () -> Unit.TextTrackKind) -> Self {
         attribute(.init(name: "kind", value: { value().description }))
     }
 
     ///Specifies a user-readable title of the text track.
-    func `label`(_ value: (@escaping () -> String)) -> Self {
+    func `label`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "label", value: { value().description }))
     }
 
     ///The URL of the track file.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///Specifies the language of the track text data.
-    func `srclang`(_ value: (@escaping () -> Unit.Language)) -> Self {
+    func `srclang`(_ value: @autoclosure @escaping () -> Unit.Language) -> Self {
         attribute(.init(name: "srclang", value: { value().description }))
     }
 

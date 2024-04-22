@@ -55,7 +55,7 @@ public struct Blockquote: BodyElement {
 // MARK: - Attributes
 public extension Blockquote {
     ///Contains a URL which points to the source of the quote.
-    func `cite`(_ value: (@escaping () -> String)) -> Self {
+    func `cite`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "cite", value: { value().description }))
     }
 

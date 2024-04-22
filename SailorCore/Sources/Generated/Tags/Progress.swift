@@ -55,12 +55,12 @@ public struct Progress: BodyElement {
 // MARK: - Attributes
 public extension Progress {
     ///The maximum value.
-    func `max`(_ value: (@escaping () -> Double)) -> Self {
+    func `max`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "max", value: { value().description }))
     }
 
     ///The value.
-    func `value`(_ value: (@escaping () -> Double)) -> Self {
+    func `value`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 

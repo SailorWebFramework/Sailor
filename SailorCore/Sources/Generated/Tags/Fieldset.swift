@@ -55,17 +55,17 @@ public struct Fieldset: BodyElement {
 // MARK: - Attributes
 public extension Fieldset {
     ///A Boolean attribute indicating whether the form controls in the fieldset are disabled.
-    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///The form element that the fieldset element is associated with (its form owner).
-    func `form`(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///The name of the fieldset element.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 

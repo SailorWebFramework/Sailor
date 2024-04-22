@@ -55,57 +55,57 @@ public struct Video: BodyElement {
 // MARK: - Attributes
 public extension Video {
     ///A Boolean attribute; if specified, the video will automatically begin playback as soon as it can do so, without waiting for the entire video file to finish downloading.
-    func `autoplay`(_ value: (@escaping () -> Bool)) -> Self {
+    func `autoplay`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "autoplay", value: { value().description }))
     }
 
     ///If this attribute is present, the browser will offer controls to allow the user to control video playback, including volume, seeking, and pause/resume playback.
-    func `controls`(_ value: (@escaping () -> Bool)) -> Self {
+    func `controls`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "controls", value: { value().description }))
     }
 
     ///How the element handles cross-origin requests.
-    func `crossorigin`(_ value: (@escaping () -> Unit.CrossOrigin)) -> Self {
+    func `crossorigin`(_ value: @autoclosure @escaping () -> Unit.CrossOrigin) -> Self {
         attribute(.init(name: "crossorigin", value: { value().description }))
     }
 
     ///The height of the video's display area, in CSS pixels.
-    func `height`(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///A Boolean attribute; if specified, the video player will automatically seek back to the start upon reaching the end of the video.
-    func `loop`(_ value: (@escaping () -> Bool)) -> Self {
+    func `loop`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "loop", value: { value().description }))
     }
 
     ///A Boolean attribute; if specified, the audio will be initially silenced.
-    func `muted`(_ value: (@escaping () -> Bool)) -> Self {
+    func `muted`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "muted", value: { value().description }))
     }
 
     ///A Boolean attribute; if specified, the video will automatically begin playback as soon as it can do so, without waiting for the entire video file to finish downloading.
-    func `playsinline`(_ value: (@escaping () -> Bool)) -> Self {
+    func `playsinline`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "playsinline", value: { value().description }))
     }
 
     ///A URL indicating a poster frame to show until the user plays or seeks.
-    func `poster`(_ value: (@escaping () -> String)) -> Self {
+    func `poster`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "poster", value: { value().description }))
     }
 
     ///This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience.
-    func `preload`(_ value: (@escaping () -> Unit.Preload)) -> Self {
+    func `preload`(_ value: @autoclosure @escaping () -> Unit.Preload) -> Self {
         attribute(.init(name: "preload", value: { value().description }))
     }
 
     ///The URL of the video file.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///The width of the video's display area, in CSS pixels.
-    func `width`(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 

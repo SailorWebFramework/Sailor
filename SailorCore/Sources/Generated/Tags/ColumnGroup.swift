@@ -55,7 +55,7 @@ public struct ColumnGroup: BodyElement {
 // MARK: - Attributes
 public extension ColumnGroup {
     ///The number of columns that the colgroup element spans.
-    func `span`(_ value: (@escaping () -> Int)) -> Self {
+    func `span`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "span", value: { value().description }))
     }
 

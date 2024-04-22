@@ -55,32 +55,32 @@ public struct Object: BodyElement {
 // MARK: - Attributes
 public extension Object {
     ///The URL of the resource.
-    func `data`(_ value: (@escaping () -> String)) -> Self {
+    func `data`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "data", value: { value().description }))
     }
 
     ///The form element that the object element is associated with (its form owner).
-    func `form`(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///The height of the object's frame.
-    func `height`(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///The name of the object.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 
     ///The type of the resource.
-    func `type`(_ value: (@escaping () -> String)) -> Self {
+    func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "type", value: { value().description }))
     }
 
     ///The width of the object's frame.
-    func `width`(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 

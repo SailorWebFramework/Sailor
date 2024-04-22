@@ -26,7 +26,7 @@ public extension Element {
     }
     
     /// Unique key used when building for loops
-    func key(_ value: @escaping () -> any AttributeValue) -> Self {
+    func key(_ value: @autoclosure @escaping () -> any AttributeValue) -> Self {
         attribute(.init(name: "_key", value: value), override: true)
     }
 

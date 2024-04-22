@@ -55,37 +55,37 @@ public struct Audio: BodyElement {
 // MARK: - Attributes
 public extension Audio {
     ///A Boolean attribute; if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
-    func `autoplay`(_ value: (@escaping () -> Bool)) -> Self {
+    func `autoplay`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "autoplay", value: { value().description }))
     }
 
     ///If this attribute is present, the browser will offer controls to allow the user to control audio playback, including volume, seeking, and pause/resume playback.
-    func `controls`(_ value: (@escaping () -> Bool)) -> Self {
+    func `controls`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "controls", value: { value().description }))
     }
 
     ///How the element handles cross-origin requests.
-    func `crossorigin`(_ value: (@escaping () -> Unit.CrossOrigin)) -> Self {
+    func `crossorigin`(_ value: @autoclosure @escaping () -> Unit.CrossOrigin) -> Self {
         attribute(.init(name: "crossorigin", value: { value().description }))
     }
 
     ///A Boolean attribute; if specified, the audio player will automatically seek back to the start upon reaching the end of the audio.
-    func `loop`(_ value: (@escaping () -> Bool)) -> Self {
+    func `loop`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "loop", value: { value().description }))
     }
 
     ///A Boolean attribute; if specified, the audio will be initially silenced.
-    func `muted`(_ value: (@escaping () -> Bool)) -> Self {
+    func `muted`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "muted", value: { value().description }))
     }
 
     ///This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience.
-    func `preload`(_ value: (@escaping () -> Unit.Preload)) -> Self {
+    func `preload`(_ value: @autoclosure @escaping () -> Unit.Preload) -> Self {
         attribute(.init(name: "preload", value: { value().description }))
     }
 
     ///The URL of the audio file.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 

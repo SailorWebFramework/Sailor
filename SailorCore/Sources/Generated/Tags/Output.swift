@@ -55,17 +55,17 @@ public struct Output: BodyElement {
 // MARK: - Attributes
 public extension Output {
     ///The id of the form element that the output element is associated with (its form owner).
-    func `for`(_ value: (@escaping () -> String)) -> Self {
+    func `for`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "for", value: { value().description }))
     }
 
     ///The form element that the output element is associated with (its form owner).
-    func `form`(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///The name of the output element.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 

@@ -55,22 +55,22 @@ public struct Option: BodyElement {
 // MARK: - Attributes
 public extension Option {
     ///A Boolean attribute indicating that the option is disabled.
-    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///A string providing a label for the option.
-    func `label`(_ value: (@escaping () -> String)) -> Self {
+    func `label`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "label", value: { value().description }))
     }
 
     ///A Boolean attribute indicating that the option is selected by default.
-    func `selected`(_ value: (@escaping () -> Bool)) -> Self {
+    func `selected`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "selected", value: { value().description }))
     }
 
     ///The value of the option.
-    func `value`(_ value: (@escaping () -> String)) -> Self {
+    func `value`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 

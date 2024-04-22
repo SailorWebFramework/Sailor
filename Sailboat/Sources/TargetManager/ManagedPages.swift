@@ -10,9 +10,8 @@ import Foundation
 public struct ElementAttribute: Hashable {
     /// the sailboat id of the element
     let sid: SailboatID
-    //TODO: rename this its not an action lol
     /// the attribute build action
-    let action: () -> any AttributeValue
+    let value: () -> any AttributeValue
     /// the name of the attribute
     let name: String
     

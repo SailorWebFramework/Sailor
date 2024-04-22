@@ -42,6 +42,18 @@ public struct Anchor: BodyElement {
         #endif
     }
 
+    public init(href: @autoclosure @escaping () -> String) {
+        self.init(bodyValue: nil)
+
+        self.attributes["href"] = { href().description }
+    }
+
+    public init(href: @autoclosure @escaping () -> String, @PageBuilder _ content: @escaping () -> any Fragment) {
+        self.init(bodyValue: content)
+
+        self.attributes["href"] = { href().description }
+    }
+
     public init() {  
         self.init(bodyValue: nil)
     }
@@ -55,42 +67,42 @@ public struct Anchor: BodyElement {
 // MARK: - Attributes
 public extension Anchor {
     ///The URL of the link.
-    func `href`(_ value: (@escaping () -> String)) -> Self {
+    func `href`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "href", value: { value().description }))
     }
 
     ///Specifies that the target will be downloaded when a user clicks on the hyperlink.
-    func `download`(_ value: (@escaping () -> String)) -> Self {
+    func `download`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "download", value: { value().description }))
     }
 
     ///Specifies the language of the linked document.
-    func `hreflang`(_ value: (@escaping () -> Unit.Language)) -> Self {
+    func `hreflang`(_ value: @autoclosure @escaping () -> Unit.Language) -> Self {
         attribute(.init(name: "hreflang", value: { value().description }))
     }
 
     ///Specifies what media/device the linked document is optimized for.
-    func `media`(_ value: (@escaping () -> String)) -> Self {
+    func `media`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "media", value: { value().description }))
     }
 
     ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
-    func `ping`(_ value: (@escaping () -> String)) -> Self {
+    func `ping`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "ping", value: { value().description }))
     }
 
     ///Specifies which referrer information to send when fetching the linked resource.
-    func `referrerpolicy`(_ value: (@escaping () -> Unit.ReferrerPolicy)) -> Self {
+    func `referrerpolicy`(_ value: @autoclosure @escaping () -> Unit.ReferrerPolicy) -> Self {
         attribute(.init(name: "referrerpolicy", value: { value().description }))
     }
 
     ///Specifies the relationship between the current document and the linked document.
-    func `rel`(_ value: (@escaping () -> String)) -> Self {
+    func `rel`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "rel", value: { value().description }))
     }
 
     ///Specifies where to open the linked document.
-    func `target`(_ value: (@escaping () -> Unit.Target)) -> Self {
+    func `target`(_ value: @autoclosure @escaping () -> Unit.Target) -> Self {
         attribute(.init(name: "target", value: { value().description }))
     }
 

@@ -55,12 +55,12 @@ public struct Canvas: BodyElement {
 // MARK: - Attributes
 public extension Canvas {
     ///The height of the coordinate space in CSS pixels.
-    func `height`(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///The width of the coordinate space in CSS pixels.
-    func `width`(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 
