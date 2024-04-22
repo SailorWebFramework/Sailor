@@ -55,7 +55,7 @@ public struct Bdo: BodyElement {
 // MARK: - Attributes
 public extension Bdo {
     ///Specifies the direction of text display, either left-to-right or right-to-left.
-    func `dir`(_ value: (@escaping () -> Unit.Direction)) -> Self {
+    func `dir`(_ value: @autoclosure @escaping () -> Unit.Direction) -> Self {
         attribute(.init(name: "dir", value: { value().description }))
     }
 

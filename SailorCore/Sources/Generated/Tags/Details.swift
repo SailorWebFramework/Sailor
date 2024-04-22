@@ -55,12 +55,12 @@ public struct Details: BodyElement {
 // MARK: - Attributes
 public extension Details {
     ///A Boolean attribute indicating whether the details are visible.
-    func `open`(_ value: (@escaping () -> Bool)) -> Self {
+    func `open`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "open", value: { value().description }))
     }
 
     ///The name of the details element.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 

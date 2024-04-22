@@ -55,7 +55,7 @@ public struct Dialog: BodyElement {
 // MARK: - Attributes
 public extension Dialog {
     ///A Boolean attribute indicating whether the dialog is available for interaction.
-    func `open`(_ value: (@escaping () -> Bool)) -> Self {
+    func `open`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "open", value: { value().description }))
     }
 

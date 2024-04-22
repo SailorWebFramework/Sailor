@@ -55,47 +55,47 @@ public struct Iframe: BodyElement {
 // MARK: - Attributes
 public extension Iframe {
     ///A set of values that controls the sandboxing of the iframe.
-    func `allow`(_ value: (@escaping () -> String)) -> Self {
+    func `allow`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "allow", value: { value().description }))
     }
 
     ///Whether the iframe can activate fullscreen mode.
-    func `allowfullscreen`(_ value: (@escaping () -> Bool)) -> Self {
+    func `allowfullscreen`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "allowfullscreen", value: { value().description }))
     }
 
     ///The height of the iframe's embedded content area.
-    func `height`(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///A name for the nested browsing context.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 
     ///Specifies which referrer information to send when fetching the iframe's resource.
-    func `referrerpolicy`(_ value: (@escaping () -> Unit.ReferrerPolicy)) -> Self {
+    func `referrerpolicy`(_ value: @autoclosure @escaping () -> Unit.ReferrerPolicy) -> Self {
         attribute(.init(name: "referrerpolicy", value: { value().description }))
     }
 
     ///A set of values that controls the features to enable and disable within the iframe.
-    func `sandbox`(_ value: (@escaping () -> Unit.Sandbox)) -> Self {
+    func `sandbox`(_ value: @autoclosure @escaping () -> Unit.Sandbox) -> Self {
         attribute(.init(name: "sandbox", value: { value().description }))
     }
 
     ///The URL of the page to embed.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///A static HTML content to embed.
-    func `srcdoc`(_ value: (@escaping () -> String)) -> Self {
+    func `srcdoc`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "srcdoc", value: { value().description }))
     }
 
     ///The width of the iframe's embedded content area.
-    func `width`(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 

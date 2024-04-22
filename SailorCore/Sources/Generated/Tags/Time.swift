@@ -55,7 +55,7 @@ public struct Time: BodyElement {
 // MARK: - Attributes
 public extension Time {
     ///The date and time the element represents.
-    func `datetime`(_ value: (@escaping () -> String)) -> Self {
+    func `datetime`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "datetime", value: { value().description }))
     }
 

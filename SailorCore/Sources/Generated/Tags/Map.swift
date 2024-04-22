@@ -55,7 +55,7 @@ public struct Map: BodyElement {
 // MARK: - Attributes
 public extension Map {
     ///The name of the map element.
-    func `name`(_ value: (@escaping () -> String)) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 

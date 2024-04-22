@@ -55,52 +55,52 @@ public struct Area: BodyElement {
 // MARK: - Attributes
 public extension Area {
     ///The text alternative of the area element.
-    func `alt`(_ value: (@escaping () -> String)) -> Self {
+    func `alt`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "alt", value: { value().description }))
     }
 
     ///The coordinates of the area.
-    func `coords`(_ value: (@escaping () -> String)) -> Self {
+    func `coords`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "coords", value: { value().description }))
     }
 
     ///Indicates that the hyperlink is to be used for downloading a resource.
-    func `download`(_ value: (@escaping () -> String)) -> Self {
+    func `download`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "download", value: { value().description }))
     }
 
     ///The URL of the hyperlink.
-    func `href`(_ value: (@escaping () -> String)) -> Self {
+    func `href`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "href", value: { value().description }))
     }
 
     ///The language of the linked resource.
-    func `hreflang`(_ value: (@escaping () -> Unit.Language)) -> Self {
+    func `hreflang`(_ value: @autoclosure @escaping () -> Unit.Language) -> Self {
         attribute(.init(name: "hreflang", value: { value().description }))
     }
 
     ///The media the resource applies to.
-    func `media`(_ value: (@escaping () -> String)) -> Self {
+    func `media`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "media", value: { value().description }))
     }
 
     ///Specifies which referrer information to send when fetching the resource.
-    func `referrerpolicy`(_ value: (@escaping () -> Unit.ReferrerPolicy)) -> Self {
+    func `referrerpolicy`(_ value: @autoclosure @escaping () -> Unit.ReferrerPolicy) -> Self {
         attribute(.init(name: "referrerpolicy", value: { value().description }))
     }
 
     ///The relationship between the document containing the hyperlink and the destination resource.
-    func `rel`(_ value: (@escaping () -> String)) -> Self {
+    func `rel`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "rel", value: { value().description }))
     }
 
     ///The shape of the area.
-    func `shape`(_ value: (@escaping () -> Unit.Shape)) -> Self {
+    func `shape`(_ value: @autoclosure @escaping () -> Unit.Shape) -> Self {
         attribute(.init(name: "shape", value: { value().description }))
     }
 
     ///The browsing context for the hyperlink.
-    func `target`(_ value: (@escaping () -> Unit.Target)) -> Self {
+    func `target`(_ value: @autoclosure @escaping () -> Unit.Target) -> Self {
         attribute(.init(name: "target", value: { value().description }))
     }
 

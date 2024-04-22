@@ -55,7 +55,7 @@ public struct Label: BodyElement {
 // MARK: - Attributes
 public extension Label {
     ///Specifies the form control that the label element is associated with.
-    func `for`(_ value: (@escaping () -> String)) -> Self {
+    func `for`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "for", value: { value().description }))
     }
 

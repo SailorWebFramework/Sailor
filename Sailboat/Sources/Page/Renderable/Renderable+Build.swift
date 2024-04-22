@@ -60,7 +60,7 @@ public extension Renderable {
             // if its a stateful element it should have an ID
             for stateID in states {
                 SailboatGlobal.manager.managedPages.attributes[stateID, default: []].insert(
-                    .init(sid: sailboatID, action: value, name: name)
+                    .init(sid: sailboatID, value: value, name: name)
                 )
             }
         }

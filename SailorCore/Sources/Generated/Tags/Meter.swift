@@ -55,37 +55,37 @@ public struct Meter: BodyElement {
 // MARK: - Attributes
 public extension Meter {
     ///The form element that the meter element is associated with (its form owner).
-    func `form`(_ value: (@escaping () -> String)) -> Self {
+    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "form", value: { value().description }))
     }
 
     ///The upper bound of the range.
-    func `high`(_ value: (@escaping () -> Double)) -> Self {
+    func `high`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "high", value: { value().description }))
     }
 
     ///The lower bound of the range.
-    func `low`(_ value: (@escaping () -> Double)) -> Self {
+    func `low`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "low", value: { value().description }))
     }
 
     ///The maximum value.
-    func `max`(_ value: (@escaping () -> Double)) -> Self {
+    func `max`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "max", value: { value().description }))
     }
 
     ///The minimum value.
-    func `min`(_ value: (@escaping () -> Double)) -> Self {
+    func `min`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "min", value: { value().description }))
     }
 
     ///The optimal value.
-    func `optimum`(_ value: (@escaping () -> Double)) -> Self {
+    func `optimum`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "optimum", value: { value().description }))
     }
 
     ///The value.
-    func `value`(_ value: (@escaping () -> Double)) -> Self {
+    func `value`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 

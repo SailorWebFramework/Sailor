@@ -55,7 +55,7 @@ public struct ListItem: BodyElement {
 // MARK: - Attributes
 public extension ListItem {
     ///Specifies the ordinal value of the list item.
-    func `value`(_ value: (@escaping () -> Int)) -> Self {
+    func `value`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "value", value: { value().description }))
     }
 

@@ -55,22 +55,22 @@ public struct Embed: BodyElement {
 // MARK: - Attributes
 public extension Embed {
     ///The height of the embedded content area.
-    func `height`(_ value: (@escaping () -> Int)) -> Self {
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "height", value: { value().description }))
     }
 
     ///The URL of the embeddable content.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///The type of the embedded content.
-    func `type`(_ value: (@escaping () -> String)) -> Self {
+    func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "type", value: { value().description }))
     }
 
     ///The width of the embedded content area.
-    func `width`(_ value: (@escaping () -> Int)) -> Self {
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
     }
 

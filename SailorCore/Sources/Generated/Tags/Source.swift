@@ -55,27 +55,27 @@ public struct Source: BodyElement {
 // MARK: - Attributes
 public extension Source {
     ///The media query for the resource.
-    func `media`(_ value: (@escaping () -> String)) -> Self {
+    func `media`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "media", value: { value().description }))
     }
 
     ///The sizes for the resource.
-    func `sizes`(_ value: (@escaping () -> String)) -> Self {
+    func `sizes`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "sizes", value: { value().description }))
     }
 
     ///The URL of the resource.
-    func `src`(_ value: (@escaping () -> String)) -> Self {
+    func `src`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "src", value: { value().description }))
     }
 
     ///The URL of the resource.
-    func `srcset`(_ value: (@escaping () -> String)) -> Self {
+    func `srcset`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "srcset", value: { value().description }))
     }
 
     ///The type of the resource.
-    func `type`(_ value: (@escaping () -> String)) -> Self {
+    func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "type", value: { value().description }))
     }
 

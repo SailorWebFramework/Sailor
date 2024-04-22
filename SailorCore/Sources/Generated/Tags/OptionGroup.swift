@@ -55,12 +55,12 @@ public struct OptionGroup: BodyElement {
 // MARK: - Attributes
 public extension OptionGroup {
     ///A Boolean attribute indicating that the option group cannot be selected.
-    func `disabled`(_ value: (@escaping () -> Bool)) -> Self {
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "disabled", value: { value().description }))
     }
 
     ///The label for the option group.
-    func `label`(_ value: (@escaping () -> String)) -> Self {
+    func `label`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "label", value: { value().description }))
     }
 

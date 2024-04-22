@@ -55,12 +55,12 @@ public struct InsertedText: BodyElement {
 // MARK: - Attributes
 public extension InsertedText {
     ///Contains a URL which points to the source of the quote.
-    func `cite`(_ value: (@escaping () -> String)) -> Self {
+    func `cite`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "cite", value: { value().description }))
     }
 
     ///This attribute indicates the time and date of the change and must be a valid date string.
-    func `datetime`(_ value: (@escaping () -> String)) -> Self {
+    func `datetime`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "datetime", value: { value().description }))
     }
 

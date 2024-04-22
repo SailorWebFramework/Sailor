@@ -55,17 +55,17 @@ public struct TableData: BodyElement {
 // MARK: - Attributes
 public extension TableData {
     ///Specifies the number of columns a cell should span.
-    func `colspan`(_ value: (@escaping () -> Int)) -> Self {
+    func `colspan`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "colspan", value: { value().description }))
     }
 
     ///Specifies one or more header cells a cell is related to.
-    func `headers`(_ value: (@escaping () -> String)) -> Self {
+    func `headers`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "headers", value: { value().description }))
     }
 
     ///Specifies the number of rows a cell should span.
-    func `rowspan`(_ value: (@escaping () -> Int)) -> Self {
+    func `rowspan`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "rowspan", value: { value().description }))
     }
 
