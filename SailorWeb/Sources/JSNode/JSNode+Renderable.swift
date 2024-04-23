@@ -77,11 +77,11 @@ extension JSNode: Renderable {
     
     // TODO: make this non-optional?
     public func setSailboatID(_ value: SailboatID?) {
-        self.sid = value
+        self.sailboatID = value
         
         // TODO: what if this is false?
-        if let sid = self.sid {
-            self.updateAttribute(name: "data-sid", value: sid)
+        if let sid = self.sailboatID {
+            self.updateAttribute(name: JSNode.sailboatIDName, value: sid)
         }
     }
 }
@@ -100,7 +100,8 @@ extension JSNode {
     internal func remove(node: JSObject, fromDOM: Bool = true) {
         Self.deeplyLaunchEvents(from: node) { currentNode in
             Self.shallowExitEvents(on: currentNode)
-            if let sailboatID = currentNode.getAttribute?("data-sid").string {
+            if let stringSailboatID = currentNode.getAttribute?(JSNode.sailboatIDName).string,
+               let sailboatID = SailboatID(stringSailboatID) {
                 RenderableUtils.removeCache(with: sailboatID)
             }
         }

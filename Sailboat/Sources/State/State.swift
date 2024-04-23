@@ -5,9 +5,7 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-import Foundation
-
-public typealias StateID = String
+public typealias StateID = UInt32 //String
 
 public protocol Stateful {
     associatedtype Value: Equatable
@@ -16,8 +14,7 @@ public protocol Stateful {
 
 @propertyWrapper
 public class State<Value: Equatable>: Identifiable, Stateful {
-    
-    public let id: StateID = UUID().uuidString
+    public let id: StateID = ManagedStates.registerID()
     
     private var value: Value
 
@@ -39,8 +36,7 @@ public class State<Value: Equatable>: Identifiable, Stateful {
     }
     
     public init(wrappedValue: Value) {
-        self.value = wrappedValue
-        
+        self.value = wrappedValue        
     }
     
     private func getValue() -> Value {

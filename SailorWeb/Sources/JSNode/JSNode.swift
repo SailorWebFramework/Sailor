@@ -12,19 +12,11 @@ import SailorShared
 public final class JSNode {
 
     ///
-    public var sid: SailboatID?
+    public var sailboatID: SailboatID?
 
     ///
     internal var element: JSObject
 
-    // TODO: remove this
-    ///
-//    internal var events: [String: JSClosure] // Events
-    
-    // TODO: remove this
-    /// The built key and values of the attributes
-//    internal var attributes: [String: any AttributeValue]
-    
     public convenience init(_ type: SpecialJSNodeType, sid: SailboatID? = nil) {
         self.init(
             element: type.getJSObject(),
@@ -45,9 +37,7 @@ public final class JSNode {
     
     private init(element: JSObject, sid: SailboatID? = nil) {
         self.element = element
-//        self.events = [:]
-//        self.attributes = [:]
-        self.sid = sid
+        self.sailboatID = sid
     }
 
     internal func appendContent(text: String) {
@@ -68,22 +58,5 @@ public final class JSNode {
 //        }
         
     }
-    
-//    internal func removeAttributes() {
-//        
-//        for (name, _) in attributes {
-//            _ = self.element.removeAttribute?(name)
-//        }
-//        
-//        self.attributes = [:]
-//    }
-//    
-//    
-//    internal func removeEvents() {
-//        for (name, closure) in events {
-//            _ = self.element.removeEventListener?(name, closure)
-//        }
-//        
-//        self.events = [:]
-//    }
+
 }

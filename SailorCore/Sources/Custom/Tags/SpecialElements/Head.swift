@@ -4,7 +4,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 #if os(WASI)
@@ -20,7 +19,7 @@ public struct Head: Element {
     public static var name: String { "head" }
 
     /// unique identifier for this html element
-    public var sid: SailboatID? = nil
+//    public var sid: SailboatID? = nil
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

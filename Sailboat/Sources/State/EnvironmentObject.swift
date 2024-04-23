@@ -5,13 +5,11 @@
 //  Created by Joshua Davis on 3/8/24.
 //
 
-import Foundation
-
-
 @propertyWrapper
 public class EnvironmentObject<Value: ObservableObject>: Stateful {
     
-    public let id: StateID = UUID().uuidString
+    // TODO: this doesnt need to be registerd
+    public let id: StateID = ManagedStates.registerID()
     
     public var wrappedValue: Value {
         return getValue()
@@ -21,7 +19,7 @@ public class EnvironmentObject<Value: ObservableObject>: Stateful {
         Binding(
             get: { self.getValue() },
             set: { _ in },
-            id: self.getID
+            id: self.id // TODO: this doesnt work create a map to a stateID from the string getID
         )
     }
     

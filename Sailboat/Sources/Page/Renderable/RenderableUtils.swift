@@ -53,7 +53,6 @@ public enum RenderableUtils {
     }
     
     public static func removeCache(with sailboatID: SailboatID) {
-        print("REMOVING \(sailboatID)")
         SailboatGlobal.managedPages.bodies[sailboatID] = nil
         SailboatGlobal.managedPages.children[sailboatID] = nil
         SailboatGlobal.managedPages.renderers[sailboatID] = nil
@@ -70,6 +69,7 @@ public enum RenderableUtils {
             SailboatGlobal.managedPages.statefulElements[stateID]?.remove(sailboatID)
         }
         
+        SailboatGlobal.managedPages.removeSailboatID(sailboatID)
     }
    
 }

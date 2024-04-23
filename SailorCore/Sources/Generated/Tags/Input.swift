@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -52,11 +51,15 @@ public struct Input: BodyElement {
         }
     }
 
-    public init() {  
+    public init(type: @autoclosure @escaping () -> Unit.InputType, _ value: Binding<String>) {
         self.init(bodyValue: nil)
-    }
-    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
+
+        self.attributes["type"] = { type().description }
+        self.attributes["value"] = { value.wrappedValue.description }
+        self.events["input"] = { eventResult in
+            guard case let .string(bindedValue) = eventResult else { return }
+            value.set(bindedValue)
+        }
     }
 
 

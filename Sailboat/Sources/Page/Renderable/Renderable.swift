@@ -8,7 +8,7 @@
 public protocol Renderable {
     
     /// the sailboat ID of the renderer
-    var sid: SailboatID? { get set }
+    var sailboatID: SailboatID? { get set }
     
     /// add this element to the parent element
     func addToParent(_ parent: any Renderable)

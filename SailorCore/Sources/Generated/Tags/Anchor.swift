@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -42,6 +41,18 @@ public struct Anchor: BodyElement {
         #endif
     }
 
+    public init(_ text: @autoclosure @escaping () -> String) {
+        self.init(bodyValue: { List([text()], hash: "") } )
+    }
+
+    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
+        self.init(bodyValue: content)
+    }
+
+    public init() {  
+        self.init(bodyValue: nil)
+    }
+
     public init(href: @autoclosure @escaping () -> String) {
         self.init(bodyValue: nil)
 
@@ -52,13 +63,6 @@ public struct Anchor: BodyElement {
         self.init(bodyValue: content)
 
         self.attributes["href"] = { href().description }
-    }
-
-    public init() {  
-        self.init(bodyValue: nil)
-    }
-    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
     }
 
 

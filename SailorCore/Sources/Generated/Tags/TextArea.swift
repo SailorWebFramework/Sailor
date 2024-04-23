@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -42,9 +41,10 @@ public struct TextArea: BodyElement {
         #endif
     }
 
-    public init() {  
-        self.init(bodyValue: nil)
+    public init(_ text: @autoclosure @escaping () -> String) {
+        self.init(bodyValue: { List([text()], hash: "") } )
     }
+
     public init(@PageBuilder _ content: @escaping () -> any Fragment) {
         self.init(bodyValue: content)
     }

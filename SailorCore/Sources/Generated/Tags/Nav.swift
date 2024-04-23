@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 

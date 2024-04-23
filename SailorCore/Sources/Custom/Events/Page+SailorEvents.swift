@@ -10,13 +10,13 @@ import Sailboat
 public extension Element {
     
     func onAppear(_ completion: @escaping () -> Void) -> Self {
-        withEvent(name: "_appear") { _ in
+        withEvent(name: "_appear") { _ in // _appear
             completion()
         }
     }
 
     func onDisappear(_ completion: @escaping () -> Void) -> Self {
-        withEvent(name: "_disappear") { _ in
+        withEvent(name: "_disappear") { _ in // _disappear
             completion()
         }
     }

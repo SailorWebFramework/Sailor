@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 3/14/24.
 //
 
-import Foundation
-
 public struct ElementAttribute: Hashable {
     /// the sailboat id of the element
     let sid: SailboatID
@@ -26,7 +24,17 @@ public struct ElementAttribute: Hashable {
     
 }
 
+public typealias SailboatID = UInt32 // String
+
+extension SailboatID: AttributeValue { }
+
 public final class ManagedPages {
+    
+    private static var globalSailboatID: SailboatID = 0
+    private static var globalManagerValues: (radius: Int, value: Int) = (0,0)
+
+    private static var freedSailboatIDs: Set<SailboatID> = .init()
+
     ///
     public var renderers: [SailboatID: any Renderable] = [:]
     
@@ -54,6 +62,7 @@ public final class ManagedPages {
         if states.isEmpty { return }
         
         let newSID = createSailboatID()
+        
         element.renderer.setSailboatID(newSID)
 
         self.bodies[newSID] = element.content
@@ -65,8 +74,25 @@ public final class ManagedPages {
         }
     }
 
-    public func createSailboatID() -> String {
-        UUID().uuidString
+    public func createSailboatID() -> SailboatID {
+//        if let last = Self.freedSailboatIDs.popLast() {
+//            return last
+//        }
+        if let someID = Self.freedSailboatIDs.first {
+            Self.freedSailboatIDs.remove(someID)
+            return someID
+        }
+        ManagedPages.globalSailboatID += 1
+        return ManagedPages.globalSailboatID
+    }
+    
+    public func removeSailboatID(_ sid: SailboatID) {
+        // is this more efficient than just doing the ids normally
+        if sid == ManagedPages.globalSailboatID {
+            ManagedPages.globalSailboatID -= 1
+        }
+        
+        Self.freedSailboatIDs.insert(sid)
     }
     
 }

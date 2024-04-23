@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -45,8 +44,11 @@ public struct Img: BodyElement {
     public init() {  
         self.init(bodyValue: nil)
     }
-    public init(@PageBuilder _ content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
+
+    public init(src: @autoclosure @escaping () -> String) {
+        self.init(bodyValue: nil)
+
+        self.attributes["src"] = { src().description }
     }
 
 

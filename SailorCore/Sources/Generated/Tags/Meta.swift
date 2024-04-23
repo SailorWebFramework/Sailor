@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -20,9 +19,6 @@ public struct Meta: HeadElement {
     /// name of the html tag associated with this type
     public static var name: String { "meta" }
 
-    /// unique identifier for this html element
-    public var sid: SailboatID? = nil
-
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]
 
@@ -33,7 +29,7 @@ public struct Meta: HeadElement {
     public var content: () -> any Fragment
 
     public var renderer: any Renderable
-
+    
     internal init(bodyValue: (() -> any Fragment)?) {
         self.attributes = [:]
         self.events = [:]
@@ -43,10 +39,9 @@ public struct Meta: HeadElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
-
     }
-    
-    public init() {
+
+    public init() {  
         self.init(bodyValue: nil)
     }
 
@@ -56,22 +51,22 @@ public struct Meta: HeadElement {
 // MARK: - Attributes
 public extension Meta {
     ///Declares the document's character encoding.
-    func charset(_ value: @escaping () -> String) -> Self {
+    func `charset`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "charset", value: { value().description }))
     }
 
     ///The value of the element.
-    func content(_ value: @escaping () -> String) -> Self {
+    func `content`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "content", value: { value().description }))
     }
 
     ///Indicates that the content is a pragma directive.
-    func httpEquiv(_ value: @escaping () -> String) -> Self {
+    func `httpEquiv`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "httpEquiv", value: { value().description }))
     }
 
     ///The name of the metadata.
-    func name(_ value: @escaping () -> String) -> Self {
+    func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
     }
 

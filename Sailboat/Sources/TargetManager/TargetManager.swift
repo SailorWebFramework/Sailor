@@ -12,7 +12,7 @@ open class TargetManager {
     public var environment: (any SomeEnvironment)? = nil
     
     // TODO: state objects here, or inside of environment
-    public var objects: [StateID: ObservableObject] = [:]
+    public var objects: [String: ObservableObject] = [:]
     
     /// magages global data on a ran event
     public var managedEvent: ManagedEvent = .init()

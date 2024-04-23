@@ -10,13 +10,12 @@ import Sailboat
 
 //MARK- Global
 extension JSNode {
-//    typealias JSAttributes = [String: String]
-
+    static let sailboatIDName = "data-sid"
+    
     static let window = JSObject.global.window.object!
     static let document = JSObject.global.document
     static let body: JSObject = document.body.object!
     static let head: JSObject = document.head.object!
-    
     static let Event: JSObject = window.Event.function!
     
     var tagName: String? {
@@ -70,11 +69,8 @@ extension JSNode {
     
     
     public static func deeplyLaunchEvents(from element: JSObject, _ launcher: @escaping (JSObject) -> Void) {
-        
-        
         let total = Int(element.childNodes.length.number!)
         
-//        print("launching \(total) events on...")
         for i in 0..<total {
             if let child = element.childNodes[i].object {
                 deeplyLaunchEvents(from: child, launcher)
@@ -84,17 +80,19 @@ extension JSNode {
         launcher(element)
     }
     
-    public static func deeplyGrabSID(from element: JSObject, _ closure: @escaping (SailboatID) -> Void) {
-        let total = Int(element.childNodes.length.number!)
-        
-        for i in 0..<total {
-            if let child = element.childNodes[i].object {
-                deeplyGrabSID(from: child, closure)
-            }
-        }
-        if let sailboatID = element.getAttribute?("data-sid").string {
-            closure(sailboatID)
-        }
-    }
+//    public static func deeplyGrabSID(from element: JSObject, _ closure: @escaping (SailboatID) -> Void) {
+//        let total = Int(element.childNodes.length.number!)
+//        
+//        for i in 0..<total {
+//            if let child = element.childNodes[i].object {
+//                deeplyGrabSID(from: child, closure)
+//            }
+//        }
+//        if let stringSailboatID = element.getAttribute?(JSNode.sailboatIDName).string,
+//           let sailboatID = SailboatID(stringSailboatID) {
+//            print("grabbing \(sailboatID)")
+//            closure(sailboatID)
+//        }
+//    }
 
 }
