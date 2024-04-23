@@ -4,7 +4,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -22,7 +21,7 @@ public struct Body: BodyElement {
     public static var name: String { "body" }
 
     /// unique identifier for this html element
-    public var sid: SailboatID? = nil
+//    public var sid: SailboatID? = nil
 
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]

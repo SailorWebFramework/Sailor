@@ -8,7 +8,7 @@
 import Sailboat
 
 struct EmptyRenderer: Renderable {
-    var sid: Sailboat.SailboatID? = nil
+    var sailboatID: SailboatID? = nil
 
     func addToParent(_ parent: any Renderable) { }
     

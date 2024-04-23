@@ -5,7 +5,6 @@
 //  Created by Joshua Davis.
 //
 
-import Foundation
 import Sailboat
 import SailorShared
 
@@ -20,9 +19,6 @@ public struct Title: HeadElement {
     /// name of the html tag associated with this type
     public static var name: String { "title" }
 
-    /// unique identifier for this html element
-    public var sid: SailboatID? = nil
-
     /// attributes associated with this type
     public var attributes: [String: () -> any AttributeValue]
 
@@ -33,7 +29,7 @@ public struct Title: HeadElement {
     public var content: () -> any Fragment
 
     public var renderer: any Renderable
-
+    
     internal init(bodyValue: (() -> any Fragment)?) {
         self.attributes = [:]
         self.events = [:]
@@ -43,12 +39,12 @@ public struct Title: HeadElement {
         #else
         self.renderer = EmptyRenderer()
         #endif
+    }
 
+    public init(_ text: @autoclosure @escaping () -> String) {
+        self.init(bodyValue: { List([text()], hash: "") } )
     }
-    
-    public init(@PageBuilder content: @escaping () -> any Fragment) {
-        self.init(bodyValue: content)
-    }
+
 
 }
 

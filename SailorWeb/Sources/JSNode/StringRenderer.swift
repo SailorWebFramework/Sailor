@@ -11,7 +11,7 @@ import Sailboat
 
 public struct StringRenderer: Renderable {
     
-    public var sid: Sailboat.SailboatID? = nil
+    public var sailboatID: Sailboat.SailboatID? = nil
 
     public var value: String
     

@@ -5,19 +5,11 @@
 //  Created by Joshua Davis on 10/3/23.
 //
 
-import Foundation
-
-public typealias SailboatID = String
-
-//, Identifiable
 public protocol Element: Page {
     
     ///
 //    static var name: String { get }
-//
-//    /// Unique Element ID used to diff items
-//    var sid: SailboatID? { get }
-//    
+
     /// attributes on tag
     var attributes: [String: () -> any AttributeValue] { get set }
     
@@ -84,11 +76,5 @@ public extension Element {
         
         return copy
     }
-    
-//    internal func generateSID() -> Self {
-//        if self.sid != nil { return self }
-//        var copy = self
-////        copy.attributes[SailboatConstants.sidAttributeName] = { UUID().uuidString }
-//        return copy
-//    }
+
 }

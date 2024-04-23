@@ -5,8 +5,6 @@
 //  Created by Joshua Davis on 10/8/23.
 //
 
-import Foundation
-
 @propertyWrapper
 public class Binding<Value: Equatable>: Stateful {
     public let id: StateID
@@ -33,7 +31,7 @@ public class Binding<Value: Equatable>: Stateful {
         Binding(
             get: { value },
             set: { _ in },
-            id: UUID().uuidString
+            id: 0 // no other state should have ID 0, reserved for const
         )
     }
     

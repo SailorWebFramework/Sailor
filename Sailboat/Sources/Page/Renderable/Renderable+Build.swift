@@ -44,17 +44,17 @@ public extension Renderable {
 
             guard !states.isEmpty else { continue }
 
-            let sailboatID: String
+            let sailboatID: SailboatID
             
             // register sailboat ID if it doesnt already exist
-            if self.sid == nil {
+            if self.sailboatID == nil {
                 sailboatID = SailboatGlobal.managedPages.createSailboatID()
                 self.setSailboatID(sailboatID)
                 SailboatGlobal.manager.managedPages.renderers[sailboatID] = self
 
             } else {
                 // TODO: forcing this
-                sailboatID = self.sid!
+                sailboatID = self.sailboatID!
             }
             
             // if its a stateful element it should have an ID
