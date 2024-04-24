@@ -63,15 +63,34 @@ extension JSNode: Renderable {
     }
 
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
+        guard let eventName = name.split(separator: ":").first else { return }
+
         let jsClosure = EventResult.getClosure(name, action: value)
         
-        _ = self.element.addEventListener?(name, jsClosure)
+        _ = self.element.addEventListener?(String(eventName), jsClosure)
     }
 
     public func updateAttribute(name: String, value: any AttributeValue) {
+        // skip sailor attributes
         if name.first == "_" {
             return
         }
+
+        // set javascript-passthrough properties
+        if name.first == "." {
+            if let value = value as? Bool {
+                self.element[String(name.dropFirst())] = .boolean(value)
+            } else if let value = value as? Double {
+                self.element[String(name.dropFirst())] = .number(value)
+            } else if let value = value as? Int {
+                self.element[String(name.dropFirst())] = .number(Double(value))
+            } else {
+                self.element[String(name.dropFirst())] = .string(value.description)
+            }
+            return
+        }
+        
+        // sets normal html attributes
         _ = self.element.setAttribute?(name, value.description)
     }
     

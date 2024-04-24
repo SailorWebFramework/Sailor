@@ -13,7 +13,8 @@ extension EventResult {
     //TODO: fix force unwrapping?
     static var resultMap: [String: (JSValue) -> EventResult] {
         [
-            "input": { EventResult.string($0.target.value.string!) },
+            "input:value": { EventResult.string($0.target.value.string!) },
+            "input:checked": { EventResult.bool($0.target.checked.boolean!) },
         ]
     }
     

@@ -36,17 +36,12 @@ open class TargetManager {
     }
     
     open func update() {
-
-//        print("STATE BEFORE: \(managedEvent.states)")
-//        print("Attributes: \(managedPages.attributes)")
-//        print("Bodies: \(managedPages.bodies)")
-//        print("renderers: \(managedPages.renderers)")
-//        print("Children: \(managedPages.children)")
-//        print("StatesElements: \(managedPages.statefulElements)")
-
         for stateID in managedEvent.states {
             let elements = managedPages.statefulElements[stateID] ?? []
             let attributes = managedPages.attributes[stateID] ?? []
+
+            print("updating elements: \(elements)")
+            print("updating attributes: \(attributes)")
 
             // body updates need a rerender of the body of the element
             for sailboatID in elements {
@@ -113,7 +108,7 @@ open class TargetManager {
     // TODO: add to managedEvent
     public func endEvent() {
         managedEvent.semaphore -= 1
-
+        
         if managedEvent.semaphore == 0 {
             update()
         }
