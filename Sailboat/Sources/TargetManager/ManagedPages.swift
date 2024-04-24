@@ -31,7 +31,7 @@ extension SailboatID: AttributeValue { }
 public final class ManagedPages {
     
     private static var globalSailboatID: SailboatID = 0
-    private static var globalManagerValues: (radius: Int, value: Int) = (0,0)
+//    private static var globalManagerValues: (radius: Int, value: Int) = (0,0)
 
     private static var freedSailboatIDs: Set<SailboatID> = .init()
 
@@ -75,13 +75,10 @@ public final class ManagedPages {
     }
 
     public func createSailboatID() -> SailboatID {
-//        if let last = Self.freedSailboatIDs.popLast() {
-//            return last
+//        if let someID = Self.freedSailboatIDs.first {
+//            Self.freedSailboatIDs.remove(someID)
+//            return someID
 //        }
-        if let someID = Self.freedSailboatIDs.first {
-            Self.freedSailboatIDs.remove(someID)
-            return someID
-        }
         ManagedPages.globalSailboatID += 1
         return ManagedPages.globalSailboatID
     }
@@ -92,7 +89,7 @@ public final class ManagedPages {
             ManagedPages.globalSailboatID -= 1
         }
         
-        Self.freedSailboatIDs.insert(sid)
+//        Self.freedSailboatIDs.insert(sid)
     }
     
 }

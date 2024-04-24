@@ -30,17 +30,3 @@ public struct Property: Style, Hashable {
     }
     
 }
-
-//extension Property: Hashable, CustomStringConvertible {
-//
-//    public var description: String {
-//        "\(self.name):\(self.value)"
-//    }
-//    
-//    public func hash(into hasher: inout Hasher) {
-//        hasher.combine(description)
-//    }
-//    
-//}
-
-

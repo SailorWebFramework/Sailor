@@ -29,7 +29,9 @@ public extension Element {
     
     func task(_ completion: @escaping () -> Void) -> Self {
         withEvent(name: "_task") { _ in
-            completion()
+            Task {
+                completion()
+            }
         }
     }
 

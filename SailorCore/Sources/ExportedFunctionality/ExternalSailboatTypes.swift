@@ -12,6 +12,4 @@ public typealias State = Sailboat.State
 public typealias Binding = Sailboat.Binding
 public typealias EnvironmentObject = Sailboat.EnvironmentObject
 
-//public typealias Property = Style.Property
-
 public typealias Environment<EnvValue> = Sailboat.Environment<Env, EnvValue>

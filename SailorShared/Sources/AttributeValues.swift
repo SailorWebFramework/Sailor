@@ -9,3 +9,5 @@ import Sailboat
 
 extension Int: AttributeValue { }
 extension String: AttributeValue { }
+extension Bool: AttributeValue { }
+extension Double: AttributeValue { }

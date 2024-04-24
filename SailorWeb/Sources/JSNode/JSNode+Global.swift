@@ -45,14 +45,14 @@ extension JSNode {
         }
     }
     
-    static func callEvent(named eventName: String, on object: JSObject) {
+    static func callEvent(named eventName: String, on object: JSObject, bubbles: Bool = false) {
         // if the event exists
 //        if self.events[eventName] != nil {
         let Event = JSObject.global.window.object?.Event.function!
 
         /// Set properties on the eventInit object
         let eventInit: JSObject = JSObject.global.Object.function!.new()
-        eventInit.bubbles = .boolean(false)
+        eventInit.bubbles = .boolean(bubbles)
         eventInit.cancelable = .boolean(true)
                     
         let event = Event!.new(

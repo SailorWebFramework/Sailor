@@ -14,7 +14,7 @@ extension EventResult {
         JSClosure { event in
             
             guard let firstEvent = event.first else {
-                // TODO error better
+                // TODO: error better
                 fatalError("EVENT UPDATE FAILED")
                 return .undefined
             }
