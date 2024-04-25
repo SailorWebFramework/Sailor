@@ -13,11 +13,21 @@ With web-assembly theoretically code performence should be more efficient, Howev
 
 ## Getting Started
 
-... TODO, sorry this is empty right now, instructions on how to start making websites with Sailor coming soon 👀
+... instructions on how to start making websites with Sailor Compass CLI coming soon 👀
 
 
-However the hack-y solution right now is create your sailor project, install swift-wasm carton, and use carton to run and bundle your website.
+For now you can start creating a Sailor project by including the framework in your Swift Package
 
+```swift
+    .package(url:"https://github.com/SailorFrontendFramework", from: "0.2")
+```
+
+to run your project Sailor uses Carton
+
+```bash
+swift run carton dev # runs the dev environment
+swift run carton bundle # bundles the code
+```
 
 ## Usage
 
@@ -27,7 +37,9 @@ Sailor adopts a SwiftUI-like syntax for HTML. Below is an example view
 struct ExamplePage: Page {
 
     var body: some Page {
-        Span("Hello world")
+        HTML.Div {
+            HTML.Span("Hello world")
+        }
     }
 }
 ```
@@ -38,9 +50,9 @@ Pages are root components of sailor and can be nested. All HTML elements are the
 struct Example2Page: Page {
 
     var body: some Page {
-        Div {
+        HTML.Div {
             ExamplePage()
-            Span("Goodbye world")
+            HTML.Span("Goodbye world")
         }
     }
 }
@@ -51,7 +63,9 @@ The above code is equivalent to the following...
 ```html
 <body>
   <div>
-    <span>Hello World</span>
+    <div>
+        <span>Hello World</span>
+    </div>
     <span>Goodbye World</span>
   </div>
 </body>
@@ -60,19 +74,79 @@ The above code is equivalent to the following...
 Sailor utilizes a resultBuilder like swiftUI for the body of tags, or if the tag takes string content then that is passed into the initializer instead.
 
 
-the Page resultBuilder also allows for conditionals
+the Page resultBuilder also allows for conditionals and loops
 
 
 ```swift
 struct Example2Page: Page {
     @State var age: Int = 0
+    
+    var names: [String] = ["Josh", "Tim", "Jeff", "John"]
 
     var body: some Page {
-        Div {
-            ExamplePage()
+        HTML.Div {
             if age > 10 {
-                Span("Goodbye world")
+                HTML.Span("Goodbye world")
             }
+            
+            HTML.Div {
+                for name in names {
+                    HTML.Span(name)
+                }
+            }
+        }
+    }
+}
+```
+
+By default for loops only update their body on the change of size of the sequence. However if you want to provide a key to update the body elements on when its value changes use the .key(...) attribute
+
+
+```swift
+struct Example2Page: Page {    
+    var names: [String] = ["Josh", "Tim", "Jeff", "John"]
+
+    var body: some Page {
+        HTML.Div {
+            HTML.Div {
+                for name in names {
+                    HTML.Span(name)
+                        .key(name)
+                }
+            }
+        }
+    }
+}
+```
+
+By default all tags are located in the HTML enum, and sailor supports nearly all HTML tags and attributes. This is an on-going effort and all tags are expected to be supported eventually.
+Not having tags in the base scope by default was done to be extra explicit what kind of tag you are using and not to clutter the main scope.
+If you want to add tags to the local scope its recommended to add specific tags to the scope via a typealias.
+
+```swift
+typealias Div = HTML.Div
+typealias Span = HTML.Span
+typealias H1 = HTML.H1
+...
+```
+
+
+When creating a component library its recommended to put them within an enum and let the user decide which components they need in their main scope. It also allows extra explicitness to reduce coding errors.
+
+
+```swift
+public enum CustomTagLib {
+    // Custom tags defined here
+}
+```
+
+```swift
+struct CustomExamplePage: Page {    
+    var body: some Page {
+        HTML.Div {
+            // This clearly shows whether you are using a custom button or html button
+            CustomTagLib.Button("Hi im a button")
+            HTML.Button("Hi im a button")
         }
     }
 }
@@ -87,26 +161,16 @@ The body defines the page to be rendered as follows.
 ```swift
 @main
 struct TestWebsite: Website {
-    typealias WebRoutes = AppRoutes
-    
-    @Environment var environment: WebEnvironment<AppRoutes>
-    
-    var body: some Page {
-        Router {
-            Route(.Root) {
-                HomePage()
-            }
 
-            Route(.about) {
-                AboutPage()
-            }
-
-            Route(.explore) {
-                Div("explore we go")
-                Img(src: "", alt: "")
-            }
-        } notFound: {
-            NotFoundPage()
+    var head: some WebHead {
+        HTML.Head {
+            HTML.Title("Test Website")
+        }
+    }
+    
+    var body: some WebBody {
+        HTML.Body {
+            HomePage()
         }
     }
 }
@@ -114,84 +178,161 @@ struct TestWebsite: Website {
 
 ## Attributes
 
+Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner. Attributes can only be applied to Elements. Certain elements have specific attributes like HTML.
 
-Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner. Attributes can only be applied to HTMLElements.
 
 ```swift
-struct Example3Page: Page {
+struct Example4Page: Page {
+    @State var value: Double = 0
     var body: some Page {
         Div{
-            Span("Hello world")
+            HTML.Progress { }
+                .value(value)
+                .max(100)
         }
-        .classes("card", "button-component")
     }
 }
 ```
 
-Attribute name is an Enum with all attributes. To add Custom attributes globally for custom components. At the moment inline-style components aren't fully supported however this is currently being work on.
-
-```swift
-struct Example3Page: Page {
-    var body: some Page {
-        Div()
-        .style(
-            .backgroundColor(.rgb(200, 0, 0)),
-            .display(.inlineBlock)
-        )
-    }
-}
-```
-
-Some components (like image) that expect tags to be utilized more readily have the attribute built into its initializer.
+Some components (like image) that expect attributes to be utilized more readily have the attribute built into its initializer.
 
 ```swift
 struct Example4Page: Page {
     var body: some Page {
-        Div{
-            Img(src: "www.imagegoeshere.com", alt: "the is an image")
-            
+        HTML.Div {
+            HTML.Img(src: "www.imagegoeshere.com", alt: "the is an image")
         }
     }
 }
 ```
 
-## Style (only small amount of style componenets supported right now)
 
-To add inline-styles to components use the .style(...) function and add styles in any order.
+## Classes
+
+
+Classes have a special result builder function in an Element that allows you easily add and save packs of classes in one. The value inputted is String or DynamicClass.
+
+```swift
+struct ClassesExample1Page: Page {
+    var body: some Page {
+        Div{
+            Span("Hello world")
+        }
+        .classes{ 
+            "card" 
+            "button-component"
+        }
+    }
+}
+```
+
+
+Just like page builder it supports conditionals and custom dynamic classes
+
+
+```swift
+struct ContainerLarge: DynamicClass {
+    @Binding var toggle: Bool
+
+    var classes: some DynamicClass {
+        ClassGroup {
+            if toggle {
+                "big-container-blue"
+            } else {
+                "big-container-red"
+            }
+        }
+    }
+}
+```
+
+```swift
+struct ClassesExample2Page: Page {
+    @State var toggle: Bool = true
+    
+    var classNames: [String] = ["red-box", "large-card"]
+    var body: some Page {
+        Div{
+            Span("Hello world")
+        }
+        .classes { 
+            if toggle {
+                "card" 
+            }
+            
+            for name in classNames {
+                name
+            }
+            
+            ContainerLarge(toggle: $toggle)
+        }
+    }
+}
+```
+
+
+It's recommended that for custom-class libraries and in your own codebase to use enums to keep class names to ensure no typing-issues 
+
+```swift
+enum Classes: String {
+    case containerBig = "container-big"
+    case containerSmall = "container-small"
+}
+```
+
+```swift
+struct ClassesExample3Page: Page {    
+    var body: some Page {
+        Div{
+            Span("Hello world")
+        }
+        .classes { 
+            Classes.containerBig // users custom classe
+            TW.sm(.m0, .p0) // example for tailwind 
+        }
+    }
+}
+```
+
+## Style
+
+similar to the .classes result builder to add inline-styles to components use the .style{...} result builder and add styles in any order.
+All CSS styles are available under the CSS enum. 
 
 ```swift
 struct Example5Page: Page {
+    @State var toggle: Bool = true
+    
     var body: some Page {
         Div{
             Span("Hello world")
         }
-        .style(
-            .backgroundColor(.rgb(255, 0, 0)),
-            .width(.px(50)),
-            .height(.vh(4))
-        )
+        .style {
+            CSS.backgroundColor(.rgb(255, 0, 0))
+            CSS.width(.px(50))
+            CSS.height(.vh(4))
+            ContainerLarge(toggle: $toggle)
+        }
     }
 }
 ```
 
-These style are enums with associated values that take in certain units.
 
-### Tailwind
+All CSS properties are expected to be accessable in the future but it is an on-going effort. String style properties are also accessible.
+CSS styles are enums with associated values that take in certain units. The goal is to make a strongly typed CSS interface to more easily catch errors.
 
-Tailwind support is currently being created along with inline-styles...
-instead of using inline style use tailwind to style components using the wind function and enums.
+
+Like dynamic classes it is also possible to create cutom style properties that can contain state.
 
 ```swift
-struct Example6Page: Page {
-    var body: some Page {
-        Div{
-            Span("Hello world")
+struct ContainerLarge: Style {
+    @Binding var toggle: Bool
+
+    var style: some Style {
+        StyleGroup {
+            CSS.backgroundColor(.aqua)
+            CustomCardStyle(toggle: $toggle)
         }
-        .wind(
-            .bgBlack, .textWhite,
-            .sm(.p0, .m0),
-            .lg(.p10, .m10)
-        )
     }
 }
 ```
@@ -215,10 +356,10 @@ Events are added like modifiers to tags and many events can be chained.
 struct Example7Page: Page {
     var body: some Page {
         Button("Hello World")
-        .onClick{
+        .onClick {
             print("I was clicked")
         }
-        .onMouseOver{
+        .onMouseOver {
             print("I was hovered")
         }
     }
@@ -241,14 +382,6 @@ struct Example5Page: Page {
 
 
 ## State
-
-Utilizes JavascriptKit and SwiftWASM to build and update the DOM on state changes.
-
-Sailor currently uses a Virtual-DOM that is kept in memory in Swift that is checked before interacting with the DOM.
-
-Currently implementing ID property that allows DOM elements to smartly diff more accuratly with complex additions
-
-State variables are stored globally in App and function similarly to swiftUI.
 
 ```swift
 struct ExampleStatePage: Page {
@@ -293,151 +426,124 @@ struct ExampleStatePage: Page {
 }
 ```
 
+## Algorithm
+
+Utilizes JavascriptKit and SwiftWASM to build and update the DOM on state changes.
+Sailor currently uses a Virtual-DOM that is kept in memory in Swift that is checked before interacting with the DOM.
+Currently implementing ID property that allows DOM elements to smartly diff more accuratly with complex additions
+State variables are stored globally in App and function similarly to swiftUI.
+
+
+
 ## Environment
 
-Notice how there isnt a "head" element in our views. I wanted to abstract this away from the user in favor of environment properties.
-There are 2 kinds of environment properties: persistent properties, and stacked properties. 
-Persistent properties stay for the lifetime of the application while stacked properties get collapsed once a page gets destroyed.
 
-persistent properties are things that should only have one value for the duration of the app, like favicon, ect.
-these are added by their respective function in environment.
-
-
-stacked properties are things like css files that can be loaded and unloaded lazily based on the screen being rendered.
-These are added with the environment "add" function
-
-TODO: this has 2 "ways" of using environment which is better? .environment or @Environement
+Environment properties give contextual information about the web page. For example get the url.
+More environment properties will be added in the future.
 
 ```swift
 @main
-struct TestWebsite: Website {
-    typealias WebRoutes = AppRoutes
-    
-    @Environment var environment: WebEnvironment<AppRoutes>
-    
-    init() {
-        environment.add(
-            .link(.stylesheet, "Resources/Global.css"),
-            .link(.stylesheet, "Resources/Other.css")
-        ) 
-    }
-    
+struct EnironmentTextPage: Page {
+    @Environment var environment: WebEnvironment
+
     var body: some Page {
-        Div("hello its me")
-            .environment { env in
-                env.favicon("Resources/favicon.ico")
-                env.add(
-                    .link(.stylesheet, "Resources/Global.css")
-                )
-            }
+        HTML.Div {
+            HTML.H1("url: \(environment.url)")
+        }
     }
 }
 ```
 
 
-## Text (COMING SOON)
+## Head
 
-TODO: not functional... this needs some work 🔨...
 
-In HTML text elements (like P and Span) can have modifiers within them. "\n" and "\t" automatically convert to their HTML counterparts.
+Head items that need to stay the duration of the app can be applied in the main Website struct like below.
+
+```swift
+@main
+struct TestWebsite: Website {
+    
+    var head: some WebHead {
+        HTML.Head {
+            HTML.Title("My Title")
+            HTML.Link(rel: "icon", href: "favicon.ico")
+            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/MainStyles.css")
+        }
+    }
+    
+    var body: some WebBody {
+        HTML.Body {
+            HTML.H1("Title")
+        }
+    }
+}
+```
+
+
+Head elements can be added throughout the rest of the app through the .head {...} function.
+
+
+```swift
+@main
+struct OtherPage: Page {
+
+    var body: some Page {
+        HTML.Div {
+            HTML.H1("Title")
+        }
+        .head {
+            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/OtherPage.css")
+        }
+    }
+}
+```
+
+
+## Text 
+
+
+Certain Elements have text based initializers that allow you pass in Text to the constructor. Also the PageBuilder can take in Strings.
 
 ```swift
 struct TextPage: Page {
+    @State var name: String = "Josh"
 
     var body: some Page {
         Div {
-
-            // Josh is Bolded
-            P(seperator: " "){ 
-                "hello"
-                B("JOSH")
-                "whats up?" 
-            }
-
-            P(seperator: " ") {
-                "hello"
-                IB("JOSH") // Bolded and Italic
-                "whats up?"
+            P { 
+                "hello "
+                B(\(name))
+                " whats up?" 
             }
         }
     }
 }
 ```
 
-## Routing 
-
-Routing is currently being worked on 🧰
-
-Sailor has a strongly typed router
-
-```swift
-@Routing
-struct AppRoutes: Routes {
-    static var default: Self { .home }
-    case home, about, explore
-}
-// / -> home, /about -> .about, /explore -> .explore
-```
-
-sailor also supports complex routes and query parameters
-
-```swift
-@Routing
-struct AppRoutes: Routes {
-    static var defaultRoute: Self { .home }
-    case home, user(UserRoutes) 
-}
-
-@Routing
-struct UserRoutes: Routes {
-    static var defaultRoute: Self { .about }
-    case about, biography, photos(limit: Int)
-}
-// /user or /user/about -> .user(.about), /user/biography -> .user(.biography), /user/photos/10 -> .user(.photos(limit: 10))
-```
-
-routes are called using the Route and Router component. Router defines a not found value
+## Crates (Future)
 
 
-```swift
-@main
-struct TestWebsite: Website {
-    typealias WebRoutes = AppRoutes
-    
-    @Environment var environment: WebEnvironment<AppRoutes>
-    
-    var body: some Page {
-        Router {
-            Route(.default) {
-                HomePage()
-            }
-
-            Route(.about) {
-                AboutPage()
-            }
-
-            Route(.explore) {
-                Div("explore we go")
-            }
-        } notFound: {
-            NotFoundPage()
-        }
-    }
-}
-```
-
-and more??
-figure out interface for relative routes "#"...
+In the future a system to install custom customizable components to your codebase. This will be able to be done through the Compass CLI.
+Check the Compass repo for new updates.
 
 
-## FUTURE??
+## Fleet (Future)
 
-- Complex Animations?
 
-- create StateObjects and Evironment variables like in SwiftUI
+In the future, packages like Tailwind and Navigtor will be packages availble for projects.
+Fleet packages will be able to run certain tasks when running and bundling your code. 
+For example launching a tailwind server when running the dev server. 
+Check the Compass repo for new updates.
 
-- Create custom library built on the HTMLElements to be more similar to SwiftUI.
 
-- Use CSS Files to help with styling
-- Create Build tool to easily run on IOS, Android with Ionic?
-- (SUPER STRETCH) Somehow interact with swiftUI to build native iOS
+## Known Issues and Future Features
+
+
+Found issue where some events dont trigger when stacked in certain ways
+
+In the future asyncronous DOM updates and asyncronous firing of code will be supported
+
+All CSS elements should be supported
+
+Certain updates fail to happen (will be fixed)
