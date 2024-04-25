@@ -383,6 +383,9 @@ struct Example5Page: Page {
 
 ## State
 
+By using @State and @Binding you can create and store and send state values between properties. 
+Later Swift-UI-like versions @StateObject, @EnvironmentObject, and @ObservedObject will be supported.
+
 ```swift
 struct ExampleStatePage: Page {
     // creates a new global state
@@ -396,11 +399,11 @@ struct ExampleStatePage: Page {
                     foo += 1
                 }
         }
-        .style(
-            .backgroundColor(.rgb(255, 0, 0)),
-            .width(.px(50)),
-            .height(.vh(4))
-        )
+        .style {
+            CSS.backgroundColor(.rgb(255, 0, 0))
+            CSS.width(.px(50))
+            CSS.height(.vh(4))
+        }
     }
 }
 ```
@@ -417,22 +420,20 @@ struct ExampleStatePage: Page {
                     foo += 1
                 }
         }
-        .style(
-            .backgroundColor(.rgb(255, 0, 0)),
-            .width(.px(50)),
-            .height(.vh(4))
-        )
+        .style {
+            CSS.backgroundColor(.rgb(255, 0, 0))
+            CSS.width(.px(50))
+            CSS.height(.vh(4))
+        }
     }
 }
 ```
 
 ## Algorithm
 
-Utilizes JavascriptKit and SwiftWASM to build and update the DOM on state changes.
-Sailor currently uses a Virtual-DOM that is kept in memory in Swift that is checked before interacting with the DOM.
-Currently implementing ID property that allows DOM elements to smartly diff more accuratly with complex additions
-State variables are stored globally in App and function similarly to swiftUI.
+Sailor uses a signals-like approach to state management and efficiently updates the DOM attributes independently of a full page update depending on which states change.
 
+Sailor maintains a dependency graph of states to page elements and can efficiently update the DOM.
 
 
 ## Environment
