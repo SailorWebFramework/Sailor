@@ -16,6 +16,9 @@ import SailorWeb
 public protocol Website: Page {
     static func main()
     
+    associatedtype Body: WebBody
+    associatedtype Head: WebHead
+
     var body: Body { get }
     
     var head: Head { get }
