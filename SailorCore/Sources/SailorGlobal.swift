@@ -10,9 +10,9 @@ import Sailboat
 /// Sailor Specific global environment
 enum SailorGlobal {
     /// global head page/element refrence in sailor
-    static var headRef: (Head)! = nil
+    static var headRef: (any WebHead)! = nil
     
-    static func initialize(head: Head) {
+    static func initialize(head: any WebHead) {
         Self.headRef = head
         
         RenderableUtils.build(

@@ -19,6 +19,12 @@ protocol BodyElement: Element, BodyPage {}
 /// This element can be placed in the body
 public protocol BodyPage: Sailboat.Page {}
 
-///
-//extension MyPage: BodyPage where MyPage == any Page { }
 
+// TODO: make this conform to Page not ELement and change Website
+///
+public protocol WebBody: Element { }
+
+///
+public protocol WebHead: Element {
+    var content: () -> any Fragment { get set }
+}
