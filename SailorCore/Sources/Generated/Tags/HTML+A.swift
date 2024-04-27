@@ -18,18 +18,24 @@ extension HTML {
     /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
     public struct A: BodyElement {
         /// name of the html tag associated with this type
-        public static var name: String { "a" }
+        @_spi(Private) public static var name: String { "a" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]
@@ -66,7 +72,7 @@ extension HTML {
             self.attributes["href"] = { href().description }
         }
 
-        public init(href: @autoclosure @escaping () -> String, _ text: @autoclosure @escaping () -> String) {
+        public init(_ text: @autoclosure @escaping () -> String, href: @autoclosure @escaping () -> String) {
             self.init(bodyValue: { List([text()], hash: "") })
 
             self.attributes["href"] = { href().description }

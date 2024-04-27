@@ -11,7 +11,7 @@ public struct Never: Page {
         .error()
     }
     
-    static func error() -> Never {
+    public static func error() -> Never {
         fatalError("This body should never be called")
     }
 }

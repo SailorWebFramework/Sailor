@@ -56,7 +56,8 @@ let package = Package(
             dependencies: [
                 "Sailboat",
                 "SailorShared",
-                .product(name: "JavaScriptKit", package: "JavaScriptKit")
+                .product(name: "JavaScriptKit", package: "JavaScriptKit"),
+                .product(name: "JavaScriptEventLoop", package: "JavaScriptKit")
             ],
             path: "SailorWeb"
         ),

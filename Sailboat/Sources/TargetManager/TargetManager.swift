@@ -12,7 +12,7 @@ open class TargetManager {
     public var environment: (any SomeEnvironment)? = nil
     
     // TODO: state objects here, or inside of environment
-    public var objects: [String: ObservableObject] = [:]
+    public var objects: [String: any ObservableObject] = [:]
     
     /// magages global data on a ran event
     public var managedEvent: ManagedEvent = .init()
@@ -101,7 +101,7 @@ open class TargetManager {
     }
     
     // TODO: add to managedEvent
-    public func eventAdd<StateValue: Equatable>(state: State<StateValue>) {
+    public func eventAdd(state: some Stateful) {
         managedEvent.states.insert(state.id)
     }
     

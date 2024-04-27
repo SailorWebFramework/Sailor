@@ -18,18 +18,24 @@ extension HTML {
     /// The cite element represents the title of a work (e.g. a book, a paper, an essay, a poem, a score, a song, a script, a film, a TV show, a game, a sculpture, a painting, a theatre production, a play, an opera, a musical, an exhibition, a legal case report, a computer program, etc).
     public struct Cite: BodyElement {
         /// name of the html tag associated with this type
-        public static var name: String { "cite" }
+        @_spi(Private) public static var name: String { "cite" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]

@@ -18,18 +18,24 @@ extension HTML {
     /// The title element represents the document's title or name. Authors should use titles that identify their documents even when they are used out of context, for example in a user's history or bookmarks, or in search results.
     public struct Title: HeadElement {
         /// name of the html tag associated with this type
-        public static var name: String { "title" }
+        @_spi(Private) public static var name: String { "title" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]

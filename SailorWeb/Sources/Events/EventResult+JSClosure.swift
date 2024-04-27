@@ -12,7 +12,8 @@ extension EventResult {
 
     static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
-            
+            SailboatGlobal.manager.startEvent()
+
             guard let firstEvent = event.first else {
                 // TODO: error better
                 fatalError("EVENT UPDATE FAILED")
@@ -21,7 +22,6 @@ extension EventResult {
             
             let resultValue = Self.getResultValue(eventName, firstEvent)
             
-            SailboatGlobal.manager.startEvent()
             
             action(resultValue)
 

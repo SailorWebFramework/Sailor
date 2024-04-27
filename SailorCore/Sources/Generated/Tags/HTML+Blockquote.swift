@@ -18,18 +18,24 @@ extension HTML {
     /// The blockquote element represents a section that is quoted from another source.
     public struct Blockquote: BodyElement {
         /// name of the html tag associated with this type
-        public static var name: String { "blockquote" }
+        @_spi(Private) public static var name: String { "blockquote" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]

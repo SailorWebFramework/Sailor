@@ -16,8 +16,8 @@ import SailorWeb
 public protocol Website: Page {
     static func main()
     
-    associatedtype Body: WebBody
-    associatedtype Head: WebHead
+    associatedtype Body: SailorCore.Body
+    associatedtype Head: SailorCore.Head
 
     var body: Body { get }
     
@@ -31,6 +31,8 @@ public protocol Website: Page {
 extension Website {
     public static func main() {
         SailboatGlobal.initialize(SailorWebManager())
+        
+        JSNode.installGlobalExecutor()
         
         let bodyElement = Self().body
         let headElement = Self().head

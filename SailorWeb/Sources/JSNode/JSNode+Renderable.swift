@@ -59,7 +59,6 @@ extension JSNode: Renderable {
             fatalError("cannot remove an object that doesnt exist")
         }
         remove(node: node)
-        
     }
 
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
@@ -146,12 +145,13 @@ extension JSNode {
     }
     public static func shallowEnterEvents(on object: JSObject) {
         /// Set properties on the eventInit object
+        callEvent(named: "_makeEnvironmentObject", on: object)
         callEvent(named: "_appear", on: object)
         callEvent(named: "_task", on: object)
     }
     
     public static func shallowExitEvents(on object: JSObject) {
-        /// Set properties on the eventInit object
+        callEvent(named: "_killEnvironmentObject", on: object)
         callEvent(named: "_disappear", on: object)
 
     }

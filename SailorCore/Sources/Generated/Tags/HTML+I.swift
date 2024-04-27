@@ -18,18 +18,24 @@ extension HTML {
     /// The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.
     public struct I: BodyElement {
         /// name of the html tag associated with this type
-        public static var name: String { "i" }
+        @_spi(Private) public static var name: String { "i" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]

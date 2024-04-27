@@ -6,17 +6,27 @@
 //
 
 import JavaScriptKit
+import JavaScriptEventLoop
 import Sailboat
 
 //MARK- Global
 extension JSNode {
     static let sailboatIDName = "data-sid"
     
+    static let URLSearchParams = JSNode.window.URLSearchParams.function!
+    static let JSON = JSObject.global.JSON
+    
     static let window = JSObject.global.window.object!
     static let document = JSObject.global.document
     static let body: JSObject = document.body.object!
     static let head: JSObject = document.head.object!
     static let Event: JSObject = window.Event.function!
+    static let jsFetch = JSObject.global.fetch.function!
+
+    @available(macOS 14.0, *)
+    public static func installGlobalExecutor() {
+        JavaScriptEventLoop.installGlobalExecutor()
+    }
     
     var tagName: String? {
         element.tagName.string

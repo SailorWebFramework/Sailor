@@ -18,18 +18,24 @@ extension HTML {
     /// The dialog element represents a part of an application that a user interacts with to perform a task, for example a dialog box, inspector, or window.
     public struct Dialog: BodyElement {
         /// name of the html tag associated with this type
-        public static var name: String { "dialog" }
+        @_spi(Private) public static var name: String { "dialog" }
 
         /// attributes associated with this type
-        public var attributes: [String: () -> any AttributeValue]
+        @_spi(Private) public var attributes: [String: () -> any AttributeValue]
 
         /// events associated with this type
-        public var events: [String: (EventResult) -> Void]
+        @_spi(Private) public var events: [String: (EventResult) -> Void]
 
         /// content that is contained by this html element
-        public var content: () -> any Fragment
+        @_spi(Private) public var content: () -> any Fragment
 
-        public var renderer: any Renderable
+        /// renderer that is used to render this element
+        @_spi(Private) public var renderer: any Renderable
+
+        @_spi(Private)
+        public var body: Never {
+            .error()
+        }
         
         internal init(bodyValue: (() -> any Fragment)?) {
             self.attributes = [:]

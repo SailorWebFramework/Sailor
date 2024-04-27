@@ -12,7 +12,7 @@ public extension Element {
     func accesskey(_ value: @autoclosure @escaping () -> Character) -> Self {
         attribute(.init(name: "accesskey", value: { value().description }))
     }
-        
+
     ///Specifies wheather or not this element is editable or not.
     func contenteditable(_ value: @autoclosure @escaping () -> Bool) -> Self {
         attribute(.init(name: "contenteditable", value: { value().description }))
