@@ -6,29 +6,27 @@
 //
 
 @propertyWrapper
-public class EnvironmentObject<Value: ObservableObject>: Stateful {
-    
-    // TODO: this doesnt need to be registerd
-    public let id: StateID = ManagedStates.registerID()
+public class EnvironmentObject<Value: ObservableObject> {
     
     public var wrappedValue: Value {
         return getValue()
     }
     
-    public var projectedValue: Binding<Value> {
-        Binding(
+    public var projectedValue: ObservedObject<Value> {
+        ObservedObject(
             get: { self.getValue() },
-            set: { _ in },
-            id: self.id // TODO: this doesnt work create a map to a stateID from the string getID
+            set: { _ in }
         )
     }
     
+    // TODO: make this id thing a helper
     internal var getID: String { String(describing: Value.self) }
     
     public init() { }
     
     private func getValue() -> Value {
-        SailboatGlobal.manager.dumpDependency(state: self)
+        //TODO: do i dump
+//        SailboatGlobal.manager.dumpDependency(state: self)
         return SailboatGlobal.manager.objects[self.getID] as! Value
     }
 

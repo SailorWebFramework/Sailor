@@ -27,26 +27,26 @@ public extension Element {
         }
     }
     
-    func task(_ completion: @escaping () -> Void) -> Self {
+    func task(_ completion: @escaping  () async -> Void) -> Self {
         withEvent(name: "_task") { _ in
             Task {
-                completion()
+                // TODO: create an async queue that doesnt block other renders
+                SailboatGlobal.manager.startEvent()
+                await completion()
+                SailboatGlobal.manager.endEvent()
             }
         }
     }
 
-    //
-    func environmentObject(_ object: ObservableObject) -> Self {
-        withEvent(name: "_makeEnvironmentObject") { _ in
-            let typeID = String(describing: type(of: object))
+    func environmentObject(_ object: any ObservableObject) -> Self {
+        // TODO: object.id?
+        let typeID = String(describing: type(of: object))
 
-            if SailboatGlobal.manager.objects[typeID] != nil {
-                return
-            }
-            
+        if SailboatGlobal.manager.objects[typeID] == nil {
             SailboatGlobal.manager.objects[typeID] = object
-            
-        }.withEvent(name: "_killEnvironmentObject") { _ in
+        }
+
+        return withEvent(name: "_killEnvironmentObject") { _ in
             let typeID = String(describing: type(of: object))
             SailboatGlobal.manager.objects[typeID] = nil
         }
@@ -88,7 +88,7 @@ public extension Page {
     }
     
     
-    func environmentObject(_ object: ObservableObject) -> any Element {
+    func environmentObject(_ object: any ObservableObject) -> any Element {
         traversePage(self) {
             $0.environmentObject(object)
         }

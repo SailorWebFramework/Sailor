@@ -29,6 +29,11 @@ extension String: ValueElement, BodyPage, HeadPage {
         set(newValue) { }
     }
     
+    @_spi(Private)
+    public var body: Never {
+        .error()
+    }
+    
     public var attributes: [String : () -> any AttributeValue] {
         get { [:] }
         set(newValue) { }

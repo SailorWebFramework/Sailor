@@ -6,10 +6,6 @@
 //
 
 public protocol Element: Page {
-    
-    ///
-//    static var name: String { get }
-
     /// attributes on tag
     var attributes: [String: () -> any AttributeValue] { get set }
     
@@ -26,15 +22,9 @@ public protocol Element: Page {
 }
 
 public extension Element {
-    
     var description: String {
         "Element(type: \(type(of: self)), attributes: \(self.attributes), events: \(self.events), content: \(self.content))"
     }
-    
-    var body: Never {
-        .error()
-    }
-
 }
 
 // TODO: make this internal? / remove?
@@ -42,22 +32,11 @@ public extension Element {
     
     // TODO: remove ovveride? remove this func?
     func attribute(_ value: ElementAttributeGroup, override: Bool = true) -> Self {
-        // TODO: dont think i can do this anymore cuz func
-        //        if attributes[value.name] == value.value { return self }
-
+        // TODO: dont think i can do this anymore cuz func, or add back addding properties
+        
         var copy = self
         
         copy.attributes[value.name] = value.value
-
-//        // TODO: this logic is gross
-//        if override || copy.attributes[value.name] == nil {
-//            copy.attributes[value.name] = value.value
-//        } else {
-//            copy.attributes[value.name] = {
-//                copy.attributes[value.name]!() + value.value()
-//            }
-//        }
-        
         return copy
         
     }
@@ -71,7 +50,9 @@ public extension Element {
                 closure(value)
             }
         } else {
-            copy.events[name] = closure
+            copy.events[name] = { value in
+                closure(value)
+            }
         }
         
         return copy

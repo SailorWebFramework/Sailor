@@ -22,9 +22,9 @@ public protocol BodyPage: Sailboat.Page {}
 
 // TODO: make this conform to Page not ELement and change Website
 ///
-public protocol WebBody: Element { }
+public protocol Body: Element { }
 
 ///
-public protocol WebHead: Element {
+public protocol Head: Element {
     var content: () -> any Fragment { get set }
 }
