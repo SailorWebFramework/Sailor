@@ -10,7 +10,8 @@ let package = Package(
     products: [
         .library(
             name: "Sailor",
-            targets: ["SailorCore"])
+            targets: ["Sailor"]
+        )
     ],
     dependencies: [
         .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"),
@@ -21,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SailorCore",
+            name: "Sailor",
             dependencies: [
                 "Sailboat",
                 "SailorShared",
