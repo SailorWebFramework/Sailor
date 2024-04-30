@@ -19,7 +19,7 @@ With web-assembly theoretically code performence should be more efficient, Howev
 For now you can start creating a Sailor project by including the framework in your Swift Package
 
 ```swift
-    .package(url:"https://github.com/SailorFrontendFramework", from: "0.2")
+    .package(url:"https://github.com/SailorWebFramework/Sailor", from: "0.2.0")
 ```
 
 to run your project Sailor uses Carton
@@ -30,6 +30,10 @@ swift run carton bundle # bundles the code
 ```
 
 >Currently Sailor has only been tested on Swift 5.9 and that is the recommended Swift version
+
+
+You can also clone the [Example Repo]("https://github.com/SailorWebFramework/ExampleProject")
+
 
 ## Usage
 
@@ -543,10 +547,8 @@ Check the Compass repo for new updates.
 ## Known Issues and Future Features
 
 
-Found issue where some events dont trigger when stacked in certain ways
+Not all typed CSS elements are supported.
 
-In the future asyncronous DOM updates and asyncronous firing of code will be supported
+Not all events are supported.
 
-All CSS elements should be supported
-
-Certain updates fail to happen (will be fixed)
+Will create more helpful initializers and ensure two all tags that have a 2-way binding have the initializer.
