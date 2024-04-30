@@ -16,8 +16,8 @@ import SailorWeb
 public protocol Website: Page {
     static func main()
     
-    associatedtype Body: SailorCore.Body
-    associatedtype Head: SailorCore.Head
+    associatedtype Body: Sailor.Body
+    associatedtype Head: Sailor.Head
 
     var body: Body { get }
     var head: Head { get }
