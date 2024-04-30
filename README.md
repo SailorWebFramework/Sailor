@@ -32,7 +32,7 @@ swift run carton bundle # bundles the code
 >Currently Sailor has only been tested on Swift 5.9 and that is the recommended Swift version
 
 
-You can also clone the [Example Repo]("https://github.com/SailorWebFramework/ExampleProject")
+You can also clone the [Example Repo](https://github.com/SailorWebFramework/ExampleProject)
 
 
 ## Usage
