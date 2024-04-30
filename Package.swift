@@ -10,16 +10,13 @@ let package = Package(
     products: [
         .library(
             name: "Sailor",
-            targets: ["Sailor"]),
-        .library(
-            name: "Sailboat",
-            targets: ["Sailboat"]),
-        .executable(name: "Playground", targets: ["Playground"])
+            targets: ["Sailor"])
     ],
     dependencies: [
-        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"), // 0.15.0
-        .package(url:"https://github.com/swiftwasm/carton", from: "1.0.2")//, // 0.15.0
-//        .package(url: "https://github.com/apple/swift-syntax", from: "509.0.0")
+        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"),
+        // TODO: automate this, but for now switch below comment when tagging releases
+        .package(path: "../Sailboat")
+        //.package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.2.0"),
 
     ],
     targets: [
@@ -27,7 +24,7 @@ let package = Package(
             name: "Sailor",
             dependencies: [
                 "SailorCore",
-//                "SailorMacros",
+                //"SailorMacros",
                 "SailorWeb"
             ],
             path: "Sailor"
@@ -71,35 +68,6 @@ let package = Package(
 //            path: "SailorMacros"
 //
 //        ),
-        .target(
-            name: "Sailboat",
-            dependencies: [],
-            path: "Sailboat"
-        ),
-        .executableTarget(
-            name: "Playground",
-            dependencies: [
-                "Sailor"
-            ],
-            path: "Playground",
-            resources: [
-                //🧭Compass Generated Resources (DONT REMOVE THIS COMMENT)
-                .process("Resources/Assets/favicon.ico"),
-                .process("Resources/MainStyles.css")
 
-                //🧭End (DONT REMOVE THIS COMMENT)
-            ]
-        ),
-        .testTarget(
-            name: "Tests",
-            dependencies: [
-                "Sailboat",
-                "Sailor"
-            ],
-            path: "Tests"//,
-//            swiftSettings: [
-//                .unsafeFlags(["-enforce-exclusivity=none"])
-//            ]
-        ),
     ]
 )
