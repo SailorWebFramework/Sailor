@@ -41,7 +41,6 @@ public final class WebEventScheduler: EventScheduler {
     
     public func update() {
         if areUpdatesBlocked || states.isEmpty {
-            print("BLOCKING UPDATE")
             return
         }
         

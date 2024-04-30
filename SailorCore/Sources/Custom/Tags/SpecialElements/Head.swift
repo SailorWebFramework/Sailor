@@ -18,10 +18,7 @@ extension HTML {
     public struct Head: Element, SailorCore.Head {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "head" }
-        
-        /// unique identifier for this html element
-        //    public var sid: SailboatID? = nil
-        
+
         /// attributes associated with this type
         @_spi(Private) public var attributes: [String: () -> any AttributeValue]
         

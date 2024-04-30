@@ -10,7 +10,14 @@ import JavaScriptEventLoop
 import Sailboat
 
 //MARK- Global
-extension JSNode {
+extension JSNode: CustomStringConvertible {
+
+    public var description: String {
+        """
+        JSNode(type: \(tagName ?? ""), sid: \(self.sailboatID ?? 0)
+        """
+    }
+    
     static let sailboatIDName = "data-sid"
     
     static let URLSearchParams = JSNode.window.URLSearchParams.function!
