@@ -51,7 +51,7 @@ public class State<Value: Equatable>: Identifiable, Stateful {
         
         self.value = value
         
-        SailboatGlobal.manager.eventAdd(state: self)
+        SailboatGlobal.manager.eventScheduler.observe(state: self)
 
     }
 

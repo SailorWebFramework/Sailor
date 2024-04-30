@@ -31,9 +31,10 @@ public extension Element {
         withEvent(name: "_task") { _ in
             Task {
                 // TODO: create an async queue that doesnt block other renders
-                SailboatGlobal.manager.startEvent()
+                // TODO: do i need this shouldnt it get added later
+//                SailboatGlobal.manager.eventScheduler.registerEvent()
                 await completion()
-                SailboatGlobal.manager.endEvent()
+                SailboatGlobal.manager.eventScheduler.update()
             }
         }
     }
@@ -79,10 +80,10 @@ public extension Page {
         }
     }
     
-    func task(_ completion: @escaping () -> Void) -> any Element {
+    func task(_ completion: @escaping () async -> Void) -> any Element {
         traversePage(self) {
             $0.task {
-                completion()
+                await completion()
             }
         }
     }

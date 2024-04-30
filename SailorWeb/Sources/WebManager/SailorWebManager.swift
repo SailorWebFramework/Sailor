@@ -9,8 +9,8 @@ import Sailboat
 
 public final class SailorWebManager: TargetManager {
     
-    public override init() {
-        super.init()
+    public init() {
+        super.init(WebEventScheduler())
         self.environment = WebEnvironment()
         
     }

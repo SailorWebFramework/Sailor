@@ -22,6 +22,7 @@ extension JSNode {
     static let head: JSObject = document.head.object!
     static let Event: JSObject = window.Event.function!
     static let jsFetch = JSObject.global.fetch.function!
+    static let requestAnimationFrame = window.requestAnimationFrame.function!
 
     @available(macOS 14.0, *)
     public static func installGlobalExecutor() {

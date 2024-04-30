@@ -12,7 +12,7 @@ extension EventResult {
 
     static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
-            SailboatGlobal.manager.startEvent()
+            SailboatGlobal.manager.eventScheduler.registerEvent()
 
             guard let firstEvent = event.first else {
                 // TODO: error better
@@ -25,8 +25,8 @@ extension EventResult {
             
             action(resultValue)
 
-            SailboatGlobal.manager.endEvent()
-            
+            SailboatGlobal.manager.eventScheduler.update()
+
             return .undefined
         }
     }
