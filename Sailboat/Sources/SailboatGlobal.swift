@@ -11,7 +11,7 @@ public final class SailboatGlobal {
         
     public static var managedPages: ManagedPages { manager.managedPages }
 
-    public static var managedEvent: ManagedEvent { manager.managedEvent }
+//    public static var managedEvent: ManagedEvents { manager.managedEvent }
 
     public static func initialize(
         _ sailboatManager: TargetManager

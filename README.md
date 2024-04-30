@@ -29,6 +29,8 @@ swift run carton dev # runs the dev environment
 swift run carton bundle # bundles the code
 ```
 
+>Currently Sailor has only been tested on Swift 5.9 and that is the recommended Swift version
+
 ## Usage
 
 Sailor adopts a SwiftUI-like syntax for HTML. Below is an example view

@@ -21,9 +21,9 @@ public func prompt(_ text: String) -> String { JSObject.global.prompt.function?(
 public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int {
     Int(
         JSObject.global.setTimeout.function!(JSClosure { _ in
-            SailboatGlobal.manager.startEvent()
             completion()
-            SailboatGlobal.manager.endEvent()
+            // TODO: decide if this is good, does not register because its async
+            SailboatGlobal.manager.eventScheduler.update()
             return .undefined
         }, amount).number ?? 0.0
     )
@@ -77,7 +77,6 @@ internal func fetchPromise(_ url: String, _ requestOptions: JSObject) -> JSPromi
 
 public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], completion: @escaping (Promise<ResponseType>) -> Void) {
     Task {
-        SailboatGlobal.manager.startEvent()
         do {
             var formattedURL = url
             let requestOptions = JSObject.global.Object.function!.new()
@@ -118,19 +117,18 @@ public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, 
             let json = try await JSPromise(response.json().object!)!.value
             let parsedResponse = try JSValueDecoder().decode(ResponseType.self, from: json)
             completion(.success(parsedResponse))
-            SailboatGlobal.manager.endEvent()
-            
+            // TODO: do i need this?
+            SailboatGlobal.manager.eventScheduler.update()
+
         } catch {
             completion(.failure(error))
-            SailboatGlobal.manager.endEvent()
-
+            SailboatGlobal.manager.eventScheduler.update()
         }
     }
 }
 
 
 public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async -> Promise<ResponseType>  {
-    SailboatGlobal.manager.startEvent()
     do {
         var formattedURL = url
         let requestOptions = JSObject.global.Object.function!.new()
@@ -170,11 +168,10 @@ public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, 
         let response = try await(fetchPromise(formattedURL, requestOptions)).value
         let json = try await JSPromise(response.json().object!)!.value
         let parsedResponse = try JSValueDecoder().decode(ResponseType.self, from: json)
-        SailboatGlobal.manager.endEvent()
+        SailboatGlobal.manager.eventScheduler.update()
         return .success(parsedResponse)
     } catch {
-        print("FAILED TO LOAD \(url)")
-        SailboatGlobal.manager.endEvent()
+        SailboatGlobal.manager.eventScheduler.update()
         return .failure(error)
     }
 }

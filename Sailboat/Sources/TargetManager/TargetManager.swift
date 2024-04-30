@@ -15,44 +15,43 @@ open class TargetManager {
     public var objects: [String: any ObservableObject] = [:]
     
     /// magages global data on a ran event
-    public var managedEvent: ManagedEvent = .init()
+    public var eventScheduler: any EventScheduler
 
     /// the stored pages in memory rendered currently
     public var managedPages: ManagedPages = .init()
 
-    public init() { }
+    public init(_ eventScheduler: any EventScheduler) { 
+        self.eventScheduler = eventScheduler
+    }
       
     open func build(page: any Element) {
         // ensure stateCallbackHistory is cleared
         _ = self.dump()
         
-        // sema up + down to ensure the built state vars dont trigger an update
-        managedEvent.semaphore += 1
-                
+        eventScheduler.blockUpdates()
+        
         RenderableUtils.build(page)
         
-        managedEvent.semaphore -= 1
+        eventScheduler.unblockUpdates()
 
+        // TODO: i dont think i need this
+//        _ = self.dump()
     }
     
     open func update() {
-        for stateID in managedEvent.states {
+        print("updateing")
+        for stateID in eventScheduler.states {
             let elements = managedPages.statefulElements[stateID] ?? []
             let attributes = managedPages.attributes[stateID] ?? []
 
-            print("updating elements: \(elements)")
-            print("updating attributes: \(attributes)")
+//            print("updating elements: \(elements)")
+//            print("updating attributes: \(attributes)")
 
             // body updates need a rerender of the body of the element
             for sailboatID in elements {
                 if let renderer = managedPages.renderers[sailboatID],
                    let body = managedPages.bodies[sailboatID] {
                     
-//                    print("State: \(stateID), Element: \(sailboatID)")
-                    // TODO: rempve semaphore, i dont think it does anything...
-                    // TODO: edit it stops updates, but seems a bit overkill...
-                    managedEvent.semaphore += 1
-
                     // builds the shallow content body and adds its state to the watchers
                     let content: any Fragment = body()
                              
@@ -65,8 +64,6 @@ open class TargetManager {
                     
                     renderer.reconcile(with: content)
                                         
-                    managedEvent.semaphore -= 1
-
                 } else {
                     // remove elementID in states if it has been removed
                     managedPages.statefulElements[stateID]?.remove(sailboatID)
@@ -93,25 +90,6 @@ open class TargetManager {
         let copy = managedPages.stateHistory
         managedPages.stateHistory.removeAll()
         return copy
-    }
-    
-    // TODO: add to managedEvent
-    public func startEvent() {
-        managedEvent.semaphore += 1
-    }
-    
-    // TODO: add to managedEvent
-    public func eventAdd(state: some Stateful) {
-        managedEvent.states.insert(state.id)
-    }
-    
-    // TODO: add to managedEvent
-    public func endEvent() {
-        managedEvent.semaphore -= 1
-        
-        if managedEvent.semaphore == 0 {
-            update()
-        }
     }
     
 }
