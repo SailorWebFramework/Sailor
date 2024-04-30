@@ -20,10 +20,7 @@ extension HTML {
     public struct Body: BodyElement, SailorCore.Body {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "body" }
-        
-        /// unique identifier for this html element
-        //    public var sid: SailboatID? = nil
-        
+
         /// attributes associated with this type
         @_spi(Private) public var attributes: [String: () -> any AttributeValue]
         

@@ -22,6 +22,7 @@ public extension StyleContainer {
         return output
     }
     
+    @_spi(Private)
     var style: Self {
         fatalError("style container has no body")
         return self

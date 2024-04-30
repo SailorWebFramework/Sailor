@@ -20,7 +20,6 @@ public protocol Website: Page {
     associatedtype Head: SailorCore.Head
 
     var body: Body { get }
-    
     var head: Head { get }
 
     init()

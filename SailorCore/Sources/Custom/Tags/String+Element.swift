@@ -14,7 +14,6 @@ import SailorWeb
 
 // TODO: get string to work properly
 extension String: ValueElement, BodyPage, HeadPage {
-//    public static var name: String { }
     
     public var value: String { self }
     

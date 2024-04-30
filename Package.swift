@@ -10,26 +10,16 @@ let package = Package(
     products: [
         .library(
             name: "Sailor",
-            targets: ["Sailor"])
+            targets: ["SailorCore"])
     ],
     dependencies: [
         .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"),
-        // TODO: automate this, but for now switch below comment when tagging releases
-        .package(path: "../Sailboat")
-        //.package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.2.0"),
+        // TODO: automate this, but for now switch below comment when debugging
+        //.package(path: "../Sailboat")
+        .package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.2.0"),
 
     ],
     targets: [
-        .target(
-            name: "Sailor",
-            dependencies: [
-                "SailorCore",
-                //"SailorMacros",
-                "SailorWeb"
-            ],
-            path: "Sailor"
-            
-        ),
         .target(
             name: "SailorCore",
             dependencies: [
@@ -44,7 +34,6 @@ let package = Package(
             name: "SailorShared",
             dependencies: [
                 "Sailboat"
-                // more targets here
             ],
             path: "SailorShared"
         ),
