@@ -535,8 +535,6 @@ struct EnironmentTextPage: Website {
     }
 }
 
-
-```swift
 struct EnironmentTextPage: Page {
     @EnvironmentObject var myGlobalObject: MyGlobalObject
 
@@ -616,7 +614,7 @@ struct TextPage: Page {
 
 ## Javascript-PassThrough Methods
 
-Sailor has some Javascript Passhrough methods built in to make development easier. If there are any other methods you need use (JavascriptKit)[https://github.com/swiftwasm/JavaScriptKit].
+Sailor has some Javascript Passhrough methods built in to make development easier. If there are any other methods you need use [JavascriptKit](https://github.com/swiftwasm/JavaScriptKit).
 
 
 ```swift
