@@ -14,7 +14,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"),
-        .package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.2.0"),
+        .package(name: "Sailboat", path: "../Sailboat")
+//        .package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.2.0"),
     ],
     targets: [
         .target(

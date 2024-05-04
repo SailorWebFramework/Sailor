@@ -13,6 +13,9 @@ public final class SailorWebManager: TargetManager {
         super.init(WebEventScheduler())
         self.environment = WebEnvironment()
         
+        // i dont know why i have to do this
+        JSNode.body.innerHTML = .string("")
+        
     }
     
 }
