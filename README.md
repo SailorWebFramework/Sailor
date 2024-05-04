@@ -386,9 +386,7 @@ struct Example5Page: Page {
 }
 ```
 
-
 ### Sailor Events
-
 
 Sailor features some internal lifetime events
 
@@ -462,12 +460,38 @@ Environment properties give contextual information about the web page. For examp
 More environment properties will be added in the future.
 
 ```swift
+@main
 struct EnironmentTextPage: Page {
     @Environment var environment: WebEnvironment
 
     var body: some Page {
         HTML.Div {
             HTML.H1("url: \(environment.url)")
+        }
+    }
+}
+```
+
+## Head
+
+
+Head items that need to stay the duration of the app can be applied in the main Website struct like below.
+
+```swift
+@main
+struct TestWebsite: Website {
+    
+    var head: some Head {
+        HTML.Head {
+            HTML.Title("My Title")
+            HTML.Link(rel: "icon", href: "favicon.ico")
+            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/MainStyles.css")
+        }
+    }
+    
+    var body: some Body {
+        HTML.Body {
+            HTML.H1("Title")
         }
     }
 }
@@ -541,50 +565,6 @@ struct EnironmentTextPage: Page {
     var body: some Page {
         HTML.Div {
             HTML.H1("value: \(myGlobalObject.value)")
-        }
-    }
-}
-```
-
-
-## Head
-
-
-Head items that need to stay the duration of the app can be applied in the main Website struct like below.
-
-```swift
-@main
-struct TestWebsite: Website {
-    
-    var head: some WebHead {
-        HTML.Head {
-            HTML.Title("My Title")
-            HTML.Link(rel: "icon", href: "favicon.ico")
-            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/MainStyles.css")
-        }
-    }
-    
-    var body: some WebBody {
-        HTML.Body {
-            HTML.H1("Title")
-        }
-    }
-}
-```
-
-
-Head elements can be added throughout the rest of the app through the .head {...} function.
-
-
-```swift
-struct OtherPage: Page {
-
-    var body: some Page {
-        HTML.Div {
-            HTML.H1("Title")
-        }
-        .head {
-            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/OtherPage.css")
         }
     }
 }

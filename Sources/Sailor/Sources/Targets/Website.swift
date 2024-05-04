@@ -29,16 +29,20 @@ public protocol Website: Page {
 
 extension Website {
     public static func main() {
-        SailboatGlobal.initialize(SailorWebManager())
-        
         JSNode.installGlobalExecutor()
         
-        let bodyElement = Self().body
-        let headElement = Self().head
+        SailboatGlobal.initialize(SailorWebManager())
+
+        let mainPage = Self()
+        let bodyElement = mainPage.body
+        let headElement = mainPage.head
+
+        //TODO: add with Sailboat 0.2.1
+        //SailboatGlobal.initialize(body: bodyElement)
+        SailboatGlobal.manager.build(page: bodyElement)
 
         SailorGlobal.initialize(head: headElement)
-        SailboatGlobal.manager.build(page: bodyElement)
-                
+        
         // runs the onAppear event for the Body and Head
         if let bodyRenderer = bodyElement.renderer as? JSNode {
             bodyRenderer.shallowEnterEvents()
