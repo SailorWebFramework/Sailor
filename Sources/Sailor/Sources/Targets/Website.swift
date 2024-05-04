@@ -39,7 +39,7 @@ extension Website {
 
         SailboatGlobal.initialize(body: bodyElement)
         SailorGlobal.initialize(head: headElement)
-                
+        
         // runs the onAppear event for the Body and Head
         if let bodyRenderer = bodyElement.renderer as? JSNode {
             bodyRenderer.shallowEnterEvents()

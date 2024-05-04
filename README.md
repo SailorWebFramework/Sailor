@@ -386,6 +386,17 @@ struct Example5Page: Page {
 }
 ```
 
+### Sailor Events
+
+Sailor features some internal lifetime events
+
+These include
+
+```
+.onAppear {} // when the element gets rendered in the DOM
+.onDisappear {} // when the element gets removed from the DOM
+.task {} // when the element gets rendered in the DOM, launches a asynchronous Task
+```
 
 ## State
 
@@ -461,7 +472,6 @@ struct EnironmentTextPage: Page {
 }
 ```
 
-
 ## Head
 
 
@@ -471,7 +481,7 @@ Head items that need to stay the duration of the app can be applied in the main 
 @main
 struct TestWebsite: Website {
     
-    var head: some WebHead {
+    var head: some Head {
         HTML.Head {
             HTML.Title("My Title")
             HTML.Link(rel: "icon", href: "favicon.ico")
@@ -479,7 +489,7 @@ struct TestWebsite: Website {
         }
     }
     
-    var body: some WebBody {
+    var body: some Body {
         HTML.Body {
             HTML.H1("Title")
         }
@@ -487,20 +497,74 @@ struct TestWebsite: Website {
 }
 ```
 
+## Observable Objects
 
-Head elements can be added throughout the rest of the app through the .head {...} function.
+
+Using @StateObject defines a state object store that works like a swiftUI object.
+To pass state objectss to sub views use @ObservedObject.
+To define one of the objects create a class that inherits from ObservableObject and publishes properties using @Published.
 
 
 ```swift
-@main
-struct OtherPage: Page {
+class MyObject: ObservableObject {
+    @Published var value: String
+}
+
+struct TestPage: Page {
+    @StateObject var myObject: MyObject = MyObject(value: "")
 
     var body: some Page {
         HTML.Div {
-            HTML.H1("Title")
+            HTML.H1("value: \(myObject.value)")
+            TestSubPage(myObject: $myObject)
         }
-        .head {
-            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/OtherPage.css")
+    }
+}
+
+struct TestSubPage: Page {
+    @ObservedObject var myObject: MyObject
+
+    var body: some Page {
+        HTML.Div {
+            HTML.H1("value: \(myObject.value)")
+        }
+    }
+}
+```
+
+
+## Environment Objects
+
+
+Use environment objects to store values globally across the scope of the app. They get rendered attached to elements, and get removed when the element goes out of scope. They work very similarly to SwiftUI environment objects.
+
+
+```swift
+class MyGlobalObject: ObservableObject {
+    @Published var value: String
+}
+
+@main
+struct EnironmentTextPage: Website {
+    @Environment var environment: WebEnvironment
+
+    var head: some Head {
+        HTML.Head { }
+    }
+    var body: some Page {
+        HTML.Body {
+            HomePage()
+        }
+        .environmentObject(MyGlobalObject())
+    }
+}
+
+struct EnironmentTextPage: Page {
+    @EnvironmentObject var myGlobalObject: MyGlobalObject
+
+    var body: some Page {
+        HTML.Div {
+            HTML.H1("value: \(myGlobalObject.value)")
         }
     }
 }
@@ -522,6 +586,57 @@ struct TextPage: Page {
                 "hello "
                 B(\(name))
                 " whats up?" 
+            }
+        }
+    }
+}
+```
+
+## Javascript-PassThrough Methods
+
+Sailor has some Javascript Passhrough methods built in to make development easier. If there are any other methods you need use [JavascriptKit](https://github.com/swiftwasm/JavaScriptKit).
+
+
+```swift
+public func alert(_ text: String)
+public func confirm(_ text: String) -> Bool
+public func prompt(_ text: String) -> String 
+public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int
+public func clearTimeout(_ timeoutID: Int)
+public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], completion: @escaping (Promise<ResponseType>) -> Void) 
+```
+
+
+Below is an example of fetching from an api.
+
+
+```
+struct User {
+    var name: String
+    var description: String
+}
+struct ExamplePage: Page {
+
+    @State var user: User?
+
+    var body: some Page {
+        Div {
+            if let user = self.user {
+                H1("Name \(user.name)")
+                H2("Description: \(user.description)")
+            } else {
+                Div("Loading User...")
+            }
+        }
+        .task {
+            let response = await fetch(url: "https://httpbin.org/post", format: TestResponse.self)
+
+            switch response {
+            case .success(let user):
+                self.user = user
+            case .failure(let error):
+                // handle error
+                print(error)
             }
         }
     }
