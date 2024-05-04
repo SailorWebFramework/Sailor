@@ -37,7 +37,10 @@ extension Website {
         let bodyElement = mainPage.body
         let headElement = mainPage.head
 
-        SailboatGlobal.initialize(body: bodyElement)
+        //TODO: add with Sailboat 0.2.1
+        //SailboatGlobal.initialize(body: bodyElement)
+        SailboatGlobal.manager.build(page: bodyElement)
+
         SailorGlobal.initialize(head: headElement)
         
         // runs the onAppear event for the Body and Head
