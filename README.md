@@ -19,7 +19,7 @@ With web-assembly theoretically code performence should be more efficient, Howev
 For now you can start creating a Sailor project by including the framework in your Swift Package
 
 ```swift
-    .package(url:"https://github.com/SailorWebFramework/Sailor", from: "0.2.0")
+    .package(url:"https://github.com/SailorWebFramework/Sailor", from: "0.2.1")
 ```
 
 to run your project Sailor uses Carton
