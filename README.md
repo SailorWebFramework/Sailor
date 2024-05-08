@@ -168,13 +168,13 @@ The body defines the page to be rendered as follows.
 @main
 struct TestWebsite: Website {
 
-    var head: some WebHead {
+    var head: some Head {
         HTML.Head {
             HTML.Title("Test Website")
         }
     }
     
-    var body: some WebBody {
+    var body: some Body {
         HTML.Body {
             HomePage()
         }
