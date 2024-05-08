@@ -629,7 +629,7 @@ struct ExamplePage: Page {
             }
         }
         .task {
-            let response = await fetch(url: "https://httpbin.org/post", format: TestResponse.self)
+            let response = await fetch(url: "https://httpbin.org/post", format: User.self)
 
             switch response {
             case .success(let user):
