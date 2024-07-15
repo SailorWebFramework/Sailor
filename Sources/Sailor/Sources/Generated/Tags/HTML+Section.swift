@@ -2,8 +2,7 @@
 //
 //  Section.swift
 //
-//  Created by Joshua Davis.
-//
+
 
 import Sailboat
 import SailorShared

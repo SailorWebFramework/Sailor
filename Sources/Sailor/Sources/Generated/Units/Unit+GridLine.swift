@@ -2,11 +2,9 @@
 //
 //  Unit+GridLine.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct GridLine: Equatable {
+    public struct GridLine: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -24,22 +22,22 @@ extension Unit {
 
         ///The grid line is custom.
         public static func `custom`(_ customIdent: String) -> Self {
-            return .init("\(customIdent.description)")
+            return .init("\(customIdent)")
         }
 
         ///The grid line is an integer.
         public static func `custom`(_ value: Int, _ customIdent: String) -> Self {
-            return .init("\(value.description) \(customIdent.description)")
+            return .init("\(value) \(customIdent)")
         }
 
         ///The grid line spans.
         public static func `span`(_ customIdent: String) -> Self {
-            return .init("span \(customIdent.description)")
+            return .init("span \(customIdent)")
         }
 
         ///The grid line spans.
         public static func `span`(_ value: Int) -> Self {
-            return .init("span \(value.description)")
+            return .init("span \(value)")
         }
 
         ///A raw integer.

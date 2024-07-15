@@ -2,11 +2,9 @@
 //
 //  Unit+Language.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Language: Equatable {
+    public struct Language: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

@@ -2,11 +2,9 @@
 //
 //  Unit+Size.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Size: Equatable {
+    public struct Size: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -34,7 +32,7 @@ extension Unit {
 
         ///The width is the fit content width.
         public static func `fitContent`(_ value: Unit.LengthPercentage) -> Self {
-            return .init("fit-content(\(value.description))")
+            return .init("fit-content(\(value))")
         }
 
         ///the auto value

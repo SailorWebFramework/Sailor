@@ -62,7 +62,7 @@ public struct PageBuilder {
             }
         }
         
-        return output
+        return "[\(output)]"
     }
     
 }

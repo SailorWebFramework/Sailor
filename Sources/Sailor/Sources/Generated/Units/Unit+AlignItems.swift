@@ -2,11 +2,9 @@
 //
 //  Unit+AlignItems.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct AlignItems: Equatable {
+    public struct AlignItems: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

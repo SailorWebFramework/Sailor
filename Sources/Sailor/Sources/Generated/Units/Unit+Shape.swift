@@ -2,11 +2,9 @@
 //
 //  Unit+Shape.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Shape: Equatable {
+    public struct Shape: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -17,24 +15,24 @@ extension Unit {
             self.value = value
         }
 
-        ///The shape is rectangle.
-        public static var `rect`: Self {
-            return .init("rect")
+        ///A rectangle shape.
+        public static func `rect`(top: Unit.AutoLengthPercentage, right: Unit.AutoLengthPercentage, bottom: Unit.AutoLengthPercentage, left: Unit.AutoLengthPercentage) -> Self {
+            return .init("rect(\(top), \(right), \(bottom), \(left))")
         }
 
-        ///The shape is circle.
-        public static var `circle`: Self {
-            return .init("circle")
+        ///A rectangle shape.
+        public static func `rect`(top: Unit.AutoLengthPercentage, right: Unit.AutoLengthPercentage, bottom: Unit.AutoLengthPercentage, left: Unit.AutoLengthPercentage, cornerRadius: Unit.AutoLengthPercentage) -> Self {
+            return .init("rect(\(top), \(right), \(bottom), \(left) round \(cornerRadius))")
         }
 
-        ///The shape is ellipse.
-        public static var `ellipse`: Self {
-            return .init("ellipse")
+        ///A circle shape.
+        public static func `circle`(radius: Unit.AutoLengthPercentage) -> Self {
+            return .init("circle(\(radius))")
         }
 
-        ///The shape is polygon.
-        public static var `polygon`: Self {
-            return .init("polygon")
+        ///A circle shape.
+        public static func `circle`(radius: Unit.AutoLengthPercentage, position: Unit.Position) -> Self {
+            return .init("circle(\(radius) at \(position))")
         }
 
 

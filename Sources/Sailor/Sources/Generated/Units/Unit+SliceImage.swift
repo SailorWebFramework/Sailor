@@ -2,11 +2,9 @@
 //
 //  Unit+SliceImage.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct SliceImage: Equatable {
+    public struct SliceImage: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -24,12 +22,12 @@ extension Unit {
 
         ///A raw number.
         public static func `number`(_ number: Double) -> Self {
-            return .init("\(number.description)%")
+            return .init("\(number)%")
         }
 
         ///The image is a specific percentage of the element.
         public static func `percent`(_ percent: Int) -> Self {
-            return .init("\(percent.description)%")
+            return .init("\(percent)%")
         }
 
 

@@ -2,11 +2,9 @@
 //
 //  Unit+PopoverTargetAction.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct PopoverTargetAction: Equatable {
+    public struct PopoverTargetAction: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

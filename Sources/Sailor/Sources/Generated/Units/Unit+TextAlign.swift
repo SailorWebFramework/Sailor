@@ -2,11 +2,9 @@
 //
 //  Unit+TextAlign.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct TextAlign: Equatable {
+    public struct TextAlign: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -50,6 +48,11 @@ extension Unit {
         ///The text is matched to the parent.
         public static var `matchParent`: Self {
             return .init("match-parent")
+        }
+
+        ///The text is justified all.
+        public static var `justifyAll`: Self {
+            return .init("justify-all")
         }
 
 

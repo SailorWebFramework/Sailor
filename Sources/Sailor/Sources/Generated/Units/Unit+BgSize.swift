@@ -2,8 +2,6 @@
 //
 //  Unit+BgSize.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
     public struct BgSize: Equatable {
@@ -30,6 +28,16 @@ extension Unit {
         ///The image is contained in the element.
         public static var `contain`: Self {
             return .init("contain")
+        }
+
+        ///both directions specified
+        public static func `size`(_ widthAndHeight: Unit.AutoLengthPercentage) -> Self {
+            return .init("{{both}}")
+        }
+
+        ///both directions specified
+        public static func `size`(_ width: Unit.AutoLengthPercentage, _ height: Unit.AutoLengthPercentage) -> Self {
+            return .init("\(width.description) \(height.description)")
         }
 
 

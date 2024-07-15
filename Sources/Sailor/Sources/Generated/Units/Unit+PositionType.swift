@@ -2,11 +2,9 @@
 //
 //  Unit+PositionType.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct PositionType: Equatable {
+    public struct PositionType: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -44,7 +42,7 @@ extension Unit {
 
         ///The element is running.
         public static func `running`(_ customIdent: String) -> Self {
-            return .init("running(\(customIdent.description))")
+            return .init("running(\(customIdent))")
         }
 
 

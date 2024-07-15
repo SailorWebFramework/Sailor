@@ -15,6 +15,8 @@ public enum Unit { }
 
 // TODO: remove?
 // TODO: do i put description with percent?
+
+//public typealias Percent = Double
 public struct Percent: CustomStringConvertible, Equatable {
     public var description: String {
         "\(self.value)" //         "\(self.value)%"
@@ -28,5 +30,27 @@ public struct Percent: CustomStringConvertible, Equatable {
     
     public init(_ value: Int) {
         self.value = value
+    }
+}
+
+enum Utils {
+    public static func unwrapUnit(_ item: (any CustomStringConvertible)?) -> String {
+        var output = ""
+    
+        if let item = item {
+            output += item.description
+        }
+        
+        return output
+    }
+    
+    public static func when(_ cond: (Bool)?, ret value: String) -> String {
+        var output = ""
+    
+        if let cond = cond, cond {
+            output += value
+        }
+        
+        return output
     }
 }

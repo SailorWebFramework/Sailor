@@ -2,11 +2,9 @@
 //
 //  Unit+InputType.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct InputType: Equatable {
+    public struct InputType: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

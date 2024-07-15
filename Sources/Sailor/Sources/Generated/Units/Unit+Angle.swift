@@ -2,11 +2,9 @@
 //
 //  Unit+Angle.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Angle: Equatable {
+    public struct Angle: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,22 +17,22 @@ extension Unit {
 
         ///Defines an angle in degrees.
         public static func `deg`(_ value: Int) -> Self {
-            return .init("\(value.description)deg")
+            return .init("\(value)deg")
         }
 
         ///Defines an angle in gradians.
         public static func `grad`(_ value: Int) -> Self {
-            return .init("\(value.description)grad")
+            return .init("\(value)grad")
         }
 
         ///Defines an angle in radians.
         public static func `rad`(_ value: Int) -> Self {
-            return .init("\(value.description)rad")
+            return .init("\(value)rad")
         }
 
         ///Defines an angle in turns.
         public static func `turn`(_ value: Int) -> Self {
-            return .init("\(value.description)turn")
+            return .init("\(value)turn")
         }
 
 

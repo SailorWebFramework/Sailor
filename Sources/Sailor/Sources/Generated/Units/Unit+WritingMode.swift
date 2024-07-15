@@ -2,11 +2,9 @@
 //
 //  Unit+WritingMode.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct WritingMode: Equatable {
+    public struct WritingMode: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

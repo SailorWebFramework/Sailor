@@ -2,11 +2,9 @@
 //
 //  Unit+PositionX.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct PositionX: Equatable {
+    public struct PositionX: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,17 +17,17 @@ extension Unit {
 
         ///The element is positioned at a specific length.
         public static func `direction`(_ value: Unit.HorrizontalRelativeDirection) -> Self {
-            return .init("\(value.description)")
+            return .init("\(value)")
         }
 
         ///The element is positioned at a specific length.
-        public static func `length`(_ value: Unit.Length) -> Self {
-            return .init("\(value.description)")
+        public static func `offset`(_ value: Unit.Length) -> Self {
+            return .init("\(value)")
         }
 
         ///The element is positioned at a specific percentage.
         public static func `percent`(_ value: Percent) -> Self {
-            return .init("\(value.description)%")
+            return .init("\(value)%")
         }
 
 

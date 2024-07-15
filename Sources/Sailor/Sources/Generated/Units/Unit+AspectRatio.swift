@@ -2,11 +2,9 @@
 //
 //  Unit+AspectRatio.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct AspectRatio: Equatable {
+    public struct AspectRatio: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,7 +17,7 @@ extension Unit {
 
         ///Defines the aspect ratio.
         public static func `ratio`(_ width: Int, _ height: Int) -> Self {
-            return .init("\(width.description) / \(height.description)")
+            return .init("\(width) / \(height)")
         }
 
         ///The default value.
@@ -29,7 +27,7 @@ extension Unit {
 
         ///Defines the aspect ratio using a float.
         public static func `float`(_ value: Double) -> Self {
-            return .init("\(value.description)")
+            return .init("\(value)")
         }
 
 
