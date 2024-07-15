@@ -8,15 +8,6 @@
         "revision" : "da7e39ca5967ba8690f1e88974c3c4984b999699",
         "version" : "0.19.1"
       }
-    },
-    {
-      "identity" : "sailboat",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SailorWebFramework/Sailboat",
-      "state" : {
-        "revision" : "16d80180638af659d0226564600f672fabbeba7b",
-        "version" : "0.2.0"
-      }
     }
   ],
   "version" : 2

@@ -2,11 +2,9 @@
 //
 //  Unit+ButtonType.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct ButtonType: Equatable {
+    public struct ButtonType: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

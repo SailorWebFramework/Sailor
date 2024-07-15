@@ -2,8 +2,7 @@
 //
 //  Area.swift
 //
-//  Created by Joshua Davis.
-//
+
 
 import Sailboat
 import SailorShared
@@ -98,7 +97,7 @@ public extension HTML.Area {
     }
 
     ///The shape of the area.
-    func `shape`(_ value: @autoclosure @escaping () -> Unit.Shape) -> Self {
+    func `shape`(_ value: @autoclosure @escaping () -> Unit.AreaShape) -> Self {
         attribute(.init(name: "shape", value: { value().description }))
     }
 

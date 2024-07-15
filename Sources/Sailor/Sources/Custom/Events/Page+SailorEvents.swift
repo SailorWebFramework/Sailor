@@ -39,7 +39,7 @@ public extension Element {
         }
     }
 
-    func environmentObject(_ object: any ObservableObject) -> Self {
+    func globalStore(_ object: any ObservableObject) -> Self {
         // TODO: object.id?
         let typeID = String(describing: type(of: object))
 
@@ -89,9 +89,9 @@ public extension Page {
     }
     
     
-    func environmentObject(_ object: any ObservableObject) -> any Element {
+    func globalStore(_ object: any ObservableObject) -> any Element {
         traversePage(self) {
-            $0.environmentObject(object)
+            $0.globalStore(object)
         }
     }
     

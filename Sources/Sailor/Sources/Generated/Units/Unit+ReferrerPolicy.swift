@@ -2,11 +2,9 @@
 //
 //  Unit+ReferrerPolicy.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct ReferrerPolicy: Equatable {
+    public struct ReferrerPolicy: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

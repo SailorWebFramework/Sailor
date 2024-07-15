@@ -2,11 +2,9 @@
 //
 //  Unit+Visibility.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Visibility: Equatable {
+    public struct Visibility: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

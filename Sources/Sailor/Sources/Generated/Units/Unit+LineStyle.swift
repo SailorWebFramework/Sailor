@@ -2,11 +2,9 @@
 //
 //  Unit+LineStyle.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct LineStyle: Equatable {
+    public struct LineStyle: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

@@ -2,11 +2,9 @@
 //
 //  Unit+FlexBasis.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct FlexBasis: Equatable {
+    public struct FlexBasis: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -39,7 +37,7 @@ extension Unit {
 
         ///The column width is the fit content width.
         public static func `fitContent`(_ lengthPercentage: Unit.LengthPercentage) -> Self {
-            return .init("fit-content(\(lengthPercentage.description))")
+            return .init("fit-content(\(lengthPercentage))")
         }
 
 

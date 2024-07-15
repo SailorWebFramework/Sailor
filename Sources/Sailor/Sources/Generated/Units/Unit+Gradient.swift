@@ -2,11 +2,9 @@
 //
 //  Unit+Gradient.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Gradient: Equatable {
+    public struct Gradient: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,12 +17,12 @@ extension Unit {
 
         ///A linear gradient.
         public static func `linear`(_ angle: Unit.Angle) -> Self {
-            return .init("linear-gradient(\(angle.description))")
+            return .init("linear-gradient(\(angle))")
         }
 
         ///A radial gradient.
         public static func `radial`(_ shape: Unit.Length, _ size: Unit.Length, _ position: Unit.Length, _ shape2: Unit.Length, _ size2: Unit.Length, _ position2: Unit.Length) -> Self {
-            return .init("radial-gradient(\(shape.description) \(size.description) at \(position.description), \(shape2.description) \(size2.description) at \(position2.description))")
+            return .init("radial-gradient(\(shape) \(size) at \(position), \(shape2) \(size2) at \(position2))")
         }
 
 

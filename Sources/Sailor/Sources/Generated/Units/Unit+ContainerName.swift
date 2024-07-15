@@ -2,11 +2,9 @@
 //
 //  Unit+ContainerName.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct ContainerName: Equatable {
+    public struct ContainerName: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -23,8 +21,8 @@ extension Unit {
         }
 
         ///The container is custom name.
-        public static func `custom`(_ value: String) -> Self {
-            return .init("\(value.description)")
+        public static func `string`(_ value: String) -> Self {
+            return .init("\(value)")
         }
 
 

@@ -2,11 +2,9 @@
 //
 //  Unit+Float.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Float: Equatable {
+    public struct Float: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -59,7 +57,7 @@ extension Unit {
 
         ///The element is floated with a snap block.
         public static func `snapBlock`(_ length: Unit.Length, _ offset: Unit.Location? = nil) -> Self {
-            return .init("snap-block(\(length.description)\(offset != nil ? ", \(offset!.description)" : ""))")
+            return .init("snap-block(\(length)\(offset != nil ? ", \(offset!.description)" : ""))")
         }
 
         ///The element is floated with a snap inline.
@@ -69,7 +67,7 @@ extension Unit {
 
         ///The element is floated with a snap inline.
         public static func `snapInline`(_ length: Unit.Length, _ offset: Unit.Location? = nil) -> Self {
-            return .init("snap-inline(\(length.description)\(offset != nil ? ", \(offset!.description)" : ""))")
+            return .init("snap-inline(\(length)\(offset != nil ? ", \(offset!.description)" : ""))")
         }
 
         ///The element is floated to the top.

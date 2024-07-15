@@ -2,11 +2,9 @@
 //
 //  Unit+ForcedColorAdjust.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct ForcedColorAdjust: Equatable {
+    public struct ForcedColorAdjust: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

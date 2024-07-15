@@ -2,11 +2,9 @@
 //
 //  Unit+CrossOrigin.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct CrossOrigin: Equatable {
+    public struct CrossOrigin: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

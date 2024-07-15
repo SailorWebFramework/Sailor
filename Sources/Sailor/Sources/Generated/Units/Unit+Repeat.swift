@@ -2,11 +2,9 @@
 //
 //  Unit+Repeat.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Repeat: Equatable {
+    public struct Repeat: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -45,6 +43,11 @@ extension Unit {
         ///The image is repeated with rounding.
         public static var `round`: Self {
             return .init("round")
+        }
+
+        ///both directions specified
+        public static func `both`(_ horizontal: Unit.InnerRepeat, _ vertical: Unit.InnerRepeat) -> Self {
+            return .init("\(horizontal) \(vertical)")
         }
 
 

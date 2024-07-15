@@ -2,11 +2,9 @@
 //
 //  Unit+Integer.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Integer: Equatable {
+    public struct Integer: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

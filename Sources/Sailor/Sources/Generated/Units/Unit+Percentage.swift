@@ -2,11 +2,9 @@
 //
 //  Unit+Percentage.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Percentage: Equatable {
+    public struct Percentage: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,7 +17,7 @@ extension Unit {
 
         ///The image is a specific percentage of the element.
         public static func `percent`(_ percent: Int) -> Self {
-            return .init("\(percent.description)%")
+            return .init("\(percent)%")
         }
 
 

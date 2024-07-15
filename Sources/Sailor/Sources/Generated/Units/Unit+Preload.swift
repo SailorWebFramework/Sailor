@@ -2,11 +2,9 @@
 //
 //  Unit+Preload.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Preload: Equatable {
+    public struct Preload: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {

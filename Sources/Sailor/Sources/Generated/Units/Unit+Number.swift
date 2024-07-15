@@ -2,11 +2,9 @@
 //
 //  Unit+Number.swift
 //  
-//  Created by Joshua Davis on 10/6/23.
-//
 
 extension Unit {
-    public struct Number: Equatable {
+    public struct Number: Equatable, CustomStringConvertible {
         var value: String
 
         public var description: String {
@@ -19,7 +17,7 @@ extension Unit {
 
         ///A raw number.
         public static func `number`(_ number: Double) -> Self {
-            return .init("\(number.description)%")
+            return .init("\(number)%")
         }
 
 
