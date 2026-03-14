@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
@@ -13,9 +13,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url:"https://github.com/swiftwasm/JavaScriptKit", from: "0.18.0"),
-        .package(url:"https://github.com/SailorWebFramework/Sailboat", from: "0.3.0"),
-//        .package(name: "Sailboat", path: "../Sailboat")
+        .package(url: "https://github.com/swiftwasm/JavaScriptKit", from: "0.47.0"),
+        .package(url: "https://github.com/SailorWebFramework/Sailboat", branch: "feature-fin"),
     ],
     targets: [
         .target(
@@ -25,7 +24,8 @@ let package = Package(
                 "SailorShared",
                 .target(name: "SailorWeb", condition: .when(platforms: [.wasi]))
                 // more targets here
-            ]
+            ],
+            exclude: ["README.md"]
         ),
         .target(
             name: "SailorShared",

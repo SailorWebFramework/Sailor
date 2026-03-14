@@ -13,7 +13,7 @@ import SailorWeb
 #endif
 
 // TODO: get string to work properly
-extension String: ValueElement, BodyPage, HeadPage {
+extension String: @retroactive ValueElement, BodyPage, HeadPage {
     
     public var value: String { self }
     

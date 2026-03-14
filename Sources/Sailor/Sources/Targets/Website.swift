@@ -7,9 +7,9 @@
 
 import Sailboat
 import SailorShared
-import JavaScriptKit
 
 #if os(WASI)
+import JavaScriptKit
 import SailorWeb
 #endif
 

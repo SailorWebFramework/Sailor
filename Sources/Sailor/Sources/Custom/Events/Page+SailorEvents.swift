@@ -27,7 +27,7 @@ public extension Element {
         }
     }
     
-    func task(_ completion: @escaping  () async -> Void) -> Self {
+    func task(_ completion: @escaping @Sendable () async -> Void) -> Self {
         withEvent(name: "_task") { _ in
             Task {
                 // TODO: create an async queue that doesnt block other renders
@@ -80,7 +80,7 @@ public extension Page {
         }
     }
     
-    func task(_ completion: @escaping () async -> Void) -> any Element {
+    func task(_ completion: @escaping @Sendable () async -> Void) -> any Element {
         traversePage(self) {
             $0.task {
                 await completion()
