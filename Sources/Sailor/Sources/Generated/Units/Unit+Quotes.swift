@@ -27,7 +27,7 @@ extension Unit {
 
         ///Custom quotes.
         public static func `with`(_ pairs: Unit.Pair...) -> Self {
-            return .init("\(pairs.map { $0.description }.joined(separator: " ")) ")
+            return .init("\(pairs.map { $0.description }.joined(separator: " "))")
         }
 
 

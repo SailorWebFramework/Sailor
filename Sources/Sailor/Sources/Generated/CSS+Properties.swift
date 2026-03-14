@@ -4,11 +4,11 @@
 //
 
 public enum CSS {
-    /// Sets all properties.
-    public static func all(_ globalValue: Unit.Global) -> Property {
+    /// The all shorthand CSS property resets all of an element's properties except unicode-bidi, direction, and CSS Custom Properties.
+    public static func all(_ value: Unit.Global) -> Property {
         Property(
             name: "all",
-            value: "\(globalValue)"
+            value: "\(value)"
         )
     }
 
@@ -280,7 +280,7 @@ public enum CSS {
     public static func text(shadow: Unit.BoxShadow...) -> Property {
         Property(
             name: "text-shadow",
-            value: "\(shadow.map { $0.description }.joined(separator: ",")),"
+            value: "\(shadow.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -344,7 +344,7 @@ public enum CSS {
     public static func box(shadow: Unit.BoxShadow...) -> Property {
         Property(
             name: "box-shadow",
-            value: "\(shadow.map { $0.description }.joined(separator: ",")),"
+            value: "\(shadow.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -480,7 +480,7 @@ public enum CSS {
     public static func background(`repeat`: Unit.Repeat...) -> Property {
         Property(
             name: "background-repeat",
-            value: "\(`repeat`.map { $0.description }.joined(separator: ",")),"
+            value: "\(`repeat`.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -496,7 +496,7 @@ public enum CSS {
     public static func background(images: Unit.Image...) -> Property {
         Property(
             name: "images",
-            value: "\(images.map { $0.description }.joined(separator: ",")),"
+            value: "\(images.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -512,7 +512,7 @@ public enum CSS {
     public static func background(sizes: Unit.BackgroundSize...) -> Property {
         Property(
             name: "sizes",
-            value: "\(sizes.map { $0.description }.joined(separator: ",")),"
+            value: "\(sizes.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -1488,7 +1488,7 @@ public enum CSS {
     public static func font(family: Unit.FontFamily...) -> Property {
         Property(
             name: "font-family",
-            value: "SEQ,"
+            value: "\(family.map { $0.description }.joined(separator: ","))"
         )
     }
 
@@ -1497,6 +1497,78 @@ public enum CSS {
         Property(
             name: "font",
             value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the font size property.
+    public static func font(size: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "font-size",
+            value: "\(size)"
+        )
+    }
+
+    /// Sets the font size property.
+    public static func font(size: Unit.Size) -> Property {
+        Property(
+            name: "font-size",
+            value: "\(size)"
+        )
+    }
+
+    /// Sets the font weight property.
+    public static func font(weight: Unit.FontWeight) -> Property {
+        Property(
+            name: "font-weight",
+            value: "\(weight)"
+        )
+    }
+
+    /// Sets the font style property.
+    public static func font(style: Unit.FontStyle) -> Property {
+        Property(
+            name: "font-style",
+            value: "\(style)"
+        )
+    }
+
+    /// Sets the font variant property.
+    public static func font(variant: Unit.FontVariant) -> Property {
+        Property(
+            name: "font-variant",
+            value: "\(variant)"
+        )
+    }
+
+    /// Sets the font feature settings property for OpenType features.
+    public static func font(settings: Unit.FontFeatureSettings) -> Property {
+        Property(
+            name: "font-feature-settings",
+            value: "\(settings)"
+        )
+    }
+
+    /// Sets the font size adjust property.
+    public static func font(adjust: Unit.FontSizeAdjust) -> Property {
+        Property(
+            name: "font-size-adjust",
+            value: "\(adjust)"
+        )
+    }
+
+    /// Sets the font variation settings property for variable fonts.
+    public static func font(settings: Unit.FontVariationSettings) -> Property {
+        Property(
+            name: "font-variation-settings",
+            value: "\(settings)"
+        )
+    }
+
+    /// Sets the font language override property.
+    public static func font(override: Unit.FontLanguageOverride) -> Property {
+        Property(
+            name: "font-language-override",
+            value: "\(override)"
         )
     }
 
@@ -1903,7 +1975,7 @@ public enum CSS {
     /// Sets the padding block end property.
     public static func paddingBlock(blockEnd: Unit.LengthPercentage) -> Property {
         Property(
-            name: "padding-block-block-end",
+            name: "padding-block-end",
             value: "\(blockEnd)"
         )
     }
@@ -1919,7 +1991,7 @@ public enum CSS {
     /// Sets the padding block start property.
     public static func paddingBlock(blockStart: Unit.LengthPercentage) -> Property {
         Property(
-            name: "padding-block-block-start",
+            name: "padding-block-start",
             value: "\(blockStart)"
         )
     }
@@ -2188,6 +2260,22 @@ public enum CSS {
         )
     }
 
+    /// Sets the min width property.
+    public static func min(widthFraction: Unit.Fraction) -> Property {
+        Property(
+            name: "min-width",
+            value: "\(widthFraction)"
+        )
+    }
+
+    /// Sets the min height property.
+    public static func min(heightFraction: Unit.Fraction) -> Property {
+        Property(
+            name: "min-height",
+            value: "\(heightFraction)"
+        )
+    }
+
     /// Sets the max block size property.
     public static func max(blockSize: Unit.LengthPercentage) -> Property {
         Property(
@@ -2257,6 +2345,22 @@ public enum CSS {
         Property(
             name: "max-width",
             value: "\(width)"
+        )
+    }
+
+    /// Sets the max width property.
+    public static func max(widthFraction: Unit.Fraction) -> Property {
+        Property(
+            name: "max-width",
+            value: "\(widthFraction)"
+        )
+    }
+
+    /// Sets the max height property.
+    public static func max(heightFraction: Unit.Fraction) -> Property {
+        Property(
+            name: "max-height",
+            value: "\(heightFraction)"
         )
     }
 
@@ -2644,6 +2748,22 @@ public enum CSS {
         )
     }
 
+    /// Sets the word spacing property.
+    public static func wordSpacing(_ value: Unit.WordSpacing) -> Property {
+        Property(
+            name: "word-spacing",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the word spacing property.
+    public static func wordSpacing(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "word-spacing",
+            value: "\(globalValue)"
+        )
+    }
+
     /// Sets the gap property.
     public static func gap(row: Unit.NormalLengthPercentage, column: Unit.NormalLengthPercentage) -> Property {
         Property(
@@ -3016,7 +3136,7 @@ public enum CSS {
     public static func counter(increment: Unit.CounterIncrement...) -> Property {
         Property(
             name: "counter-increment",
-            value: "\(increment.map { $0.description }.joined(separator: " ")) "
+            value: "\(increment.map { $0.description }.joined(separator: " "))"
         )
     }
 
@@ -3040,7 +3160,7 @@ public enum CSS {
     public static func counter(reset: Unit.CounterReset...) -> Property {
         Property(
             name: "counter-reset",
-            value: "\(reset.map { $0.description }.joined(separator: " ")) "
+            value: "\(reset.map { $0.description }.joined(separator: " "))"
         )
     }
 
@@ -3056,7 +3176,7 @@ public enum CSS {
     public static func counter(set: Unit.CounterSet...) -> Property {
         Property(
             name: "counter-set",
-            value: "\(set.map { $0.description }.joined(separator: " ")) "
+            value: "\(set.map { $0.description }.joined(separator: " "))"
         )
     }
 
@@ -3108,6 +3228,38 @@ public enum CSS {
         )
     }
 
+    /// Sets the grid shorthand with template rows and columns.
+    public static func grid(templateRows: Unit.GridTrackSize..., templateColumns: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid",
+            value: "\(templateRows.map { $0.description }.joined(separator: " ")) / \(templateColumns.map { $0.description }.joined(separator: " "))"
+        )
+    }
+
+    /// Sets the grid shorthand with template rows and columns.
+    public static func grid(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "grid",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the grid shorthand with auto-flow rows.
+    public static func grid(autoFlow: Unit.GridAutoFlow, autoColumns: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid",
+            value: "\(autoFlow) / \(autoColumns.map { $0.description }.joined(separator: " "))"
+        )
+    }
+
+    /// Sets the grid to none.
+    public static func grid(none: Unit.None) -> Property {
+        Property(
+            name: "grid",
+            value: "\(none)"
+        )
+    }
+
     /// Sets the grid area property.
     public static func grid(area: Unit.GridLine) -> Property {
         Property(
@@ -3116,11 +3268,187 @@ public enum CSS {
         )
     }
 
-    /// Sets the grid area property.
-    public static func grid(_ globalValue: Unit.Global) -> Property {
+    /// Sets the grid area property with row and column.
+    public static func grid(rowStart: Unit.GridLine, columnStart: Unit.GridLine) -> Property {
         Property(
-            name: "grid",
-            value: "\(globalValue)"
+            name: "grid-area",
+            value: "\(rowStart) / \(columnStart)"
+        )
+    }
+
+    /// Sets the grid area property with row start/end and column start.
+    public static func grid(rowStart: Unit.GridLine, columnStart: Unit.GridLine, rowEnd: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(rowStart) / \(columnStart) / \(rowEnd)"
+        )
+    }
+
+    /// Sets the grid area property with all four values.
+    public static func grid(rowStart: Unit.GridLine, columnStart: Unit.GridLine, rowEnd: Unit.GridLine, columnEnd: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-area",
+            value: "\(rowStart) / \(columnStart) / \(rowEnd) / \(columnEnd)"
+        )
+    }
+
+    /// Sets the grid auto columns property.
+    public static func grid(autoColumnSize: Unit.GridTrackSize) -> Property {
+        Property(
+            name: "grid-auto-columns",
+            value: "\(autoColumnSize)"
+        )
+    }
+
+    /// Sets the grid auto columns property with multiple track sizes.
+    public static func grid(autoColumnSizes: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid-auto-columns",
+            value: "\(autoColumnSizes)"
+        )
+    }
+
+    /// Sets the grid auto flow property.
+    public static func grid(flow: Unit.GridAutoFlow) -> Property {
+        Property(
+            name: "grid-auto-flow",
+            value: "\(flow)"
+        )
+    }
+
+    /// Sets the grid auto rows property.
+    public static func grid(autoRowSize: Unit.GridTrackSize) -> Property {
+        Property(
+            name: "grid-auto-rows",
+            value: "\(autoRowSize)"
+        )
+    }
+
+    /// Sets the grid auto rows property with multiple track sizes.
+    public static func grid(autoRowSizes: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid-auto-rows",
+            value: "\(autoRowSizes)"
+        )
+    }
+
+    /// Sets the grid column property.
+    public static func grid(columnStart: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-column",
+            value: "\(columnStart)"
+        )
+    }
+
+    /// Sets the grid column start and end.
+    public static func grid(columnStart: Unit.GridLine, columnEnd: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-column",
+            value: "\(columnStart) / \(columnEnd)"
+        )
+    }
+
+    /// Sets the grid column end property.
+    public static func grid(colEnd: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-column-end",
+            value: "\(colEnd)"
+        )
+    }
+
+    /// Sets the grid column start property.
+    public static func grid(colStart: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-column-start",
+            value: "\(colStart)"
+        )
+    }
+
+    /// Sets the grid gap property (same as gap).
+    public static func grid(both: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "grid-gap",
+            value: "\(both)"
+        )
+    }
+
+    /// Sets the grid gap property with row and column.
+    public static func grid(row: Unit.LengthPercentage, column: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "grid-gap",
+            value: "\(row) \(column)"
+        )
+    }
+
+    /// Sets the grid row property.
+    public static func grid(rowStart: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-row",
+            value: "\(rowStart)"
+        )
+    }
+
+    /// Sets the grid row start and end.
+    public static func grid(rowStart: Unit.GridLine, rowEnd: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-row",
+            value: "\(rowStart) / \(rowEnd)"
+        )
+    }
+
+    /// Sets the grid row end property.
+    public static func grid(rowEndLine: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-row-end",
+            value: "\(rowEndLine)"
+        )
+    }
+
+    /// Sets the grid row start property.
+    public static func grid(rowStartLine: Unit.GridLine) -> Property {
+        Property(
+            name: "grid-row-start",
+            value: "\(rowStartLine)"
+        )
+    }
+
+    /// Sets the grid template areas property.
+    public static func grid(areas: Unit.GridTemplateAreas) -> Property {
+        Property(
+            name: "grid-template-areas",
+            value: "\(areas)"
+        )
+    }
+
+    /// Sets the grid template columns property.
+    public static func grid(colSize: Unit.GridTrackSize) -> Property {
+        Property(
+            name: "grid-template-columns",
+            value: "\(colSize)"
+        )
+    }
+
+    /// Sets the grid template columns property with multiple tracks.
+    public static func grid(colSizes: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid-template-columns",
+            value: "\(colSizes)"
+        )
+    }
+
+    /// Sets the grid template rows property.
+    public static func grid(rowSize: Unit.GridTrackSize) -> Property {
+        Property(
+            name: "grid-template-rows",
+            value: "\(rowSize)"
+        )
+    }
+
+    /// Sets the grid template rows property with multiple tracks.
+    public static func grid(rowSizes: Unit.GridTrackSize...) -> Property {
+        Property(
+            name: "grid-template-rows",
+            value: "\(rowSizes)"
         )
     }
 
@@ -3276,19 +3604,35 @@ public enum CSS {
         )
     }
 
+    /// Sets the overflow property.
+    public static func overflow(x: Unit.OverflowValue, y: Unit.OverflowValue) -> Property {
+        Property(
+            name: "overflow",
+            value: "\(x) \(y)"
+        )
+    }
+
+    /// Sets the overflow property.
+    public static func overflow(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "overflow",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the overflow property.
+    public static func overflow(_ value: Unit.OverflowValue) -> Property {
+        Property(
+            name: "overflow",
+            value: "\(value)"
+        )
+    }
+
     /// Sets the overflow block property.
     public static func overflow(block: Unit.OverflowValue) -> Property {
         Property(
             name: "overflow-block",
             value: "\(block)"
-        )
-    }
-
-    /// Sets the overflow block property.
-    public static func overflow(_ globalValue: Unit.Global) -> Property {
-        Property(
-            name: "overflow",
-            value: "\(globalValue)"
         )
     }
 
@@ -3341,10 +3685,10 @@ public enum CSS {
     }
 
     /// Sets the cursor property.
-    public static func cursor(_ value: Unit.CursorAccent, position: Unit.XYValue? = nil, urls: Unit.Source...) -> Property {
+    public static func cursor(_ value: Unit.CursorAccent, _ position: Unit.XYValue? = nil, _ urls: Unit.Source...) -> Property {
         Property(
             name: "cursor",
-            value: "\(urls.map { $0.description }.joined(separator: ",")) \(Utils.unwrapUnit(position)),  \(value)"
+            value: "\(urls.map { $0.description }.joined(separator: ",")) \(Utils.unwrapUnit(position)) \(value)"
         )
     }
 
@@ -3369,6 +3713,454 @@ public enum CSS {
         Property(
             name: "display",
             value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the content property.
+    public static func content(_ value: Unit.Content) -> Property {
+        Property(
+            name: "content",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the content property.
+    public static func content(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "content",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the transition shorthand property.
+    public static func transition(property: Unit.TransitionProperty, duration: Unit.Time, timingFunction: Unit.TimingFunction, delay: Unit.Time) -> Property {
+        Property(
+            name: "transition",
+            value: "\(property) \(duration) \(timingFunction) \(delay)"
+        )
+    }
+
+    /// Sets the transition shorthand property.
+    public static func transition(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "transition",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the transition shorthand property.
+    public static func transition(property: Unit.TransitionProperty, duration: Unit.Time, timingFunction: Unit.TimingFunction) -> Property {
+        Property(
+            name: "transition",
+            value: "\(property) \(duration) \(timingFunction)"
+        )
+    }
+
+    /// Sets the transition shorthand property.
+    public static func transition(property: Unit.TransitionProperty, duration: Unit.Time) -> Property {
+        Property(
+            name: "transition",
+            value: "\(property) \(duration)"
+        )
+    }
+
+    /// Sets the transition delay property.
+    public static func transition(delay: Unit.Time) -> Property {
+        Property(
+            name: "transition-delay",
+            value: "\(delay)"
+        )
+    }
+
+    /// Sets the transition duration property.
+    public static func transition(duration: Unit.Time) -> Property {
+        Property(
+            name: "transition-duration",
+            value: "\(duration)"
+        )
+    }
+
+    /// Sets the transition property property.
+    public static func transition(property: Unit.TransitionProperty) -> Property {
+        Property(
+            name: "transition-property",
+            value: "\(property)"
+        )
+    }
+
+    /// Sets the transition property to a list of properties.
+    public static func transition(properties: Unit.TransitionProperty...) -> Property {
+        Property(
+            name: "transition-property",
+            value: "\(properties.map { $0.description }.joined(separator: ","))"
+        )
+    }
+
+    /// Sets the transition timing function property.
+    public static func transition(timingFunction: Unit.TimingFunction) -> Property {
+        Property(
+            name: "transition-timing-function",
+            value: "\(timingFunction)"
+        )
+    }
+
+    /// Sets the animation shorthand property.
+    public static func animation(name: Unit.AnimationName, duration: Unit.Time, timingFunction: Unit.TimingFunction, delay: Unit.Time, iterationCount: Unit.AnimationIterationCount, direction: Unit.AnimationDirection, fillMode: Unit.AnimationFillMode, playState: Unit.AnimationPlayState) -> Property {
+        Property(
+            name: "animation",
+            value: "\(name) \(duration) \(timingFunction) \(delay) \(iterationCount) \(direction) \(fillMode) \(playState)"
+        )
+    }
+
+    /// Sets the animation shorthand property.
+    public static func animation(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "animation",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the animation shorthand with name, duration, and timing.
+    public static func animation(name: Unit.AnimationName, duration: Unit.Time, timingFunction: Unit.TimingFunction) -> Property {
+        Property(
+            name: "animation",
+            value: "\(name) \(duration) \(timingFunction)"
+        )
+    }
+
+    /// Sets the animation shorthand with name and duration.
+    public static func animation(name: Unit.AnimationName, duration: Unit.Time) -> Property {
+        Property(
+            name: "animation",
+            value: "\(name) \(duration)"
+        )
+    }
+
+    /// Sets the animation delay property.
+    public static func animation(delay: Unit.Time) -> Property {
+        Property(
+            name: "animation-delay",
+            value: "\(delay)"
+        )
+    }
+
+    /// Sets the animation direction property.
+    public static func animation(direction: Unit.AnimationDirection) -> Property {
+        Property(
+            name: "animation-direction",
+            value: "\(direction)"
+        )
+    }
+
+    /// Sets the animation duration property.
+    public static func animation(duration: Unit.Time) -> Property {
+        Property(
+            name: "animation-duration",
+            value: "\(duration)"
+        )
+    }
+
+    /// Sets the animation fill mode property.
+    public static func animation(fillMode: Unit.AnimationFillMode) -> Property {
+        Property(
+            name: "animation-fill-mode",
+            value: "\(fillMode)"
+        )
+    }
+
+    /// Sets the animation iteration count property.
+    public static func animation(count: Unit.AnimationIterationCount) -> Property {
+        Property(
+            name: "animation-iteration-count",
+            value: "\(count)"
+        )
+    }
+
+    /// Sets the animation name property.
+    public static func animation(name: Unit.AnimationName) -> Property {
+        Property(
+            name: "animation-name",
+            value: "\(name)"
+        )
+    }
+
+    /// Sets the animation play state property.
+    public static func animation(playState: Unit.AnimationPlayState) -> Property {
+        Property(
+            name: "animation-play-state",
+            value: "\(playState)"
+        )
+    }
+
+    /// Sets the animation timing function property.
+    public static func animation(timingFunction: Unit.TimingFunction) -> Property {
+        Property(
+            name: "animation-timing-function",
+            value: "\(timingFunction)"
+        )
+    }
+
+    /// Sets the transform property with a single function.
+    public static func transform(_ transform: Unit.TransformFunction) -> Property {
+        Property(
+            name: "transform",
+            value: "\(transform)"
+        )
+    }
+
+    /// Sets the transform property with a single function.
+    public static func transform(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "transform",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the transform property with multiple functions.
+    public static func transform(_ transforms: Unit.TransformFunction...) -> Property {
+        Property(
+            name: "transform",
+            value: "\(transforms.map { $0.description }.joined(separator: " "))"
+        )
+    }
+
+    /// Sets the transform box property.
+    public static func transform(box: Unit.TransformBox) -> Property {
+        Property(
+            name: "transform-box",
+            value: "\(box)"
+        )
+    }
+
+    /// Sets the transform origin with a single value.
+    public static func transform(offset: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "transform-origin",
+            value: "\(offset)"
+        )
+    }
+
+    /// Sets the transform origin with x and y.
+    public static func transform(x: Unit.LengthPercentage, y: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "transform-origin",
+            value: "\(x) \(y)"
+        )
+    }
+
+    /// Sets the transform origin with x, y, and z.
+    public static func transform(x: Unit.LengthPercentage, y: Unit.LengthPercentage, z: Unit.Length) -> Property {
+        Property(
+            name: "transform-origin",
+            value: "\(x) \(y) \(z)"
+        )
+    }
+
+    /// Sets the transform origin with keyword positions.
+    public static func transform(position: Unit.ObjectPosition) -> Property {
+        Property(
+            name: "transform-origin",
+            value: "\(position)"
+        )
+    }
+
+    /// Sets the SVG fill color.
+    public static func fill(_ color: Unit.Color) -> Property {
+        Property(
+            name: "fill",
+            value: "\(color)"
+        )
+    }
+
+    /// Sets the SVG fill color.
+    public static func fill(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "fill",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the opacity of the SVG fill.
+    public static func fillOpacity(_ value: Unit.NumberPercentage) -> Property {
+        Property(
+            name: "fill-opacity",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the opacity of the SVG fill.
+    public static func fillOpacity(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "fill-opacity",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the algorithm used to determine the inside part of an SVG shape.
+    public static func fillRule(_ value: Unit.FillRule) -> Property {
+        Property(
+            name: "fill-rule",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the algorithm used to determine the inside part of an SVG shape.
+    public static func fillRule(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "fill-rule",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the SVG stroke color.
+    public static func stroke(_ color: Unit.Color) -> Property {
+        Property(
+            name: "stroke",
+            value: "\(color)"
+        )
+    }
+
+    /// Sets the SVG stroke color.
+    public static func stroke(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "stroke",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the pattern of dashes and gaps used to paint the outline of SVG shapes.
+    public static func stroke(dasharray: Unit.Length) -> Property {
+        Property(
+            name: "stroke-dasharray",
+            value: "\(dasharray)"
+        )
+    }
+
+    /// Sets the offset for the start position of the SVG stroke dash array.
+    public static func stroke(dashoffset: Unit.Length) -> Property {
+        Property(
+            name: "stroke-dashoffset",
+            value: "\(dashoffset)"
+        )
+    }
+
+    /// Sets the shape to be used at the end of open subpaths when they are stroked.
+    public static func stroke(value: Unit.StrokeLinecap) -> Property {
+        Property(
+            name: "stroke-linecap",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the shape to be used at the corners of paths when they are stroked.
+    public static func stroke(value: Unit.StrokeLinejoin) -> Property {
+        Property(
+            name: "stroke-linejoin",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the limit on the ratio of the miter length to the stroke width for mitered stroke joins.
+    public static func stroke(value: Unit.Number) -> Property {
+        Property(
+            name: "stroke-miterlimit",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the opacity of the SVG stroke.
+    public static func stroke(value: Unit.NumberPercentage) -> Property {
+        Property(
+            name: "stroke-opacity",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the width of the SVG stroke.
+    public static func stroke(strokeWidth: Unit.Length) -> Property {
+        Property(
+            name: "stroke-width",
+            value: "\(strokeWidth)"
+        )
+    }
+
+    /// Sets the algorithm used to determine what parts of the canvas are included inside a clip path.
+    public static func clipRule(_ value: Unit.FillRule) -> Property {
+        Property(
+            name: "clip-rule",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the algorithm used to determine what parts of the canvas are included inside a clip path.
+    public static func clipRule(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "clip-rule",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Provides hints to the renderer about what trade-offs to make when rendering SVG shapes.
+    public static func shapeRendering(_ value: Unit.ShapeRendering) -> Property {
+        Property(
+            name: "shape-rendering",
+            value: "\(value)"
+        )
+    }
+
+    /// Provides hints to the renderer about what trade-offs to make when rendering SVG shapes.
+    public static func shapeRendering(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "shape-rendering",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the arrowhead or polymarker drawn at the first vertex of an SVG element.
+    public static func marker(startMarker: Unit.NoneUrl) -> Property {
+        Property(
+            name: "marker-start",
+            value: "\(startMarker)"
+        )
+    }
+
+    /// Sets the arrowhead or polymarker drawn at the first vertex of an SVG element.
+    public static func marker(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "marker",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the arrowhead or polymarker drawn at the middle vertices of an SVG element.
+    public static func marker(midMarker: Unit.NoneUrl) -> Property {
+        Property(
+            name: "marker-mid",
+            value: "\(midMarker)"
+        )
+    }
+
+    /// Sets the arrowhead or polymarker drawn at the final vertex of an SVG element.
+    public static func marker(endMarker: Unit.NoneUrl) -> Property {
+        Property(
+            name: "marker-end",
+            value: "\(endMarker)"
+        )
+    }
+
+    /// Sets the width property.
+    public static func width(_ fraction: Unit.Fraction) -> Property {
+        Property(
+            name: "width",
+            value: "\(fraction)"
+        )
+    }
+
+    /// Sets the height property.
+    public static func height(_ fraction: Unit.Fraction) -> Property {
+        Property(
+            name: "height",
+            value: "\(fraction)"
         )
     }
 
