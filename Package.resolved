@@ -1,5 +1,5 @@
 {
-  "originHash" : "67178ac954ae7278e03557ce859b841c9f7066a62af0d96babdb5f28521c6df1",
+  "originHash" : "cd3208b2625ac2dc6f2ec7fa3f5e326e6f1e42e09c0ad0e8ab7d3a8fcc419831",
   "pins" : [
     {
       "identity" : "javascriptkit",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/SailorWebFramework/Sailboat",
       "state" : {
         "branch" : "feature-fin",
-        "revision" : "3205a72b89a8b74ab8d28e6e34866998808c4c40"
+        "revision" : "de56f40f82acc3ea8050a50d9823c47180461373"
       }
     },
     {

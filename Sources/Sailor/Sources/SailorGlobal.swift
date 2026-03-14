@@ -8,9 +8,10 @@
 import Sailboat
 
 /// Sailor Specific global environment
+@MainActor
 enum SailorGlobal {
     /// global head page/element refrence in sailor
-    nonisolated(unsafe) static var headRef: (any Head)! = nil
+    static var headRef: (any Head)! = nil
     
     static func initialize(head: any Head) {
         Self.headRef = head
