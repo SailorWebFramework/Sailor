@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The blockquote element represents a section that is quoted from another source.
-    public struct Blockquote: BodyElement {
+    @MainActor public struct Blockquote: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "blockquote" }
 

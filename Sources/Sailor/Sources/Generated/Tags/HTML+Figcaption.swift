@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The figcaption element represents a caption or legend for the rest of the contents of the figcaption's parent figure element, if any.
-    public struct Figcaption: BodyElement {
+    @MainActor public struct Figcaption: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "figcaption" }
 

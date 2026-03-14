@@ -5,20 +5,20 @@
 //  Created by Joshua Davis on 2/27/24.
 //
 
-import JavaScriptKit
+@preconcurrency import JavaScriptKit
 import JavaScriptEventLoop
 import Sailboat
 import SailorShared
 
 // JavascriptKit Passthrough
 
-public func alert(_ text: String) { JSObject.global.alert.function?(text) }
+@MainActor public func alert(_ text: String) { JSObject.global.alert.function?(text) }
 
-public func confirm(_ text: String) -> Bool { JSObject.global.confirm.function?(text).boolean ?? false }
+@MainActor public func confirm(_ text: String) -> Bool { JSObject.global.confirm.function?(text).boolean ?? false }
 
-public func prompt(_ text: String) -> String { JSObject.global.prompt.function?(text).string ?? "" }
+@MainActor public func prompt(_ text: String) -> String { JSObject.global.prompt.function?(text).string ?? "" }
 
-public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int {
+@MainActor public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int {
     Int(
         JSObject.global.setTimeout.function!(JSClosure { _ in
             completion()
@@ -29,7 +29,7 @@ public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int {
     )
 }
 
-public func clearTimeout(_ timeoutID: Int) {
+@MainActor public func clearTimeout(_ timeoutID: Int) {
     JSObject.global.clearTimeout.function!(Double(timeoutID))
 }
 
@@ -40,7 +40,7 @@ public func clearTimeout(_ timeoutID: Int) {
 //}
 
 
-internal func fetchPromise(_ url: String, _ requestOptions: JSObject) -> JSPromise {
+@MainActor internal func fetchPromise(_ url: String, _ requestOptions: JSObject) -> JSPromise {
     JSPromise(JSNode.jsFetch(url, requestOptions).object!)!
 }
 
@@ -75,7 +75,7 @@ internal func fetchPromise(_ url: String, _ requestOptions: JSObject) -> JSPromi
 //    }
 //}
 
-public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], completion: @escaping (Promise<ResponseType>) -> Void) {
+@MainActor public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], completion: @escaping (Promise<ResponseType>) -> Void) {
     Task {
         do {
             var formattedURL = url
@@ -128,7 +128,7 @@ public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, 
 }
 
 
-public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async -> Promise<ResponseType>  {
+@MainActor public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async -> Promise<ResponseType>  {
     do {
         var formattedURL = url
         let requestOptions = JSObject.global.Object.function!.new()

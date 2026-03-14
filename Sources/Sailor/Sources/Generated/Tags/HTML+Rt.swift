@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The rt element embraces pronunciation of characters presented in a ruby annotations, which are used to describe the pronunciation of East Asian characters.
-    public struct Rt: BodyElement {
+    @MainActor public struct Rt: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "rt" }
 

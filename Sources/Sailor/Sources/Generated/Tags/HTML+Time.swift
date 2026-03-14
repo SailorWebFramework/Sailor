@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The time element represents either a time on a 24-hour clock or a precise date in the Gregorian calendar (with optional time and timezone information).
-    public struct Time: BodyElement {
+    @MainActor public struct Time: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "time" }
 

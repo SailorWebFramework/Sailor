@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dfn element represents the defining instance of a term.
-    public struct Dfn: BodyElement {
+    @MainActor public struct Dfn: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dfn" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The details element represents a disclosure widget from which the user can obtain additional information or controls.
-    public struct Details: BodyElement {
+    @MainActor public struct Details: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "details" }
 

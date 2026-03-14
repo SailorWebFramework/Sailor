@@ -9,7 +9,8 @@ import Sailboat
 import SailorShared
 import JavaScriptKit
 
-public final class WebEnvironment: SailorEnvironment {
+@MainActor
+public final class WebEnvironment: @preconcurrency SailorEnvironment {
 
     public var url: String {
         JSNode.window.location.object!.href.string!

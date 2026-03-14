@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The select element represents a control for selecting amongst a set of options.
-    public struct Select: BodyElement {
+    @MainActor public struct Select: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "select" }
 

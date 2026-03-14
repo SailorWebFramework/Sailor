@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The progress element represents the completion progress of a task.
-    public struct Progress: BodyElement {
+    @MainActor public struct Progress: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "progress" }
 

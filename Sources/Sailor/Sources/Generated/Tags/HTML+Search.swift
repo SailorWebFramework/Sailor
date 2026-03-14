@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The search element represents a search field.
-    public struct Search: BodyElement {
+    @MainActor public struct Search: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "search" }
 

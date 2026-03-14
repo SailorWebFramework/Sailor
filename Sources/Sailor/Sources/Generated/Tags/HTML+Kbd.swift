@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The kbd element represents user input (typically keyboard input, although it may also be used to represent other input, such as voice commands).
-    public struct Kbd: BodyElement {
+    @MainActor public struct Kbd: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "kbd" }
 

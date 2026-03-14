@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The optgroup element creates a grouping of options within a select element.
-    public struct Optgroup: BodyElement {
+    @MainActor public struct Optgroup: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "optgroup" }
 

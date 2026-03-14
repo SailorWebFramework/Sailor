@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The thead element represents the block of rows that consist of the column labels (headers) for the columns of the table.
-    public struct Thead: BodyElement {
+    @MainActor public struct Thead: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "thead" }
 

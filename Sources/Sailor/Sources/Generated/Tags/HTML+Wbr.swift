@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The wbr element represents a word break opportunity.
-    public struct Wbr: BodyElement {
+    @MainActor public struct Wbr: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "wbr" }
 

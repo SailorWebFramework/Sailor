@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The sub element represents a subscript.
-    public struct Sub: BodyElement {
+    @MainActor public struct Sub: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "sub" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The br element represents a line break.
-    public struct Br: BodyElement {
+    @MainActor public struct Br: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "br" }
 

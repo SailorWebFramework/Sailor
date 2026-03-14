@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The embed element provides an integration point for an external (typically non-HTML) application or interactive content.
-    public struct Embed: BodyElement {
+    @MainActor public struct Embed: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "embed" }
 

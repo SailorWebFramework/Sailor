@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The li element represents a list item.
-    public struct Li: BodyElement {
+    @MainActor public struct Li: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "li" }
 

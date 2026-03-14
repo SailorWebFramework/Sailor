@@ -21,15 +21,15 @@ public typealias Env = EmptyEnvironment
 
 extension Page {
 #if os(WASI)
-    public var alert: (_ text: String) -> Void { SailorWeb.alert }
-    public var confirm: (_ text: String) -> Bool { SailorWeb.confirm }
-    public var prompt: (_ text: String) -> String { SailorWeb.prompt }
-    public var setTimeout: (_ amount: Int, _ completion: @escaping () -> Void) -> Int { SailorWeb.setTimeout }
-    public var clearTimeout: (_ timeoutID: Int) -> Void { SailorWeb.clearTimeout }
-    public func fetch<ResponseType: Decodable>(url: String, format: ResponseType.Type, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], _ completion: @escaping (Promise<ResponseType>) -> Void) {
+    @MainActor public var alert: (_ text: String) -> Void { SailorWeb.alert }
+    @MainActor public var confirm: (_ text: String) -> Bool { SailorWeb.confirm }
+    @MainActor public var prompt: (_ text: String) -> String { SailorWeb.prompt }
+    @MainActor public var setTimeout: (_ amount: Int, _ completion: @escaping () -> Void) -> Int { SailorWeb.setTimeout }
+    @MainActor public var clearTimeout: (_ timeoutID: Int) -> Void { SailorWeb.clearTimeout }
+    @MainActor public func fetch<ResponseType: Decodable>(url: String, format: ResponseType.Type, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], _ completion: @escaping (Promise<ResponseType>) -> Void) {
         SailorWeb.fetch(url: url, type: type, headers: headers, params: params, body: body, completion: completion)
     }
-    public func fetch<ResponseType: Decodable>(url: String, format: ResponseType.Type, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async -> Promise<ResponseType>  {
+    @MainActor public func fetch<ResponseType: Decodable>(url: String, format: ResponseType.Type, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async -> Promise<ResponseType>  {
         await SailorWeb.fetch(url: url, type: type, headers: headers, params: params, body: body)
     }
 #else

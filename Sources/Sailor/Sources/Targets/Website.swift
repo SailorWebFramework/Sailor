@@ -28,9 +28,9 @@ public protocol Website: Page {
 #if os(WASI)
 
 extension Website {
-    public static func main() {
+    @MainActor public static func main() {
         JSNode.installGlobalExecutor()
-        
+
         SailboatGlobal.initialize(SailorWebManager())
 
         let mainPage = Self()

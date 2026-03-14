@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The p element represents a paragraph.
-    public struct P: BodyElement {
+    @MainActor public struct P: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "p" }
 

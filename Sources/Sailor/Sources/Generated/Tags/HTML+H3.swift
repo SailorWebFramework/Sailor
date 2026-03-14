@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The h3 element represents a level 3 heading.
-    public struct H3: BodyElement {
+    @MainActor public struct H3: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "h3" }
 

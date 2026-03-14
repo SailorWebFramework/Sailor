@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The hr element represents a thematic break between paragraph-level elements.
-    public struct Hr: BodyElement {
+    @MainActor public struct Hr: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "hr" }
 

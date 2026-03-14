@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The section element represents a generic section of a document or application.
-    public struct Section: BodyElement {
+    @MainActor public struct Section: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "section" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The map element, in conjunction with an img element and any area element descendants, defines an image map.
-    public struct Map: BodyElement {
+    @MainActor public struct Map: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "map" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The input element represents a typed data field, usually with a form control to allow the user to edit the data.
-    public struct Input: BodyElement {
+    @MainActor public struct Input: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "input" }
 

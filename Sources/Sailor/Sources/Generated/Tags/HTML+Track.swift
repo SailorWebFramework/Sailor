@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The track element allows authors to specify explicit external timed text tracks for media elements.
-    public struct Track: BodyElement {
+    @MainActor public struct Track: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "track" }
 

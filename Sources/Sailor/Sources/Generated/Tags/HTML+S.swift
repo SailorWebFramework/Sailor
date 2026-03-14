@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The s element represents contents that are no longer accurate or no longer relevant.
-    public struct S: BodyElement {
+    @MainActor public struct S: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "s" }
 

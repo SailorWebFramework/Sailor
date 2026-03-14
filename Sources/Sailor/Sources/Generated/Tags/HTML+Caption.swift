@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The caption element represents the title of the table that is its parent, if it has a parent and that is a table element.
-    public struct Caption: BodyElement {
+    @MainActor public struct Caption: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "caption" }
 

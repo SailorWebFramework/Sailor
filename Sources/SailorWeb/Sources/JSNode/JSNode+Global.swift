@@ -10,12 +10,10 @@ import JavaScriptEventLoop
 import Sailboat
 
 //MARK- Global
-extension JSNode: CustomStringConvertible {
+extension JSNode: @preconcurrency CustomStringConvertible {
 
-    public var description: String {
-        """
-        JSNode(type: \(tagName ?? ""), sid: \(self.sailboatID ?? 0)
-        """
+    nonisolated public var description: String {
+        "JSNode"
     }
     
     static let sailboatIDName = "data-sid"
@@ -53,7 +51,7 @@ extension JSNode: CustomStringConvertible {
         case head
         case body
         
-        func getJSObject() -> JSObject {
+        @MainActor func getJSObject() -> JSObject {
             switch self {
             case .head:
                 JSNode.head

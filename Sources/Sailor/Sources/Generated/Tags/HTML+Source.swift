@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The source element specifies multiple media resources for the picture, the audio element, or the video element.
-    public struct Source: BodyElement {
+    @MainActor public struct Source: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "source" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The q element represents some phrasing content quoted from another source.
-    public struct Q: BodyElement {
+    @MainActor public struct Q: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "q" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
-    public struct Meta: HeadElement {
+    @MainActor public struct Meta: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "meta" }
 

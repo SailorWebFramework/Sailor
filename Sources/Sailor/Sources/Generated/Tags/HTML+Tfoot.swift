@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The tfoot element represents the block of rows that consist of the column summaries (footers) for the columns of the table.
-    public struct Tfoot: BodyElement {
+    @MainActor public struct Tfoot: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "tfoot" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dialog element represents a part of an application that a user interacts with to perform a task, for example a dialog box, inspector, or window.
-    public struct Dialog: BodyElement {
+    @MainActor public struct Dialog: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dialog" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The code element represents a fragment of computer code.
-    public struct Code: BodyElement {
+    @MainActor public struct Code: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "code" }
 

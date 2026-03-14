@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The HeadingGroup element represents a group of headings.
-    public struct Headinggroup: BodyElement {
+    @MainActor public struct Headinggroup: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "headinggroup" }
 

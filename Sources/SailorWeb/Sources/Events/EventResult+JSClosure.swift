@@ -10,7 +10,7 @@ import Sailboat
 
 extension EventResult {
 
-    static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
+    @MainActor static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
             SailboatGlobal.manager.eventScheduler.registerEvent()
 

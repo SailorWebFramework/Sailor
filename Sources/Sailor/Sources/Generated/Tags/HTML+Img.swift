@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The img element represents an image.
-    public struct Img: BodyElement {
+    @MainActor public struct Img: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "img" }
 

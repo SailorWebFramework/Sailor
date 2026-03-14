@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
-    public struct A: BodyElement {
+    @MainActor public struct A: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "a" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The textarea element represents a multiline plain text edit control for the element's raw value.
-    public struct Textarea: BodyElement {
+    @MainActor public struct Textarea: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "textarea" }
 

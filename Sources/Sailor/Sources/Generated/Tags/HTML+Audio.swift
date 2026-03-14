@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The audio element represents a sound or audio stream.
-    public struct Audio: BodyElement {
+    @MainActor public struct Audio: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "audio" }
 

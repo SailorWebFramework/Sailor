@@ -9,6 +9,7 @@ import JavaScriptKit
 import Sailboat
 import SailorShared
 
+@MainActor
 public final class JSNode {
 
     ///

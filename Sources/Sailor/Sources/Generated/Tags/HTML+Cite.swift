@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The cite element represents the title of a work (e.g. a book, a paper, an essay, a poem, a score, a song, a script, a film, a TV show, a game, a sculpture, a painting, a theatre production, a play, an opera, a musical, an exhibition, a legal case report, a computer program, etc).
-    public struct Cite: BodyElement {
+    @MainActor public struct Cite: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "cite" }
 

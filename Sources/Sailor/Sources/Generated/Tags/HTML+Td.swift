@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The td element defines a cell of a table that contains data.
-    public struct Td: BodyElement {
+    @MainActor public struct Td: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "td" }
 

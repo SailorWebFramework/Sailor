@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The PreformattedText element represents preformatted text.
-    public struct Preformattedtext: BodyElement {
+    @MainActor public struct Preformattedtext: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "preformattedtext" }
 

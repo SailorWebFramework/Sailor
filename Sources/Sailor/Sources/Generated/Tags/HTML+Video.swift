@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The video element represents a video, and its associated audio, with the necessary controls.
-    public struct Video: BodyElement {
+    @MainActor public struct Video: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "video" }
 

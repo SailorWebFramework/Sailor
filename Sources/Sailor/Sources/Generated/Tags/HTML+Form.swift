@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The form element represents a document section that contains interactive controls to submit information to a web server.
-    public struct Form: BodyElement {
+    @MainActor public struct Form: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "form" }
 

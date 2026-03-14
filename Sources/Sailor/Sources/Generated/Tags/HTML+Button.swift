@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The button element represents a clickable button.
-    public struct Button: BodyElement {
+    @MainActor public struct Button: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "button" }
 

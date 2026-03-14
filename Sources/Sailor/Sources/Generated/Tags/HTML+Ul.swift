@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The ul element represents an unordered list of items, typically rendered as a bulleted list.
-    public struct Ul: BodyElement {
+    @MainActor public struct Ul: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "ul" }
 

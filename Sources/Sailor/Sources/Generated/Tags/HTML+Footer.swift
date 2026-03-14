@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The footer element represents a footer for its nearest sectioning content or sectioning root element.
-    public struct Footer: BodyElement {
+    @MainActor public struct Footer: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "footer" }
 

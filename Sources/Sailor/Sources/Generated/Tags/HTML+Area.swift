@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The area element represents either a hyperlink with some text and a corresponding area on an image map, or a dead area on an image map.
-    public struct Area: BodyElement {
+    @MainActor public struct Area: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "area" }
 

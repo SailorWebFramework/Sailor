@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The output element represents the result of a calculation or user action.
-    public struct Output: BodyElement {
+    @MainActor public struct Output: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "output" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The link element allows authors to link their document to other resources.
-    public struct Link: HeadElement {
+    @MainActor public struct Link: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "link" }
 

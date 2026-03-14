@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dt element represents the term being defined within a term-description group in a description list.
-    public struct Dt: BodyElement {
+    @MainActor public struct Dt: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dt" }
 

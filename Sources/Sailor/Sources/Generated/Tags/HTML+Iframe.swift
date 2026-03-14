@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The iframe element represents a nested browsing context, effectively embedding another HTML page into the current page.
-    public struct Iframe: BodyElement {
+    @MainActor public struct Iframe: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "iframe" }
 

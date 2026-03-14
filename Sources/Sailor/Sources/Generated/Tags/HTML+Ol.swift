@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The ol element represents an ordered list of items, typically rendered as a numbered list.
-    public struct Ol: BodyElement {
+    @MainActor public struct Ol: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "ol" }
 

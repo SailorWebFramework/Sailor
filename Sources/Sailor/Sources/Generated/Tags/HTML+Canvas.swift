@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The canvas element provides scripts with a resolution-dependent bitmap canvas, which can be used for rendering graphs, game graphics, or other visual images on the fly.
-    public struct Canvas: BodyElement {
+    @MainActor public struct Canvas: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "canvas" }
 

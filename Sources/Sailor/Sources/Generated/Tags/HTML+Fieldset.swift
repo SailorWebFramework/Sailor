@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The fieldset element represents a set of form controls optionally grouped under a common name.
-    public struct Fieldset: BodyElement {
+    @MainActor public struct Fieldset: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "fieldset" }
 

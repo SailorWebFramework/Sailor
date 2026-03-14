@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The div element has no special meaning at all. It represents its children. It can be used with the class, lang, and title attributes to mark up semantics common to a group of consecutive elements.
-    public struct Div: BodyElement {
+    @MainActor public struct Div: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "div" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dd element represents the description, definition, or value, part of a term-description group in a description list.
-    public struct Dd: BodyElement {
+    @MainActor public struct Dd: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dd" }
 

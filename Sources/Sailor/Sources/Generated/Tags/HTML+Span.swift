@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The span element doesn't mean anything on its own, but can be useful when used together with the global attributes, e.g. class, lang, or dir. It represents its children.
-    public struct Span: BodyElement {
+    @MainActor public struct Span: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "span" }
 

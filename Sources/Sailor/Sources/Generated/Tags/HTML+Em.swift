@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The em element represents stress emphasis of its contents.
-    public struct Em: BodyElement {
+    @MainActor public struct Em: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "em" }
 

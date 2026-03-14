@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The option element represents an option in a select element or as part of a list of suggestions in a datalist element.
-    public struct Option: BodyElement {
+    @MainActor public struct Option: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "option" }
 

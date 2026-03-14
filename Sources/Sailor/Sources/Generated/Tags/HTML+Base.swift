@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The base element allows authors to specify the document base URL for the purposes of resolving relative URLs, and the name of the default browsing context for the purposes of following hyperlinks.
-    public struct Base: HeadElement {
+    @MainActor public struct Base: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "base" }
 
