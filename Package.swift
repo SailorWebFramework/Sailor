@@ -10,6 +10,10 @@ let package = Package(
         .library(
             name: "Sailor",
             targets: ["Sailor"]
+        ),
+        .library(
+            name: "SailorServer",
+            targets: ["SailorServer"]
         )
     ],
     dependencies: [
@@ -40,6 +44,14 @@ let package = Package(
                 "SailorShared",
                 .product(name: "JavaScriptKit", package: "JavaScriptKit"),
                 .product(name: "JavaScriptEventLoop", package: "JavaScriptKit")
+            ]
+        ),
+        .target(
+            name: "SailorServer",
+            dependencies: [
+                "Sailor",
+                "Sailboat",
+                "SailorShared"
             ]
         ),
     ]
