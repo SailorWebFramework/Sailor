@@ -16,7 +16,7 @@ public final class JSNode {
     public var sailboatID: SailboatID?
 
     ///
-    internal var element: JSObject
+    @_spi(Private) public var element: JSObject
 
     public convenience init(_ type: SpecialJSNodeType, sid: SailboatID? = nil) {
         self.init(

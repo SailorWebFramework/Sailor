@@ -26,6 +26,22 @@ public extension Element {
             completion()
         }
     }
+
+    // MARK: - Handle-passing overloads
+
+    /// Called when the element appears in the DOM. Passes a typed ElementHandle for imperative method calls.
+    func onAppear(_ completion: @escaping (ElementHandle) -> Void) -> Self {
+        withEvent(name: "_appear") { _ in
+            completion(self.handle)
+        }
+    }
+
+    /// Called when the element is removed from the DOM. Passes a typed ElementHandle.
+    func onDisappear(_ completion: @escaping (ElementHandle) -> Void) -> Self {
+        withEvent(name: "_disappear") { _ in
+            completion(self.handle)
+        }
+    }
     
     @MainActor func task(_ completion: @escaping @Sendable () async -> Void) -> Self {
         withEvent(name: "_task") { _ in
