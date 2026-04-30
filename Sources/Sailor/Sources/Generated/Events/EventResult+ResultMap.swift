@@ -3,6 +3,7 @@
 //  EventResult+ResultMap.swift
 //
 
+#if os(WASI)
 import JavaScriptKit
 import Sailboat
 
@@ -31,3 +32,4 @@ extension EventResult {
     }
 
 }
+#endif

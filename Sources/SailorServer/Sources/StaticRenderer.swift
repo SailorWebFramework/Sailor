@@ -18,12 +18,14 @@ public struct StaticRenderer {
 
     /// Render any Page to an HTML string
     public func render(_ page: any Page) -> String {
-        if let element = page as? any Element {
-            return renderElement(element)
+        // ValueElement must be checked before Element — ValueElement: Element,
+        // so any Element check would match first and produce wrong tag output.
+        if let valueElement = page as? any ValueElement {
+            return escapeHTML(valueElement.value.description)
         } else if let fragment = page as? any Fragment {
             return renderFragment(fragment)
-        } else if let valueElement = page as? any ValueElement {
-            return escapeHTML(valueElement.value.description)
+        } else if let element = page as? any Element {
+            return renderElement(element)
         } else {
             // Generic Page — render its body
             return render(page.body)
