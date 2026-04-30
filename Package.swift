@@ -54,5 +54,23 @@ let package = Package(
                 "SailorShared"
             ]
         ),
+        .testTarget(
+            name: "SailorTests",
+            dependencies: [
+                "Sailor",
+                "SailorServer",
+                .product(name: "Sailboat", package: "Sailboat")
+            ],
+            path: "Tests/SailorTests"
+        ),
+        .testTarget(
+            name: "SailorIntegrationTests",
+            dependencies: [
+                "Sailor",
+                "SailorServer",
+                .product(name: "Sailboat", package: "Sailboat")
+            ],
+            path: "Tests/SailorIntegrationTests"
+        ),
     ]
 )
