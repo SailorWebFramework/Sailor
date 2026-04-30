@@ -32,7 +32,7 @@ extension Unit {
 
         ///both directions specified
         public static func `size`(_ widthAndHeight: Unit.AutoLengthPercentage) -> Self {
-            return .init("{{both}}")
+            return .init("\(widthAndHeight)")
         }
 
         ///both directions specified

@@ -560,7 +560,7 @@ public enum CSS {
     public static func borderBlockEnd(color: Unit.Color) -> Property {
         Property(
             name: "border-block-end-color",
-            value: "{{blockEndColor}}"
+            value: "\(color)"
         )
     }
 
@@ -640,7 +640,7 @@ public enum CSS {
     public static func borderBlock(color: Unit.Color) -> Property {
         Property(
             name: "border-block-color",
-            value: "{{blockColor}}"
+            value: "\(color)"
         )
     }
 
@@ -648,7 +648,7 @@ public enum CSS {
     public static func borderBlock(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-block-style",
-            value: "{{blockStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -680,7 +680,7 @@ public enum CSS {
     public static func borderBottom(color: Unit.Color) -> Property {
         Property(
             name: "border-bottom-color",
-            value: "{{bottomColor}}"
+            value: "\(color)"
         )
     }
 
@@ -688,7 +688,7 @@ public enum CSS {
     public static func borderBottom(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-bottom-style",
-            value: "{{bottomStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -696,7 +696,7 @@ public enum CSS {
     public static func borderBottom(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-bottom-width",
-            value: "{{bottomWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -704,7 +704,7 @@ public enum CSS {
     public static func borderBottom(leftRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-bottom-left-radius",
-            value: "{{radius}}"
+            value: "\(leftRadius)"
         )
     }
 
@@ -712,7 +712,7 @@ public enum CSS {
     public static func borderBottom(rightRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-bottom-right-radius",
-            value: "{{radius}}"
+            value: "\(rightRadius)"
         )
     }
 
@@ -720,7 +720,7 @@ public enum CSS {
     public static func borderEnd(endRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-end-end-radius",
-            value: "{{radius}}"
+            value: "\(endRadius)"
         )
     }
 
@@ -736,7 +736,7 @@ public enum CSS {
     public static func borderEnd(startRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-end-start-radius",
-            value: "{{radius}}"
+            value: "\(startRadius)"
         )
     }
 
@@ -760,7 +760,7 @@ public enum CSS {
     public static func borderInline(color: Unit.Color) -> Property {
         Property(
             name: "border-inline-color",
-            value: "{{inlineColor}}"
+            value: "\(color)"
         )
     }
 
@@ -768,7 +768,7 @@ public enum CSS {
     public static func borderInline(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-inline-style",
-            value: "{{inlineStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -776,7 +776,7 @@ public enum CSS {
     public static func borderInline(width: Unit.UnidirectionalWidth) -> Property {
         Property(
             name: "border-inline-width",
-            value: "{{inlineWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -800,7 +800,7 @@ public enum CSS {
     public static func borderInlineStart(color: Unit.Color) -> Property {
         Property(
             name: "border-inline-start-color",
-            value: "{{inlineStartColor}}"
+            value: "\(color)"
         )
     }
 
@@ -808,7 +808,7 @@ public enum CSS {
     public static func borderInlineStart(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-inline-start-style",
-            value: "{{inlineStartStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -816,7 +816,7 @@ public enum CSS {
     public static func borderInlineStart(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-inline-start-width",
-            value: "{{inlineStartWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -840,7 +840,7 @@ public enum CSS {
     public static func borderInlineEnd(color: Unit.Color) -> Property {
         Property(
             name: "border-inline-end-color",
-            value: "{{inlineEndColor}}"
+            value: "\(color)"
         )
     }
 
@@ -848,7 +848,7 @@ public enum CSS {
     public static func borderInlineEnd(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-inline-end-style",
-            value: "{{inlineEndStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -856,7 +856,7 @@ public enum CSS {
     public static func borderInlineEnd(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-inline-end-width",
-            value: "{{inlineEndWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -880,7 +880,7 @@ public enum CSS {
     public static func borderLeft(color: Unit.Color) -> Property {
         Property(
             name: "border-left-color",
-            value: "{{leftColor}}"
+            value: "\(color)"
         )
     }
 
@@ -888,7 +888,7 @@ public enum CSS {
     public static func borderLeft(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-left-style",
-            value: "{{leftStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -896,7 +896,7 @@ public enum CSS {
     public static func borderLeft(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-left-width",
-            value: "{{leftWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -920,7 +920,7 @@ public enum CSS {
     public static func borderRight(color: Unit.Color) -> Property {
         Property(
             name: "border-right-color",
-            value: "{{rightColor}}"
+            value: "\(color)"
         )
     }
 
@@ -928,7 +928,7 @@ public enum CSS {
     public static func borderRight(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-right-style",
-            value: "{{rightStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -936,7 +936,7 @@ public enum CSS {
     public static func borderRight(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-right-width",
-            value: "{{rightWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -944,7 +944,7 @@ public enum CSS {
     public static func borderStart(endRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-start-end-radius",
-            value: "{{radius}}"
+            value: "\(endRadius)"
         )
     }
 
@@ -960,7 +960,7 @@ public enum CSS {
     public static func borderStart(startRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-start-start-radius",
-            value: "{{radius}}"
+            value: "\(startRadius)"
         )
     }
 
@@ -984,7 +984,7 @@ public enum CSS {
     public static func borderTop(color: Unit.Color) -> Property {
         Property(
             name: "border-top-color",
-            value: "{{topColor}}"
+            value: "\(color)"
         )
     }
 
@@ -992,7 +992,7 @@ public enum CSS {
     public static func borderTop(style: Unit.LineStyle) -> Property {
         Property(
             name: "border-top-style",
-            value: "{{topStyle}}"
+            value: "\(style)"
         )
     }
 
@@ -1000,7 +1000,7 @@ public enum CSS {
     public static func borderTop(width: Unit.LineWidth) -> Property {
         Property(
             name: "border-top-width",
-            value: "{{topWidth}}"
+            value: "\(width)"
         )
     }
 
@@ -1008,7 +1008,7 @@ public enum CSS {
     public static func borderTop(leftRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-top-left-radius",
-            value: "{{radius}}"
+            value: "\(leftRadius)"
         )
     }
 
@@ -1016,7 +1016,7 @@ public enum CSS {
     public static func borderTop(rightRadius: Unit.LengthPercentage) -> Property {
         Property(
             name: "border-top-right-radius",
-            value: "{{radius}}"
+            value: "\(rightRadius)"
         )
     }
 
@@ -1045,10 +1045,10 @@ public enum CSS {
     }
 
     /// Sets the border image property.
-    public static func borderImage(outset: Unit.LengthNumber? = nil, `repeat`: Unit.RepeatImage? = nil, slice: Unit.SliceImage? = nil, source: Unit.Source? = nil, vertical: Unit.AutoLengthPercentage? = nil) -> Property {
+    public static func borderImage(outset: Unit.LengthNumber? = nil, `repeat`: Unit.RepeatImage? = nil, slice: Unit.SliceImage? = nil, source: Unit.Source? = nil, vertical: Unit.AutoLengthPercentage? = nil, horizontal: Unit.AutoLengthPercentage? = nil) -> Property {
         Property(
             name: "border-image",
-            value: "\(Utils.unwrapUnit(source)) \(Utils.unwrapUnit(`repeat`)) \(Utils.unwrapUnit(slice))/\(Utils.unwrapUnit(vertical))/{{horizontal}}/\(Utils.unwrapUnit(outset))"
+            value: "\(Utils.unwrapUnit(source)) \(Utils.unwrapUnit(`repeat`)) \(Utils.unwrapUnit(slice))/\(Utils.unwrapUnit(vertical))/\(Utils.unwrapUnit(horizontal))/\(Utils.unwrapUnit(outset))"
         )
     }
 
@@ -1064,7 +1064,7 @@ public enum CSS {
     public static func borderImage(`repeat`: Unit.RepeatImage) -> Property {
         Property(
             name: "border-image-repeat",
-            value: "{{imageRepeat}}"
+            value: "\(`repeat`)"
         )
     }
 
@@ -1080,7 +1080,7 @@ public enum CSS {
     public static func borderImage(source: Unit.Source) -> Property {
         Property(
             name: "border-image-source",
-            value: "{{image}}"
+            value: "\(source)"
         )
     }
 
@@ -1112,7 +1112,7 @@ public enum CSS {
     public static func border(collapse: Unit.BorderCollapse) -> Property {
         Property(
             name: "border-collapse",
-            value: "{{value}}"
+            value: "\(collapse)"
         )
     }
 
@@ -1192,7 +1192,7 @@ public enum CSS {
     public static func clipPath(_ none: Unit.None) -> Property {
         Property(
             name: "clip-path",
-            value: "{{shape}}"
+            value: "\(none)"
         )
     }
 
@@ -4161,6 +4161,598 @@ public enum CSS {
         Property(
             name: "height",
             value: "\(fraction)"
+        )
+    }
+
+    /// Sets the scroll snap type.
+    public static func scrollSnapType(_ axis: Unit.ScrollSnapType, _ strictness: Unit.ScrollSnapStrictness? = nil) -> Property {
+        Property(
+            name: "scroll-snap-type",
+            value: "\(axis) \(Utils.unwrapUnit(strictness))"
+        )
+    }
+
+    /// Sets the scroll snap type.
+    public static func scrollSnapType(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-snap-type",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll snap alignment.
+    public static func scrollSnapAlign(_ value: Unit.ScrollSnapAlign) -> Property {
+        Property(
+            name: "scroll-snap-align",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll snap alignment.
+    public static func scrollSnapAlign(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-snap-align",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll snap stop behavior.
+    public static func scrollSnapStop(_ value: Unit.ScrollSnapStop) -> Property {
+        Property(
+            name: "scroll-snap-stop",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll snap stop behavior.
+    public static func scrollSnapStop(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-snap-stop",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets whether scrolling is instant or smoothly animated.
+    public static func scrollBehavior(_ value: Unit.ScrollBehavior) -> Property {
+        Property(
+            name: "scroll-behavior",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets whether scrolling is instant or smoothly animated.
+    public static func scrollBehavior(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-behavior",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin property.
+    public static func scrollMargin(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin property.
+    public static func scrollMargin(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-top property.
+    public static func scrollMarginTop(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-top",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-top property.
+    public static func scrollMarginTop(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-top",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-bottom property.
+    public static func scrollMarginBottom(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-bottom",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-bottom property.
+    public static func scrollMarginBottom(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-bottom",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-left property.
+    public static func scrollMarginLeft(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-left",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-left property.
+    public static func scrollMarginLeft(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-left",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-right property.
+    public static func scrollMarginRight(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-right",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-right property.
+    public static func scrollMarginRight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-right",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-block property.
+    public static func scrollMarginBlock(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-block",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-block property.
+    public static func scrollMarginBlock(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-block",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-block-start property.
+    public static func scrollMarginBlockStart(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-block-start",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-block-start property.
+    public static func scrollMarginBlockStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-block-start",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-block-end property.
+    public static func scrollMarginBlockEnd(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-block-end",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-block-end property.
+    public static func scrollMarginBlockEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-block-end",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline property.
+    public static func scrollMarginInline(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-inline",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline property.
+    public static func scrollMarginInline(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-inline",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline-start property.
+    public static func scrollMarginInlineStart(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-inline-start",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline-start property.
+    public static func scrollMarginInlineStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-inline-start",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline-end property.
+    public static func scrollMarginInlineEnd(_ value: Unit.Length) -> Property {
+        Property(
+            name: "scroll-margin-inline-end",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-margin-inline-end property.
+    public static func scrollMarginInlineEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-margin-inline-end",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding property.
+    public static func scrollPadding(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding property.
+    public static func scrollPadding(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-top property.
+    public static func scrollPaddingTop(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-top",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-top property.
+    public static func scrollPaddingTop(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-top",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-bottom property.
+    public static func scrollPaddingBottom(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-bottom",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-bottom property.
+    public static func scrollPaddingBottom(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-bottom",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-left property.
+    public static func scrollPaddingLeft(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-left",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-left property.
+    public static func scrollPaddingLeft(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-left",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-right property.
+    public static func scrollPaddingRight(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-right",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-right property.
+    public static func scrollPaddingRight(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-right",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-block property.
+    public static func scrollPaddingBlock(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-block",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-block property.
+    public static func scrollPaddingBlock(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-block",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-block-start property.
+    public static func scrollPaddingBlockStart(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-block-start",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-block-start property.
+    public static func scrollPaddingBlockStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-block-start",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-block-end property.
+    public static func scrollPaddingBlockEnd(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-block-end",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-block-end property.
+    public static func scrollPaddingBlockEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-block-end",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline property.
+    public static func scrollPaddingInline(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-inline",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline property.
+    public static func scrollPaddingInline(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-inline",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline-start property.
+    public static func scrollPaddingInlineStart(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-inline-start",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline-start property.
+    public static func scrollPaddingInlineStart(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-inline-start",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline-end property.
+    public static func scrollPaddingInlineEnd(_ value: Unit.LengthPercentage) -> Property {
+        Property(
+            name: "scroll-padding-inline-end",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the scroll-padding-inline-end property.
+    public static func scrollPaddingInlineEnd(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "scroll-padding-inline-end",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Hints to the browser about which properties are expected to change.
+    public static func willChange(_ value: Unit.WillChange) -> Property {
+        Property(
+            name: "will-change",
+            value: "\(value)"
+        )
+    }
+
+    /// Hints to the browser about which properties are expected to change.
+    public static func willChange(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "will-change",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Controls whether an element renders its contents.
+    public static func contentVisibility(_ value: Unit.ContentVisibility) -> Property {
+        Property(
+            name: "content-visibility",
+            value: "\(value)"
+        )
+    }
+
+    /// Controls whether an element renders its contents.
+    public static func contentVisibility(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "content-visibility",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the mask image.
+    public static func maskImage(_ value: Unit.Source) -> Property {
+        Property(
+            name: "mask-image",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the mask image.
+    public static func maskImage(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-image",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the size of the mask image.
+    public static func maskSize(_ value: Unit.BackgroundSize) -> Property {
+        Property(
+            name: "mask-size",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the size of the mask image.
+    public static func maskSize(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-size",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets how the mask image is repeated.
+    public static func maskRepeat(_ value: Unit.MaskRepeat) -> Property {
+        Property(
+            name: "mask-repeat",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets how the mask image is repeated.
+    public static func maskRepeat(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-repeat",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the position of the mask image.
+    public static func maskPosition(_ value: Unit.BackgroundPosition) -> Property {
+        Property(
+            name: "mask-position",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the position of the mask image.
+    public static func maskPosition(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-position",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets whether the mask is treated as luminance or alpha.
+    public static func maskType(_ value: Unit.MaskType) -> Property {
+        Property(
+            name: "mask-type",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets whether the mask is treated as luminance or alpha.
+    public static func maskType(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-type",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the mask mode.
+    public static func maskMode(_ value: Unit.MaskMode) -> Property {
+        Property(
+            name: "mask-mode",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the mask mode.
+    public static func maskMode(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-mode",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the compositing operation for the mask.
+    public static func maskComposite(_ value: Unit.MaskComposite) -> Property {
+        Property(
+            name: "mask-composite",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the compositing operation for the mask.
+    public static func maskComposite(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-composite",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the mask positioning area.
+    public static func maskOrigin(_ value: Unit.BackgroundOrigin) -> Property {
+        Property(
+            name: "mask-origin",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the mask positioning area.
+    public static func maskOrigin(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-origin",
+            value: "\(globalValue)"
+        )
+    }
+
+    /// Sets the mask painting area.
+    public static func maskClip(_ value: Unit.BackgroundClip) -> Property {
+        Property(
+            name: "mask-clip",
+            value: "\(value)"
+        )
+    }
+
+    /// Sets the mask painting area.
+    public static func maskClip(_ globalValue: Unit.Global) -> Property {
+        Property(
+            name: "mask-clip",
+            value: "\(globalValue)"
         )
     }
 
