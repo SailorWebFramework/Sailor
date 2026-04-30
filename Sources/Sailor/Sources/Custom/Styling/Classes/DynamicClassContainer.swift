@@ -27,13 +27,7 @@ extension DynamicClassContainer {
 
 public struct ClassGroup: DynamicClassContainer {
     public var description: String {
-        names.reduce("") {
-            if $0 == "" {
-                return $1.description
-            }
-            
-            return "\($0) \($1.description)"
-        }
+        names.map { $0.description }.joined(separator: " ")
     }
         
     @_spi(Private) public var names: [any DynamicClass]
