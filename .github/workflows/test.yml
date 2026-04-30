@@ -16,4 +16,3 @@ jobs:
 
       - name: Run Sailor unit and integration tests
         run: swift test --configuration debug
-        working-directory: Sailor
