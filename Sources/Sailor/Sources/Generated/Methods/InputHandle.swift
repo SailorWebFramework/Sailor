@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Input — includes tag-specific DOM methods.
-@MainActor
 public struct InputHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct InputHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct InputHandle {
 
 extension InputHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,31 +55,31 @@ extension InputHandle {
 
 extension InputHandle {
     /// Selects all text in the input element.
-    public func select() {
+    @MainActor public func select() {
         #if os(WASI)
-        _ = jsValue?.select?()
+        _ = jsValue?.select()
         #endif
     }
 
     /// Sets the start and end positions of the text selection.
-    public func setSelectionRange(start: Int, end: Int) {
+    @MainActor public func setSelectionRange(start: Int, end: Int) {
         #if os(WASI)
-        _ = jsValue?.setSelectionRange?(start, end)
+        _ = jsValue?.setSelectionRange(start, end)
         #endif
     }
 
     /// Replaces a range of text in the input with new text.
-    public func setRangeText(replacement: String) {
+    @MainActor public func setRangeText(replacement: String) {
         #if os(WASI)
-        _ = jsValue?.setRangeText?(replacement)
+        _ = jsValue?.setRangeText(replacement)
         #endif
     }
 
     /// Returns true if the element's value passes constraint validation.
     @discardableResult
-    public func checkValidity() -> Bool? {
+    @MainActor public func checkValidity() -> Bool? {
         #if os(WASI)
-        guard let result = jsValue?.checkValidity?() else { return nil }
+        guard let result = jsValue?.checkValidity() else { return nil }
         return result.boolean
         #else
         return nil
@@ -89,9 +88,9 @@ extension InputHandle {
 
     /// Checks validity and shows a validation message to the user if invalid.
     @discardableResult
-    public func reportValidity() -> Bool? {
+    @MainActor public func reportValidity() -> Bool? {
         #if os(WASI)
-        guard let result = jsValue?.reportValidity?() else { return nil }
+        guard let result = jsValue?.reportValidity() else { return nil }
         return result.boolean
         #else
         return nil
@@ -99,16 +98,16 @@ extension InputHandle {
     }
 
     /// Increments the value of a numeric input by the step value.
-    public func stepUp(n: Int = 1) {
+    @MainActor public func stepUp(n: Int = 1) {
         #if os(WASI)
-        _ = jsValue?.stepUp?(n)
+        _ = jsValue?.stepUp(n)
         #endif
     }
 
     /// Decrements the value of a numeric input by the step value.
-    public func stepDown(n: Int = 1) {
+    @MainActor public func stepDown(n: Int = 1) {
         #if os(WASI)
-        _ = jsValue?.stepDown?(n)
+        _ = jsValue?.stepDown(n)
         #endif
     }
 

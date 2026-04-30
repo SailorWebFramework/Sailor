@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Canvas — includes tag-specific DOM methods.
-@MainActor
 public struct CanvasHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct CanvasHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct CanvasHandle {
 
 extension CanvasHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,16 +55,16 @@ extension CanvasHandle {
 
 extension CanvasHandle {
     /// Returns a data URL containing the image in the canvas.
-    public func toDataURL(type: String = "image/png") {
+    @MainActor public func toDataURL(type: String = "image/png") {
         #if os(WASI)
-        _ = jsValue?.toDataURL?(type)
+        _ = jsValue?.toDataURL(type)
         #endif
     }
 
     /// Creates a Blob object representing the image in the canvas.
-    public func toBlob() {
+    @MainActor public func toBlob() {
         #if os(WASI)
-        _ = jsValue?.toBlob?()
+        _ = jsValue?.toBlob()
         #endif
     }
 

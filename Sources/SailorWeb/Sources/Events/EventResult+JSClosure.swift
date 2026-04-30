@@ -10,7 +10,7 @@ import Sailboat
 
 extension EventResult {
 
-    @MainActor static func getClosure(_ eventName: String, action: @escaping (EventResult) -> Void) -> JSClosure {
+    @MainActor static func getClosure(_ eventName: String, preventDefault: Bool = false, action: @escaping (EventResult) -> Void) -> JSClosure {
         JSClosure { event in
             SailboatGlobal.manager.eventScheduler.registerEvent()
 
@@ -19,10 +19,14 @@ extension EventResult {
                 fatalError("EVENT UPDATE FAILED")
                 return .undefined
             }
-            
+
+            if preventDefault {
+                _ = firstEvent.preventDefault()
+            }
+
             let resultValue = Self.getResultValue(eventName, firstEvent)
-            
-            
+
+
             action(resultValue)
 
             SailboatGlobal.manager.eventScheduler.update()

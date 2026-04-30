@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Dialog — includes tag-specific DOM methods.
-@MainActor
 public struct DialogHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct DialogHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct DialogHandle {
 
 extension DialogHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,23 +55,23 @@ extension DialogHandle {
 
 extension DialogHandle {
     /// Displays the dialog as a modal, preventing interaction with other elements.
-    public func showModal() {
+    @MainActor public func showModal() {
         #if os(WASI)
-        _ = jsValue?.showModal?()
+        _ = jsValue?.showModal()
         #endif
     }
 
     /// Displays the dialog as a non-modal dialog.
-    public func show() {
+    @MainActor public func show() {
         #if os(WASI)
-        _ = jsValue?.show?()
+        _ = jsValue?.show()
         #endif
     }
 
     /// Closes the dialog.
-    public func close(returnValue: String? = nil) {
+    @MainActor public func close(returnValue: String? = nil) {
         #if os(WASI)
-        _ = jsValue?.close?(returnValue)
+        _ = jsValue?.close(returnValue)
         #endif
     }
 

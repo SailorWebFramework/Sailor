@@ -12,7 +12,6 @@ import JavaScriptKit
 
 /// Typed element handle for calling DOM methods on any HTML element.
 /// Wraps the underlying renderer and provides type-safe method calls.
-@MainActor
 public struct ElementHandle {
     @_spi(Private) public let renderer: any Renderable
 
@@ -22,8 +21,8 @@ public struct ElementHandle {
 
     #if os(WASI)
     /// Access the underlying JSValue for direct method calls
-    internal var jsValue: JSValue? {
-        (renderer as? JSNode)?.element
+    @MainActor internal var jsValue: JSValue? {
+        (renderer as? JSNode).map { JSValue.object($0.element) }
     }
     #endif
 }
@@ -32,51 +31,51 @@ public struct ElementHandle {
 
 extension ElementHandle {
     /// Moves focus to the element.
-    public func focus() {
+    @MainActor public func focus() {
         #if os(WASI)
-        _ = jsValue?.focus?()
+        _ = jsValue?.focus()
         #endif
     }
 
     /// Removes focus from the element.
-    public func blur() {
+    @MainActor public func blur() {
         #if os(WASI)
-        _ = jsValue?.blur?()
+        _ = jsValue?.blur()
         #endif
     }
 
     /// Simulates a click on the element.
-    public func click() {
+    @MainActor public func click() {
         #if os(WASI)
-        _ = jsValue?.click?()
+        _ = jsValue?.click()
         #endif
     }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() {
+    @MainActor public func scrollIntoView() {
         #if os(WASI)
-        _ = jsValue?.scrollIntoView?()
+        _ = jsValue?.scrollIntoView()
         #endif
     }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         #if os(WASI)
-        _ = jsValue?.scrollTo?(x, y)
+        _ = jsValue?.scrollTo(x, y)
         #endif
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() {
+    @MainActor public func requestFullscreen() {
         #if os(WASI)
-        _ = jsValue?.requestFullscreen?()
+        _ = jsValue?.requestFullscreen()
         #endif
     }
 
     /// Removes the element from the DOM.
-    public func remove() {
+    @MainActor public func remove() {
         #if os(WASI)
-        _ = jsValue?.remove?()
+        _ = jsValue?.remove()
         #endif
     }
 

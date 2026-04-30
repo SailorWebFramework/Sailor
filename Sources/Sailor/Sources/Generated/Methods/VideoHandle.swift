@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Video — includes tag-specific DOM methods.
-@MainActor
 public struct VideoHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct VideoHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct VideoHandle {
 
 extension VideoHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,30 +55,30 @@ extension VideoHandle {
 
 extension VideoHandle {
     /// Begins playback of the media.
-    public func play() {
+    @MainActor public func play() {
         #if os(WASI)
-        _ = jsValue?.play?()
+        _ = jsValue?.play()
         #endif
     }
 
     /// Pauses playback of the media.
-    public func pause() {
+    @MainActor public func pause() {
         #if os(WASI)
-        _ = jsValue?.pause?()
+        _ = jsValue?.pause()
         #endif
     }
 
     /// Resets the media element and restarts the resource selection algorithm.
-    public func load() {
+    @MainActor public func load() {
         #if os(WASI)
-        _ = jsValue?.load?()
+        _ = jsValue?.load()
         #endif
     }
 
     /// Seeks to the given time with low precision.
-    public func fastSeek(time: Double) {
+    @MainActor public func fastSeek(time: Double) {
         #if os(WASI)
-        _ = jsValue?.fastSeek?(time)
+        _ = jsValue?.fastSeek(time)
         #endif
     }
 

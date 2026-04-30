@@ -62,10 +62,12 @@ extension JSNode: Renderable {
     }
 
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
-        guard let eventName = name.split(separator: ":").first else { return }
+        let preventDefault = name.hasPrefix("!")
+        let cleanName = preventDefault ? String(name.dropFirst()) : name
+        guard let eventName = cleanName.split(separator: ":").first else { return }
 
-        let jsClosure = EventResult.getClosure(name, action: value)
-        
+        let jsClosure = EventResult.getClosure(cleanName, preventDefault: preventDefault, action: value)
+
         _ = self.element.addEventListener?(String(eventName), jsClosure)
     }
 

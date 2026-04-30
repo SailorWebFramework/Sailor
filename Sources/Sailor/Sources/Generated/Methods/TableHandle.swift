@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Table — includes tag-specific DOM methods.
-@MainActor
 public struct TableHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct TableHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct TableHandle {
 
 extension TableHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,16 +55,16 @@ extension TableHandle {
 
 extension TableHandle {
     /// Inserts a new row in the table at the given position.
-    public func insertRow(index: Int = -1) {
+    @MainActor public func insertRow(index: Int = -1) {
         #if os(WASI)
-        _ = jsValue?.insertRow?(index)
+        _ = jsValue?.insertRow(index)
         #endif
     }
 
     /// Removes a row from the table.
-    public func deleteRow(index: Int) {
+    @MainActor public func deleteRow(index: Int) {
         #if os(WASI)
-        _ = jsValue?.deleteRow?(index)
+        _ = jsValue?.deleteRow(index)
         #endif
     }
 

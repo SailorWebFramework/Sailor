@@ -11,7 +11,6 @@ import JavaScriptKit
 #endif
 
 /// Typed element handle for Form — includes tag-specific DOM methods.
-@MainActor
 public struct FormHandle {
     @_spi(Private) public let base: ElementHandle
 
@@ -20,7 +19,7 @@ public struct FormHandle {
     }
 
     #if os(WASI)
-    internal var jsValue: JSValue? { base.jsValue }
+    @MainActor internal var jsValue: JSValue? { base.jsValue }
     #endif
 }
 
@@ -28,27 +27,27 @@ public struct FormHandle {
 
 extension FormHandle {
     /// Moves focus to the element.
-    public func focus() { base.focus() }
+    @MainActor public func focus() { base.focus() }
 
     /// Removes focus from the element.
-    public func blur() { base.blur() }
+    @MainActor public func blur() { base.blur() }
 
     /// Simulates a click on the element.
-    public func click() { base.click() }
+    @MainActor public func click() { base.click() }
 
     /// Scrolls the element into the visible area of the browser window.
-    public func scrollIntoView() { base.scrollIntoView() }
+    @MainActor public func scrollIntoView() { base.scrollIntoView() }
 
     /// Scrolls the element to a particular set of coordinates.
-    public func scrollTo(x: Double, y: Double) {
+    @MainActor public func scrollTo(x: Double, y: Double) {
         base.scrollTo(x: x, y: y)
     }
 
     /// Requests that the element be displayed in fullscreen mode.
-    public func requestFullscreen() { base.requestFullscreen() }
+    @MainActor public func requestFullscreen() { base.requestFullscreen() }
 
     /// Removes the element from the DOM.
-    public func remove() { base.remove() }
+    @MainActor public func remove() { base.remove() }
 
 }
 
@@ -56,24 +55,24 @@ extension FormHandle {
 
 extension FormHandle {
     /// Submits the form.
-    public func submit() {
+    @MainActor public func submit() {
         #if os(WASI)
-        _ = jsValue?.submit?()
+        _ = jsValue?.submit()
         #endif
     }
 
     /// Resets the form to its initial state.
-    public func reset() {
+    @MainActor public func reset() {
         #if os(WASI)
-        _ = jsValue?.reset?()
+        _ = jsValue?.reset()
         #endif
     }
 
     /// Reports whether the form's child controls satisfy their validation constraints.
     @discardableResult
-    public func reportValidity() -> Bool? {
+    @MainActor public func reportValidity() -> Bool? {
         #if os(WASI)
-        guard let result = jsValue?.reportValidity?() else { return nil }
+        guard let result = jsValue?.reportValidity() else { return nil }
         return result.boolean
         #else
         return nil
@@ -82,9 +81,9 @@ extension FormHandle {
 
     /// Returns true if all form controls satisfy their validation constraints.
     @discardableResult
-    public func checkValidity() -> Bool? {
+    @MainActor public func checkValidity() -> Bool? {
         #if os(WASI)
-        guard let result = jsValue?.checkValidity?() else { return nil }
+        guard let result = jsValue?.checkValidity() else { return nil }
         return result.boolean
         #else
         return nil
@@ -92,9 +91,9 @@ extension FormHandle {
     }
 
     /// Requests form submission with validation (unlike submit(), this triggers the submit event).
-    public func requestSubmit() {
+    @MainActor public func requestSubmit() {
         #if os(WASI)
-        _ = jsValue?.requestSubmit?()
+        _ = jsValue?.requestSubmit()
         #endif
     }
 
