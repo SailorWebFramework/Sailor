@@ -1,0 +1,19 @@
+name: Sailor Tests
+
+on:
+  push:
+    branches: [feature-fin-v2, main]
+  pull_request:
+
+jobs:
+  sailor-tests:
+    name: Swift Tests (macOS)
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Sailor unit and integration tests
+        run: swift test --configuration debug
+        working-directory: Sailor
