@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The input element represents a typed data field, usually with a form control to allow the user to edit the data.
-    public struct Input: BodyElement {
+    @MainActor public struct Input: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "input" }
 
@@ -67,14 +67,9 @@ public extension HTML.Input {
         attribute(.init(name: "autocomplete", value: { value().description }))
     }
 
-    ///Specifies that the input element should automatically get focus when the page loads.
-    func `autofocus`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "autofocus", value: { value().description }))
-    }
-
     ///Specifies that an input element should be pre-selected when the page loads (for type=&quot;radio&quot; or type=&quot;checkbox&quot;).
-    func `checked`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "checked", value: { value().description }))
+    func `checked`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "checked", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies that the input element should be directionally isolated from its surrounding content.
@@ -83,8 +78,8 @@ public extension HTML.Input {
     }
 
     ///Specifies that the input element should be disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies one or more forms the input element belongs to.
@@ -108,8 +103,8 @@ public extension HTML.Input {
     }
 
     ///Specifies that the form-data should not be validated on submission.
-    func `formnovalidate`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "formnovalidate", value: { value().description }))
+    func `formnovalidate`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "formnovalidate", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies where to display the response after submitting the form.
@@ -148,8 +143,8 @@ public extension HTML.Input {
     }
 
     ///Specifies that the user is allowed to enter more than one value in the input element.
-    func `multiple`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "multiple", value: { value().description }))
+    func `multiple`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "multiple", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies the name of the input element.
@@ -178,13 +173,13 @@ public extension HTML.Input {
     }
 
     ///Specifies that the input element is read only.
-    func `readonly`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "readonly", value: { value().description }))
+    func `readonly`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "readonly", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies that the input element must be filled out before submitting the form.
-    func `required`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "required", value: { value().description }))
+    func `required`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "required", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies the width of the input element, in characters.
@@ -215,6 +210,11 @@ public extension HTML.Input {
     ///The width of the image input (only for type=&quot;image&quot;).
     func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
+    }
+
+    ///Which camera or microphone to use for captured media (type=file).
+    func `capture`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "capture", value: { value().description }))
     }
 
 }

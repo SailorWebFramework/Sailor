@@ -27,7 +27,7 @@ extension Unit {
 
         ///A raw number.
         public static func `number`(_ number: Double) -> Self {
-            return .init("\(number)%")
+            return .init("\(Utils.number(number))")
         }
 
         ///The image is a specific percentage of the element.

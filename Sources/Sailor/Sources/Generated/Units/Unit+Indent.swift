@@ -15,11 +15,6 @@ extension Unit {
             self.value = value
         }
 
-        ///The element is not indented.
-        public static var `none`: Self {
-            return .init("none")
-        }
-
         ///The indentation of the element.
         public static func `with`(_ length: Unit.LengthPercentage, hanging: Bool? = nil, eachLine: Bool? = nil) -> Self {
             return .init("\(length) \(Utils.when(hanging, ret: "hanging")) \(Utils.when(eachLine, ret: "each-line"))")

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The mark element represents a run of text in one document marked or highlighted for reference purposes, due to its relevance in another context.
-    public struct Mark: BodyElement {
+    @MainActor public struct Mark: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "mark" }
 

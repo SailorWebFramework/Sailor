@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The nav element represents a section of a page that links to other pages or to parts within the page: a section with navigation links.
-    public struct Nav: BodyElement {
+    @MainActor public struct Nav: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "nav" }
 

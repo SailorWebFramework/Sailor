@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The fieldset element represents a set of form controls optionally grouped under a common name.
-    public struct Fieldset: BodyElement {
+    @MainActor public struct Fieldset: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "fieldset" }
 
@@ -57,8 +57,8 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Fieldset {
     ///A Boolean attribute indicating whether the form controls in the fieldset are disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///The form element that the fieldset element is associated with (its form owner).

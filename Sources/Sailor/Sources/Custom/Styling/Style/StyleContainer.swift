@@ -14,12 +14,7 @@ public extension StyleContainer {
 //        lhs.description == rhs.description
 //    }
     var description: String {
-        var output = ""
-        for property in self.properties {
-            output += property.description
-        }
-        
-        return output
+        properties.map { $0.description }.joined()
     }
     
     @_spi(Private)

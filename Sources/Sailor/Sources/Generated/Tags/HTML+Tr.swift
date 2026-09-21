@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The tr element defines a row of cells in a table.
-    public struct Tr: BodyElement {
+    @MainActor public struct Tr: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "tr" }
 

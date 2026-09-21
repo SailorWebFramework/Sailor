@@ -15,14 +15,14 @@ extension Unit {
             self.value = value
         }
 
-        ///
+        ///Overflowing text is clipped at the content edge.
         public static var `clip`: Self {
             return .init("clip")
         }
 
-        ///
-        public static var `elipsis`: Self {
-            return .init("elipsis")
+        ///Overflowing text is truncated with an ellipsis (…).
+        public static var `ellipsis`: Self {
+            return .init("ellipsis")
         }
 
 

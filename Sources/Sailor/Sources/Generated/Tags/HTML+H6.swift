@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The h6 element represents a level 6 heading.
-    public struct H6: BodyElement {
+    @MainActor public struct H6: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "h6" }
 

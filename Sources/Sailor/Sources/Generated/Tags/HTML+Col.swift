@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The col element defines a column within a table and is used for defining common semantics on all common cells.
-    public struct Col: BodyElement {
+    @MainActor public struct Col: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "col" }
 

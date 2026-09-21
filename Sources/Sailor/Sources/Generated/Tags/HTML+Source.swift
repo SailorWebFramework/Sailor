@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The source element specifies multiple media resources for the picture, the audio element, or the video element.
-    public struct Source: BodyElement {
+    @MainActor public struct Source: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "source" }
 
@@ -79,6 +79,16 @@ public extension HTML.Source {
     ///The type of the resource.
     func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "type", value: { value().description }))
+    }
+
+    ///The intrinsic width of the image in pixels (inside picture).
+    func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
+        attribute(.init(name: "width", value: { value().description }))
+    }
+
+    ///The intrinsic height of the image in pixels (inside picture).
+    func `height`(_ value: @autoclosure @escaping () -> Int) -> Self {
+        attribute(.init(name: "height", value: { value().description }))
     }
 
 }

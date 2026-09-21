@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The video element represents a video, and its associated audio, with the necessary controls.
-    public struct Video: BodyElement {
+    @MainActor public struct Video: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "video" }
 
@@ -57,13 +57,13 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Video {
     ///A Boolean attribute; if specified, the video will automatically begin playback as soon as it can do so, without waiting for the entire video file to finish downloading.
-    func `autoplay`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "autoplay", value: { value().description }))
+    func `autoplay`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "autoplay", value: { BooleanAttribute(value()) }))
     }
 
     ///If this attribute is present, the browser will offer controls to allow the user to control video playback, including volume, seeking, and pause/resume playback.
-    func `controls`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "controls", value: { value().description }))
+    func `controls`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "controls", value: { BooleanAttribute(value()) }))
     }
 
     ///How the element handles cross-origin requests.
@@ -77,18 +77,18 @@ public extension HTML.Video {
     }
 
     ///A Boolean attribute; if specified, the video player will automatically seek back to the start upon reaching the end of the video.
-    func `loop`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "loop", value: { value().description }))
+    func `loop`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "loop", value: { BooleanAttribute(value()) }))
     }
 
     ///A Boolean attribute; if specified, the audio will be initially silenced.
-    func `muted`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "muted", value: { value().description }))
+    func `muted`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "muted", value: { BooleanAttribute(value()) }))
     }
 
     ///A Boolean attribute; if specified, the video will automatically begin playback as soon as it can do so, without waiting for the entire video file to finish downloading.
-    func `playsinline`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "playsinline", value: { value().description }))
+    func `playsinline`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "playsinline", value: { BooleanAttribute(value()) }))
     }
 
     ///A URL indicating a poster frame to show until the user plays or seeks.

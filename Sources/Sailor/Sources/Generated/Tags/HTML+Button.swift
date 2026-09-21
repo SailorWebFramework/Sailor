@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The button element represents a clickable button.
-    public struct Button: BodyElement {
+    @MainActor public struct Button: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "button" }
 
@@ -64,14 +64,9 @@ extension HTML {
 }
 // MARK: - Attributes
 public extension HTML.Button {
-    ///Specifies that the button should automatically get focus when the page loads.
-    func `autofocus`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "autofocus", value: { value().description }))
-    }
-
     ///Specifies that the button should be disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies one or more forms the button belongs to.
@@ -95,8 +90,8 @@ public extension HTML.Button {
     }
 
     ///Specifies that the form-data should not be validated on submission.
-    func `formnovalidate`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "formnovalidate", value: { value().description }))
+    func `formnovalidate`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "formnovalidate", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies where to display the response after submitting the form.
@@ -117,6 +112,16 @@ public extension HTML.Button {
     ///Specifies the initial value of the button.
     func `value`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "value", value: { value().description }))
+    }
+
+    ///The id of the popover element this button controls.
+    func `popovertarget`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "popovertarget", value: { value().description }))
+    }
+
+    ///Whether the button shows, hides or toggles its popover target.
+    func `popovertargetaction`(_ value: @autoclosure @escaping () -> Unit.PopoverTargetAction) -> Self {
+        attribute(.init(name: "popovertargetaction", value: { value().description }))
     }
 
 }

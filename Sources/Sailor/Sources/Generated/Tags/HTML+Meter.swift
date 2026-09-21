@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The meter element represents a scalar measurement within a known range or a fractional value; for example disk usage, the relevance of a query result, or the fraction of a voting population to have selected a particular candidate.
-    public struct Meter: BodyElement {
+    @MainActor public struct Meter: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "meter" }
 
@@ -56,11 +56,6 @@ extension HTML {
 }
 // MARK: - Attributes
 public extension HTML.Meter {
-    ///The form element that the meter element is associated with (its form owner).
-    func `form`(_ value: @autoclosure @escaping () -> String) -> Self {
-        attribute(.init(name: "form", value: { value().description }))
-    }
-
     ///The upper bound of the range.
     func `high`(_ value: @autoclosure @escaping () -> Double) -> Self {
         attribute(.init(name: "high", value: { value().description }))

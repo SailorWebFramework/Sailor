@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The menu element represents a group of commands.
-    public struct Menu: BodyElement {
+    @MainActor public struct Menu: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "menu" }
 

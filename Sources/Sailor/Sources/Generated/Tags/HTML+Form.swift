@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The form element represents a document section that contains interactive controls to submit information to a web server.
-    public struct Form: BodyElement {
+    @MainActor public struct Form: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "form" }
 
@@ -87,13 +87,18 @@ public extension HTML.Form {
     }
 
     ///Specifies that the form-data should not be validated on submission.
-    func `novalidate`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "novalidate", value: { value().description }))
+    func `novalidate`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "novalidate", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies where to display the response after submitting the form.
     func `target`(_ value: @autoclosure @escaping () -> Unit.Target) -> Self {
         attribute(.init(name: "target", value: { value().description }))
+    }
+
+    ///The relationship between the document and the form's target.
+    func `rel`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "rel", value: { value().description }))
     }
 
 }

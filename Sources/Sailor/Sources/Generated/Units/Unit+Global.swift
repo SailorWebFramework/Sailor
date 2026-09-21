@@ -25,7 +25,7 @@ extension Unit {
             return .init("inherit")
         }
 
-        ///Reverts the filter to the parent.
+        ///Rolls the property back to the value it would have had if no author-level styles applied.
         public static var `revert`: Self {
             return .init("revert")
         }

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The samp element represents sample or quoted output from another program or computing system.
-    public struct Samp: BodyElement {
+    @MainActor public struct Samp: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "samp" }
 

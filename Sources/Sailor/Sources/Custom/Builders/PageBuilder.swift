@@ -7,6 +7,8 @@
 
 import Sailboat
 
+// Sailboat's Page protocol is @MainActor, so building Fragments is main-actor work.
+@MainActor
 @resultBuilder
 public struct PageBuilder {
 
@@ -62,7 +64,8 @@ public struct PageBuilder {
             }
         }
         
-        return "[\(output)]"
+        // no keys anywhere in this subtree — let buildArray fall back to the element count
+        return output.isEmpty ? "" : "[\(output)]"
     }
     
 }

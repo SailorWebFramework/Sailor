@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The iframe element represents a nested browsing context, effectively embedding another HTML page into the current page.
-    public struct Iframe: BodyElement {
+    @MainActor public struct Iframe: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "iframe" }
 
@@ -62,8 +62,8 @@ public extension HTML.Iframe {
     }
 
     ///Whether the iframe can activate fullscreen mode.
-    func `allowfullscreen`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "allowfullscreen", value: { value().description }))
+    func `allowfullscreen`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "allowfullscreen", value: { BooleanAttribute(value()) }))
     }
 
     ///The height of the iframe's embedded content area.
@@ -99,6 +99,11 @@ public extension HTML.Iframe {
     ///The width of the iframe's embedded content area.
     func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
+    }
+
+    ///Whether the frame is loaded eagerly or lazily.
+    func `loading`(_ value: @autoclosure @escaping () -> Unit.Loading) -> Self {
+        attribute(.init(name: "loading", value: { value().description }))
     }
 
 }

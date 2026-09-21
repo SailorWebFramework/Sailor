@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The bdi element represents a span of text that is to be isolated from its surroundings for the purposes of bidirectional text formatting.
-    public struct Bdi: BodyElement {
+    @MainActor public struct Bdi: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "bdi" }
 

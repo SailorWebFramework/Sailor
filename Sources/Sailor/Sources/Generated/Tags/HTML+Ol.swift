@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The ol element represents an ordered list of items, typically rendered as a numbered list.
-    public struct Ol: BodyElement {
+    @MainActor public struct Ol: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "ol" }
 
@@ -56,4 +56,19 @@ extension HTML {
 }
 // MARK: - Attributes
 public extension HTML.Ol {
+    ///Numbers the list in descending order.
+    func `reversed`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "reversed", value: { BooleanAttribute(value()) }))
+    }
+
+    ///The ordinal value of the first list item.
+    func `start`(_ value: @autoclosure @escaping () -> Int) -> Self {
+        attribute(.init(name: "start", value: { value().description }))
+    }
+
+    ///The numbering style.
+    func `type`(_ value: @autoclosure @escaping () -> Unit.OrderedListType) -> Self {
+        attribute(.init(name: "type", value: { value().description }))
+    }
+
 }

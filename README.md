@@ -1,180 +1,93 @@
 # Sailor
 
-A web frontend framework built in swift.
+A strongly typed, SwiftUI-style web framework in Swift. Pages compile to WebAssembly for the
+browser, and the same element tree renders to HTML on the server.
 
 ![Sailor Logo](https://i.ibb.co/tZ4vRD7/DALL-E-2023-12-19-04-26-35-Revise-the-first-logo-design-for-the-Sailor-frontend-web-framework-ensuri.png)
 
-## Overview
-
-Web development can be tedious and lead to many issues due the many rules and weakly typed nature of it.
-Many runtime-issues would be solved by a simple checks by the underlying framework. Typescript does a decent job of this, but I wanted to extend this strong typing to all aspects of web development: Tag Attributes, Styling, and Events.
-I want to take the burden of the developer off of autocomplete frameworks to the compiler of a strongly typed language like swift! As well, as a mobile app developer who really enjoys the workflow of SwiftUI I wanted to make a web-framework with a SwiftUI-Like syntax.
-With web-assembly theoretically code performence should be more efficient, However bundle sizes are still quite large.
-
-## Getting Started
-
-... instructions on how to start making websites with Sailor Compass CLI coming soon 👀
-
-
-For now you can start creating a Sailor project by including the framework in your Swift Package
-
 ```swift
-    .package(url:"https://github.com/SailorWebFramework/Sailor", from: "0.2.1")
+import Sailor
+
+@MainActor struct Counter: @preconcurrency Page {
+    @Signal var count = 0
+
+    var body: some Page {
+        HTML.Div {
+            HTML.Span("Count: \(count)")
+            HTML.Button("Increment").onClick { count += 1 }
+        }
+        .style { CSS.display(.flex) }
+    }
+}
 ```
 
-to run your project Sailor uses Carton
+Every tag, attribute, CSS property, unit and DOM event is a Swift type, generated from the
+[Treasure](https://github.com/SailorWebFramework/Treasure) specification by
+[Shipwright](https://github.com/SailorWebFramework/Shipwright). If it compiles, it is valid HTML/CSS.
+
+## Requirements
+
+- Swift 6.0 or later (tested on 6.2)
+- For browser builds, a Swift SDK for WebAssembly plus the matching
+  [swift.org toolchain](https://www.swift.org/documentation/articles/wasm-getting-started.html)
+  — Xcode's bundled toolchain cannot target wasm. `swift sdk list` should show a wasm entry
+  such as `swift-6.2.3-RELEASE_wasm`
+- Optionally the [Harbor CLI](https://github.com/SailorWebFramework/Harbor-CLI) for
+  `harbor init` / `harbor run web` / `harbor build web`
+
+## Getting started
 
 ```bash
-swift run carton dev # runs the dev environment
-swift run carton bundle # bundles the code
+harbor init MyApp && cd MyApp
+harbor run web            # builds to WASM, serves on http://localhost:8080
 ```
 
->Currently Sailor has only been tested on Swift 5.9 and that is the recommended Swift version
+Or by hand — add Sailor to an executable package:
 
+```swift
+// swift-tools-version: 6.0
+import PackageDescription
 
-You can also clone the [Example Repo](https://github.com/SailorWebFramework/ExampleProject)
+let package = Package(
+    name: "MyApp",
+    platforms: [.macOS(.v13)],
+    dependencies: [
+        .package(url: "https://github.com/SailorWebFramework/Sailor", from: "0.4.0"),
+    ],
+    targets: [
+        .executableTarget(name: "MyApp", dependencies: ["Sailor"], path: "Sources"),
+    ]
+)
+```
 
+then build with the WebAssembly SDK and serve the PackageToJS output:
+
+```bash
+swift package --swift-sdk swift-6.2.3-RELEASE_wasm js   # use the id from `swift sdk list`
+# artifacts land in .build/plugins/PackageToJS/outputs/Package
+```
+
+The [sailor-shore](https://github.com/SailorWebFramework/sailor-shore) repo is the framework's
+own website and doubles as a complete example (routing, Tailwind, multi-page layout).
 
 ## Usage
 
-Sailor adopts a SwiftUI-like syntax for HTML. Below is an example view
+### Entry point
 
-```swift
-struct ExamplePage: Page {
-
-    var body: some Page {
-        HTML.Div {
-            HTML.Span("Hello world")
-        }
-    }
-}
-```
-
-Pages are root components of sailor and can be nested. All HTML elements are the base of all pages.
-
-```swift
-struct Example2Page: Page {
-
-    var body: some Page {
-        HTML.Div {
-            ExamplePage()
-            HTML.Span("Goodbye world")
-        }
-    }
-}
-```
-
-The above code is equivalent to the following...
-
-```html
-<body>
-  <div>
-    <div>
-        <span>Hello World</span>
-    </div>
-    <span>Goodbye World</span>
-  </div>
-</body>
-```
-
-Sailor utilizes a resultBuilder like swiftUI for the body of tags, or if the tag takes string content then that is passed into the initializer instead.
-
-
-the Page resultBuilder also allows for conditionals and loops
-
-
-```swift
-struct Example2Page: Page {
-    @State var age: Int = 0
-    
-    var names: [String] = ["Josh", "Tim", "Jeff", "John"]
-
-    var body: some Page {
-        HTML.Div {
-            if age > 10 {
-                HTML.Span("Goodbye world")
-            }
-            
-            HTML.Div {
-                for name in names {
-                    HTML.Span(name)
-                }
-            }
-        }
-    }
-}
-```
-
-By default for loops only update their body on the change of size of the sequence. However if you want to provide a key to update the body elements on when its value changes use the .key(...) attribute
-
-
-```swift
-struct Example2Page: Page {    
-    var names: [String] = ["Josh", "Tim", "Jeff", "John"]
-
-    var body: some Page {
-        HTML.Div {
-            HTML.Div {
-                for name in names {
-                    HTML.Span(name)
-                        .key(name)
-                }
-            }
-        }
-    }
-}
-```
-
-By default all tags are located in the HTML enum, and sailor supports nearly all HTML tags and attributes. This is an on-going effort and all tags are expected to be supported eventually.
-Not having tags in the base scope by default was done to be extra explicit what kind of tag you are using and not to clutter the main scope.
-If you want to add tags to the local scope its recommended to add specific tags to the scope via a typealias.
-
-```swift
-typealias Div = HTML.Div
-typealias Span = HTML.Span
-typealias H1 = HTML.H1
-...
-```
-
-
-When creating a component library its recommended to put them within an enum and let the user decide which components they need in their main scope. It also allows extra explicitness to reduce coding errors.
-
-
-```swift
-public enum CustomTagLib {
-    // Custom tags defined here
-}
-```
-
-```swift
-struct CustomExamplePage: Page {    
-    var body: some Page {
-        HTML.Div {
-            // This clearly shows whether you are using a custom button or html button
-            CustomTagLib.Button("Hi im a button")
-            HTML.Button("Hi im a button")
-        }
-    }
-}
-```
-
-
-## EntryPoint
-
-The main entry point for sailor is the Website protocol. 
-The body defines the page to be rendered as follows.
+A website is a `Website` with a `head` and a `body`:
 
 ```swift
 @main
-struct TestWebsite: Website {
+struct MyApp: @preconcurrency Website {
 
-    var head: some Head {
+    @MainActor var head: some Head {
         HTML.Head {
-            HTML.Title("Test Website")
+            HTML.Title("My App")
+            HTML.Meta().charset("UTF-8")
         }
     }
-    
-    var body: some Body {
+
+    @MainActor var body: some Body {
         HTML.Body {
             HomePage()
         }
@@ -182,488 +95,179 @@ struct TestWebsite: Website {
 }
 ```
 
-## Attributes
+### Pages and tags
 
-Attributes are applied as a modifier after the initilizer in a SwiftUI-like manner. Attributes can only be applied to Elements. Certain elements have specific attributes like HTML.
-
-
-```swift
-struct Example4Page: Page {
-    @State var value: Double = 0
-    var body: some Page {
-        Div{
-            HTML.Progress { }
-                .value(value)
-                .max(100)
-        }
-    }
-}
-```
-
-Some components (like image) that expect attributes to be utilized more readily have the attribute built into its initializer.
+`Page` is the component protocol. Bodies are result builders that accept HTML elements and other
+pages; text goes in the initializer.
 
 ```swift
-struct Example4Page: Page {
+@MainActor struct HomePage: @preconcurrency Page {
     var body: some Page {
         HTML.Div {
-            HTML.Img(src: "www.imagegoeshere.com", alt: "the is an image")
+            HTML.H1("Hello")
+            HTML.P { HTML.B("Sailor"); " is typed." }
+            Counter()
         }
     }
 }
 ```
 
+All tags live in the `HTML` namespace so it is always clear what is a native element and what is a
+component. Alias the ones you use often: `typealias Div = HTML.Div`.
 
-## Classes
-
-
-Classes have a special result builder function in an Element that allows you easily add and save packs of classes in one. The value inputted is String or DynamicClass.
+Conditionals and loops work inside bodies. Loops re-render when their length changes; give rows a
+`.key(...)` to re-render when the key changes instead.
 
 ```swift
-struct ClassesExample1Page: Page {
+HTML.Ul {
+    if names.isEmpty {
+        HTML.Li("Nobody here")
+    }
+    for name in names {
+        HTML.Li(name).key(name)
+    }
+}
+```
+
+### Attributes and styling
+
+Attributes are modifiers. Element-specific ones (`href`, `src`, `.value`, …) are generated from
+the spec; `.style { }` takes typed CSS and `.classes { }` takes class names.
+
+```swift
+HTML.A("Docs", href: "/docs")
+    .style {
+        CSS.display(.inlineBlock)
+        CSS.font(size: .px(18))
+        CSS.font(weight: .bold)
+        "line-height: 1.6;"          // raw strings are allowed as an escape hatch
+    }
+    .classes {
+        "nav-link"
+        if isActive { "active" }
+    }
+```
+
+With [Fleet-Tailwind](https://github.com/SailorWebFramework/Fleet-Tailwind) the class names are
+typed too (`TW.flex`, `TW.textXl`, …) and `harbor build web` tree-shakes the CSS down to the
+classes you referenced.
+
+### Reactivity
+
+`@Signal` (an alias of Sailboat's `@State`) is the unit of reactivity. Reading a signal inside a
+body or attribute closure records the dependency; writing it re-renders only those elements — no
+virtual DOM.
+
+```swift
+@MainActor struct Login: @preconcurrency Page {
+    @Signal var email = ""
+    @Signal var submitted = false
+
     var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .classes{ 
-            "card" 
-            "button-component"
-        }
-    }
-}
-```
-
-
-Just like page builder it supports conditionals and custom dynamic classes
-
-
-```swift
-struct ContainerLarge: DynamicClass {
-    @Binding var toggle: Bool
-
-    var classes: some DynamicClass {
-        ClassGroup {
-            if toggle {
-                "big-container-blue"
-            } else {
-                "big-container-red"
+        HTML.Form {
+            HTML.Input.Text($email)          // two-way Binding
+            HTML.Button("Send").onClick { submitted = true }
+            if submitted {
+                HTML.P("Thanks, \(email)")
             }
         }
     }
 }
 ```
 
-```swift
-struct ClassesExample2Page: Page {
-    @State var toggle: Bool = true
-    
-    var classNames: [String] = ["red-box", "large-card"]
-    var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .classes { 
-            if toggle {
-                "card" 
-            }
-            
-            for name in classNames {
-                name
-            }
-            
-            ContainerLarge(toggle: $toggle)
-        }
-    }
-}
-```
+Shared objects use `@Store` (owned), `@ObservedStore` (passed in) and `@GlobalStore` (registered
+with `.globalStore(obj)` on an ancestor element).
 
+### Events and handles
 
-It's recommended that for custom-class libraries and in your own codebase to use enums to keep class names to ensure no typing-issues 
+DOM events are typed modifiers: `onClick`, `onInput { text in }`, `onKeydown { key in }`,
+`onSubmit`, and so on for every event in the spec. Lifecycle hooks are `onAppear`, `onDisappear`,
+`onUpdate` and `task { await … }`.
+
+`onAppear`/`onDisappear` can also hand you a typed handle for imperative DOM calls:
 
 ```swift
-enum Classes: String {
-    case containerBig = "container-big"
-    case containerSmall = "container-small"
-}
+HTML.Input.Text($query)
+    .onAppear { (input: InputHandle) in input.focus() }
+
+HTML.Dialog { … }
+    .onAppear { (dialog: DialogHandle) in dialog.showModal() }
 ```
+
+Browser APIs (`alert`, `fetch`, `setTimeout`, …) are available on every `Page`.
+
+### Routing
+
+[Navigator](https://github.com/SailorWebFramework/Navigator) provides an enum-based router:
 
 ```swift
-struct ClassesExample3Page: Page {    
-    var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .classes { 
-            Classes.containerBig // users custom classe
-            TW.sm(.m0, .p0) // example for tailwind 
-        }
+Router(for: SiteRoute.self) { route in
+    switch route {
+    case .home: HomePage()
+    case .docs: DocsPage()
     }
+} notFound: {
+    NotFoundPage()
 }
 ```
 
-## Style
+### Server-side rendering
 
-similar to the .classes result builder to add inline-styles to components use the .style{...} result builder and add styles in any order.
-All CSS styles are available under the CSS enum. 
+The `SailorServer` product renders the same pages to HTML strings on macOS/Linux:
 
 ```swift
-struct Example5Page: Page {
-    @State var toggle: Bool = true
-    
-    var body: some Page {
-        Div{
-            Span("Hello world")
-        }
-        .style {
-            CSS.backgroundColor(.rgb(255, 0, 0))
-            CSS.width(.px(50))
-            CSS.height(.vh(4))
-            ContainerLarge(toggle: $toggle)
-        }
-    }
-}
+import SailorServer
+
+let html = StaticRenderer().render(HomePage())
+let document = ServerManager().renderDocument(head: MyApp().head, body: MyApp().body)
 ```
 
+`StaticRenderer` walks the element tree directly; `ServerManager` drives the full render
+pipeline through `HTMLStringNode` renderers and falls back to `StaticRenderer` for generated tags.
 
-All CSS properties are expected to be accessable in the future but it is an on-going effort. String style properties are also accessible.
-CSS styles are enums with associated values that take in certain units. The goal is to make a strongly typed CSS interface to more easily catch errors.
-
-
-Like dynamic classes it is also possible to create cutom style properties that can contain state.
-
-```swift
-struct ContainerLarge: Style {
-    @Binding var toggle: Bool
-
-    var style: some Style {
-        StyleGroup {
-            CSS.backgroundColor(.aqua)
-            CustomCardStyle(toggle: $toggle)
-        }
-    }
-}
-```
-
-
-## Units
-
-Units are used by style and attributes to hold values.
-
-**examples:**
-**Dimention** -> used for any unit of length in styles
-**Color** -> used for any unit of color (rgb, hsl, ...)
-... There are more not listed here
-
-## Events
-
-Events are added like modifiers to tags and many events can be chained.
-
-
-```swift
-struct Example7Page: Page {
-    var body: some Page {
-        Button("Hello World")
-        .onClick {
-            print("I was clicked")
-        }
-        .onMouseOver {
-            print("I was hovered")
-        }
-    }
-}
-```
-
-
-Some events return values within the closures for example the onKeyDown Event
-
-```swift
-struct Example5Page: Page {
-    var body: some Page {
-        Button("Hello World")
-        .onKeyDown { key in
-            print("\(key) was clicked")
-        }
-    }
-}
-```
-
-### Sailor Events
-
-Sailor features some internal lifetime events
-
-These include
+## Architecture
 
 ```
-.onAppear {} // when the element gets rendered in the DOM
-.onDisappear {} // when the element gets removed from the DOM
-.task {} // when the element gets rendered in the DOM, launches a asynchronous Task
+Treasure (JSON spec) ──Shipwright (Python codegen)──▶ Sailor/Sources/Sailor/Sources/Generated/
+                                                        │
+Sailboat (signals, reconciliation, TargetManager) ◀─────┤
+                                                        │
+SailorWeb (JSNode renderer, WASI only) ◀────────────────┼──▶ SailorServer (HTMLStringNode, SSR)
 ```
 
-## State
+- **Sailboat** — the renderer-agnostic core: `@State`/`Binding`, `Page`/`Element`/`Fragment`,
+  dependency tracking and the reconcile algorithm.
+- **Sailor** — the public API: `HTML.*`, `CSS.*`, `Unit.*`, events, handles, builders.
+- **SailorWeb** — `JSNode` renderer over JavaScriptKit; compiled only for `wasm32-unknown-wasi`.
+- **SailorServer** — `StaticRenderer` / `ServerManager` for SSR and static generation.
 
-By using @State and @Binding you can create and store and send state values between properties. 
-Later Swift-UI-like versions @StateObject, @EnvironmentObject, and @ObservedObject will be supported.
+Never edit `Sources/Sailor/Sources/Generated/` by hand. Change Treasure (data) or Shipwright
+(templates) and regenerate:
 
-```swift
-struct ExampleStatePage: Page {
-    // creates a new global state
-    @State var foo = 0
-
-    var body: some Page {
-        Div{
-            Span("Hello \(foo)")
-                .onClick {
-                    // triggers a rerender
-                    foo += 1
-                }
-        }
-        .style {
-            CSS.backgroundColor(.rgb(255, 0, 0))
-            CSS.width(.px(50))
-            CSS.height(.vh(4))
-        }
-    }
-}
+```bash
+cd ../Shipwright
+python3 main.py build sailor --treasuredir ../Treasure/json \
+    --outdir ../Sailor/Sources/Sailor/Sources/Generated
 ```
 
-```swift
-struct ExampleStatePage: Page {
-    //passed in by parent component, maps to same global state
-    @Binding var foo: Int
+## Development
 
-    var body: some Page {
-        Div{
-            Span("Hello \(foo)")
-                .onClick {
-                    foo += 1
-                }
-        }
-        .style {
-            CSS.backgroundColor(.rgb(255, 0, 0))
-            CSS.width(.px(50))
-            CSS.height(.vh(4))
-        }
-    }
-}
+```bash
+swift test                                   # SailorTests + SailorIntegrationTests (macOS)
+swift build --swift-sdk swift-6.2.3-RELEASE_wasm   # confirm the SailorWeb target still compiles
 ```
 
-## Algorithm
+CI runs the macOS test suite on every push; Shipwright's CI additionally regenerates Sailor from
+Treasure and compiles it, so codegen drift is caught before it lands.
 
-Sailor uses a signals-like approach to state management and efficiently updates the DOM attributes independently of a full page update depending on which states change.
+## Ecosystem
 
-Sailor maintains a dependency graph of states to page elements and can efficiently update the DOM.
-
-
-## Environment
-
-
-Environment properties give contextual information about the web page. For example get the url.
-More environment properties will be added in the future.
-
-```swift
-@main
-struct EnironmentTextPage: Page {
-    @Environment var environment: WebEnvironment
-
-    var body: some Page {
-        HTML.Div {
-            HTML.H1("url: \(environment.url)")
-        }
-    }
-}
-```
-
-## Head
-
-
-Head items that need to stay the duration of the app can be applied in the main Website struct like below.
-
-```swift
-@main
-struct TestWebsite: Website {
-    
-    var head: some Head {
-        HTML.Head {
-            HTML.Title("My Title")
-            HTML.Link(rel: "icon", href: "favicon.ico")
-            HTML.Link(rel: "stylesheet", href: "PackageName_TargetName.resources/MainStyles.css")
-        }
-    }
-    
-    var body: some Body {
-        HTML.Body {
-            HTML.H1("Title")
-        }
-    }
-}
-```
-
-## Observable Objects
-
-
-Using @StateObject defines a state object store that works like a swiftUI object.
-To pass state objectss to sub views use @ObservedObject.
-To define one of the objects create a class that inherits from ObservableObject and publishes properties using @Published.
-
-
-```swift
-class MyObject: ObservableObject {
-    @Published var value: String
-}
-
-struct TestPage: Page {
-    @StateObject var myObject: MyObject = MyObject(value: "")
-
-    var body: some Page {
-        HTML.Div {
-            HTML.H1("value: \(myObject.value)")
-            TestSubPage(myObject: $myObject)
-        }
-    }
-}
-
-struct TestSubPage: Page {
-    @ObservedObject var myObject: MyObject
-
-    var body: some Page {
-        HTML.Div {
-            HTML.H1("value: \(myObject.value)")
-        }
-    }
-}
-```
-
-
-## Environment Objects
-
-
-Use environment objects to store values globally across the scope of the app. They get rendered attached to elements, and get removed when the element goes out of scope. They work very similarly to SwiftUI environment objects.
-
-
-```swift
-class MyGlobalObject: ObservableObject {
-    @Published var value: String
-}
-
-@main
-struct EnironmentTextPage: Website {
-    @Environment var environment: WebEnvironment
-
-    var head: some Head {
-        HTML.Head { }
-    }
-    var body: some Page {
-        HTML.Body {
-            HomePage()
-        }
-        .environmentObject(MyGlobalObject())
-    }
-}
-
-struct EnironmentTextPage: Page {
-    @EnvironmentObject var myGlobalObject: MyGlobalObject
-
-    var body: some Page {
-        HTML.Div {
-            HTML.H1("value: \(myGlobalObject.value)")
-        }
-    }
-}
-```
-
-
-## Text 
-
-
-Certain Elements have text based initializers that allow you pass in Text to the constructor. Also the PageBuilder can take in Strings.
-
-```swift
-struct TextPage: Page {
-    @State var name: String = "Josh"
-
-    var body: some Page {
-        Div {
-            P { 
-                "hello "
-                B(\(name))
-                " whats up?" 
-            }
-        }
-    }
-}
-```
-
-## Javascript-PassThrough Methods
-
-Sailor has some Javascript Passhrough methods built in to make development easier. If there are any other methods you need use [JavascriptKit](https://github.com/swiftwasm/JavaScriptKit).
-
-
-```swift
-public func alert(_ text: String)
-public func confirm(_ text: String) -> Bool
-public func prompt(_ text: String) -> String 
-public func setTimeout(_ amount: Int, completion: @escaping () -> Void) -> Int
-public func clearTimeout(_ timeoutID: Int)
-public func fetch<ResponseType: Decodable>(url: String, type: FetchType = .get, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:], completion: @escaping (Promise<ResponseType>) -> Void) 
-```
-
-
-Below is an example of fetching from an api.
-
-
-```
-struct User {
-    var name: String
-    var description: String
-}
-struct ExamplePage: Page {
-
-    @State var user: User?
-
-    var body: some Page {
-        Div {
-            if let user = self.user {
-                H1("Name \(user.name)")
-                H2("Description: \(user.description)")
-            } else {
-                Div("Loading User...")
-            }
-        }
-        .task {
-            let response = await fetch(url: "https://httpbin.org/post", format: User.self)
-
-            switch response {
-            case .success(let user):
-                self.user = user
-            case .failure(let error):
-                // handle error
-                print(error)
-            }
-        }
-    }
-}
-```
-
-## Crates (Future)
-
-
-In the future a system to install custom customizable components to your codebase. This will be able to be done through the Compass CLI.
-Check the Compass repo for new updates.
-
-
-## Fleet (Future)
-
-
-In the future, packages like Tailwind and Navigtor will be packages availble for projects.
-Fleet packages will be able to run certain tasks when running and bundling your code. 
-For example launching a tailwind server when running the dev server. 
-Check the Compass repo for new updates.
-
-
-## Known Issues and Future Features
-
-
-Not all typed CSS elements are supported.
-
-Not all events are supported.
-
-Will create more helpful initializers and ensure two all tags that have a 2-way binding have the initializer.
+| Repo | Role |
+|---|---|
+| [Sailboat](https://github.com/SailorWebFramework/Sailboat) | Signals-based core |
+| [Treasure](https://github.com/SailorWebFramework/Treasure) | HTML/CSS specification (JSON) |
+| [Shipwright](https://github.com/SailorWebFramework/Shipwright) | Code generator |
+| [Harbor-CLI](https://github.com/SailorWebFramework/Harbor-CLI) | `harbor init` / `run web` / `build web` |
+| [Navigator](https://github.com/SailorWebFramework/Navigator) | Router |
+| [Fleet-Tailwind](https://github.com/SailorWebFramework/Fleet-Tailwind) | Typed Tailwind classes |
+| [sailor-shore](https://github.com/SailorWebFramework/sailor-shore) | The website, built with Sailor |

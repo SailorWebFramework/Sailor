@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The sup element represents a superscript.
-    public struct Sup: BodyElement {
+    @MainActor public struct Sup: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "sup" }
 

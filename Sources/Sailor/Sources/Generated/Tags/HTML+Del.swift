@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The del element represents a range of text that has been deleted from a document.
-    public struct Del: BodyElement {
+    @MainActor public struct Del: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "del" }
 

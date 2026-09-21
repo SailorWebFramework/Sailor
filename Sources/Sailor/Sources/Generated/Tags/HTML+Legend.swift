@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The legend element represents a caption for the content of its parent fieldset.
-    public struct Legend: BodyElement {
+    @MainActor public struct Legend: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "legend" }
 

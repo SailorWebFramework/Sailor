@@ -22,7 +22,7 @@ extension Unit {
 
         ///A raw integer.
         public static func `int`(_ int: Int) -> Self {
-            return .init("{{number}}%")
+            return .init("\(int)")
         }
 
 

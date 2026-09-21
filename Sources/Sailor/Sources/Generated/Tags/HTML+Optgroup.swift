@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The optgroup element creates a grouping of options within a select element.
-    public struct Optgroup: BodyElement {
+    @MainActor public struct Optgroup: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "optgroup" }
 
@@ -57,8 +57,8 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Optgroup {
     ///A Boolean attribute indicating that the option group cannot be selected.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///The label for the option group.

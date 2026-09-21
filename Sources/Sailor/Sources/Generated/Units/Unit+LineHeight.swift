@@ -22,17 +22,17 @@ extension Unit {
 
         ///A number.
         public static func `number`(_ number: Double) -> Self {
-            return .init("number(\(number))")
+            return .init("\(Utils.number(number))")
         }
 
         ///A length.
         public static func `length`(_ length: Unit.Length) -> Self {
-            return .init("length(\(length))")
+            return .init("\(length)")
         }
 
         ///A percentage.
         public static func `percent`(_ percent: Int) -> Self {
-            return .init("percent(\(percent))")
+            return .init("\(percent)%")
         }
 
 

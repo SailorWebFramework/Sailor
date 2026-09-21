@@ -57,12 +57,12 @@ extension Unit {
 
         ///The text emphasis style is filled sesame.
         public static var `filledSesame`: Self {
-            return .init("filled-sesame")
+            return .init("filled sesame")
         }
 
         ///The text emphasis style is open sesame.
         public static var `openSesame`: Self {
-            return .init("open-sesame")
+            return .init("open sesame")
         }
 
         ///The text emphasis style is custom.

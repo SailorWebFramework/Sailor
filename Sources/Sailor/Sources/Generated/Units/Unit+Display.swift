@@ -60,16 +60,6 @@ extension Unit {
             return .init("ruby")
         }
 
-        ///The element is a subgrid.
-        public static var `subgrid`: Self {
-            return .init("subgrid")
-        }
-
-        ///The element is a block flow.
-        public static var `blockFlow`: Self {
-            return .init("block-flow")
-        }
-
         ///The element is an inline table.
         public static var `inlineTable`: Self {
             return .init("inline-table")

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The meta element represents various kinds of metadata that cannot be expressed using the title, base, link, style, and script elements.
-    public struct Meta: HeadElement {
+    @MainActor public struct Meta: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "meta" }
 
@@ -74,6 +74,11 @@ public extension HTML.Meta {
     ///The name of the metadata.
     func `name`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "name", value: { value().description }))
+    }
+
+    ///Property name for Open Graph and similar metadata schemes.
+    func `property`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "property", value: { value().description }))
     }
 
 }

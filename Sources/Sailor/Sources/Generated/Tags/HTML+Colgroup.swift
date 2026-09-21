@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The colgroup element defines a group of columns within a table.
-    public struct Colgroup: BodyElement {
+    @MainActor public struct Colgroup: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "colgroup" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The header element represents a group of introductory or navigational aids.
-    public struct Header: BodyElement {
+    @MainActor public struct Header: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "header" }
 

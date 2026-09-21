@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The datalist element contains a set of option elements that represent the permissible or recommended options available to users.
-    public struct Datalist: BodyElement {
+    @MainActor public struct Datalist: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "datalist" }
 
