@@ -105,14 +105,10 @@ extension JSNode: Renderable {
         _ = self.element.setAttribute?(name, value.description)
     }
     
-    // TODO: make this non-optional?
+    /// The id lives on this Swift object only; ownership is tracked in ManagedPages,
+    /// so nothing is written to (or read back from) the DOM.
     public func setSailboatID(_ value: SailboatID?) {
         self.sailboatID = value
-        
-        // TODO: what if this is false?
-        if let sid = self.sailboatID {
-            self.updateAttribute(name: JSNode.sailboatIDName, value: sid)
-        }
     }
 }
 
@@ -127,15 +123,9 @@ extension JSNode {
         return element
     }
     
+    /// DOM removal only. Stateful descendants and exit hooks are handled in Swift by
+    /// reconcile (`RenderableUtils.removeSubtreeCache`) before this is called.
     internal func remove(node: JSObject, fromDOM: Bool = true) {
-        Self.deeplyLaunchEvents(from: node) { currentNode in
-            Self.shallowExitEvents(on: currentNode)
-            if let stringSailboatID = currentNode.getAttribute?(JSNode.sailboatIDName).string,
-               let sailboatID = SailboatID(stringSailboatID) {
-                RenderableUtils.removeCache(with: sailboatID)
-            }
-        }
-        
         if fromDOM {
             _ = node.remove?()
         }
@@ -160,12 +150,6 @@ extension JSNode {
         callEvent(named: "_makeEnvironmentObject", on: object)
         callEvent(named: "_appear", on: object)
         callEvent(named: "_task", on: object)
-    }
-    
-    public static func shallowExitEvents(on object: JSObject) {
-        callEvent(named: "_killEnvironmentObject", on: object)
-        callEvent(named: "_disappear", on: object)
-
     }
     
 //    public static func exitEvents(on object: JSObject) {

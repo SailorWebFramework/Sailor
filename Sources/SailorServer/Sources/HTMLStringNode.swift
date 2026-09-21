@@ -100,9 +100,6 @@ public final class HTMLStringNode: Renderable {
 
     public func setSailboatID(_ value: SailboatID?) {
         self.sailboatID = value
-        if let sid = value {
-            updateAttribute(name: "data-sid", value: sid)
-        }
     }
 
     /// Appends a text node as a child

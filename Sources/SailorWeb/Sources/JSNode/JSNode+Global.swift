@@ -16,7 +16,6 @@ extension JSNode: @preconcurrency CustomStringConvertible {
         "JSNode"
     }
     
-    static let sailboatIDName = "data-sid"
     
     static let URLSearchParams = JSNode.window.URLSearchParams.function!
     static let JSON = JSObject.global.JSON
@@ -83,18 +82,6 @@ extension JSNode: @preconcurrency CustomStringConvertible {
 //        }
     }
     
-    
-    public static func deeplyLaunchEvents(from element: JSObject, _ launcher: @escaping (JSObject) -> Void) {
-        let total = Int(element.childNodes.length.number!)
-        
-        for i in 0..<total {
-            if let child = element.childNodes[i].object {
-                deeplyLaunchEvents(from: child, launcher)
-            }
-        }
-        
-        launcher(element)
-    }
     
 //    public static func deeplyGrabSID(from element: JSObject, _ closure: @escaping (SailboatID) -> Void) {
 //        let total = Int(element.childNodes.length.number!)
