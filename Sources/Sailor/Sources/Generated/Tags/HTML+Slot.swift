@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The slot element represents a slot in a shadow DOM shadow tree.
-    public struct Slot: BodyElement {
+    @MainActor public struct Slot: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "slot" }
 

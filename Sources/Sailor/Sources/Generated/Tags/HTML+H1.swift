@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The h1 element represents a level 1 heading.
-    public struct H1: BodyElement {
+    @MainActor public struct H1: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "h1" }
 

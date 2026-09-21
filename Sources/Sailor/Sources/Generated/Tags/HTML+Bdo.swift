@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The bdo element represents explicit text directionality formatting control for its children. It allows authors to override the Unicode bidirectional algorithm by explicitly specifying a direction override.
-    public struct Bdo: BodyElement {
+    @MainActor public struct Bdo: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "bdo" }
 

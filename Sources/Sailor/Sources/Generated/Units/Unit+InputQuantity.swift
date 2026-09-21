@@ -17,12 +17,12 @@ extension Unit {
 
         ///The minimum value for a number.
         public static func `number`(_ value: Int) -> Self {
-            return .init("number(\(value))")
+            return .init("\(value)")
         }
 
         ///The minimum date for a date input.
         public static func `date`(_ value: String) -> Self {
-            return .init("date(\(value))")
+            return .init("\(value)")
         }
 
 

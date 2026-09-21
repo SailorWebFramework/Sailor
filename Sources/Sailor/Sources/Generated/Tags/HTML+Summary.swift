@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The summary element represents a summary, caption, or legend for the rest of the contents of the summary's parent details element, if any.
-    public struct Summary: BodyElement {
+    @MainActor public struct Summary: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "summary" }
 

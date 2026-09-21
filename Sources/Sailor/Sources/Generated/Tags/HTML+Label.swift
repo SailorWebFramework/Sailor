@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The label element represents a caption in a user interface. The caption can be associated with a specific form control, known as the label element's labeled control, either using the for attribute, or by putting the form control inside the label element itself.
-    public struct Label: BodyElement {
+    @MainActor public struct Label: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "label" }
 

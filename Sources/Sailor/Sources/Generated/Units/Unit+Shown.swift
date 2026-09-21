@@ -15,12 +15,12 @@ extension Unit {
             self.value = value
         }
 
-        ///The element is shown.
-        public static var `shown`: Self {
-            return .init("shown")
+        ///Borders and backgrounds of empty cells are drawn.
+        public static var `show`: Self {
+            return .init("show")
         }
 
-        ///The element is hidden.
+        ///Borders and backgrounds of empty cells are not drawn.
         public static var `hide`: Self {
             return .init("hide")
         }

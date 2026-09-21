@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The details element represents a disclosure widget from which the user can obtain additional information or controls.
-    public struct Details: BodyElement {
+    @MainActor public struct Details: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "details" }
 
@@ -57,8 +57,8 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Details {
     ///A Boolean attribute indicating whether the details are visible.
-    func `open`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "open", value: { value().description }))
+    func `open`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "open", value: { BooleanAttribute(value()) }))
     }
 
     ///The name of the details element.

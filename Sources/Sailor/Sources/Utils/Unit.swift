@@ -38,10 +38,18 @@ enum Utils {
         var output = ""
     
         if let item = item {
-            output += item.description
+            output += (item as? Double).map(number) ?? item.description
         }
         
         return output
+    }
+
+    /// Formats a Double the way CSS expects: `1.0` → "1", `0.5` → "0.5".
+    public static func number(_ value: Double) -> String {
+        if value.isFinite, value == value.rounded(), abs(value) < 1e15 {
+            return String(Int(value))
+        }
+        return String(value)
     }
     
     public static func when(_ cond: (Bool)?, ret value: String) -> String {

@@ -37,7 +37,7 @@ extension Unit {
 
         ///Defines an HSLA color.
         public static func `hsla`(_ h: Int, _ s: Percent, _ l: Percent, _ a: Double) -> Self {
-            return .init("hsla(\(h) \(s)% \(l)% \(a))")
+            return .init("hsla(\(h) \(s)% \(l)% \(Utils.number(a)))")
         }
 
         ///Defines a transparent color.

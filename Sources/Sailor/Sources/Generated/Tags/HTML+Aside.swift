@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The aside element represents a portion of a document whose content is only indirectly related to the document's main content.
-    public struct Aside: BodyElement {
+    @MainActor public struct Aside: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "aside" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The ruby element represents a ruby annotation.
-    public struct Ruby: BodyElement {
+    @MainActor public struct Ruby: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "ruby" }
 

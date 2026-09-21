@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The img element represents an image.
-    public struct Img: BodyElement {
+    @MainActor public struct Img: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "img" }
 
@@ -78,8 +78,8 @@ public extension HTML.Img {
     }
 
     ///Indicates that the image is part of a server-side image map.
-    func `ismap`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "ismap", value: { value().description }))
+    func `ismap`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "ismap", value: { BooleanAttribute(value()) }))
     }
 
     ///Indicates how the browser should load the image.
@@ -115,6 +115,16 @@ public extension HTML.Img {
     ///The intrinsic width of the image in pixels.
     func `width`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "width", value: { value().description }))
+    }
+
+    ///Hint for how the image should be decoded.
+    func `decoding`(_ value: @autoclosure @escaping () -> Unit.Decoding) -> Self {
+        attribute(.init(name: "decoding", value: { value().description }))
+    }
+
+    ///Relative priority for fetching the image.
+    func `fetchpriority`(_ value: @autoclosure @escaping () -> Unit.FetchPriority) -> Self {
+        attribute(.init(name: "fetchpriority", value: { value().description }))
     }
 
 }

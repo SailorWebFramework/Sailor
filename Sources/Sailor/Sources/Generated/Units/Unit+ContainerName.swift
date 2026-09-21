@@ -15,9 +15,9 @@ extension Unit {
             self.value = value
         }
 
-        ///The container is name.
-        public static var `auto`: Self {
-            return .init("auto")
+        ///The element has no container name.
+        public static var `none`: Self {
+            return .init("none")
         }
 
         ///The container is custom name.

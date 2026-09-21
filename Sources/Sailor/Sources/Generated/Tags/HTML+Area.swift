@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The area element represents either a hyperlink with some text and a corresponding area on an image map, or a dead area on an image map.
-    public struct Area: BodyElement {
+    @MainActor public struct Area: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "area" }
 
@@ -81,11 +81,6 @@ public extension HTML.Area {
         attribute(.init(name: "hreflang", value: { value().description }))
     }
 
-    ///The media the resource applies to.
-    func `media`(_ value: @autoclosure @escaping () -> String) -> Self {
-        attribute(.init(name: "media", value: { value().description }))
-    }
-
     ///Specifies which referrer information to send when fetching the resource.
     func `referrerpolicy`(_ value: @autoclosure @escaping () -> Unit.ReferrerPolicy) -> Self {
         attribute(.init(name: "referrerpolicy", value: { value().description }))
@@ -104,6 +99,11 @@ public extension HTML.Area {
     ///The browsing context for the hyperlink.
     func `target`(_ value: @autoclosure @escaping () -> Unit.Target) -> Self {
         attribute(.init(name: "target", value: { value().description }))
+    }
+
+    ///Space-separated URLs to notify when the link is followed.
+    func `ping`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "ping", value: { value().description }))
     }
 
 }

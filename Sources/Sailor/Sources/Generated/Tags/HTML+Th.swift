@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The th element defines a cell as header of a group of table cells. The exact nature of this group is defined by the scope and headers attributes.
-    public struct Th: BodyElement {
+    @MainActor public struct Th: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "th" }
 

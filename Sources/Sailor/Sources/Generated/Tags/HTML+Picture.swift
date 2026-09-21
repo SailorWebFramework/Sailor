@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The picture element represents a container for multiple image sources.
-    public struct Picture: BodyElement {
+    @MainActor public struct Picture: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "picture" }
 

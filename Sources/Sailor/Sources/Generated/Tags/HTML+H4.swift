@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The h4 element represents a level 4 heading.
-    public struct H4: BodyElement {
+    @MainActor public struct H4: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "h4" }
 

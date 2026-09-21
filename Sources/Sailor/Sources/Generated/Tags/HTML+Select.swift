@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The select element represents a control for selecting amongst a set of options.
-    public struct Select: BodyElement {
+    @MainActor public struct Select: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "select" }
 
@@ -62,8 +62,8 @@ public extension HTML.Select {
     }
 
     ///Specifies that the form control is disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///The form element that the select element is associated with (its form owner).
@@ -72,8 +72,8 @@ public extension HTML.Select {
     }
 
     ///Specifies that multiple options can be selected at once.
-    func `multiple`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "multiple", value: { value().description }))
+    func `multiple`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "multiple", value: { BooleanAttribute(value()) }))
     }
 
     ///The name of the select element.
@@ -82,8 +82,8 @@ public extension HTML.Select {
     }
 
     ///Specifies that the user must select a value before submitting the form.
-    func `required`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "required", value: { value().description }))
+    func `required`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "required", value: { BooleanAttribute(value()) }))
     }
 
     ///The number of options to show in the control.

@@ -32,7 +32,7 @@ extension Unit {
 
         ///The axis.
         public static func `vector`(_ x: Double, _ y: Double, _ z: Double) -> Self {
-            return .init("\(x) \(y) \(z)")
+            return .init("\(Utils.number(x)) \(Utils.number(y)) \(Utils.number(z))")
         }
 
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The textarea element represents a multiline plain text edit control for the element's raw value.
-    public struct Textarea: BodyElement {
+    @MainActor public struct Textarea: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "textarea" }
 
@@ -57,19 +57,14 @@ public extension HTML.Textarea {
         attribute(.init(name: "autocomplete", value: { value().description }))
     }
 
-    ///Specifies that the form control should automatically get focus when the page is loaded.
-    func `autofocus`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "autofocus", value: { value().description }))
-    }
-
     ///The visible width of the text control, in average character widths.
     func `cols`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "cols", value: { value().description }))
     }
 
     ///Specifies that the form control is disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///The form element that the textarea element is associated with (its form owner).
@@ -93,13 +88,13 @@ public extension HTML.Textarea {
     }
 
     ///Specifies that the user cannot modify the form control.
-    func `readonly`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "readonly", value: { value().description }))
+    func `readonly`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "readonly", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies that the user must fill in a value before submitting a form.
-    func `required`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "required", value: { value().description }))
+    func `required`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "required", value: { BooleanAttribute(value()) }))
     }
 
     ///The visible height of the text control, in lines.
@@ -110,6 +105,16 @@ public extension HTML.Textarea {
     ///Specifies how the control wraps text.
     func `wrap`(_ value: @autoclosure @escaping () -> Unit.TextWrap) -> Self {
         attribute(.init(name: "wrap", value: { value().description }))
+    }
+
+    ///The minimum number of characters required.
+    func `minlength`(_ value: @autoclosure @escaping () -> Int) -> Self {
+        attribute(.init(name: "minlength", value: { value().description }))
+    }
+
+    ///The name of the form field that submits the text direction.
+    func `dirname`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "dirname", value: { value().description }))
     }
 
 }

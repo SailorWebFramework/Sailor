@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dialog element represents a part of an application that a user interacts with to perform a task, for example a dialog box, inspector, or window.
-    public struct Dialog: BodyElement {
+    @MainActor public struct Dialog: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dialog" }
 
@@ -57,8 +57,13 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Dialog {
     ///A Boolean attribute indicating whether the dialog is available for interaction.
-    func `open`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "open", value: { value().description }))
+    func `open`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "open", value: { BooleanAttribute(value()) }))
+    }
+
+    ///Which user actions close the dialog.
+    func `closedby`(_ value: @autoclosure @escaping () -> Unit.ClosedBy) -> Self {
+        attribute(.init(name: "closedby", value: { value().description }))
     }
 
 }

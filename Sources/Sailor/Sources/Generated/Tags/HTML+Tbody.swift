@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The tbody element represents a group of rows in a table that are all related.
-    public struct Tbody: BodyElement {
+    @MainActor public struct Tbody: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "tbody" }
 

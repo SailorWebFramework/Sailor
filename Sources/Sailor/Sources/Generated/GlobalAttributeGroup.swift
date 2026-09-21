@@ -4,86 +4,172 @@
 //  
 
 import Sailboat
+import SailorShared
 
 public extension Element {
     ///Defines a shortcut key to focus and activate an element (typically with an aditional modifier key based on browser), value is a single character that is the shortcut key.
-    func accesskey(_ value: @autoclosure @escaping () -> Character) -> Self {
+    func `accesskey`(_ value: @autoclosure @escaping () -> Character) -> Self {
         attribute(.init(name: "accesskey", value: { value().description }))
     }
 
-    ///Specifies wheather or not this element is editable or not.
-    func contenteditable(_ value: @autoclosure @escaping () -> Bool) -> Self {
+    ///Specifies whether the element's content is editable, and whether rich formatting is allowed.
+    func `contenteditable`(_ value: @autoclosure @escaping () -> Unit.ContentEditable) -> Self {
         attribute(.init(name: "contenteditable", value: { value().description }))
     }
 
-    ///Stores custom data to the webiste to this element (name, value).
-    func data(_ name: String, _ value: @autoclosure @escaping () -> String) -> Self {
-        attribute(.init(name: "data-name", value: { value().description }))
+    ///Stores custom data on the element as data-&lt;name&gt;=&quot;&lt;value&gt;&quot;.
+    func `data`(_ name: String, _ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "data-\(name)", value: { value().description }))
     }
 
     ///Defines text direction of the content.
-    func dir(_ value: @autoclosure @escaping () -> Unit.Direction) -> Self {
+    func `dir`(_ value: @autoclosure @escaping () -> Unit.Direction) -> Self {
         attribute(.init(name: "dir", value: { value().description }))
     }
 
     ///Defines whether this element is draggable, often used for drag and drop operations.
-    func draggable(_ value: @autoclosure @escaping () -> Unit.AutoBool) -> Self {
+    func `draggable`(_ value: @autoclosure @escaping () -> Unit.AutoBool) -> Self {
         attribute(.init(name: "draggable", value: { value().description }))
     }
 
     ///Allows the appearence of the enter key to be different on mobile.
-    func enterkeyhint(_ value: @autoclosure @escaping () -> Unit.EnterKeyHint) -> Self {
+    func `enterkeyhint`(_ value: @autoclosure @escaping () -> Unit.EnterKeyHint) -> Self {
         attribute(.init(name: "enterkeyhint", value: { value().description }))
     }
 
-    ///Defines whether this element is hidden or not.
-    func hidden(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "hidden", value: { value().description }))
+    ///Boolean attribute that hides the element.
+    func `hidden`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "hidden", value: { BooleanAttribute(value()) }))
     }
 
     ///Defines a unique identifier for the element.
-    func id(_ value: @autoclosure @escaping () -> String) -> Self {
+    func `id`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "id", value: { value().description }))
     }
 
     ///Disables element and all inner elements.
-    func inert(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "inert", value: { value().description }))
+    func `inert`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "inert", value: { BooleanAttribute(value()) }))
     }
 
     ///Defines the input mode for the element when the keyboard is active.
-    func inputmode(_ value: @autoclosure @escaping () -> Unit.InputMode) -> Self {
+    func `inputmode`(_ value: @autoclosure @escaping () -> Unit.InputMode) -> Self {
         attribute(.init(name: "inputmode", value: { value().description }))
     }
 
     ///Defines the language of the content.
-    func lang(_ value: @autoclosure @escaping () -> Unit.Language) -> Self {
+    func `lang`(_ value: @autoclosure @escaping () -> Unit.Language) -> Self {
         attribute(.init(name: "lang", value: { value().description }))
     }
 
-    ///Defines a popover element, it will be placed on top of the content. This element is invisible until it is called by another element witha popovertarget attribute.
-    func popover(_ value: @autoclosure @escaping () -> Bool) -> Self {
+    ///Makes the element a popover, hidden until shown by a popovertarget button or the popover API.
+    func `popover`(_ value: @autoclosure @escaping () -> Unit.Popover) -> Self {
         attribute(.init(name: "popover", value: { value().description }))
     }
 
     ///Defines whether the element should have spell checking enabled or not.
-    func spellcheck(_ value: @autoclosure @escaping () -> Bool) -> Self {
+    func `spellcheck`(_ value: @autoclosure @escaping () -> Unit.TrueFalse) -> Self {
         attribute(.init(name: "spellcheck", value: { value().description }))
     }
 
     ///Defines the tab order of the element.
-    func tabindex(_ value: @autoclosure @escaping () -> Int) -> Self {
+    func `tabindex`(_ value: @autoclosure @escaping () -> Int) -> Self {
         attribute(.init(name: "tabindex", value: { value().description }))
     }
 
     ///Defines the title of the element, typically shown as a tooltip hint.
-    func title(_ value: @autoclosure @escaping () -> String) -> Self {
+    func `title`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "title", value: { value().description }))
     }
 
     ///Defines whether the content should be translated or not.
-    func translate(_ value: @autoclosure @escaping () -> Unit.Question) -> Self {
+    func `translate`(_ value: @autoclosure @escaping () -> Unit.Question) -> Self {
         attribute(.init(name: "translate", value: { value().description }))
+    }
+
+    ///The ARIA role of the element, describing its purpose to assistive technology.
+    func `role`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "role", value: { value().description }))
+    }
+
+    ///The name of the shadow DOM slot the element is assigned to.
+    func `slot`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "slot", value: { value().description }))
+    }
+
+    ///Space-separated part names, exposing the element to ::part() from outside its shadow tree.
+    func `part`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "part", value: { value().description }))
+    }
+
+    ///Re-exports parts of nested shadow trees so they can be styled with ::part().
+    func `exportparts`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "exportparts", value: { value().description }))
+    }
+
+    ///The name of the customized built-in element this element should be upgraded to.
+    func `is`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "is", value: { value().description }))
+    }
+
+    ///Cryptographic nonce used by Content Security Policy to allow the element's script or style.
+    func `nonce`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "nonce", value: { value().description }))
+    }
+
+    ///Boolean attribute that focuses the element when the page loads or its dialog/popover opens.
+    func `autofocus`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "autofocus", value: { BooleanAttribute(value()) }))
+    }
+
+    ///How virtual keyboards capitalise text entered into the element.
+    func `autocapitalize`(_ value: @autoclosure @escaping () -> Unit.AutoCapitalize) -> Self {
+        attribute(.init(name: "autocapitalize", value: { value().description }))
+    }
+
+    ///Whether the browser may auto-correct text entered into the element.
+    func `autocorrect`(_ value: @autoclosure @escaping () -> Unit.Toggle) -> Self {
+        attribute(.init(name: "autocorrect", value: { value().description }))
+    }
+
+    ///Boolean attribute that starts a new microdata item.
+    func `itemscope`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "itemscope", value: { BooleanAttribute(value()) }))
+    }
+
+    ///Space-separated URLs of the vocabulary used for the microdata item.
+    func `itemtype`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "itemtype", value: { value().description }))
+    }
+
+    ///The global identifier of the microdata item.
+    func `itemid`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "itemid", value: { value().description }))
+    }
+
+    ///Space-separated microdata property names this element supplies.
+    func `itemprop`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "itemprop", value: { value().description }))
+    }
+
+    ///Space-separated ids of elements outside the item that also supply its properties.
+    func `itemref`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "itemref", value: { value().description }))
+    }
+
+    ///Whether the browser may offer writing suggestions in the element.
+    func `writingsuggestions`(_ value: @autoclosure @escaping () -> Unit.TrueFalse) -> Self {
+        attribute(.init(name: "writingsuggestions", value: { value().description }))
+    }
+
+    ///Whether the virtual keyboard is shown automatically on editable elements.
+    func `virtualkeyboardpolicy`(_ value: @autoclosure @escaping () -> Unit.VirtualKeyboardPolicy) -> Self {
+        attribute(.init(name: "virtualkeyboardpolicy", value: { value().description }))
+    }
+
+    ///Hides the element until it is revealed by find-in-page or fragment navigation (hidden=&quot;until-found&quot;).
+    func `hidden`(_ value: @autoclosure @escaping () -> Unit.Hidden) -> Self {
+        attribute(.init(name: "hidden", value: { value().description }))
     }
 
 }

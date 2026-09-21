@@ -8,6 +8,7 @@
 import Sailboat
 
 /// Sailor Specific global environment
+@MainActor
 enum SailorGlobal {
     /// global head page/element refrence in sailor
     static var headRef: (any Head)! = nil

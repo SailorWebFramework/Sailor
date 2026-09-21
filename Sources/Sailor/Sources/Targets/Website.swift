@@ -7,9 +7,9 @@
 
 import Sailboat
 import SailorShared
-import JavaScriptKit
 
 #if os(WASI)
+import JavaScriptKit
 import SailorWeb
 #endif
 
@@ -28,9 +28,9 @@ public protocol Website: Page {
 #if os(WASI)
 
 extension Website {
-    public static func main() {
+    @MainActor public static func main() {
         JSNode.installGlobalExecutor()
-        
+
         SailboatGlobal.initialize(SailorWebManager())
 
         let mainPage = Self()

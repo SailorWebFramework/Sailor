@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The option element represents an option in a select element or as part of a list of suggestions in a datalist element.
-    public struct Option: BodyElement {
+    @MainActor public struct Option: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "option" }
 
@@ -61,8 +61,8 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Option {
     ///A Boolean attribute indicating that the option is disabled.
-    func `disabled`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "disabled", value: { value().description }))
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
     ///A string providing a label for the option.
@@ -71,8 +71,8 @@ public extension HTML.Option {
     }
 
     ///A Boolean attribute indicating that the option is selected by default.
-    func `selected`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "selected", value: { value().description }))
+    func `selected`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "selected", value: { BooleanAttribute(value()) }))
     }
 
     ///The value of the option.

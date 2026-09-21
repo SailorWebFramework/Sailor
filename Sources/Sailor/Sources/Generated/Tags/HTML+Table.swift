@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The table element represents data with more than one dimension, in the form of a table.
-    public struct Table: BodyElement {
+    @MainActor public struct Table: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "table" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The address element represents the contact information for its nearest article or body element ancestor.
-    public struct Address: BodyElement {
+    @MainActor public struct Address: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "address" }
 

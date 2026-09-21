@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The audio element represents a sound or audio stream.
-    public struct Audio: BodyElement {
+    @MainActor public struct Audio: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "audio" }
 
@@ -57,13 +57,13 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Audio {
     ///A Boolean attribute; if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
-    func `autoplay`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "autoplay", value: { value().description }))
+    func `autoplay`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "autoplay", value: { BooleanAttribute(value()) }))
     }
 
     ///If this attribute is present, the browser will offer controls to allow the user to control audio playback, including volume, seeking, and pause/resume playback.
-    func `controls`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "controls", value: { value().description }))
+    func `controls`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "controls", value: { BooleanAttribute(value()) }))
     }
 
     ///How the element handles cross-origin requests.
@@ -72,13 +72,13 @@ public extension HTML.Audio {
     }
 
     ///A Boolean attribute; if specified, the audio player will automatically seek back to the start upon reaching the end of the audio.
-    func `loop`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "loop", value: { value().description }))
+    func `loop`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "loop", value: { BooleanAttribute(value()) }))
     }
 
     ///A Boolean attribute; if specified, the audio will be initially silenced.
-    func `muted`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "muted", value: { value().description }))
+    func `muted`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "muted", value: { BooleanAttribute(value()) }))
     }
 
     ///This enumerated attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience.

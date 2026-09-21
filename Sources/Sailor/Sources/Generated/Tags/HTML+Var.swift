@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The var element represents the name of a variable in a mathematical expression or a programming context.
-    public struct Var: BodyElement {
+    @MainActor public struct Var: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "var" }
 

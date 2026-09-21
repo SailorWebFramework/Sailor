@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// Together with its href attribute, creates a hyperlink to web pages, files, email addresses, locations within the current page, or anything else a URL can address.
-    public struct A: BodyElement {
+    @MainActor public struct A: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "a" }
 
@@ -97,11 +97,6 @@ public extension HTML.A {
         attribute(.init(name: "hreflang", value: { value().description }))
     }
 
-    ///Specifies what media/device the linked document is optimized for.
-    func `media`(_ value: @autoclosure @escaping () -> String) -> Self {
-        attribute(.init(name: "media", value: { value().description }))
-    }
-
     ///Specifies a space-separated list of URLs to which, when the link is followed, post requests with the body ping will be sent by the browser (in the background). Typically used for tracking.
     func `ping`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "ping", value: { value().description }))
@@ -120,6 +115,11 @@ public extension HTML.A {
     ///Specifies where to open the linked document.
     func `target`(_ value: @autoclosure @escaping () -> Unit.Target) -> Self {
         attribute(.init(name: "target", value: { value().description }))
+    }
+
+    ///Hint for the MIME type of the linked resource.
+    func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "type", value: { value().description }))
     }
 
 }

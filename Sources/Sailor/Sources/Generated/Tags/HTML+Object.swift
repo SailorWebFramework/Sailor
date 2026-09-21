@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The object.
-    public struct Object: BodyElement {
+    @MainActor public struct Object: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "object" }
 

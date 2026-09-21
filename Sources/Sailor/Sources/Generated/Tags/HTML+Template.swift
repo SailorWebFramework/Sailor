@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The template element is used to declare fragments of HTML that can be cloned and inserted in the document by script.
-    public struct Template: BodyElement {
+    @MainActor public struct Template: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "template" }
 

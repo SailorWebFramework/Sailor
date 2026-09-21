@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The link element allows authors to link their document to other resources.
-    public struct Link: HeadElement {
+    @MainActor public struct Link: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "link" }
 
@@ -97,6 +97,26 @@ public extension HTML.Link {
     ///Specifies the media type of the linked document.
     func `type`(_ value: @autoclosure @escaping () -> String) -> Self {
         attribute(.init(name: "type", value: { value().description }))
+    }
+
+    ///The type of content being preloaded (with rel=preload or modulepreload).
+    func `as`(_ value: @autoclosure @escaping () -> Unit.LinkAs) -> Self {
+        attribute(.init(name: "as", value: { value().description }))
+    }
+
+    ///Subresource integrity hash the fetched resource must match.
+    func `integrity`(_ value: @autoclosure @escaping () -> String) -> Self {
+        attribute(.init(name: "integrity", value: { value().description }))
+    }
+
+    ///Relative priority for fetching the resource.
+    func `fetchpriority`(_ value: @autoclosure @escaping () -> Unit.FetchPriority) -> Self {
+        attribute(.init(name: "fetchpriority", value: { value().description }))
+    }
+
+    ///Disables the linked style sheet.
+    func `disabled`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "disabled", value: { BooleanAttribute(value()) }))
     }
 
 }

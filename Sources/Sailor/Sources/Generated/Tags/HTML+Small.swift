@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The small element represents side comments such as small print.
-    public struct Small: BodyElement {
+    @MainActor public struct Small: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "small" }
 

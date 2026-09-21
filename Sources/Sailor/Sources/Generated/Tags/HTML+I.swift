@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The i element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text, such as a taxonomic designation, a technical term, an idiomatic phrase from another language, a thought, or a ship name in Western texts.
-    public struct I: BodyElement {
+    @MainActor public struct I: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "i" }
 

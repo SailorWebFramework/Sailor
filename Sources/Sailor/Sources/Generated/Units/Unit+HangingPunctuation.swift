@@ -15,6 +15,11 @@ extension Unit {
             self.value = value
         }
 
+        ///No character hangs.
+        public static var `none`: Self {
+            return .init("none")
+        }
+
         ///The first line has hanging punctuation.
         public static var `first`: Self {
             return .init("first")
@@ -23,6 +28,16 @@ extension Unit {
         ///The last line has hanging punctuation.
         public static var `last`: Self {
             return .init("last")
+        }
+
+        ///A stop or comma at the end of a line hangs.
+        public static var `forceEnd`: Self {
+            return .init("force-end")
+        }
+
+        ///A stop or comma at the end of a line hangs if it does not otherwise fit.
+        public static var `allowEnd`: Self {
+            return .init("allow-end")
         }
 
 

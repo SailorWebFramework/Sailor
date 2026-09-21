@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The title element represents the document's title or name. Authors should use titles that identify their documents even when they are used out of context, for example in a user's history or bookmarks, or in search results.
-    public struct Title: HeadElement {
+    @MainActor public struct Title: @preconcurrency HeadElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "title" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The track element allows authors to specify explicit external timed text tracks for media elements.
-    public struct Track: BodyElement {
+    @MainActor public struct Track: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "track" }
 
@@ -57,8 +57,8 @@ extension HTML {
 // MARK: - Attributes
 public extension HTML.Track {
     ///Specifies that the track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
-    func `default`(_ value: @autoclosure @escaping () -> Bool) -> Self {
-        attribute(.init(name: "default", value: { value().description }))
+    func `default`(_ value: @autoclosure @escaping () -> Bool = true) -> Self {
+        attribute(.init(name: "default", value: { BooleanAttribute(value()) }))
     }
 
     ///Specifies the kind of text track.

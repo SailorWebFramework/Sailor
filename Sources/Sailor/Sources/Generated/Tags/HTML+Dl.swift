@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The dl element represents an association list consisting of zero or more name-value groups (a description list).
-    public struct Dl: BodyElement {
+    @MainActor public struct Dl: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "dl" }
 

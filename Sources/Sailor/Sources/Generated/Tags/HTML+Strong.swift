@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The strong element represents strong importance for its contents.
-    public struct Strong: BodyElement {
+    @MainActor public struct Strong: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "strong" }
 

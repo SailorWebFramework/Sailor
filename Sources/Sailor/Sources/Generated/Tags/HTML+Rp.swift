@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The rp element is used to provide fall-back parentheses for browsers that do not support ruby annotations.
-    public struct Rp: BodyElement {
+    @MainActor public struct Rp: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "rp" }
 

@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The article element represents a self-contained composition in a document, page, application, or site, which is intended to be independently distributable or reusable, e.g., in syndication.
-    public struct Article: BodyElement {
+    @MainActor public struct Article: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "article" }
 

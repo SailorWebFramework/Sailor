@@ -26,10 +26,26 @@ public extension Element {
             completion()
         }
     }
+
+    // MARK: - Handle-passing overloads
+
+    /// Called when the element appears in the DOM. Passes a typed ElementHandle for imperative method calls.
+    func onAppear(_ completion: @escaping (ElementHandle) -> Void) -> Self {
+        withEvent(name: "_appear") { _ in
+            completion(self.handle)
+        }
+    }
+
+    /// Called when the element is removed from the DOM. Passes a typed ElementHandle.
+    func onDisappear(_ completion: @escaping (ElementHandle) -> Void) -> Self {
+        withEvent(name: "_disappear") { _ in
+            completion(self.handle)
+        }
+    }
     
-    func task(_ completion: @escaping  () async -> Void) -> Self {
+    @MainActor func task(_ completion: @escaping @Sendable () async -> Void) -> Self {
         withEvent(name: "_task") { _ in
-            Task {
+            Task { @MainActor in
                 // TODO: create an async queue that doesnt block other renders
                 // TODO: do i need this shouldnt it get added later
 //                SailboatGlobal.manager.eventScheduler.registerEvent()
@@ -39,7 +55,7 @@ public extension Element {
         }
     }
 
-    func globalStore(_ object: any ObservableObject) -> Self {
+    @MainActor func globalStore(_ object: any ObservableObject) -> Self {
         // TODO: object.id?
         let typeID = String(describing: type(of: object))
 
@@ -80,16 +96,16 @@ public extension Page {
         }
     }
     
-    func task(_ completion: @escaping () async -> Void) -> any Element {
+    @MainActor func task(_ completion: @escaping @Sendable () async -> Void) -> any Element {
         traversePage(self) {
             $0.task {
                 await completion()
             }
         }
     }
-    
-    
-    func globalStore(_ object: any ObservableObject) -> any Element {
+
+
+    @MainActor func globalStore(_ object: any ObservableObject) -> any Element {
         traversePage(self) {
             $0.globalStore(object)
         }

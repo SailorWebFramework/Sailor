@@ -27,7 +27,7 @@ extension Unit {
 
         ///Defines the aspect ratio using a float.
         public static func `float`(_ value: Double) -> Self {
-            return .init("\(value)")
+            return .init("\(Utils.number(value))")
         }
 
 

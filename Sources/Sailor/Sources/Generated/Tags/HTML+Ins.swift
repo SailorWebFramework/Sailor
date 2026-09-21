@@ -15,7 +15,7 @@ import SailorWeb
 
 extension HTML {
     /// The ins element represents a range of text that has been added to a document.
-    public struct Ins: BodyElement {
+    @MainActor public struct Ins: @preconcurrency BodyElement {
         /// name of the html tag associated with this type
         @_spi(Private) public static var name: String { "ins" }
 

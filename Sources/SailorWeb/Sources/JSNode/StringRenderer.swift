@@ -15,7 +15,7 @@ public struct StringRenderer: Renderable {
 
     public var value: String
     
-    public init(_ value: String) {
+    nonisolated public init(_ value: String) {
         self.value = value
     }
     
