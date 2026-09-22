@@ -54,13 +54,6 @@ extension JSNode: Renderable {
     
     public func remove() { remove(node: self.element) }
 
-    public func remove(at deepIndex: Int) {
-        guard let node = self.element.childNodes[deepIndex].object else {
-            fatalError("cannot remove an object that doesnt exist")
-        }
-        remove(node: node)
-    }
-
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) {
         let preventDefault = name.hasPrefix("!")
         let cleanName = preventDefault ? String(name.dropFirst()) : name

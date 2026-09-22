@@ -22,7 +22,6 @@ struct EmptyRenderer: Renderable {
         
     func remove() { }
 
-    func remove(at deepIndex: Int) { }
             
     func addEvent(name: String, value: @escaping (EventResult) -> Void) { }
 

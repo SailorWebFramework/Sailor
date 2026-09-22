@@ -34,7 +34,6 @@ public struct HTMLTextNode: Renderable, HTMLStringRenderable {
 
     public func setSailboatID(_ value: SailboatID?) { }
     public func remove() { }
-    public func remove(at deepIndex: Int) { }
     public func updateAttribute(name: String, value: any AttributeValue) { }
     public func addEvent(name: String, value: @escaping (EventResult) -> Void) { }
     public func insertAfter(_ deepIndex: Int, parent: any Renderable) { }

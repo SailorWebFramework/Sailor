@@ -57,11 +57,6 @@ public final class HTMLStringNode: Renderable {
         parent.children.removeAll { ($0 as AnyObject) === self }
     }
 
-    public func remove(at deepIndex: Int) {
-        guard deepIndex < children.count else { return }
-        children.remove(at: deepIndex)
-    }
-
     public func replace(at deepIndex: Int, with renderer: any Renderable) {
         guard deepIndex < children.count else { return }
         if let textNode = renderer as? HTMLTextNode {

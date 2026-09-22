@@ -29,7 +29,6 @@ public struct StringRenderer: Renderable {
     
     public func remove() { }
     
-    public func remove(at deepIndex: Int) { }
     
     public func updateAttribute(name: String, value: any AttributeValue) { }
     
