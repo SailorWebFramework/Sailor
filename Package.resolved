@@ -1,5 +1,5 @@
 {
-  "originHash" : "b3d27699b8fac9e2077e2095fc3d583de559659e55df53b66cfde8b8f306aea7",
+  "originHash" : "068e3b97bd5ad39783bd986a7bf47273b85403b22df053feefe62da30419d225",
   "pins" : [
     {
       "identity" : "javascriptkit",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SailorWebFramework/Sailboat",
       "state" : {
-        "revision" : "5fd8e4c95f1e6287bbd3f5fa3f161792b3a24cbb",
-        "version" : "0.4.1"
+        "revision" : "6ecc921f1d3bde014bb8927ced8367ed9e4aa36c",
+        "version" : "0.4.2"
       }
     },
     {

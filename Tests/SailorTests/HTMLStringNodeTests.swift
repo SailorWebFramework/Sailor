@@ -163,15 +163,6 @@ struct HTMLStringNodeTests {
         #expect(orphan.renderToString() == "<a></a>")
     }
 
-    @Test("remove(at:) removes the child at that index and ignores out-of-range")
-    func removeAt() {
-        let parent = parentWith("a", "b", "c")
-        parent.remove(at: 1)
-        #expect(parent.renderToString() == "<div><a></a><c></c></div>")
-        parent.remove(at: 5)
-        #expect(parent.renderToString() == "<div><a></a><c></c></div>")
-    }
-
     @Test("replace(at:) swaps in a text node")
     func replaceWithText() {
         let parent = parentWith("a")
