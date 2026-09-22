@@ -78,15 +78,15 @@ struct HTMLStringNodeTests {
         #expect(div.renderToString() == "<div title=\"a&amp;b&quot;&lt;c&gt;\"></div>")
     }
 
-    @Test("setSailboatID exposes the id as data-sid")
+    @Test("setSailboatID keeps the id in Swift and out of the markup")
     func sailboatIDAttribute() {
         let div = HTMLStringNode(named: "div")
         div.setSailboatID(42)
         #expect(div.sailboatID == 42)
-        #expect(div.renderToString() == "<div data-sid=\"42\"></div>")
+        #expect(div.renderToString() == "<div></div>")
     }
 
-    @Test("setSailboatID(nil) clears the id without adding data-sid")
+    @Test("setSailboatID(nil) clears the id")
     func sailboatIDNil() {
         let div = HTMLStringNode(named: "div")
         div.setSailboatID(nil)

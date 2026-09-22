@@ -15,29 +15,38 @@ public final class JSNode {
     ///
     public var sailboatID: SailboatID?
 
-    ///
-    @_spi(Private) public var element: JSObject
+    private enum Origin {
+        case tag(String)
+        case existing(JSObject)
+    }
+
+    private let origin: Origin
+
+    /// The DOM node, created on first use. Element structs are rebuilt on every
+    /// render and most are discarded by reconcile, so creating the node eagerly in
+    /// `init` was one `document.createElement` bridge call per discarded struct.
+    @_spi(Private) public lazy var element: JSObject = {
+        switch origin {
+        case .existing(let object):
+            return object
+        case .tag(let name):
+            guard let created = Self.document.createElement(name).object else {
+                fatalError("could not create <\(name)>")
+            }
+            return created
+        }
+    }()
 
     public convenience init(_ type: SpecialJSNodeType, sid: SailboatID? = nil) {
-        self.init(
-            element: type.getJSObject(),
-            sid: sid
-        )
+        self.init(origin: .existing(type.getJSObject()), sid: sid)
     }
     
     public convenience init(named name: String, sid: SailboatID? = nil) {
-        guard let pageElement = Self.document.createElement(name).object else {
-            fatalError("page node not possible")
-        }
-        
-        self.init(
-            element: pageElement,
-            sid: sid
-        )
+        self.init(origin: .tag(name), sid: sid)
     }
     
-    private init(element: JSObject, sid: SailboatID? = nil) {
-        self.element = element
+    private init(origin: Origin, sid: SailboatID? = nil) {
+        self.origin = origin
         self.sailboatID = sid
     }
 
